@@ -45,7 +45,11 @@
 		if (!document.body) {
 			return;
 		}
-		var isDark = document.body.classList.contains("darktheme");
+		// View mode resets body.className (main.js, &view), dropping "darktheme"
+		// while session.darkmode stays true; follow the session when it says dark.
+		var engineSession = window.session;
+		var isSessionDark = Boolean(engineSession && engineSession.darkmode === true);
+		var isDark = document.body.classList.contains("darktheme") || isSessionDark;
 		if (isDark) {
 			root.classList.add("bn-dark");
 		} else {

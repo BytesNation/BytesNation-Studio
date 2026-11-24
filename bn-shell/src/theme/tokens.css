@@ -39,6 +39,9 @@
 	--bn-ok-ink: #ffffff;
 	--bn-warn-ink: #ffffff;
 	--bn-video-bg: #15171a;
+	/* Over live video, in both themes: light text on a scrim that holds AA over a white frame. */
+	--bn-on-video: #edebe6;
+	--bn-video-scrim: rgba(7, 8, 10, 0.82);
 	--bn-scrim: rgba(21, 23, 26, 0.48);
 	--bn-shadow: 0 1px 2px rgba(21, 23, 26, 0.06), 0 8px 24px -12px rgba(21, 23, 26, 0.18);
 

@@ -16,6 +16,8 @@ const chromiumMedia = {
 	args: [
 		"--use-fake-ui-for-media-stream",
 		"--use-fake-device-for-media-stream",
+		// Peers play each other's test tones; keep them off the host's speakers.
+		"--mute-audio",
 		"--autoplay-policy=no-user-gesture-required",
 		"--auto-select-desktop-capture-source=Entire screen",
 		"--enable-usermedia-screen-capturing"
@@ -27,7 +29,9 @@ const firefoxMedia = {
 		"media.navigator.streams.fake": true,
 		"media.navigator.permission.disabled": true,
 		"media.autoplay.default": 0,
-		"media.getdisplaymedia.enabled": true
+		"media.getdisplaymedia.enabled": true,
+		// Silence playback on the host machine; page state is unaffected.
+		"media.volume_scale": "0.0"
 	}
 };
 

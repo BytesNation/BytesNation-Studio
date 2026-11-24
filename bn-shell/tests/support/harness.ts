@@ -199,7 +199,11 @@ export const syntheticMediaInit = `(() => {
 			const audioContext = new AudioContextType();
 			const oscillator = audioContext.createOscillator();
 			const destination = audioContext.createMediaStreamDestination();
-			oscillator.connect(destination);
+			// Zero gain: a valid live audio track that never sounds on the host.
+			const silence = audioContext.createGain();
+			silence.gain.value = 0;
+			oscillator.connect(silence);
+			silence.connect(destination);
 			oscillator.start();
 			destination.stream.getAudioTracks().forEach(track => tracks.push(track));
 		}

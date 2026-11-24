@@ -10,7 +10,7 @@ export const ThemeToggle = () => {
 
 	useEffect(() => {
 		const observer = new MutationObserver(() => setColorMode(readColorMode()));
-		observer.observe(document.body, { attributes: true, attributeFilter: ["class"] });
+		observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
 		return () => observer.disconnect();
 	}, []);
 

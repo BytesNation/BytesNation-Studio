@@ -62,11 +62,12 @@ export const isStudioOutput = (): boolean => {
 export type ColorMode = "dark" | "light";
 
 /**
- * Current theme as the engine sees it (body.darktheme).
+ * Current theme: html.bn-dark, which boot.js keeps in sync with the engine
+ * (body.darktheme, or session.darkmode in view mode where the engine resets body classes).
  * @returns {ColorMode}
  */
 export const readColorMode = (): ColorMode => {
-	return document.body.classList.contains("darktheme") ? "dark" : "light";
+	return document.documentElement.classList.contains("bn-dark") ? "dark" : "light";
 };
 
 /**

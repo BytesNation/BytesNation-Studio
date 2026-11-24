@@ -26,8 +26,8 @@ const browserName = readFlag("browser", "chromium");
 const browserTypes = { chromium, firefox, webkit };
 
 const launchOptions = {
-	chromium: { args: ["--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream", "--autoplay-policy=no-user-gesture-required"] },
-	firefox: { firefoxUserPrefs: { "media.navigator.streams.fake": true, "media.navigator.permission.disabled": true, "media.autoplay.default": 0 } },
+	chromium: { args: ["--use-fake-ui-for-media-stream", "--use-fake-device-for-media-stream", "--mute-audio", "--autoplay-policy=no-user-gesture-required"] },
+	firefox: { firefoxUserPrefs: { "media.navigator.streams.fake": true, "media.navigator.permission.disabled": true, "media.autoplay.default": 0, "media.volume_scale": "0.0" } },
 	webkit: {}
 };
 
