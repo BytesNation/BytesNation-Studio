@@ -59,6 +59,11 @@ export const openEnginePage = async (options: {
 	if (options.offline !== false) {
 		await isolateNetwork(context);
 	}
+	// Engines without a shareable fake camera get the synthetic one, on both
+	// sides of every comparison, so upstream and BytesNation see identical devices.
+	if (options.browser.browserType().name() !== "chromium") {
+		await context.addInitScript(syntheticMediaInit);
+	}
 	if (options.initScript) {
 		await context.addInitScript(options.initScript);
 	}

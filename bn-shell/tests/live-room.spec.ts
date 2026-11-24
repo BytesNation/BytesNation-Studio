@@ -14,6 +14,9 @@ const targets = process.env.PARITY_LIVE_CONTROL ? [{ name: "BytesNation", base: 
 
 const peerTimeoutMs = 45_000;
 
+// Live peers depend on the public network; one retry, reported as flaky when used.
+test.describe.configure({ retries: 1 });
+
 const openPeer = async (browser: Browser, testInfo: TestInfo, url: string): Promise<{ context: BrowserContext; page: Page }> => {
 	const context = await browser.newContext(projectContextOptions(testInfo));
 	if (needsSyntheticMedia(testInfo)) {
