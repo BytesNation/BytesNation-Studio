@@ -1,0 +1,6900 @@
+[
+	{
+		"param": "43",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Optimizes the video mixer for 4:3 videos",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2459"
+	},
+	{
+		"param": "4k",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; sets publish quality preset -2 (2160p) and removes the screen and webcam quality gear options.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6127"
+	},
+	{
+		"param": "accuratemask",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; forces frame-locked segmentation for background effects.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:14441"
+	},
+	{
+		"param": "activehighlight",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Value 1 or 2 (0/false off); auto-focuses the loudest speaker as infocus (1) or infocus2 (2) in the layout.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6672"
+	},
+	{
+		"param": "activespeaker",
+		"aliases": [
+			"speakerview",
+			"sas"
+		],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6630"
+	},
+	{
+		"param": "activespeakerdelay",
+		"aliases": [
+			"speakerviewdelay",
+			"sasdelay"
+		],
+		"role": "Viewer",
+		"summary": "Numeric ms (default 3000); delay before the active-speaker layout switches.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6691"
+	},
+	{
+		"param": "activespeakerfeatured",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Alias of &activehighlight: auto-features the loudest speaker as infocus (1) or infocus2 (2, default).",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6672"
+	},
+	{
+		"param": "addstun",
+		"aliases": [],
+		"role": "General",
+		"summary": "Appends an added stun server",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6979"
+	},
+	{
+		"param": "ado",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Alias of &audiodevice: preselects the audio input by name, or 0 to disable audio.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4843"
+	},
+	{
+		"param": "alignright",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean (0/false/no/off disables); right-aligns the spotlighted screen share, using screen-share layout style 2.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2107"
+	},
+	{
+		"param": "aligntop",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; injects CSS that pins video holders to the top of the page.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:4676"
+	},
+	{
+		"param": "allowedscenes",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4506"
+	},
+	{
+		"param": "allowscreenaudio",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean-ish value (default true); overrides whether screen share audio is requested.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5033"
+	},
+	{
+		"param": "allowscreenvideo",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean-ish value (default true); overrides whether screen share video is requested.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5029"
+	},
+	{
+		"param": "alpha",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; keeps the alpha channel in canvas contexts and WebCodecs encoder configs.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5185"
+	},
+	{
+		"param": "altlabel",
+		"aliases": [],
+		"role": "General",
+		"summary": "Text string (underscores become spaces); replaces the translated 'enter display name' prompt text.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:26"
+	},
+	{
+		"param": "androidfix",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; enables the Android H.264 profile SDP rewrite when an h264profile is set.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4922"
+	},
+	{
+		"param": "animated",
+		"aliases": [
+			"animate"
+		],
+		"role": "Viewer",
+		"summary": "Videos in a group scene will slide around the screen when being re-arranged",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6773"
+	},
+	{
+		"param": "anonymousmask",
+		"aliases": [
+			"anonmask"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; selects the anon mask video effect.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7555"
+	},
+	{
+		"param": "ap",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag read only by &lowlatency; its presence keeps the WebAudio processing pipeline and audio meter enabled.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3725"
+	},
+	{
+		"param": "api",
+		"aliases": [
+			"osc"
+		],
+		"role": "General",
+		"summary": "Remote control API (HTTP-GET / WSS-based)",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7152"
+	},
+	{
+		"param": "apiserver",
+		"aliases": [],
+		"role": "General",
+		"summary": "WebSocket URL; overrides the remote API server (default wss://api.vdo.ninja:443).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7089"
+	},
+	{
+		"param": "app",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2424"
+	},
+	{
+		"param": "approvepopup",
+		"aliases": [
+			"approvalpopup"
+		],
+		"role": "Director",
+		"summary": "Boolean flag (director only); shows approval popups for pending join requests.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:7228"
+	},
+	{
+		"param": "aspectratio",
+		"aliases": [
+			"ar"
+		],
+		"role": "Sender",
+		"summary": "Changes the aspect ratio on the publisher side",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2467"
+	},
+	{
+		"param": "audience",
+		"aliases": [],
+		"role": "General",
+		"summary": "String ID; connects to audience.vdo.ninja listen (viewer) or publish websocket for that audience.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7611"
+	},
+	{
+		"param": "audio",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Alias for framegrabaudio in framegrab mode when framegrabaudio is absent; same boolean values.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2054"
+	},
+	{
+		"param": "audiobitrate",
+		"aliases": [
+			"ab"
+		],
+		"role": "Viewer",
+		"summary": "Manually sets the audio bitrate in kbps",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4073"
+	},
+	{
+		"param": "audiobuffer",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Numeric ms; receiver audio jitter buffer target; its presence also stops &lowlatency zeroing it.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3715"
+	},
+	{
+		"param": "audiocodec",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Lets you specify the audio codec",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5607"
+	},
+	{
+		"param": "audiocontenthint",
+		"aliases": [
+			"audiocontenttype",
+			"audiocontent",
+			"audiohint"
+		],
+		"role": "Sender",
+		"summary": "'=music fixed bitrate; =speech bitrate is variable'",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5551"
+	},
+	{
+		"param": "audiodelay",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Numeric ms (max 179000); adds a fixed Web Audio delay to incoming audio.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6501"
+	},
+	{
+		"param": "audiodevice",
+		"aliases": [
+			"adevice",
+			"ad"
+		],
+		"role": "Sender",
+		"summary": "Pre-configures the selected audio device",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4843"
+	},
+	{
+		"param": "audiogain",
+		"aliases": [
+			"gain",
+			"g"
+		],
+		"role": "Sender",
+		"summary": "Applies a gain multiplier (as a percentage) to the local microphone",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4426"
+	},
+	{
+		"param": "audiolatency",
+		"aliases": [
+			"latency",
+			"al"
+		],
+		"role": "Sender",
+		"summary": "Adds an audio-latency to the published audio stream",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3736"
+	},
+	{
+		"param": "audiooutput",
+		"aliases": [
+			"outputdevice",
+			"od"
+		],
+		"role": "General",
+		"summary": "Like &sink, but selects the default audio output device",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6136"
+	},
+	{
+		"param": "auth",
+		"aliases": [],
+		"role": "General",
+		"summary": "Flag; loads the SSO auth client and hides the main menu and header until sign-in completes; aliases supply tokens or require auth.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:404"
+	},
+	{
+		"param": "autoadd",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Auto-adds the specified stream IDs to the scene",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2995"
+	},
+	{
+		"param": "autochannelmode",
+		"aliases": [],
+		"role": "Director",
+		"summary": "String mode for director audio-channel auto-assignment: roundrobin or rr, otherwise leastused.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3024"
+	},
+	{
+		"param": "autochannels",
+		"aliases": [
+			"autochannel"
+		],
+		"role": "Director",
+		"summary": "Comma list of audio channels 1-8 (default 1,2,3,5,6,7,8); director auto-assigns joining guests to those audio channels.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3007"
+	},
+	{
+		"param": "autoend",
+		"aliases": [],
+		"role": "General",
+		"summary": "Numeric ms (default 600000); shows a fixed countdown overlay and hangs up when it expires.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1157"
+	},
+	{
+		"param": "autogain",
+		"aliases": [
+			"ag",
+			"agc"
+		],
+		"role": "Sender",
+		"summary": "Sets whether audio auto-normalization is ON or OFF",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3924"
+	},
+	{
+		"param": "autohide",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Auto-hides the control bar after a few moments of the mouse being idle",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2170"
+	},
+	{
+		"param": "automute",
+		"aliases": [
+			"am"
+		],
+		"role": "Sender",
+		"summary": "Will mute the microphone of a guest when not loaded in an active OBS scene",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4524"
+	},
+	{
+		"param": "autorecord",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2577"
+	},
+	{
+		"param": "autorecordlocal",
+		"aliases": [],
+		"role": "General",
+		"summary": "Records just the local video automatically on their initial load",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2588"
+	},
+	{
+		"param": "autorecordremote",
+		"aliases": [],
+		"role": "General",
+		"summary": "Records just the remote video(s) automatically on their initial load",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2601"
+	},
+	{
+		"param": "autoreload",
+		"aliases": [],
+		"role": "General",
+		"summary": "Numeric minutes (default 60); repeatedly calls hangup with reload at that interval.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1085"
+	},
+	{
+		"param": "autoreload24",
+		"aliases": [],
+		"role": "General",
+		"summary": "HH:MM 24-hour local time; calls hangup with reload once at that time (next day if passed).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1095"
+	},
+	{
+		"param": "autostart",
+		"aliases": [
+			"autojoin",
+			"aj",
+			"as"
+		],
+		"role": "Sender",
+		"summary": "Skips the camera/audio device or screenshare selection",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4932"
+	},
+	{
+		"param": "autowhep",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; derives a WHEP share URL from the WHIP output URL and applies it.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:8014"
+	},
+	{
+		"param": "avatar",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Adds the ability to select an image, instead of a video device",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3206"
+	},
+	{
+		"param": "avatarimg2",
+		"aliases": [
+			"bgimage2",
+			"bgimg2"
+		],
+		"role": "Viewer",
+		"summary": "Image URL (default avatar2.png); CSS video background shown while talking; enables audio effects and meter style 4.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:985"
+	},
+	{
+		"param": "avatarimg3",
+		"aliases": [
+			"bgimage3",
+			"bgimg3"
+		],
+		"role": "Viewer",
+		"summary": "Image URL (default avatar3.png); CSS video background shown while screaming (loud); enables audio effects and meter style 4.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1011"
+	},
+	{
+		"param": "background",
+		"aliases": [
+			"appbg"
+		],
+		"role": "General",
+		"summary": "Accepts a URL-encoded image URL to make as the app's default background",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1037"
+	},
+	{
+		"param": "backgroundblur",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Optional numeric strength (default 2); enables the background blur effect (effect 3).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7524"
+	},
+	{
+		"param": "base64css",
+		"aliases": [
+			"b64css",
+			"cssbase64",
+			"cssb64"
+		],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3091"
+	},
+	{
+		"param": "base64js",
+		"aliases": [
+			"b64js",
+			"jsbase64",
+			"jsb64"
+		],
+		"role": "General",
+		"summary": "Lets a user add raw javascript to the URL to run on page load",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3326"
+	},
+	{
+		"param": "batterymeter",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1652"
+	},
+	{
+		"param": "beepvolume",
+		"aliases": [],
+		"role": "General",
+		"summary": "Numeric percent; volume of the beep, join and leave sounds.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5814"
+	},
+	{
+		"param": "bgblur",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Alias of &backgroundblur: turns on background blur; optional strength value.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:7524"
+	},
+	{
+		"param": "bgimage",
+		"aliases": [
+			"avatarimg",
+			"bgimg"
+		],
+		"role": "General",
+		"summary": "Can be used to set the default image avatar, when using &style=0 or &style=6",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:956"
+	},
+	{
+		"param": "bigbutton",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Makes the microphone mute button a lot bigger",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2649"
+	},
+	{
+		"param": "bitratecutoff",
+		"aliases": [
+			"bitcut"
+		],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1686"
+	},
+	{
+		"param": "blackout",
+		"aliases": [
+			"blackoutmode",
+			"bo",
+			"bom"
+		],
+		"role": "General",
+		"summary": "Boolean flag; shows the blackout mode button; with a value, starts blackout mode immediately.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:4936"
+	},
+	{
+		"param": "blind",
+		"aliases": [],
+		"role": "General",
+		"summary": "Video playback is disabled",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2292"
+	},
+	{
+		"param": "blindall",
+		"aliases": [],
+		"role": "Director",
+		"summary": "It allows the director 'blinding' all the guests at a time with a new button",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2296"
+	},
+	{
+		"param": "blur",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5982"
+	},
+	{
+		"param": "border",
+		"aliases": [],
+		"role": "General",
+		"summary": "Adds a border around the videos",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4694"
+	},
+	{
+		"param": "bordercolor",
+		"aliases": [],
+		"role": "General",
+		"summary": "Defines the color of &border",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4710"
+	},
+	{
+		"param": "brightness",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Lets you manually pre-set the brightness of the camera/webcam",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7586"
+	},
+	{
+		"param": "broadcast",
+		"aliases": [
+			"bc"
+		],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1423"
+	},
+	{
+		"param": "broadcasttransfer",
+		"aliases": [
+			"bct"
+		],
+		"role": "Director",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1385"
+	},
+	{
+		"param": "buffer",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Sets the video buffer",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3712"
+	},
+	{
+		"param": "buffer2",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Same as &buffer, but instead includes the round-trip-time",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6465"
+	},
+	{
+		"param": "buffer3",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Variant of &buffer: viewer playout buffer in ms; ignored on Chromium 51 to 77.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6465"
+	},
+	{
+		"param": "bufferaudio",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Alias of &audiobuffer: viewer-side audio buffer target in ms.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5436"
+	},
+	{
+		"param": "bundle",
+		"aliases": [],
+		"role": "General",
+		"summary": "String (default max-bundle); sets the RTCPeerConnection bundlePolicy.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6993"
+	},
+	{
+		"param": "bypass",
+		"aliases": [],
+		"role": "General",
+		"summary": "Flag or value; routes signaling through iframe parent postMessage instead of a websocket.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7656"
+	},
+	{
+		"param": "bypasssignaling",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag (with &bypass); keeps routing SDP/ICE through the parent after RTC opens.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7659"
+	},
+	{
+		"param": "callin",
+		"aliases": [],
+		"role": "General",
+		"summary": "Mode string (default sip); loads callin.js, a phone call-in panel using SIP or Twilio.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1545"
+	},
+	{
+		"param": "cbr",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; uses constant bitrate encoding and hides the WHIP-out VBR/CBR option.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5130"
+	},
+	{
+		"param": "cccolored",
+		"aliases": [
+			"cccoloured",
+			"coloredcc",
+			"colorcc",
+			"cccolor"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; colors each speaker's closed-caption text with a color derived from their ID.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:3079"
+	},
+	{
+		"param": "cftoken",
+		"aliases": [
+			"cft"
+		],
+		"role": "",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1120"
+	},
+	{
+		"param": "channeloffset",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Shifts audio channels 0 and 1 up channels, based on the offset value",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6333"
+	},
+	{
+		"param": "channels",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Specifies the number of output audio channels you wish to mix up or down to",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6326"
+	},
+	{
+		"param": "chatbutton",
+		"aliases": [
+			"chat",
+			"cb"
+		],
+		"role": "Sender",
+		"summary": "Shows or hides the chat button",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2353"
+	},
+	{
+		"param": "chroma",
+		"aliases": [],
+		"role": "General",
+		"summary": "Sets the background for the website to a particular hex color",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4658"
+	},
+	{
+		"param": "chromakey",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Optional numeric value (default 25); selects chroma key video effect 14.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7541"
+	},
+	{
+		"param": "chromakeybg",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Optional numeric value (default 25); selects chroma key background video effect 15.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7546"
+	},
+	{
+		"param": "chunkadapt",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "String mode bitrate, framerate or hybrid; chunked-mode encoder adaptation strategy.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5401"
+	},
+	{
+		"param": "chunkcast",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; sends chunked-recorder media frames out over a websocket instead of real-time chunk paths.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1505"
+	},
+	{
+		"param": "chunkcodec",
+		"aliases": [
+			"chunkcodecs",
+			"chunkvideocodec",
+			"webcodecscodec"
+		],
+		"role": "Sender",
+		"summary": "String codec name; WebCodecs encoder preference for chunked mode, separate from &codec.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5384"
+	},
+	{
+		"param": "chunked",
+		"aliases": [
+			"chunk"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5210"
+	},
+	{
+		"param": "chunkedbuffer",
+		"aliases": [
+			"sendingbuffer"
+		],
+		"role": "Sender",
+		"summary": "Numeric ms (default 5000 when given, 500 otherwise); chunked-mode sender buffer window.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5251"
+	},
+	{
+		"param": "chunkprofile",
+		"aliases": [],
+		"role": "General",
+		"summary": "Preset name mobile, balanced or desktop; applies a bundle of chunked-mode FEC, NACK, buffer and adaptation settings.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5311"
+	},
+	{
+		"param": "claim",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Value 0/false/off/no disables director room auto-claim; other values change nothing.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6416"
+	},
+	{
+		"param": "cleandirector",
+		"aliases": [
+			"cdv"
+		],
+		"role": "Director",
+		"summary": "Hides the invite URL options in the Director's room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6222"
+	},
+	{
+		"param": "cleanish",
+		"aliases": [],
+		"role": "General",
+		"summary": "Cleaner output; not as clean as &cleanoutput",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:564"
+	},
+	{
+		"param": "cleanoutput",
+		"aliases": [
+			"clean"
+		],
+		"role": "General",
+		"summary": "Keeps the output as clean as possible from UI elements",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:564"
+	},
+	{
+		"param": "cleanviewer",
+		"aliases": [
+			"cv"
+		],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:573"
+	},
+	{
+		"param": "clearstorage",
+		"aliases": [
+			"clear"
+		],
+		"role": "General",
+		"summary": "Will clear all the saved user preferences for all sessions",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5894"
+	},
+	{
+		"param": "clock",
+		"aliases": [],
+		"role": "General",
+		"summary": "Shows the current time",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7785"
+	},
+	{
+		"param": "clock24",
+		"aliases": [],
+		"role": "General",
+		"summary": "The same as &clock option, except it uses 24-hour time for the display",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7785"
+	},
+	{
+		"param": "closedcaptions",
+		"aliases": [
+			"cc",
+			"captions"
+		],
+		"role": "Viewer",
+		"summary": "Enables displaying of closed captioning text",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3073"
+	},
+	{
+		"param": "codec",
+		"aliases": [
+			"codecs",
+			"videocodec"
+		],
+		"role": "Viewer",
+		"summary": "Sets the codec to encode the video",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5566"
+	},
+	{
+		"param": "codirector",
+		"aliases": [
+			"directorpassword",
+			"dirpass",
+			"dp"
+		],
+		"role": "Director",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:8222"
+	},
+	{
+		"param": "codirectorinvitetemplate",
+		"aliases": [],
+		"role": "Director",
+		"summary": "http(s) URL template with {room} and {codirector}; replaces the generated co-director invite URL.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:31312"
+	},
+	{
+		"param": "color",
+		"aliases": [],
+		"role": "General",
+		"summary": "You can specify the background color independent of the border color",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4732"
+	},
+	{
+		"param": "compressed",
+		"aliases": [
+			"compresssdp",
+			"compress"
+		],
+		"role": "General",
+		"summary": "Boolean flag; enables SDP compression (marked WIP in code).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7975"
+	},
+	{
+		"param": "compressor",
+		"aliases": [
+			"comp"
+		],
+		"role": "Sender",
+		"summary": "Applies a generic audio compressor to the local microphone",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4439"
+	},
+	{
+		"param": "connectionprofile",
+		"aliases": [],
+		"role": "General",
+		"summary": "Alias of &rtpprofile: RTP tuning profile, talkinghead or irl.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6354"
+	},
+	{
+		"param": "consent",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Will ask the user for content to remote change their camera or microphone",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4926"
+	},
+	{
+		"param": "contenthint",
+		"aliases": [
+			"contenttype",
+			"content",
+			"hint"
+		],
+		"role": "Sender",
+		"summary": "'=motion prioritizes frame rate; =detail prioritizes resolution'",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5547"
+	},
+	{
+		"param": "contrast",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Lets you manually pre-set the contrast of the camera/webcam",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7583"
+	},
+	{
+		"param": "controlbarspace",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Forces the user control bar to be in its own dedicated space",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2175"
+	},
+	{
+		"param": "controlobs",
+		"aliases": [
+			"obscontrols",
+			"remoteobs",
+			"obsremote",
+			"obs"
+		],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2681"
+	},
+	{
+		"param": "controlroombitrate",
+		"aliases": [
+			"crb"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4354"
+	},
+	{
+		"param": "cover",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2509"
+	},
+	{
+		"param": "crop",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric percent; forces a camera aspect-ratio constraint scaled from 16:9 (negative divides, 0 gives 4:3).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2498"
+	},
+	{
+		"param": "css",
+		"aliases": [],
+		"role": "General",
+		"summary": "Loads a custom CSS file",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3123"
+	},
+	{
+		"param": "custombeep",
+		"aliases": [],
+		"role": "General",
+		"summary": "Audio URL; replaces the notification beep sound.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5804"
+	},
+	{
+		"param": "customjoin",
+		"aliases": [],
+		"role": "General",
+		"summary": "Audio URL; replaces the guest-join sound.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5810"
+	},
+	{
+		"param": "customleave",
+		"aliases": [],
+		"role": "General",
+		"summary": "Audio URL; replaces the guest-leave sound.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5807"
+	},
+	{
+		"param": "cutscene",
+		"aliases": [
+			"lowbitratescene"
+		],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1727"
+	},
+	{
+		"param": "darkmode",
+		"aliases": [
+			"nightmode",
+			"darktheme"
+		],
+		"role": "General",
+		"summary": "Darkens the website and interface",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4762"
+	},
+	{
+		"param": "datamode",
+		"aliases": [
+			"dataonly"
+		],
+		"role": "General",
+		"summary": "Combines a bunch of flags together; no video, no audio, GUI, etc.",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2958"
+	},
+	{
+		"param": "deafen",
+		"aliases": [
+			"deaf"
+		],
+		"role": "General",
+		"summary": "Audio playback is muted",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2288"
+	},
+	{
+		"param": "debug",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean-ish value; turns on debug logging, only on vdo.ninja hosts.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5468"
+	},
+	{
+		"param": "degrade",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "String (maintain-framerate, maintain-resolution, balanced) or flag; viewer asks the publisher to use this degradationPreference.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6349"
+	},
+	{
+		"param": "denoise",
+		"aliases": [
+			"dn"
+		],
+		"role": "Sender",
+		"summary": "Turn audio noise reduction filter ON or OFF",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3942"
+	},
+	{
+		"param": "device",
+		"aliases": [
+			"d"
+		],
+		"role": "Sender",
+		"summary": "Same as &audiodevice or &videodevice, but applies to both",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4798"
+	},
+	{
+		"param": "digitalzoom",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Optional numeric zoom (default 1); enables the digital zoom video effect (effect 7).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7519"
+	},
+	{
+		"param": "director",
+		"aliases": [
+			"dir"
+		],
+		"role": "Director",
+		"summary": "Enters a room as the director, instead of a guest and have full control",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:626"
+	},
+	{
+		"param": "directorchat",
+		"aliases": [
+			"dc"
+		],
+		"role": "Sender",
+		"summary": "Message ONLY the director",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6810"
+	},
+	{
+		"param": "directoronly",
+		"aliases": [
+			"directorsonly",
+			"do"
+		],
+		"role": "Viewer",
+		"summary": "Will show the audio and the video of the director but not of the guests",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4144"
+	},
+	{
+		"param": "directorview",
+		"aliases": [
+			"dv"
+		],
+		"role": "Director",
+		"summary": "Boolean flag; joins as director without trying to claim the room.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4259"
+	},
+	{
+		"param": "disablehotkeys",
+		"aliases": [],
+		"role": "General",
+		"summary": "Disables hotkeys (like CRTL + M)",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1865"
+	},
+	{
+		"param": "discordwebhook",
+		"aliases": [
+			"dwh"
+		],
+		"role": "Viewer",
+		"summary": "Discord webhook URL or path; posts an alert when an incoming stream disconnects and does not reconnect within 60 s.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1509"
+	},
+	{
+		"param": "discordwebhook2",
+		"aliases": [
+			"dwh2"
+		],
+		"role": "Viewer",
+		"summary": "Discord webhook URL or path; like discordwebhook but also alerts on intentional hang-ups.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1514"
+	},
+	{
+		"param": "displaysurface",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Will pre-select display-share, rather than tab-share, when screen-sharing",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2137"
+	},
+	{
+		"param": "distort",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5112"
+	},
+	{
+		"param": "dogface",
+		"aliases": [
+			"dogears"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; selects the dog face video effect.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7557"
+	},
+	{
+		"param": "dpi",
+		"aliases": [
+			"dpr"
+		],
+		"role": "Viewer",
+		"summary": "Overrides the automatically selected Device Pixel Ratio",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2315"
+	},
+	{
+		"param": "drawing",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean (0/false/off disables); renders incoming drawing annotations as canvas overlays on remote videos.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1522"
+	},
+	{
+		"param": "drawingrelay",
+		"aliases": [
+			"shareddrawing"
+		],
+		"role": "Sender",
+		"summary": "Boolean (default on; 0/false/off disables); relays a viewer's drawings to other peers allowed to draw.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1526"
+	},
+	{
+		"param": "dropbox",
+		"aliases": [],
+		"role": "General",
+		"summary": "String Dropbox token; loads the Dropbox SDK for saving recordings to Dropbox.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4752"
+	},
+	{
+		"param": "dropdown",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; unhides the More Options dropButton chevron by clearing its classes.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:7923"
+	},
+	{
+		"param": "dtx",
+		"aliases": [
+			"usedtx"
+		],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5116"
+	},
+	{
+		"param": "e2ee",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6893"
+	},
+	{
+		"param": "easyexit",
+		"aliases": [
+			"ee"
+		],
+		"role": "Sender",
+		"summary": "Won't ask the user to confirm that they wish to exit or leave the page",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5841"
+	},
+	{
+		"param": "echocancellation",
+		"aliases": [
+			"aec",
+			"ec"
+		],
+		"role": "Sender",
+		"summary": "Mobile app version of VDO.Ninja and other Android related topics",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3905"
+	},
+	{
+		"param": "effects",
+		"aliases": [
+			"effect"
+		],
+		"role": "Sender",
+		"summary": "Applies effects to the video/audio feeds",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7517"
+	},
+	{
+		"param": "effectvalue",
+		"aliases": [
+			"ev"
+		],
+		"role": "Sender",
+		"summary": "Sets the amount of blur or effect applied",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7740"
+	},
+	{
+		"param": "endpage",
+		"aliases": [],
+		"role": "General",
+		"summary": "URL (sanitized); redirect target after hang-up; changes hang-up text to 'Redirecting shortly'.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1134"
+	},
+	{
+		"param": "endpagetimer",
+		"aliases": [],
+		"role": "General",
+		"summary": "Numeric ms (default 3000 via endpage); delay before the endpage redirect; only read when endpage is set.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1151"
+	},
+	{
+		"param": "enhance",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6343"
+	},
+	{
+		"param": "equalizer",
+		"aliases": [
+			"eq"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4448"
+	},
+	{
+		"param": "exclude",
+		"aliases": [
+			"ex"
+		],
+		"role": "Viewer",
+		"summary": "Same concept as &view, except does the opposite",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4983"
+	},
+	{
+		"param": "excludeaudio",
+		"aliases": [
+			"exaudio",
+			"silence"
+		],
+		"role": "Viewer",
+		"summary": "Comma list of stream IDs, including screen variants, whose audio playback is excluded.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5038"
+	},
+	{
+		"param": "exclusivelayoutaudio",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Non-empty value; with a layout active, drops streams outside the layout from the mix and throttles them.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2260"
+	},
+	{
+		"param": "experimental",
+		"aliases": [],
+		"role": "General",
+		"summary": "Unclear from code: sets session.experimental",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:8638"
+	},
+	{
+		"param": "exposure",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Lets you manually pre-set the exposure of the camera/webcam",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7574"
+	},
+	{
+		"param": "facecrop",
+		"aliases": [
+			"autofacecrop"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; selects the facecrop video effect.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7539"
+	},
+	{
+		"param": "facemesh",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; selects video effect 6 (face mesh).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7537"
+	},
+	{
+		"param": "facetracker",
+		"aliases": [
+			"facetracking"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; selects video effect 1 (face tracking).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7551"
+	},
+	{
+		"param": "facing",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Lets you specify either the front or rear facing camera as the default camera",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1745"
+	},
+	{
+		"param": "fadein",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Has videos fade in smoothly",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6701"
+	},
+	{
+		"param": "fadeout",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Optional numeric ms (default 500); fades out departing videos instead of removing them, sets --fadeout-speed CSS.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6721"
+	},
+	{
+		"param": "fakeguests",
+		"aliases": [
+			"fakefeeds",
+			"fakeusers"
+		],
+		"role": "Viewer",
+		"summary": "Creates simulated guest videos",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4123"
+	},
+	{
+		"param": "fakeuser",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; joins data-only with autostart, no video, audio or iframe playback, and clean output.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2942"
+	},
+	{
+		"param": "fastmask",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; disables frame-locked segmentation for background effects.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:14438"
+	},
+	{
+		"param": "favicon",
+		"aliases": [],
+		"role": "General",
+		"summary": "Will change the browser's page favicon image",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "lib.js:7544"
+	},
+	{
+		"param": "fb",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Alias of &feedbackbutton: shows the hear-yourself button; optional value sets the self-monitor volume.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:632"
+	},
+	{
+		"param": "fec",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag read only by &lowlatency; its presence keeps FEC enabled instead of disabling it.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3702"
+	},
+	{
+		"param": "fecaudio",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; experimental audio FEC when applying the viewer's requested audio codec.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5594"
+	},
+	{
+		"param": "feedbackbutton",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Optional numeric volume percent; unhides the 'hear yourself' self-monitor button and sets its playback volume.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:632"
+	},
+	{
+		"param": "fileshare",
+		"aliases": [
+			"fs"
+		],
+		"role": "Sender",
+		"summary": "Allows the user to select a video or audio file as a source for streaming",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2023"
+	},
+	{
+		"param": "fit",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; sets CSS fit-style to fit and sizes the local video to full viewport.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2516"
+	},
+	{
+		"param": "fixedchunkbuffer",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; disables the adaptive chunked-mode receive buffer.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5396"
+	},
+	{
+		"param": "flagship",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Will optimize the mobile experience for more capable smartphones",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:8642"
+	},
+	{
+		"param": "flip",
+		"aliases": [],
+		"role": "General",
+		"summary": "Inverts the video so it is upside down",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6542"
+	},
+	{
+		"param": "flipoutput",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean-ish (0/false/off disables); flips published output vertically and sets session.flipped, injecting video scaleY(-1) CSS.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6554"
+	},
+	{
+		"param": "focus",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric; sets a manual camera focusDistance constraint.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7589"
+	},
+	{
+		"param": "fontsize",
+		"aliases": [
+			"sizelabel",
+			"labelsize"
+		],
+		"role": "General",
+		"summary": "Let you set font-size of the closed captions and stream labels",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3496"
+	},
+	{
+		"param": "forcecontrols",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:653"
+	},
+	{
+		"param": "forceios",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Forces iOS devices to publish video to this room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5086"
+	},
+	{
+		"param": "forcelandscape",
+		"aliases": [
+			"forcedlandscape",
+			"fl"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1767"
+	},
+	{
+		"param": "forceportrait",
+		"aliases": [
+			"forcedportrait",
+			"fp"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1772"
+	},
+	{
+		"param": "forceviewerlandscape",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Numeric degrees (default 270); rotates incoming portrait videos to display landscape.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1779"
+	},
+	{
+		"param": "forceviewerportrait",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Numeric degrees (default 90); rotates incoming landscape videos to display portrait.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1783"
+	},
+	{
+		"param": "fps",
+		"aliases": [
+			"frameRate",
+			"fr"
+		],
+		"role": "Sender",
+		"summary": "Sets the target frame rate of the video in frames per second",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6441"
+	},
+	{
+		"param": "framegrab",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "For non-directors, opens the Share Website tile pre-expanded for frame grabbing (boolean flag).",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2045"
+	},
+	{
+		"param": "framegrabaudio",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean (empty on; 0/false/no/off off); with framegrab, enables audio capture for the published frame source.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2052"
+	},
+	{
+		"param": "fullhd",
+		"aliases": [
+			"1080p"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; sets publish quality preset 0 (1080p) and removes the screen and webcam quality gear options.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6122"
+	},
+	{
+		"param": "fullscreen",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "The preview video will be fullscreen",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6187"
+	},
+	{
+		"param": "fullscreenbutton",
+		"aliases": [
+			"fsb"
+		],
+		"role": "Sender",
+		"summary": "Adds a full-screen button to the control bar",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1841"
+	},
+	{
+		"param": "fulltalk",
+		"aliases": [],
+		"role": "General",
+		"summary": "6-character room code; connects to the PSTN call websocket to talk and hear all.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1554"
+	},
+	{
+		"param": "gdrive",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; enables the Google Drive uploader for recordings.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4757"
+	},
+	{
+		"param": "gdriveall",
+		"aliases": [
+			"gdriverecordall"
+		],
+		"role": "Director",
+		"summary": "Boolean flag; shows the director's 'Google Drive record all guests' toggle button.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2308"
+	},
+	{
+		"param": "getfaces",
+		"aliases": [
+			"pushfaces"
+		],
+		"role": "Viewer",
+		"summary": "Will request a continuous stream of face bounding boxes",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1307"
+	},
+	{
+		"param": "graphs",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; enables stats graphs, including the director's scene stats graphs.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:4262"
+	},
+	{
+		"param": "greenscreen",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; selects video effect 4 (greenscreen).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7531"
+	},
+	{
+		"param": "grid",
+		"aliases": [
+			"ruler",
+			"thirds"
+		],
+		"role": "Sender",
+		"summary": "Applies an rule-of-thirds grid overlay to the self-preview",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4266"
+	},
+	{
+		"param": "group",
+		"aliases": [
+			"groups"
+		],
+		"role": "General",
+		"summary": "Puts guests into sub-groups, so they only see others in the same group",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5485"
+	},
+	{
+		"param": "groupaudio",
+		"aliases": [
+			"ga"
+		],
+		"role": "General",
+		"summary": "Tells the system to not filter out audio streams when using &group",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5495"
+	},
+	{
+		"param": "groupmode",
+		"aliases": [
+			"gm"
+		],
+		"role": "Sender",
+		"summary": "Added to the URL, when not assigned to a group, you don't hear or see anything",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5499"
+	},
+	{
+		"param": "groupview",
+		"aliases": [
+			"viewgroup",
+			"gv"
+		],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5490"
+	},
+	{
+		"param": "h264profile",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "OpenH264 software encoding will be used",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5654"
+	},
+	{
+		"param": "hands",
+		"aliases": [
+			"hand"
+		],
+		"role": "Sender",
+		"summary": "Enables a \"Raise Hand\" button for guests",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2449"
+	},
+	{
+		"param": "hangupbutton",
+		"aliases": [
+			"hub"
+		],
+		"role": "General",
+		"summary": "Alias &hub: shows the hang-up button in the control bar (boolean flag).",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1874"
+	},
+	{
+		"param": "hangupmessage",
+		"aliases": [
+			"hum"
+		],
+		"role": "Sender",
+		"summary": "Option for a custom hang-up message",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1877"
+	},
+	{
+		"param": "hash",
+		"aliases": [
+			"crc",
+			"check"
+		],
+		"role": "General",
+		"summary": "Checks the password",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3416"
+	},
+	{
+		"param": "headertitle",
+		"aliases": [],
+		"role": "General",
+		"summary": "Will change the browser's page title",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "lib.js:7534"
+	},
+	{
+		"param": "hearptsn",
+		"aliases": [],
+		"role": "General",
+		"summary": "6-character room code; listens to PSTN call audio over websocket only.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1559"
+	},
+	{
+		"param": "height",
+		"aliases": [
+			"h"
+		],
+		"role": "Sender",
+		"summary": "Sets the maximum height of the video allowed in pixels",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6066"
+	},
+	{
+		"param": "hiddenscenebitrate",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3045"
+	},
+	{
+		"param": "hidecodirectors",
+		"aliases": [
+			"hidecodirector",
+			"hidedirector",
+			"hidedirectors",
+			"hd"
+		],
+		"role": "Director",
+		"summary": "Hides the co-directors from appearing in the director's room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4497"
+	},
+	{
+		"param": "hideeffectscontrols",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; adds hide-effects-controls class, hiding effect selector panels without disabling the effect.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:7513"
+	},
+	{
+		"param": "hideguest",
+		"aliases": [
+			"hidden"
+		],
+		"role": "Sender",
+		"summary": "Has a guest join a room not visible to others",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2193"
+	},
+	{
+		"param": "hideheader",
+		"aliases": [
+			"noheader",
+			"hh"
+		],
+		"role": "Sender",
+		"summary": "Hides just the top header-bar",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6257"
+	},
+	{
+		"param": "hidehome",
+		"aliases": [],
+		"role": "General",
+		"summary": "Hides the VDO.Ninja homepage and many links that lead to it",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:586"
+	},
+	{
+		"param": "hidemenu",
+		"aliases": [
+			"hm"
+		],
+		"role": "Sender",
+		"summary": "Hides the VDO.Ninja-branded menu and header bar",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:8330"
+	},
+	{
+		"param": "hideplaybutton",
+		"aliases": [
+			"hpb"
+		],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1062"
+	},
+	{
+		"param": "hidesolo",
+		"aliases": [
+			"hs"
+		],
+		"role": "Director",
+		"summary": "Lets you hide the solo links from showing",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2181"
+	},
+	{
+		"param": "hidetranslate",
+		"aliases": [],
+		"role": "General",
+		"summary": "Hides the option to translate VDO.Ninja",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6226"
+	},
+	{
+		"param": "hideusermenu",
+		"aliases": [
+			"nousermenu"
+		],
+		"role": "Sender",
+		"summary": "Aliases &nousermenu, &hum: hides the User options group in the settings panel.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:8338"
+	},
+	{
+		"param": "highlightmute",
+		"aliases": [
+			"hmute",
+			"mutefollowhighlight",
+			"mfh"
+		],
+		"role": "Director",
+		"summary": "Boolean-ish value; highlighting a guest unmutes them and remotely mutes the others; presets the matching checkbox.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4529"
+	},
+	{
+		"param": "history",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; re-enables browser history URL updates, overriding the iframe default.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1536"
+	},
+	{
+		"param": "hold",
+		"aliases": [
+			"queue3"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7193"
+	},
+	{
+		"param": "holdwithvideo",
+		"aliases": [
+			"queue4"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7207"
+	},
+	{
+		"param": "host",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Shows a pop up to invite more guests to the room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5503"
+	},
+	{
+		"param": "hostwhep",
+		"aliases": [
+			"whepout"
+		],
+		"role": "Sender",
+		"summary": "String stream ID (defaults to own stream ID); publishes via the WHEP host client (whepOut).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7383"
+	},
+	{
+		"param": "humb64",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1874"
+	},
+	{
+		"param": "icefilter",
+		"aliases": [],
+		"role": "General",
+		"summary": "Filters ICE candidates",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6594"
+	},
+	{
+		"param": "iframetarget",
+		"aliases": [],
+		"role": "General",
+		"summary": "String origin (default own origin, or * on file:); target origin for postMessage to the parent frame.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6936"
+	},
+	{
+		"param": "ignorehighlight",
+		"aliases": [
+			"ih"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; ignores the director's infocus (highlight) messages.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2185"
+	},
+	{
+		"param": "imagelist",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Can be used to pass a list of background images via the URL",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7673"
+	},
+	{
+		"param": "include",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Adds stream IDs within the viewer's room scope",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4240"
+	},
+	{
+		"param": "inclusivelayoutaudio",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Non-empty value; keeps streams outside the active layout in the mix (turns exclusive layout audio off).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2262"
+	},
+	{
+		"param": "inputchannels",
+		"aliases": [
+			"channelcount",
+			"ac"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3887"
+	},
+	{
+		"param": "insertablestreams",
+		"aliases": [
+			"is"
+		],
+		"role": "General",
+		"summary": "Flag or string; enables encodedInsertableStreams in the RTCPeerConnection configuration.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6895"
+	},
+	{
+		"param": "intro",
+		"aliases": [
+			"ib"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2160"
+	},
+	{
+		"param": "invite",
+		"aliases": [
+			"i",
+			"code"
+		],
+		"role": "General",
+		"summary": "Encrypted string; AES-decrypts an invite link and applies its URL parameters.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:539"
+	},
+	{
+		"param": "invitecam",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "String room.view-token; invite.cam shorthand that sets scene-page WSS and is kept in generated scene links.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7642"
+	},
+	{
+		"param": "invitecammanaged",
+		"aliases": [],
+		"role": "General",
+		"summary": "Value 1; invite.cam manages room assignment, restricting room migrations and transfers.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7635"
+	},
+	{
+		"param": "ipv6",
+		"aliases": [],
+		"role": "General",
+		"summary": "0/false drops IPv6 candidates when IPv4 exists; 1/true allows normal dual-stack without IPv4 preference.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6613"
+	},
+	{
+		"param": "isolation",
+		"aliases": [
+			"voiceisolation",
+			"vi"
+		],
+		"role": "Sender",
+		"summary": "Boolean-ish value (false, 0, no, off disable); sets the mic voice isolation constraint.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3961"
+	},
+	{
+		"param": "joinscene",
+		"aliases": [
+			"joinscenes"
+		],
+		"role": "Sender",
+		"summary": "Comma list of scene names; guest asks to auto-join those scenes, which only works if the target has &openscene.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2755"
+	},
+	{
+		"param": "js",
+		"aliases": [],
+		"role": "General",
+		"summary": "Lets you pass a third party hosted javascript file URL",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3270"
+	},
+	{
+		"param": "justtalk",
+		"aliases": [],
+		"role": "General",
+		"summary": "6-character room code; joins the Twilio PSTN conference to talk only.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1556"
+	},
+	{
+		"param": "keepsw",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; skips unregistering existing service workers on load.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:11039"
+	},
+	{
+		"param": "keyframerate",
+		"aliases": [
+			"keyframeinterval",
+			"keyframe",
+			"fki"
+		],
+		"role": "Viewer",
+		"summary": "This tells the remote publishers to send keyframes at a specified rate",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4486"
+	},
+	{
+		"param": "label",
+		"aliases": [
+			"l"
+		],
+		"role": "General",
+		"summary": "Sets a display name label",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3501"
+	},
+	{
+		"param": "labelsuggestion",
+		"aliases": [
+			"defaultlabel",
+			"ls"
+		],
+		"role": "General",
+		"summary": "The same as &label, except it asks the user still for a user name",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3529"
+	},
+	{
+		"param": "language",
+		"aliases": [
+			"ln"
+		],
+		"role": "General",
+		"summary": "Sets the interface language",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:387"
+	},
+	{
+		"param": "lanonly",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; restricts ICE to local-network candidates and clears STUN/TURN configuration.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6598"
+	},
+	{
+		"param": "largepreview",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Will disable the mini-preview functionality",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4309"
+	},
+	{
+		"param": "layout",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2219"
+	},
+	{
+		"param": "layouts",
+		"aliases": [],
+		"role": "Director",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2266"
+	},
+	{
+		"param": "leaveorientationflag",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; keeps the video-orientation extmap line in SDP instead of stripping it.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1677"
+	},
+	{
+		"param": "lightmode",
+		"aliases": [
+			"lighttheme"
+		],
+		"role": "General",
+		"summary": "Forces to enable the lightmode / disable the darkmode",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4769"
+	},
+	{
+		"param": "limiter",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Applies a generic audio limiter to the local microphone",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4443"
+	},
+	{
+		"param": "limittotalbitrate",
+		"aliases": [
+			"ltb"
+		],
+		"role": "Sender",
+		"summary": "Limits the total outbound bitrate",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5991"
+	},
+	{
+		"param": "locked",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1713"
+	},
+	{
+		"param": "locksize",
+		"aliases": [],
+		"role": "General",
+		"summary": "Unclear from code: sets session.lockWindowSize, which no code reads.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2155"
+	},
+	{
+		"param": "lowcut",
+		"aliases": [
+			"lc",
+			"highpass",
+			"higpass"
+		],
+		"role": "Sender",
+		"summary": "Adds a low-cut filter",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4467"
+	},
+	{
+		"param": "lowlatency",
+		"aliases": [
+			"ll",
+			"ultralow"
+		],
+		"role": "General",
+		"summary": "Boolean flag; turns off audio processing, FEC, buffers, sync and WebAudio, sets 10ms ptime and CBR; also disables the guest audio meter.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:3682"
+	},
+	{
+		"param": "lowmobilebitrate",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric kbps (default 35); mobile guest bitrate cap with more than 4 peers or old iOS Safari.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:8659"
+	},
+	{
+		"param": "maindirectorpassword",
+		"aliases": [
+			"maindirpass"
+		],
+		"role": "Director",
+		"summary": "Lets you set a pseudo 'master room password' as a director",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5451"
+	},
+	{
+		"param": "manual",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Disables the auto-mixer, allowing for a custom mixer to be used",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4482"
+	},
+	{
+		"param": "margin",
+		"aliases": [],
+		"role": "General",
+		"summary": "Adds a margin around the videos in pixel",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4666"
+	},
+	{
+		"param": "maxbandwidth",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Judges the available bandwidth of a sender's connection",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6924"
+	},
+	{
+		"param": "maxconnections",
+		"aliases": [
+			"mc"
+		],
+		"role": "Sender",
+		"summary": "Limits total of view and push connections",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6381"
+	},
+	{
+		"param": "maxframerate",
+		"aliases": [
+			"mfr",
+			"mfps"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6458"
+	},
+	{
+		"param": "maxmobilebitrate",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric kbps (default 350); mobile guest outbound bitrate cap in normal conditions.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:8653"
+	},
+	{
+		"param": "maxptime",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Maximum packet size of audio",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5537"
+	},
+	{
+		"param": "maxpublishers",
+		"aliases": [
+			"mp"
+		],
+		"role": "Viewer",
+		"summary": "Limits the number of remote peer connections that are publishers",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6371"
+	},
+	{
+		"param": "maxslots",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Numeric slot count (default 20); number of slots listed in the slot picker.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5176"
+	},
+	{
+		"param": "maxvideobitrate",
+		"aliases": [
+			"maxbitrate",
+			"maxvb",
+			"mvb"
+		],
+		"role": "Sender",
+		"summary": "Limits the max video bitrate out for this publisher, per stream out",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5915"
+	},
+	{
+		"param": "maxviewers",
+		"aliases": [
+			"mv"
+		],
+		"role": "Sender",
+		"summary": "Limits the number of viewers allowed",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6361"
+	},
+	{
+		"param": "mcab",
+		"aliases": [
+			"mcaudiobitrate",
+			"meshcastab",
+			"meshcastaudiobitrate ",
+			"whipoutaudiobitrate",
+			"woab"
+		],
+		"role": "",
+		"summary": "Option to change outbound audio bitrate of the &meshcast parameter",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6049"
+	},
+	{
+		"param": "mcscreensharebitrate",
+		"aliases": [
+			"mcssbitrate",
+			"whipoutscreensharebitrate",
+			"wossbitrate"
+		],
+		"role": "",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6014"
+	},
+	{
+		"param": "mcscreensharecodec",
+		"aliases": [
+			"mcsscodec",
+			"whipoutscreensharecodec",
+			"wosscodec"
+		],
+		"role": "",
+		"summary": "Option to change codec of the &meshcast parameter while screen-sharing",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6019"
+	},
+	{
+		"param": "mediamtx",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "String host or URL (defaults .com and :8889); builds MediaMTX WHIP/WHEP endpoints from the stream ID.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7400"
+	},
+	{
+		"param": "mediamtxnoscreen",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag (with &mediamtx); excludes screen share from MediaMTX publishing.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7405"
+	},
+	{
+		"param": "mediamtxscreenonly",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag (with &mediamtx); publishes only the screen share to MediaMTX.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7408"
+	},
+	{
+		"param": "mediasettings",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3065"
+	},
+	{
+		"param": "menuoffset",
+		"aliases": [],
+		"role": "General",
+		"summary": "CSS length (default 50px); sets the bottom offset of the control bar and makes it absolutely positioned.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2642"
+	},
+	{
+		"param": "meshcast",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1481"
+	},
+	{
+		"param": "meshcast1",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Publishes through Meshcast server relay on first load; value picks the region (default any). Skipped when &meshcastfailed is present.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1478"
+	},
+	{
+		"param": "meshcast2",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Mode string (any/anon/audio/video, default any); publishes through Meshcast v2 with server discovery.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1471"
+	},
+	{
+		"param": "meshcast2screen",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "String Publish Key; Meshcast account key used for screen-share publishing.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "webrtc.js:25561"
+	},
+	{
+		"param": "meshcastbitrate",
+		"aliases": [
+			"mcb",
+			"mcbitrate",
+			"mediamtxbitrate",
+			"whipbitrate",
+			"whipoutvideobitrate",
+			"wovb"
+		],
+		"role": "",
+		"summary": "Option to change outbound video bitrate of the &meshcast parameter",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6057"
+	},
+	{
+		"param": "meshcastcode",
+		"aliases": [
+			"mccode"
+		],
+		"role": "Sender",
+		"summary": "Lets you specify the Meshcast server to use",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1467"
+	},
+	{
+		"param": "meshcastcodec",
+		"aliases": [
+			"mccodec",
+			"whipoutcodec",
+			"whipoutvideocodec",
+			"woc",
+			"wovc"
+		],
+		"role": "",
+		"summary": "Option to change codec of the &meshcast parameter",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6026"
+	},
+	{
+		"param": "meshcastfailed",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Marker added after a Meshcast attempt fails; stops &meshcast and &meshcast1 from auto-starting on reload.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1478"
+	},
+	{
+		"param": "meshcastnoscreen",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; excludes screen share from Meshcast/WHIP publishing.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7500"
+	},
+	{
+		"param": "meshcastprimaryonly",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; Meshcast/WHIP publishes only the primary camera.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7507"
+	},
+	{
+		"param": "meshcastscale",
+		"aliases": [
+			"mcscale",
+			"woscale",
+			"whipoutscale"
+		],
+		"role": "",
+		"summary": "Scales down the meshcast video output via the URL",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5724"
+	},
+	{
+		"param": "meshcastscreenonly",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; Meshcast/WHIP publishes only the screen share.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7503"
+	},
+	{
+		"param": "meta",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Comma list of field ids 1-9; prompts the guest for profile fields (pronouns, title, socials, bio, location, avatar, QR) and shares them.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:3561"
+	},
+	{
+		"param": "meterstyle",
+		"aliases": [
+			"meter"
+		],
+		"role": "General",
+		"summary": "Optional audio meter style type",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6793"
+	},
+	{
+		"param": "micdelay",
+		"aliases": [
+			"delay",
+			"md"
+		],
+		"role": "Sender",
+		"summary": "Delays the microphone by specified time in ms",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4395"
+	},
+	{
+		"param": "miconly",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Share audio-only; no video publishing allowed",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1997"
+	},
+	{
+		"param": "miconlyoption",
+		"aliases": [
+			"moo"
+		],
+		"role": "Sender",
+		"summary": "A mic only button shows if a guest joining a room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7882"
+	},
+	{
+		"param": "micpanning",
+		"aliases": [
+			"mpan"
+		],
+		"role": "Sender",
+		"summary": "Numeric 0-180 (default 90, center); downmixes the mic to mono and pans it, adding a panning control to audio settings.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:4453"
+	},
+	{
+		"param": "micsamplerate",
+		"aliases": [
+			"msr"
+		],
+		"role": "Sender",
+		"summary": "Numeric Hz (default 48000); requested microphone sampleRate constraint.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6905"
+	},
+	{
+		"param": "micsamplesize",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric bits (default 16); requested microphone sampleSize constraint.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6909"
+	},
+	{
+		"param": "midi",
+		"aliases": [
+			"hotkeys"
+		],
+		"role": "General",
+		"summary": "Global hotkey support via MIDI input and more",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1860"
+	},
+	{
+		"param": "midichannel",
+		"aliases": [],
+		"role": "General",
+		"summary": "Allows for specifying which midi channel (1 to 16) to listen on",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1967"
+	},
+	{
+		"param": "mididelay",
+		"aliases": [],
+		"role": "General",
+		"summary": "Lets you precisely delay the MIDI play-out",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1962"
+	},
+	{
+		"param": "mididevice",
+		"aliases": [],
+		"role": "General",
+		"summary": "Allows to specify which midi device (1 and up) selected",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1979"
+	},
+	{
+		"param": "midiiframe",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; forwards received MIDI messages to the parent page as IFRAME API midi-in events.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1954"
+	},
+	{
+		"param": "midiin",
+		"aliases": [
+			"midipull",
+			"midin",
+			"mi"
+		],
+		"role": "General",
+		"summary": "Allows for receiving of remote MIDI",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1958"
+	},
+	{
+		"param": "midioffset",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1900"
+	},
+	{
+		"param": "midiout",
+		"aliases": [
+			"midipush",
+			"mo"
+		],
+		"role": "General",
+		"summary": "Broadcast MIDI commands to a remote computer's virtual MIDI device",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1942"
+	},
+	{
+		"param": "midiremote",
+		"aliases": [
+			"remotemidi"
+		],
+		"role": "General",
+		"summary": "Remote MIDI control",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1905"
+	},
+	{
+		"param": "minidirector",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Default mini director stylesheet",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6275"
+	},
+	{
+		"param": "minipreview",
+		"aliases": [
+			"mini"
+		],
+		"role": "Sender",
+		"summary": "Mini self-preview at the top right corner",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4293"
+	},
+	{
+		"param": "minipreviewoffset",
+		"aliases": [
+			"mpo"
+		],
+		"role": "Sender",
+		"summary": "Used to position where the mini preview is located by default on screen",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4323"
+	},
+	{
+		"param": "minptime",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Minimum packet size of audio",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5527"
+	},
+	{
+		"param": "minroombitrate",
+		"aliases": [
+			"mrb"
+		],
+		"role": "Sender",
+		"summary": "Numeric kbps; floor applied to the room and scene total-bitrate caps.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4358"
+	},
+	{
+		"param": "mirror",
+		"aliases": [],
+		"role": "General",
+		"summary": "Inverts the video so it is the mirror reflection",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6514"
+	},
+	{
+		"param": "mirroroutput",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean-ish (0/false/off disables); permanently mirrors the published output (sets permaMirrored).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6530"
+	},
+	{
+		"param": "mixminus",
+		"aliases": [
+			"mm"
+		],
+		"role": "General",
+		"summary": "Boolean flag; sends each peer a mix-minus of other audio; on director or co-director, builds a custom mix per guest.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5880"
+	},
+	{
+		"param": "mobile",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Optimizes a guest/push link for a mobile device to help reduce CPU issues",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1317"
+	},
+	{
+		"param": "mono",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Has the inbound audio playback as mono audio",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3851"
+	},
+	{
+		"param": "monomic",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Sets a guest's audio input to mono (1-channel)",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3894"
+	},
+	{
+		"param": "morescenes",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Numeric scene count (default 16, minimum 8); sets session.maxScene and adds extra scene buttons S9 to SN to guest controls.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2731"
+	},
+	{
+		"param": "motiondetection",
+		"aliases": [
+			"motionswitch"
+		],
+		"role": "Viewer",
+		"summary": "Does a few things when it detects motion in a video",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1691"
+	},
+	{
+		"param": "mute",
+		"aliases": [
+			"muted",
+			"m"
+		],
+		"role": "Sender",
+		"summary": "Starts with the microphone muted by default",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2189"
+	},
+	{
+		"param": "muteall",
+		"aliases": [
+			"muteallguests",
+			"muteguests"
+		],
+		"role": "Director",
+		"summary": "Boolean flag; shows the director's 'mute all guests' toggle button.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2302"
+	},
+	{
+		"param": "muteguest",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Member of the &audiogain family: starts received guest audio at gain 0 (muted).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4426"
+	},
+	{
+		"param": "mutespeaker",
+		"aliases": [
+			"speakermute",
+			"speakermuted",
+			"sm",
+			"ms"
+		],
+		"role": "General",
+		"summary": "Auto mutes the speaker",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2322"
+	},
+	{
+		"param": "mutestatus",
+		"aliases": [
+			"showmutestate",
+			"showmuted"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; shows a muted-state icon on remote guest videos in a room.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:567"
+	},
+	{
+		"param": "noaudio",
+		"aliases": [
+			"na",
+			"hideaudio"
+		],
+		"role": "Viewer",
+		"summary": "Delivers video only streams; audio playback is disabled",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5065"
+	},
+	{
+		"param": "noaudioprocessing",
+		"aliases": [
+			"noap"
+		],
+		"role": "General",
+		"summary": "Disables all webaudio audio-processing pipelines",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6913"
+	},
+	{
+		"param": "noaudiowhep",
+		"aliases": [
+			"nawhep"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; disables WHEP audio management for incoming WHEP sessions.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:71674"
+	},
+	{
+		"param": "noaudiowhipin",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; strips audio from the SDP of incoming WHIP publishers (e.g. OBS).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1078"
+	},
+	{
+		"param": "nocaptionlabels",
+		"aliases": [
+			"nocclabels",
+			"nocclabel",
+			"nocaptionlabel"
+		],
+		"role": "Viewer",
+		"summary": "Disables showing the names when using the &closedcaptions feature",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3076"
+	},
+	{
+		"param": "nochunkaudio",
+		"aliases": [
+			"nochunkedaudio"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; tells senders this viewer won't receive chunked audio.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5431"
+	},
+	{
+		"param": "nochunked",
+		"aliases": [
+			"nochunk"
+		],
+		"role": "Viewer",
+		"summary": "Will ignore the chunked version and use the low-latency version",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5426"
+	},
+	{
+		"param": "nochunkediframestats",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; stops posting chunked-outbound frame events to the IFRAME API.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1950"
+	},
+	{
+		"param": "noclaim",
+		"aliases": [
+			"noautoclaim",
+			"nonclaiming"
+		],
+		"role": "Director",
+		"summary": "Boolean flag; stops a director page from auto-claiming the room.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6414"
+	},
+	{
+		"param": "nocontrolbar",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; hides the controlButtons bar and removes its reserved layout space.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6320"
+	},
+	{
+		"param": "nocontrolbarspace",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; stops the layout reserving dedicated space for the control bar.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2177"
+	},
+	{
+		"param": "nocontrols",
+		"aliases": [],
+		"role": "General",
+		"summary": "Will force hide the video control bar",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:669"
+	},
+	{
+		"param": "nocursor",
+		"aliases": [
+			"hidecursor",
+			"nomouse",
+			"hidemouse"
+		],
+		"role": "General",
+		"summary": "Hides the mouse cursor over videos at a CSS level",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5091"
+	},
+	{
+		"param": "nodirectoraudio",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Disables all audio playback from room directors",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5077"
+	},
+	{
+		"param": "nodirectorvideo",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Disables all video playback from room directors",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5081"
+	},
+	{
+		"param": "nodrawingrelay",
+		"aliases": [
+			"noshareddrawing"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; turns off relaying drawings between peers.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1530"
+	},
+	{
+		"param": "nofec",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Disables FEC (audio forward error correction)",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5675"
+	},
+	{
+		"param": "nofileshare",
+		"aliases": [
+			"nodownloads",
+			"nofiles"
+		],
+		"role": "Sender",
+		"summary": "Hides the ability for a guest to upload a file",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:8300"
+	},
+	{
+		"param": "nofullscreenbutton",
+		"aliases": [
+			"nofsb"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; hides the per-video full-window button on room guest tiles.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1848"
+	},
+	{
+		"param": "nohangupbutton",
+		"aliases": [
+			"nohub"
+		],
+		"role": "Sender",
+		"summary": "Hides the hang-up button",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1869"
+	},
+	{
+		"param": "noheadphones",
+		"aliases": [
+			"nhp"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; forces echo cancellation, auto gain and noise suppression on, and voice isolation on unless already set.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3871"
+	},
+	{
+		"param": "nohiddensceneoptimization",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; disables the reduced bitrate for hidden scenes, unless &hiddenscenebitrate is set.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3049"
+	},
+	{
+		"param": "nohistory",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; stops pushing rewritten URLs into browser history (default on inside iframes).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1534"
+	},
+	{
+		"param": "noisegate",
+		"aliases": [
+			"gating",
+			"gate",
+			"ng"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6645"
+	},
+	{
+		"param": "noisegatesettings",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6696"
+	},
+	{
+		"param": "nomeshcast",
+		"aliases": [
+			"nowhep"
+		],
+		"role": "Viewer",
+		"summary": "Tells a sender to provide a p2p stream, rather than a Meshcast stream",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1498"
+	},
+	{
+		"param": "nomicbutton",
+		"aliases": [
+			"nmb"
+		],
+		"role": "Sender",
+		"summary": "Disables the mic button; guests can't mute audio",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:910"
+	},
+	{
+		"param": "nomirror",
+		"aliases": [],
+		"role": "General",
+		"summary": "Disables the default mirror state of the video preview for a guest",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6510"
+	},
+	{
+		"param": "nomobilebitratecap",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; disables the mobile guest outbound bitrate cap.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:8646"
+	},
+	{
+		"param": "nomouseevents",
+		"aliases": [
+			"nme"
+		],
+		"role": "General",
+		"summary": "Boolean flag; disables mouse and touch handlers on videos, including mini-preview dragging and tap stats menus.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1279"
+	},
+	{
+		"param": "nonacks",
+		"aliases": [
+			"nonack"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; strips NACK feedback from received SDP.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5679"
+	},
+	{
+		"param": "noobsrecord",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; initializes the reported OBS recording state to false.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4544"
+	},
+	{
+		"param": "noobssourceactive",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; initializes the reported OBS source-active state to false.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4547"
+	},
+	{
+		"param": "noobsstream",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; initializes the reported OBS streaming state to false.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4538"
+	},
+	{
+		"param": "noobsvirtual",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; initializes the reported OBS virtual camera state to false.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4541"
+	},
+	{
+		"param": "noobsvisibility",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; initializes the reported OBS visibility state to false.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4550"
+	},
+	{
+		"param": "nopassword",
+		"aliases": [
+			"nopass",
+			"nopw",
+			"p0"
+		],
+		"role": "General",
+		"summary": "Boolean flag; disables the room password, including the default password.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3396"
+	},
+	{
+		"param": "nopli",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; strips PLI feedback from received SDP.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5683"
+	},
+	{
+		"param": "nopreview",
+		"aliases": [
+			"np"
+		],
+		"role": "Sender",
+		"summary": "Disables the local self-preview",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4286"
+	},
+	{
+		"param": "nopush",
+		"aliases": [
+			"noseed",
+			"viewonly",
+			"viewmode"
+		],
+		"role": "General",
+		"summary": "Blocks outbound publishing connections",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2710"
+	},
+	{
+		"param": "noremb",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; strips REMB bandwidth feedback from received SDP.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5687"
+	},
+	{
+		"param": "noscale",
+		"aliases": [
+			"noscaling"
+		],
+		"role": "Sender",
+		"summary": "Disables the publishing resolution from being capped",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1294"
+	},
+	{
+		"param": "noscreenshare",
+		"aliases": [
+			"noscreenshares",
+			"noscreen",
+			"noscreens"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; disables playback of screen shares.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4995"
+	},
+	{
+		"param": "nosettings",
+		"aliases": [
+			"ns"
+		],
+		"role": "Sender",
+		"summary": "Disables the local settings button",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:905"
+	},
+	{
+		"param": "nosignal",
+		"aliases": [
+			"nosignalpattern"
+		],
+		"role": "Viewer",
+		"summary": "Pattern 1, 2/clean, 3/clock (0/false/off disables); shows a no-signal SVG wait image for absent video.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:8366"
+	},
+	{
+		"param": "nospeakerbutton",
+		"aliases": [
+			"nsb"
+		],
+		"role": "Sender",
+		"summary": "Hides the speaker button",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1290"
+	},
+	{
+		"param": "nostats",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; disables the stats menu and hides its Show Stats context-menu entry.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6201"
+	},
+	{
+		"param": "notify",
+		"aliases": [
+			"beep",
+			"tone"
+		],
+		"role": "Sender",
+		"summary": "Audio alerts for raised hands, chat messages and if somebody joins the room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5742"
+	},
+	{
+		"param": "notios",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Just tells the system that its not an iOS device, or iPad, even if it is",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:894"
+	},
+	{
+		"param": "notipqr",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; disables the tip QR code shown in OBS or scene/view links.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2420"
+	},
+	{
+		"param": "notmobile",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Optimizes a guest/push link for a mobile device to improve video quality",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1315"
+	},
+	{
+		"param": "novice",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Hides some advanced guest options in the director's control center",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:920"
+	},
+	{
+		"param": "novideo",
+		"aliases": [
+			"nv",
+			"hidevideo",
+			"showonly"
+		],
+		"role": "Viewer",
+		"summary": "Disables all video playback on the local computer",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5050"
+	},
+	{
+		"param": "novideobutton",
+		"aliases": [
+			"nvb"
+		],
+		"role": "Sender",
+		"summary": "What is new",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1286"
+	},
+	{
+		"param": "novideowhipin",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; strips video from the SDP of incoming WHIP publishers (e.g. OBS).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1081"
+	},
+	{
+		"param": "nowebsite",
+		"aliases": [
+			"noiframe",
+			"noiframes",
+			"nif"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4971"
+	},
+	{
+		"param": "nowheptrickle",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag (or wheptrickle=0/false/off); disables ICE trickle on the managed Meshcast WHIP/WHEP gateway.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:68729"
+	},
+	{
+		"param": "obsfix",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4334"
+	},
+	{
+		"param": "obsoff",
+		"aliases": [
+			"oo",
+			"disableobs"
+		],
+		"role": "Viewer",
+		"summary": "Disables the tally light effects",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4491"
+	},
+	{
+		"param": "openscene",
+		"aliases": [
+			"openscenes"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; lets this scene or director accept guests' &joinscene requests and add them to the requested scenes.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2769"
+	},
+	{
+		"param": "optimize",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:899"
+	},
+	{
+		"param": "order",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "The order priority of a source video when added to the video mixer",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5135"
+	},
+	{
+		"param": "orderby",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Orders guest's by their stream ID in the director's room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5139"
+	},
+	{
+		"param": "outboundaudiobitrate",
+		"aliases": [
+			"oab"
+		],
+		"role": "Sender",
+		"summary": "Target audio bitrate and max bitrate for outgoing audio streams",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4054"
+	},
+	{
+		"param": "outboundsamplerate",
+		"aliases": [
+			"obsr"
+		],
+		"role": "Sender",
+		"summary": "Numeric Hz; sample rate for the outbound AudioContext.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6899"
+	},
+	{
+		"param": "outboundvideobitrate",
+		"aliases": [
+			"outboundbitrate",
+			"ovb"
+		],
+		"role": "Sender",
+		"summary": "Target video bitrate and max bitrate for outgoing video streams",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4057"
+	},
+	{
+		"param": "overlaycontrols",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; layout stops reserving height for the control bar so it overlays the video.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1282"
+	},
+	{
+		"param": "overlayfx",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; selects the overlay video effect.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7553"
+	},
+	{
+		"param": "pagezoom",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; adds a fixed 100-400% zoom slider that scales the grid layout and allows pinch zoom.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1542"
+	},
+	{
+		"param": "panning",
+		"aliases": [
+			"pan"
+		],
+		"role": "Viewer",
+		"summary": "Pans the outgoing audio left or right, allowing for spatial audio group chats",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6479"
+	},
+	{
+		"param": "password",
+		"aliases": [
+			"pass",
+			"pw",
+			"p"
+		],
+		"role": "General",
+		"summary": "Sets a password to view a stream or to join a room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3371"
+	},
+	{
+		"param": "pauseinvisible",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; videos hidden by the scene layout are muted and throttled to the hidden-scene bitrate.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2201"
+	},
+	{
+		"param": "pausepreview",
+		"aliases": [
+			"dpp"
+		],
+		"role": "Director",
+		"summary": "Boolean flag; sets director preview bitrate to 0 and marks the first quality button pressed.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1703"
+	},
+	{
+		"param": "pcm",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "PCM audio recordings",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2628"
+	},
+	{
+		"param": "pendingicettl",
+		"aliases": [],
+		"role": "General",
+		"summary": "Numeric ms (3000-60000, default 15000); how long queued pending ICE candidates are kept before expiry.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:878"
+	},
+	{
+		"param": "perma",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "With &room, keeps the \"You are in room\" header instead of switching it to the guest invite link.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "lib.js:27580"
+	},
+	{
+		"param": "permaid",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7238"
+	},
+	{
+		"param": "pfecaudio",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; audio FEC when the publisher or WHIP output prefers an audio codec.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5602"
+	},
+	{
+		"param": "pie",
+		"aliases": [],
+		"role": "General",
+		"summary": "Support for piesocket.com",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3838"
+	},
+	{
+		"param": "pip",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Auto PIP the first loaded video",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4473"
+	},
+	{
+		"param": "pipall",
+		"aliases": [
+			"pip2"
+		],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1853"
+	},
+	{
+		"param": "pipme",
+		"aliases": [
+			"pip3",
+			"mypip"
+		],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4478"
+	},
+	{
+		"param": "planb",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; switches SDP semantics to legacy plan-b.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6997"
+	},
+	{
+		"param": "playbacktimer",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Position 1-9 (default 7; 0/false/off disables); shows a viewer playback-time overlay at that position.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:7828"
+	},
+	{
+		"param": "playchannel",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6338"
+	},
+	{
+		"param": "poke",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "String topic or boolean flag; triggers a push notification on join, to that topic or a room-derived one.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5738"
+	},
+	{
+		"param": "portrait",
+		"aliases": [
+			"916",
+			"vertical"
+		],
+		"role": "Viewer",
+		"summary": "Optimizes the video mixer for 9:16 videos",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2454"
+	},
+	{
+		"param": "postapi",
+		"aliases": [
+			"posturl"
+		],
+		"role": "General",
+		"summary": "Lets you specify a custom POST URL to send events within VDO.Ninja to",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7163"
+	},
+	{
+		"param": "poster",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Lets you specify a poster image for videos that have not yet started playing",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1051"
+	},
+	{
+		"param": "postimage",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Post a snapshot of your local camera to a HTTPS/POST URL",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6296"
+	},
+	{
+		"param": "postinterval",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Time interval in seconds for &postimage",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6288"
+	},
+	{
+		"param": "powerpoint",
+		"aliases": [
+			"pptcontrols",
+			"slides",
+			"ppt"
+		],
+		"role": "General",
+		"summary": "Adds a built-in basic controller to control PowerPoint",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4502"
+	},
+	{
+		"param": "predaudio",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; RED audio when the publisher or WHIP output prefers an audio codec.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5598"
+	},
+	{
+		"param": "preferaudiocodec",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "String codec name; publisher-side preferred audio codec applied to outgoing connections.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5618"
+	},
+	{
+		"param": "preferchannel",
+		"aliases": [
+			"pc"
+		],
+		"role": "Sender",
+		"summary": "Numeric audio channel 1-8; guest's preferred channel, sent to the director for auto-assignment.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3033"
+	},
+	{
+		"param": "prefercurrenttab",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Will have the current tab as the default screen-share source",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2123"
+	},
+	{
+		"param": "preferipv4",
+		"aliases": [
+			"ipv4"
+		],
+		"role": "General",
+		"summary": "Boolean flag; drops IPv6 candidates when IPv4 candidates exist.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6623"
+	},
+	{
+		"param": "prefervideocodec",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "String codec name; publisher-side preferred video codec applied to outgoing connections.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5626"
+	},
+	{
+		"param": "preloadbitrate",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Can be used to change the pre-load target bitrate for scenes",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3053"
+	},
+	{
+		"param": "preset",
+		"aliases": [],
+		"role": "General",
+		"summary": "Index or key (default 1); loads a parameter string from presets.json and merges it into the URL params.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:541"
+	},
+	{
+		"param": "previewmode",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Activates the Preview layout for the director's room by default",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:596"
+	},
+	{
+		"param": "proaudio",
+		"aliases": [
+			"stereo",
+			"s"
+		],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3741"
+	},
+	{
+		"param": "prompt",
+		"aliases": [
+			"validate",
+			"approve"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3266"
+	},
+	{
+		"param": "proxy",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4279"
+	},
+	{
+		"param": "pseudoguest",
+		"aliases": [
+			"pseudoscene"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; auto-joins without camera or mic, hides main menu, header, control buttons and mini taskbar, and flags itself as pseudoguest.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2963"
+	},
+	{
+		"param": "ptime",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Audio packet size",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5520"
+	},
+	{
+		"param": "ptt",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Hotkey string (e.g. ctrl+m); sets the push-to-talk hotkey; empty value opens a hotkey selection prompt.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1983"
+	},
+	{
+		"param": "ptz",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Enables pan/tilt/zoom control of the device, if compatible",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:890"
+	},
+	{
+		"param": "ptzslider",
+		"aliases": [
+			"ptzcontrol",
+			"ptzcontrols"
+		],
+		"role": "Director",
+		"summary": "Boolean flag; adds pan/tilt/zoom slider controls on guest videos for directors or remote-control viewers.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2208"
+	},
+	{
+		"param": "publish",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; enables studio publish mode, showing the publish settings panel and the local record button (ignored in record-window mode).",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2670"
+	},
+	{
+		"param": "push",
+		"aliases": [
+			"id"
+		],
+		"role": "Sender",
+		"summary": "The stream ID that you are publishing with will be the defined value",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7238"
+	},
+	{
+		"param": "pusheffectsdata",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; posts face-mesh effect keypoint coordinates to the parent page via the IFRAME API.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1298"
+	},
+	{
+		"param": "pushloudness",
+		"aliases": [
+			"getloudness"
+		],
+		"role": "General",
+		"summary": "Boolean flag; enables loudness output over the IFRAME API.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1302"
+	},
+	{
+		"param": "pvred",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; adds video RED/FEC when the publisher prefers a video codec.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5562"
+	},
+	{
+		"param": "quality",
+		"aliases": [
+			"q"
+		],
+		"role": "Sender",
+		"summary": "Presets the quality setting for a guest",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6076"
+	},
+	{
+		"param": "queue",
+		"aliases": [],
+		"role": "Director",
+		"summary": "A basic guest queuing and approving system",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7174"
+	},
+	{
+		"param": "queuetransfer",
+		"aliases": [
+			"qt"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1404"
+	},
+	{
+		"param": "r2d2",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Easter egg &notify sound",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5790"
+	},
+	{
+		"param": "rampuptime",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3057"
+	},
+	{
+		"param": "randomize",
+		"aliases": [
+			"random"
+		],
+		"role": "Viewer",
+		"summary": "Random video loading order",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6437"
+	},
+	{
+		"param": "rcap",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Alias of &roomcap: caps how many guests the room admits.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6392"
+	},
+	{
+		"param": "receivetips",
+		"aliases": [
+			"tipping"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; enables receiving tips and opens the onboarding modal when no tipsid is set.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2388"
+	},
+	{
+		"param": "record",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Record functionality for guests",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2525"
+	},
+	{
+		"param": "recordcodec",
+		"aliases": [
+			"rc"
+		],
+		"role": "Sender",
+		"summary": "Lets you set the video recording codec",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2632"
+	},
+	{
+		"param": "recordfolder",
+		"aliases": [],
+		"role": "General",
+		"summary": "Folder name string; Google Drive folder used for recordings.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2638"
+	},
+	{
+		"param": "recordmotion",
+		"aliases": [
+			"motionrecord"
+		],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1697"
+	},
+	{
+		"param": "recordwindow",
+		"aliases": [
+			"rw"
+		],
+		"role": "General",
+		"summary": "Optional bitrate kbps (default 6000); captures the current tab and records it to disk, with clean output.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2142"
+	},
+	{
+		"param": "redaudio",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; experimental RED audio when applying the viewer's requested audio codec.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5590"
+	},
+	{
+		"param": "relay",
+		"aliases": [
+			"privacy",
+			"private"
+		],
+		"role": "General",
+		"summary": "Forces TURN relay server into use",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7104"
+	},
+	{
+		"param": "remote",
+		"aliases": [
+			"rem"
+		],
+		"role": "General",
+		"summary": "Allows remote operation of the zoom and focus, and access to statistics",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4368"
+	},
+	{
+		"param": "requireapproval",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Boolean flag; room claim requires server-side approval before guests join.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7233"
+	},
+	{
+		"param": "requireauth",
+		"aliases": [],
+		"role": "General",
+		"summary": "Same as &auth: requires sign-in before the session loads; also keeps the launcher hidden until auth resolves.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:404"
+	},
+	{
+		"param": "requireencryption",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; requires encrypted signaling messages and rejects ones without an encryption vector.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6430"
+	},
+	{
+		"param": "reservedslots",
+		"aliases": [],
+		"role": "Director",
+		"summary": "JSON object mapping slot numbers to stream IDs; preassigns reserved slots and enables reservations.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5153"
+	},
+	{
+		"param": "reserveslots",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Alias of &slotreserve: reserves layout slots when slot mode is on.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5146"
+	},
+	{
+		"param": "resources",
+		"aliases": [],
+		"role": "General",
+		"summary": "Comma list or boolean flag; accepts incoming resource data channels from peers and advertises the allowed resource types.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3557"
+	},
+	{
+		"param": "retransmit",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2953"
+	},
+	{
+		"param": "retry",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Numeric seconds (default 30); forces a retry of watching the requested view streams after that delay.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4736"
+	},
+	{
+		"param": "retrytimeout",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Numeric ms (minimum 5000, default 5000); delay before re-requesting a lost stream.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:817"
+	},
+	{
+		"param": "rightalign",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Alias of &alignright: aligns the video layout to the right; optional value.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2107"
+	},
+	{
+		"param": "room",
+		"aliases": [
+			"roomid",
+			"r"
+		],
+		"role": "General",
+		"summary": "Sets a room ID for the session to join",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:627"
+	},
+	{
+		"param": "roombitrate",
+		"aliases": [
+			"roomvideobitrate",
+			"rbr"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4045"
+	},
+	{
+		"param": "roomcap",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Positive integer; participant cap sent with the director's room claim.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6392"
+	},
+	{
+		"param": "roomkey",
+		"aliases": [
+			"rk"
+		],
+		"role": "General",
+		"summary": "String (sanitized); room bypass key sent on join, used as claim bypass key and appended to generated links.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6405"
+	},
+	{
+		"param": "rooms",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Quick director access to a list of rooms for transfering guests",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1667"
+	},
+	{
+		"param": "roomtier1bitrate",
+		"aliases": [
+			"rt1b",
+			"roomonlylowbitrate",
+			"rolb"
+		],
+		"role": "Sender",
+		"summary": "Numeric kbps; overrides the mobile guest bitrate cap used at room-only tier 1 (default 1500).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5951"
+	},
+	{
+		"param": "roomtier2bitrate",
+		"aliases": [
+			"rt2b",
+			"roomonlybitrate",
+			"rob"
+		],
+		"role": "Sender",
+		"summary": "Numeric kbps; overrides the mobile guest bitrate cap used at room-only tier 2 and above (default 2000).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5958"
+	},
+	{
+		"param": "rotate",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Rotates the camera",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1735"
+	},
+	{
+		"param": "rotatewindow",
+		"aliases": [
+			"rotatepage"
+		],
+		"role": "General",
+		"summary": "Will rotate the contents of the VDO.Ninja window",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1740"
+	},
+	{
+		"param": "rounded",
+		"aliases": [
+			"round"
+		],
+		"role": "General",
+		"summary": "Rounds the edges of videos",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4682"
+	},
+	{
+		"param": "rows",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Comma list of row counts indexed by guest count; auto layout arranges tiles into that many rows (negative centers a partial last row).",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2660"
+	},
+	{
+		"param": "rtpprofile",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "String talkinghead or irl; enables publisher-side opt-in RTP camera adaptation with that profile.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6354"
+	},
+	{
+		"param": "safemode",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Tries to load the camera/audio with as little possible complexity as possible",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:725"
+	},
+	{
+		"param": "salt",
+		"aliases": [],
+		"role": "General",
+		"summary": "String; custom salt combined with the password when generating room and director hashes.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3408"
+	},
+	{
+		"param": "samplerate",
+		"aliases": [
+			"sr"
+		],
+		"role": "Viewer",
+		"summary": "Audio playback sample-rate, in hz",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6856"
+	},
+	{
+		"param": "saturation",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Lets you manually pre-set the saturation of the camera/webcam",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7577"
+	},
+	{
+		"param": "scale",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Scales the video resolution of the inbound video by the given percent",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5692"
+	},
+	{
+		"param": "scene",
+		"aliases": [
+			"scn"
+		],
+		"role": "Viewer",
+		"summary": "Defines the link to be treated like a scene",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2722"
+	},
+	{
+		"param": "scenelinkbitrate",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Numeric kbps; appends &totalbitrate= to generated scene links.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5645"
+	},
+	{
+		"param": "scenelinkcodec",
+		"aliases": [],
+		"role": "Director",
+		"summary": "String codec name; appends &codec= to generated scene links and disables the codec selector.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5634"
+	},
+	{
+		"param": "scenemutebutton",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; shows a guest button that mutes outbound audio to scene peers while still talking in the room.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:914"
+	},
+	{
+		"param": "scenerestore",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Restores a guest's selected scene assignments after reconnecting",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2773"
+	},
+	{
+		"param": "scenetype",
+		"aliases": [
+			"type"
+		],
+		"role": "Viewer",
+		"summary": "Shows only the last added video to a scene",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3061"
+	},
+	{
+		"param": "scenewss2",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Host/URL; websocket put in director-generated scene links, active on scene pages when wss/wss2 unset.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7623"
+	},
+	{
+		"param": "screen",
+		"aliases": [
+			"queue2"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7187"
+	},
+	{
+		"param": "screenaudio",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "&screenaudio=0 or false shares the screen without audio, same as &screensharevideoonly; hides the screen-audio option.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:7911"
+	},
+	{
+		"param": "screenp2p",
+		"aliases": [
+			"noscreenwhep"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; prefers peer-to-peer over WHEP for incoming screen shares.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4999"
+	},
+	{
+		"param": "screenshare",
+		"aliases": [
+			"ss"
+		],
+		"role": "Sender",
+		"summary": "Disables camera-sharing as an option",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:499"
+	},
+	{
+		"param": "screenshare2",
+		"aliases": [
+			"ss2"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2077"
+	},
+	{
+		"param": "screenshareaec",
+		"aliases": [
+			"ssec",
+			"ssaec"
+		],
+		"role": "Sender",
+		"summary": "Turns automatic echo-cancellation filter for screen-shares ON or OFF",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3991"
+	},
+	{
+		"param": "screenshareaspectratio",
+		"aliases": [
+			"ssar"
+		],
+		"role": "Sender",
+		"summary": "Changes the screen-share aspect ratio on the publisher side",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2482"
+	},
+	{
+		"param": "screenshareautogain",
+		"aliases": [
+			"ssag",
+			"ssagc"
+		],
+		"role": "Sender",
+		"summary": "Turns audio auto-normalization filter for screen-shares ON or OFF",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4009"
+	},
+	{
+		"param": "screensharebitrate",
+		"aliases": [
+			"ssbitrate"
+		],
+		"role": "Viewer",
+		"summary": "Lets you manually set the video bitrate for screen-shares",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7970"
+	},
+	{
+		"param": "screensharebutton",
+		"aliases": [
+			"ssb"
+		],
+		"role": "Sender",
+		"summary": "Forces the screen-share button to appear for guests",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6253"
+	},
+	{
+		"param": "screensharecontenthint",
+		"aliases": [
+			"sscontenthint",
+			"screensharecontenttype",
+			"sscontent",
+			"sshint"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5555"
+	},
+	{
+		"param": "screensharecursor",
+		"aliases": [
+			"cursor"
+		],
+		"role": "Sender",
+		"summary": "Attempts to show the mouse cursor on screen shares",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5108"
+	},
+	{
+		"param": "screensharedenoise",
+		"aliases": [
+			"ssdn"
+		],
+		"role": "Sender",
+		"summary": "Turns audio noise reduction filter for screen-shares ON or OFF",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4026"
+	},
+	{
+		"param": "screensharefps",
+		"aliases": [
+			"ssfps"
+		],
+		"role": "Sender",
+		"summary": "Set a target FPS for your screenshare (secondary stream)",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7916"
+	},
+	{
+		"param": "screensharehide",
+		"aliases": [
+			"hidescreenshare",
+			"hidess",
+			"sshide"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7886"
+	},
+	{
+		"param": "screenshareid",
+		"aliases": [
+			"ssid"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7902"
+	},
+	{
+		"param": "screensharelabel",
+		"aliases": [
+			"sslabel"
+		],
+		"role": "Sender",
+		"summary": "The screen-share of the guest will have the same label as the guest",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7979"
+	},
+	{
+		"param": "screensharequality",
+		"aliases": [
+			"ssq"
+		],
+		"role": "Sender",
+		"summary": "Set a custom screenshare quality",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7927"
+	},
+	{
+		"param": "screensharestereo",
+		"aliases": [
+			"sss",
+			"ssproaudio"
+		],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3797"
+	},
+	{
+		"param": "screensharetype",
+		"aliases": [
+			"sstype"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2096"
+	},
+	{
+		"param": "screensharevideoonly",
+		"aliases": [
+			"ssvideoonly",
+			"ssvo"
+		],
+		"role": "Sender",
+		"summary": "Lets you disable the option to select audio when screen sharing",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7911"
+	},
+	{
+		"param": "screenwhep",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean-ish value; true prefers WHEP, false prefers peer-to-peer, for incoming screen shares.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5005"
+	},
+	{
+		"param": "screenwheponly",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; prefers WHEP only for incoming screen shares.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5002"
+	},
+	{
+		"param": "secure",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6423"
+	},
+	{
+		"param": "selfbrowsersurface",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Excludes the current tab as a screen-share source option",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2126"
+	},
+	{
+		"param": "sendframes",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Optional string; when embedded in an iframe, posts incoming video frames to the parent window.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6945"
+	},
+	{
+		"param": "sensor",
+		"aliases": [
+			"sensors",
+			"gyro",
+			"gyros",
+			"accelerometer"
+		],
+		"role": "Sender",
+		"summary": "Access device sensor data at given rate",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5507"
+	},
+	{
+		"param": "sensorfilter",
+		"aliases": [
+			"sensorsfilter",
+			"filtersensor",
+			"filtersensors"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5511"
+	},
+	{
+		"param": "sensorsorigin",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Origin string; only accepts external sensor bridge messages from this origin (with &webxrbridge).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5517"
+	},
+	{
+		"param": "sessionlog",
+		"aliases": [
+			"slog",
+			"sessionmarkers"
+		],
+		"role": "General",
+		"summary": "Boolean flag; enables session logging, shows the session marker button, and downloads the session log on hangup.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:3083"
+	},
+	{
+		"param": "sessionlogtranscript",
+		"aliases": [
+			"slogtranscript",
+			"slogt"
+		],
+		"role": "General",
+		"summary": "Boolean flag; adds final transcript lines to the session log (needs &sessionlog).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:3087"
+	},
+	{
+		"param": "sharper",
+		"aliases": [
+			"sharpen"
+		],
+		"role": "Viewer",
+		"summary": "Should 'up to' double the amount of playback video resolution",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2315"
+	},
+	{
+		"param": "sharperscreen",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Sets &scale=100, but only for screen-shares",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5719"
+	},
+	{
+		"param": "sharpness",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Lets you manually pre-set the sharpness of the camera/webcam",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7580"
+	},
+	{
+		"param": "showall",
+		"aliases": [],
+		"role": "General",
+		"summary": "Includes non-media-based push connections as video elements in a group room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6851"
+	},
+	{
+		"param": "showconnections",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Displays the total number of p2p connections of a remote stream",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3412"
+	},
+	{
+		"param": "showdirector",
+		"aliases": [
+			"sd"
+		],
+		"role": "Director",
+		"summary": "Lets the director perform alongside guests, showing up in scene-view links",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1681"
+	},
+	{
+		"param": "showheader",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; forces the page header and head2 visible (display, opacity, hidden class removed).",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6262"
+	},
+	{
+		"param": "showlabels",
+		"aliases": [
+			"showlabel",
+			"sl"
+		],
+		"role": "General",
+		"summary": "Display labels as a video overlay",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3476"
+	},
+	{
+		"param": "showlist",
+		"aliases": [],
+		"role": "General",
+		"summary": "Shows list of hidden guests",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1449"
+	},
+	{
+		"param": "showmeta",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; shows guests' shared meta fields in their video labels.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:3492"
+	},
+	{
+		"param": "showpreview",
+		"aliases": [
+			"preview"
+		],
+		"role": "Sender",
+		"summary": "Forces the guest to have a self-preview",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4315"
+	},
+	{
+		"param": "showtips",
+		"aliases": [
+			"supporttips"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; viewer opts in to see tip icons on videos of performers accepting tips.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2412"
+	},
+	{
+		"param": "signalmeter",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Visualizes the packet loss of a guest",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1637"
+	},
+	{
+		"param": "sink",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6134"
+	},
+	{
+		"param": "slider",
+		"aliases": [
+			"showslider"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; always shows the outbound video bitrate slider in the connection stats menu, even in rooms.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:3665"
+	},
+	{
+		"param": "slideshow",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Plays video back as a series of full-window images",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4373"
+	},
+	{
+		"param": "slot",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Tells the director which slot the guest should prefer to be in",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5162"
+	},
+	{
+		"param": "slotmode",
+		"aliases": [
+			"slotsmode"
+		],
+		"role": "Director",
+		"summary": "Gives you the possibility to assign slots to the connected guests",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5143"
+	},
+	{
+		"param": "slotreserve",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Boolean value (0 or false disables); enables slot reservations, marked in the slot picker.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5146"
+	},
+	{
+		"param": "slots",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5167"
+	},
+	{
+		"param": "smallshare",
+		"aliases": [
+			"smallscreen"
+		],
+		"role": "Sender",
+		"summary": "Makes the screen share behave like a webcam share",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4275"
+	},
+	{
+		"param": "socialstream",
+		"aliases": [],
+		"role": "General",
+		"summary": "Unclear from code: sets session.socialstream (string), which no code reads.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1896"
+	},
+	{
+		"param": "solo",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Similar to &scene, but tells the system to be a solo-link",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2777"
+	},
+	{
+		"param": "speedtest",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Flag or TURN locale string; speed-test mode: filters TURN servers, caps bitrate at 6000 kbps, sets queue type 4.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7094"
+	},
+	{
+		"param": "splitrecording",
+		"aliases": [],
+		"role": "General",
+		"summary": "Numeric minutes (default 5); splits local recordings into segments of that length.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2614"
+	},
+	{
+		"param": "square",
+		"aliases": [
+			"11"
+		],
+		"role": "Viewer",
+		"summary": "Optimizes the video mixer for 1:1 aspect ratio videos",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2457"
+	},
+	{
+		"param": "sspaused",
+		"aliases": [
+			"sspause",
+			"ssp"
+		],
+		"role": "Viewer",
+		"summary": "Starts any screen-share paused",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7891"
+	},
+	{
+		"param": "ssstyle",
+		"aliases": [
+			"screensharestyle"
+		],
+		"role": "Viewer",
+		"summary": "Numeric style (default 1); auto-layout for screen shares, spotlighting the share; 2 puts others in a left column.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2102"
+	},
+	{
+		"param": "stats",
+		"aliases": [],
+		"role": "General",
+		"summary": "Shows the connection/media stats window by default",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6191"
+	},
+	{
+		"param": "statsinterval",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6214"
+	},
+	{
+		"param": "sticky",
+		"aliases": [],
+		"role": "General",
+		"summary": "Allows a user to save and then later restore their streaming session settings",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:705"
+	},
+	{
+		"param": "streamlabs",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4590"
+	},
+	{
+		"param": "streamtakeover",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag (empty/1/true); lets a publisher reclaim its in-use stream ID using a browser-stored signed takeover key.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:20"
+	},
+	{
+		"param": "structure",
+		"aliases": [],
+		"role": "General",
+		"summary": "Will have the video holding div element be structured to the aspect ratio",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2463"
+	},
+	{
+		"param": "stun",
+		"aliases": [],
+		"role": "General",
+		"summary": "Lets you specify a STUN server for webRTC negotiation",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6961"
+	},
+	{
+		"param": "stunonly",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; filters SDP and ICE to STUN candidates only, no TURN relay.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6604"
+	},
+	{
+		"param": "style",
+		"aliases": [
+			"st"
+		],
+		"role": "General",
+		"summary": "Lets you select how audio-only elements are displayed in OBS and for guests",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6814"
+	},
+	{
+		"param": "suppresslocalaudio",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Will disable local audio playback of a Chrome tab while screen-sharing it",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2120"
+	},
+	{
+		"param": "surfaceswitching",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "String include/exclude (default exclude); passes surfaceSwitching to the screen-capture request.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2130"
+	},
+	{
+		"param": "svc",
+		"aliases": [
+			"scalabilitymode"
+		],
+		"role": "",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1240"
+	},
+	{
+		"param": "sync",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Sets an offset (in ms) for the automatic audio sync fix node",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3720"
+	},
+	{
+		"param": "systemaudio",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Excludes the system-audio as an audio source when display sharing",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2133"
+	},
+	{
+		"param": "tally",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Will make the tally sign larger and colorize the background of the page",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4518"
+	},
+	{
+		"param": "tallyoff",
+		"aliases": [
+			"notally",
+			"disabletally",
+			"to"
+		],
+		"role": "Sender",
+		"summary": "Disables the Tally Light's visibility for that particular guest",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4515"
+	},
+	{
+		"param": "tc",
+		"aliases": [
+			"timecode",
+			"showtimecode"
+		],
+		"role": "General",
+		"summary": "Optional value; parses incoming MIDI timecode and shows it as an on-screen 'Timecode' overlay message.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1946"
+	},
+	{
+		"param": "tcp",
+		"aliases": [],
+		"role": "General",
+		"summary": "Forces TCP mode",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6956"
+	},
+	{
+		"param": "testaudio",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean (0/false/off/no disables); with testmedia, toggles the synthetic audio track.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:837"
+	},
+	{
+		"param": "testfps",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric fps (1-60); frame rate of synthetic test video, only with testmedia.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:845"
+	},
+	{
+		"param": "testheight",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric px (120-2160); height of synthetic test video, only with testmedia.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:857"
+	},
+	{
+		"param": "testmedia",
+		"aliases": [
+			"syntheticmedia"
+		],
+		"role": "Sender",
+		"summary": "Mode string (1/on, audio/mic/a, video/cam/v; 0/false/off disables); replaces capture with synthetic test media.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:824"
+	},
+	{
+		"param": "testtone",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric Hz (50-2000, default 440); tone frequency of synthetic test audio, only with testmedia.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:863"
+	},
+	{
+		"param": "testvideo",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean (0/false/off/no disables); with testmedia, toggles the synthetic video track.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:841"
+	},
+	{
+		"param": "testwidth",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric px (160-3840); width of synthetic test video, only with testmedia.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:851"
+	},
+	{
+		"param": "tfjsfacemesh",
+		"aliases": [
+			"legacyfacemesh"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; uses the legacy TFJS face mesh instead of the MediaPipe Face Landmarker.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:15266"
+	},
+	{
+		"param": "tfliteeffects",
+		"aliases": [
+			"forcetflite",
+			"nomediapipe"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; skips the MediaPipe selfie segmenter, using the TFLite effects path.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:67524"
+	},
+	{
+		"param": "timer",
+		"aliases": [],
+		"role": "General",
+		"summary": "Positions the countdown timer",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7848"
+	},
+	{
+		"param": "tipamounts",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Comma list of positive integers (default 5,10,25,50,100); tip amounts sent to viewers for tip buttons.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2401"
+	},
+	{
+		"param": "tipcurrency",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Currency code (uppercased, default USD); currency sent to viewers for tipping.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2408"
+	},
+	{
+		"param": "tipqrsize",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Numeric px (minimum 100, default 150); size of the tip QR code; setting it forces the QR to show.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2416"
+	},
+	{
+		"param": "tips",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Shows a help-screen on the guest joining",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4402"
+	},
+	{
+		"param": "tipserver",
+		"aliases": [],
+		"role": "General",
+		"summary": "URL; tip backend server (default ninjabacker.com) for tip pages and notifications.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:2398"
+	},
+	{
+		"param": "tipsid",
+		"aliases": [
+			"tip",
+			"tipid"
+		],
+		"role": "Sender",
+		"summary": "Overlay token string; enables receiving tips; empty value opens the tip onboarding modal.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2373"
+	},
+	{
+		"param": "token",
+		"aliases": [],
+		"role": "General",
+		"summary": "A token for invite/scene links to determine whose the director of a room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5446"
+	},
+	{
+		"param": "totalbitrate",
+		"aliases": [
+			"tb"
+		],
+		"role": "Viewer",
+		"summary": "Sets both &totalscenebitrate and &totalroombitrate flags",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5926"
+	},
+	{
+		"param": "totalroombitrate",
+		"aliases": [
+			"totalroomvideobitrate",
+			"trb"
+		],
+		"role": "Viewer",
+		"summary": "The total bitrate a guest in a room can view video streams with",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5926"
+	},
+	{
+		"param": "totalscenebitrate",
+		"aliases": [
+			"maxtotalscenebitrate",
+			"mtsb",
+			"tsb"
+		],
+		"role": "Viewer",
+		"summary": "Max. video bitrate a scene uses",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5975"
+	},
+	{
+		"param": "transcribe",
+		"aliases": [
+			"transcript",
+			"trans"
+		],
+		"role": "Sender",
+		"summary": "Enables transcription and closed captioning",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3069"
+	},
+	{
+		"param": "translate",
+		"aliases": [],
+		"role": "General",
+		"summary": "Language code or boolean flag; loads the live translation controller and its UI, starting translation as owner.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:4172"
+	},
+	{
+		"param": "translateaudio",
+		"aliases": [],
+		"role": "General",
+		"summary": "String mode replace, duck or mix (default replace) for translated audio; used with &translate.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4203"
+	},
+	{
+		"param": "translatelang",
+		"aliases": [
+			"translationlanguage"
+		],
+		"role": "General",
+		"summary": "Alias of &translate / &translationlanguage: sets the live caption translation language.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:4172"
+	},
+	{
+		"param": "translationbroker",
+		"aliases": [],
+		"role": "General",
+		"summary": "URL of the translation broker service; used with &translate.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4204"
+	},
+	{
+		"param": "translationprovider",
+		"aliases": [],
+		"role": "General",
+		"summary": "String provider name for live translation (default openai, or localStorage value); used with &translate.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4202"
+	},
+	{
+		"param": "transparent",
+		"aliases": [
+			"transparency"
+		],
+		"role": "General",
+		"summary": "Makes the background transparent",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3660"
+	},
+	{
+		"param": "transparentbg",
+		"aliases": [
+			"transparentbackground"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; selects video effect 16 (transparent background).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7535"
+	},
+	{
+		"param": "turn",
+		"aliases": [],
+		"role": "General",
+		"summary": "Lets you specify a custom TURN server or disable all TURN servers",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7001"
+	},
+	{
+		"param": "tz",
+		"aliases": [],
+		"role": "General",
+		"summary": "Specifies a negative timezone value in minutes for a TURN server",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6448"
+	},
+	{
+		"param": "universaltoken",
+		"aliases": [
+			"authtoken"
+		],
+		"role": "General",
+		"summary": "Same as &auth: requires sign-in before the session loads, using a universal auth token.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:433"
+	},
+	{
+		"param": "unmutestatus",
+		"aliases": [
+			"showunmutestate",
+			"showunmuted"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag; shows an unmuted-state icon on remote guest videos in a room.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:570"
+	},
+	{
+		"param": "unsafe",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; with a custom password, allows sending and accepting unencrypted signaling messages.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6433"
+	},
+	{
+		"param": "updateonslotschange",
+		"aliases": [
+			"uosc"
+		],
+		"role": "Viewer",
+		"summary": "Boolean flag (false/0/off disables); rebuilds and reapplies the layout when slot assignments change.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1632"
+	},
+	{
+		"param": "userbackgroundimage",
+		"aliases": [
+			"userbgimage",
+			"ubgimg"
+		],
+		"role": "Viewer",
+		"summary": "Image URL or data URI (default backgrounds/1.png); background image behind each video tile in the layout mixer.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:927"
+	},
+	{
+		"param": "userforegroundimage",
+		"aliases": [
+			"overlayimage",
+			"overlayimg"
+		],
+		"role": "Viewer",
+		"summary": "Image URL or data URI (default avatar1.png); overlay image placed over each video tile in the layout mixer.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:941"
+	},
+	{
+		"param": "vbr",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Sets the audio bitrate to be variable, instead of constant",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:3707"
+	},
+	{
+		"param": "vdo",
+		"aliases": [],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4798"
+	},
+	{
+		"param": "videobitrate",
+		"aliases": [
+			"bitrate",
+			"vb"
+		],
+		"role": "Viewer",
+		"summary": "Sets the \"desired target\" bitrate in kbps",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5898"
+	},
+	{
+		"param": "videocontrols",
+		"aliases": [
+			"controls"
+		],
+		"role": "General",
+		"summary": "Shows the video control bar",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:642"
+	},
+	{
+		"param": "videodevice",
+		"aliases": [
+			"vdevice",
+			"vd"
+		],
+		"role": "Sender",
+		"summary": "Pre-configures the selected video device",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4798"
+	},
+	{
+		"param": "videomute",
+		"aliases": [
+			"videomuted",
+			"vm"
+		],
+		"role": "Sender",
+		"summary": "Auto mutes guest's video",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2197"
+	},
+	{
+		"param": "videoonly",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; disables audio playback for all streams.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5062"
+	},
+	{
+		"param": "view",
+		"aliases": [
+			"streamid",
+			"v",
+			"V",
+			"pull"
+		],
+		"role": "Viewer",
+		"summary": "Defines the stream(s) you are receiving, by their stream IDs",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4095"
+	},
+	{
+		"param": "viewchroma",
+		"aliases": [
+			"vchroma"
+		],
+		"role": "Viewer",
+		"summary": "Hex color (default 0f0); chroma-keys incoming video on non-director viewers.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5189"
+	},
+	{
+		"param": "viewchromahide",
+		"aliases": [
+			"viewchromahidesource",
+			"vchromahide",
+			"vchromahidesource"
+		],
+		"role": "Viewer",
+		"summary": "Boolean value (default on; 0, false, off disable); hides the unkeyed source video under &viewchroma.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5204"
+	},
+	{
+		"param": "viewchromasmoothing",
+		"aliases": [
+			"vchromasmoothing",
+			"viewchromasmooth",
+			"vchromasmooth"
+		],
+		"role": "Viewer",
+		"summary": "Numeric chroma-key edge smoothing for &viewchroma.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5198"
+	},
+	{
+		"param": "viewchromathreshold",
+		"aliases": [
+			"vchromathreshold",
+			"viewchromathresh",
+			"vchromathresh"
+		],
+		"role": "Viewer",
+		"summary": "Numeric chroma-key threshold for &viewchroma.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5193"
+	},
+	{
+		"param": "viewheight",
+		"aliases": [
+			"vh"
+		],
+		"role": "Viewer",
+		"summary": "Does the same thing as &scale but you pass the height in pixels",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5710"
+	},
+	{
+		"param": "viewslot",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Numeric slot number; shows only the guest in that room slot full-frame and plays only layout audio.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2212"
+	},
+	{
+		"param": "viewwidth",
+		"aliases": [
+			"vw"
+		],
+		"role": "Viewer",
+		"summary": "Does the same thing as &scale but you pass the width in pixels",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5703"
+	},
+	{
+		"param": "virtualbackground",
+		"aliases": [
+			"vbg"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; selects video effect 5 (virtual background).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7533"
+	},
+	{
+		"param": "volume",
+		"aliases": [
+			"vol"
+		],
+		"role": "Viewer",
+		"summary": "Sets the 'default' playback volume for all video elements",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4432"
+	},
+	{
+		"param": "volumecontrol",
+		"aliases": [
+			"volumecontrols",
+			"vc"
+		],
+		"role": "Viewer",
+		"summary": "Shows a dedicated local audio-volume control bar for canvas or image elements",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2164"
+	},
+	{
+		"param": "vred",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; adds video RED/FEC when preferring the requested codec in received SDP.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5559"
+	},
+	{
+		"param": "waitice",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; waits for ICE candidate gathering to complete before sending SDP.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4255"
+	},
+	{
+		"param": "waitimage",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:8363"
+	},
+	{
+		"param": "waitmessage",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:8430"
+	},
+	{
+		"param": "waitpage",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "URL; shows that page as a full-screen iframe layout until a layout takes over (needs iframes allowed).",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:4251"
+	},
+	{
+		"param": "waittimeout",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:8403"
+	},
+	{
+		"param": "webcam",
+		"aliases": [
+			"wc"
+		],
+		"role": "Sender",
+		"summary": "Disables screen-sharing as an option",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1997"
+	},
+	{
+		"param": "webcam2",
+		"aliases": [
+			"wc2"
+		],
+		"role": "Sender",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2073"
+	},
+	{
+		"param": "webp",
+		"aliases": [
+			"images"
+		],
+		"role": "Viewer",
+		"summary": "Custom video codec for broadcasts",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4064"
+	},
+	{
+		"param": "webpquality",
+		"aliases": [
+			"webpq",
+			"wq"
+		],
+		"role": "Viewer",
+		"summary": "Quality setting for the &webp option",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:4069"
+	},
+	{
+		"param": "website",
+		"aliases": [
+			"iframe"
+		],
+		"role": "Sender",
+		"summary": "Only shares a website with viewers",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:2036"
+	},
+	{
+		"param": "webxrbridge",
+		"aliases": [
+			"externalsensors",
+			"sensorsbridge"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; enables the external sensor bridge that accepts sensor data via postMessage.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5515"
+	},
+	{
+		"param": "weightedroombitrate",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean value (default on; 0, false, off, no disable); gives larger camera tiles a larger share of the room video budget.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:4364"
+	},
+	{
+		"param": "welcome",
+		"aliases": [
+			"entrymsg"
+		],
+		"role": "Sender",
+		"summary": "Adds a message the guest will see when joining the room",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5845"
+	},
+	{
+		"param": "welcomeb64",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "The same as &welcome, except this takes an input as a base64 encoded string",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5845"
+	},
+	{
+		"param": "welcomehtml",
+		"aliases": [],
+		"role": "General",
+		"summary": "Base64 or URL-encoded HTML (sanitized, max 8192); shown as the welcome message.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5860"
+	},
+	{
+		"param": "welcomeimage",
+		"aliases": [
+			"welcomeimg"
+		],
+		"role": "Sender",
+		"summary": "Lets you specify an image that appears for a few seconds once a guest joins",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:5873"
+	},
+	{
+		"param": "whepplay",
+		"aliases": [
+			"whep"
+		],
+		"role": "Viewer",
+		"summary": "WHEP URL (URI-decoded); plays that WHEP stream about 1 s after load.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1253"
+	},
+	{
+		"param": "whepplaytoken",
+		"aliases": [
+			"wheptoken"
+		],
+		"role": "Viewer",
+		"summary": "Token string; bearer token used for whepplay WHEP playback.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1268"
+	},
+	{
+		"param": "whepshare",
+		"aliases": [
+			"whepsrc"
+		],
+		"role": "Sender",
+		"summary": "URL (prompts if empty); shares a WHEP source, filling the whepURL input and applying WHEP share settings.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7987"
+	},
+	{
+		"param": "whepsharetoken",
+		"aliases": [
+			"whepsrctoken"
+		],
+		"role": "Sender",
+		"summary": "String token; auth token for the WHEP share source, applied only when WHIP output settings exist.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:8029"
+	},
+	{
+		"param": "wheptrickle",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "&wheptrickle=0, false or off disables WHEP trickle ICE, same as &nowheptrickle.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:68729"
+	},
+	{
+		"param": "whepwait",
+		"aliases": [
+			"whepicewait"
+		],
+		"role": "General",
+		"summary": "Numeric ms (default 2000, minimum 0); ICE-gathering wait for WHEP connections.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1167"
+	},
+	{
+		"param": "whipfallback",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; viewer advertises and accepts a Meshcast/WHEP fallback handoff; ignored when nomeshcast is set.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1501"
+	},
+	{
+		"param": "whipme",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean flag; removes the hidden class from the WIP 'Join Room via WHIP' menu card, whose inline display:none still applies.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1187"
+	},
+	{
+		"param": "whipnoscreen",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; excludes screen share from WHIP output.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7388"
+	},
+	{
+		"param": "whipout",
+		"aliases": [
+			"whippush",
+			"pushwhip"
+		],
+		"role": "Sender",
+		"summary": "Publish directly from OBS (or other) to VDO.Ninja without a virtual camera",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1191"
+	},
+	{
+		"param": "whipoutaudiocodec",
+		"aliases": [
+			"woac"
+		],
+		"role": "Sender",
+		"summary": "String codec name (e.g. opus, pcm, red); sets the preferred audio codec in WHIP output SDP.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:6044"
+	},
+	{
+		"param": "whipoutkeyframe",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric ms; after a WHIP-out connection starts, forces a video keyframe (PLI) after that delay.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1231"
+	},
+	{
+		"param": "whipoutkeyframenewviewer",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Unclear from code: sets session.whipOutKeyframeOnNewViewer, referenced only in comments.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1235"
+	},
+	{
+		"param": "whipprimaryonly",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; WHIP output publishes only the primary camera, not screen share.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7391"
+	},
+	{
+		"param": "whippushtoken",
+		"aliases": [
+			"whipouttoken",
+			"pushwhiptoken"
+		],
+		"role": "Sender",
+		"summary": "Token string; bearer token for whippush output; empty value unhides the token input field.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:1216"
+	},
+	{
+		"param": "whipscreenonly",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; WHIP output publishes only the screen share, not the primary camera.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7395"
+	},
+	{
+		"param": "whipview",
+		"aliases": [
+			"whip"
+		],
+		"role": "Viewer",
+		"summary": "Publish directly from OBS (or other) to VDO.Ninja without a virtual camera",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:1069"
+	},
+	{
+		"param": "whipwait",
+		"aliases": [
+			"whipicewait"
+		],
+		"role": "General",
+		"summary": "Numeric ms (default 2000, minimum 0); ICE-gathering wait for WHIP connections.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:1176"
+	},
+	{
+		"param": "whitebalance",
+		"aliases": [
+			"wb"
+		],
+		"role": "Sender",
+		"summary": "Lets you manually pre-set the white balance of the camera/webcam",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7571"
+	},
+	{
+		"param": "whitemode",
+		"aliases": [
+			"whitetheme"
+		],
+		"role": "General",
+		"summary": "Boolean flag; applies the whitetheme body class and turns dark mode off.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:4771"
+	},
+	{
+		"param": "widget",
+		"aliases": [],
+		"role": "General",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6742"
+	},
+	{
+		"param": "widgetleft",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean flag; places the &widget iframe on the left and shifts the play area right.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6754"
+	},
+	{
+		"param": "widgetwidth",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Numeric percent (default 25, max 50); sets widget iframe width via the --widget-width CSS variable.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:6757"
+	},
+	{
+		"param": "width",
+		"aliases": [
+			"w"
+		],
+		"role": "Sender",
+		"summary": "Sets the maximum width of the video allowed in pixels",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:6071"
+	},
+	{
+		"param": "wss",
+		"aliases": [],
+		"role": "General",
+		"summary": "Optional host/URL (wss:// prefixed); sets a custom signaling websocket server.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7594"
+	},
+	{
+		"param": "wss2",
+		"aliases": [],
+		"role": "General",
+		"summary": "Host/URL (wss:// prefixed); overrides the signaling websocket without setting the customWSS flag.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7603"
+	},
+	{
+		"param": "youtube",
+		"aliases": [],
+		"role": "General",
+		"summary": "String \"clientID,APIkey\"; stores YouTube credentials for the YouTube chat interface.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5121"
+	},
+	{
+		"param": "zoom",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Numeric zoom level; requests camera zoom and enables PTZ handling.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:7567"
+	},
+	{
+		"param": "zoomedbitrate",
+		"aliases": [
+			"zb"
+		],
+		"role": "Viewer",
+		"summary": ">-",
+		"source": "upstream docs",
+		"isUiFacing": null,
+		"firstLocation": "main.js:7896"
+	},
+	{
+		"param": "zoomslider",
+		"aliases": [],
+		"role": "Director",
+		"summary": "Boolean flag; adds a remote camera zoom slider on guest videos for directors or remote-control viewers.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:2205"
+	}
+]

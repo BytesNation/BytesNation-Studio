@@ -1,0 +1,1552 @@
+{
+	"streamtakeover": {
+		"role": "sender",
+		"summary": "Boolean flag (empty/1/true); lets a publisher reclaim its in-use stream ID using a browser-stored signed takeover key.",
+		"isUiFacing": false
+	},
+	"altlabel": {
+		"role": "general",
+		"summary": "Text string (underscores become spaces); replaces the translated 'enter display name' prompt text.",
+		"isUiFacing": true
+	},
+	"auth": {
+		"role": "general",
+		"summary": "Flag; loads the SSO auth client and hides the main menu and header until sign-in completes; aliases supply tokens or require auth.",
+		"isUiFacing": true
+	},
+	"mutestatus": {
+		"role": "viewer",
+		"summary": "Boolean flag; shows a muted-state icon on remote guest videos in a room.",
+		"isUiFacing": true
+	},
+	"unmutestatus": {
+		"role": "viewer",
+		"summary": "Boolean flag; shows an unmuted-state icon on remote guest videos in a room.",
+		"isUiFacing": true
+	},
+	"feedbackbutton": {
+		"role": "sender",
+		"summary": "Optional numeric volume percent; unhides the 'hear yourself' self-monitor button and sets its playback volume.",
+		"isUiFacing": true
+	},
+	"retrytimeout": {
+		"role": "viewer",
+		"summary": "Numeric ms (minimum 5000, default 5000); delay before re-requesting a lost stream.",
+		"isUiFacing": false
+	},
+	"testmedia": {
+		"role": "sender",
+		"summary": "Mode string (1/on, audio/mic/a, video/cam/v; 0/false/off disables); replaces capture with synthetic test media.",
+		"isUiFacing": false
+	},
+	"testaudio": {
+		"role": "sender",
+		"summary": "Boolean (0/false/off/no disables); with testmedia, toggles the synthetic audio track.",
+		"isUiFacing": false
+	},
+	"testvideo": {
+		"role": "sender",
+		"summary": "Boolean (0/false/off/no disables); with testmedia, toggles the synthetic video track.",
+		"isUiFacing": false
+	},
+	"testfps": {
+		"role": "sender",
+		"summary": "Numeric fps (1-60); frame rate of synthetic test video, only with testmedia.",
+		"isUiFacing": false
+	},
+	"testwidth": {
+		"role": "sender",
+		"summary": "Numeric px (160-3840); width of synthetic test video, only with testmedia.",
+		"isUiFacing": false
+	},
+	"testheight": {
+		"role": "sender",
+		"summary": "Numeric px (120-2160); height of synthetic test video, only with testmedia.",
+		"isUiFacing": false
+	},
+	"testtone": {
+		"role": "sender",
+		"summary": "Numeric Hz (50-2000, default 440); tone frequency of synthetic test audio, only with testmedia.",
+		"isUiFacing": false
+	},
+	"pendingicettl": {
+		"role": "general",
+		"summary": "Numeric ms (3000-60000, default 15000); how long queued pending ICE candidates are kept before expiry.",
+		"isUiFacing": false
+	},
+	"scenemutebutton": {
+		"role": "sender",
+		"summary": "Boolean flag; shows a guest button that mutes outbound audio to scene peers while still talking in the room.",
+		"isUiFacing": true
+	},
+	"userbackgroundimage": {
+		"role": "viewer",
+		"summary": "Image URL or data URI (default backgrounds/1.png); background image behind each video tile in the layout mixer.",
+		"isUiFacing": true
+	},
+	"userforegroundimage": {
+		"role": "viewer",
+		"summary": "Image URL or data URI (default avatar1.png); overlay image placed over each video tile in the layout mixer.",
+		"isUiFacing": true
+	},
+	"avatarimg2": {
+		"role": "viewer",
+		"summary": "Image URL (default avatar2.png); CSS video background shown while talking; enables audio effects and meter style 4.",
+		"isUiFacing": true
+	},
+	"avatarimg3": {
+		"role": "viewer",
+		"summary": "Image URL (default avatar3.png); CSS video background shown while screaming (loud); enables audio effects and meter style 4.",
+		"isUiFacing": true
+	},
+	"noaudiowhipin": {
+		"role": "viewer",
+		"summary": "Boolean flag; strips audio from the SDP of incoming WHIP publishers (e.g. OBS).",
+		"isUiFacing": false
+	},
+	"novideowhipin": {
+		"role": "viewer",
+		"summary": "Boolean flag; strips video from the SDP of incoming WHIP publishers (e.g. OBS).",
+		"isUiFacing": false
+	},
+	"autoreload": {
+		"role": "general",
+		"summary": "Numeric minutes (default 60); repeatedly calls hangup with reload at that interval.",
+		"isUiFacing": false
+	},
+	"autoreload24": {
+		"role": "general",
+		"summary": "HH:MM 24-hour local time; calls hangup with reload once at that time (next day if passed).",
+		"isUiFacing": false
+	},
+	"endpage": {
+		"role": "general",
+		"summary": "URL (sanitized); redirect target after hang-up; changes hang-up text to 'Redirecting shortly'.",
+		"isUiFacing": true
+	},
+	"endpagetimer": {
+		"role": "general",
+		"summary": "Numeric ms (default 3000 via endpage); delay before the endpage redirect; only read when endpage is set.",
+		"isUiFacing": false
+	},
+	"autoend": {
+		"role": "general",
+		"summary": "Numeric ms (default 600000); shows a fixed countdown overlay and hangs up when it expires.",
+		"isUiFacing": true
+	},
+	"whepwait": {
+		"role": "general",
+		"summary": "Numeric ms (default 2000, minimum 0); ICE-gathering wait for WHEP connections.",
+		"isUiFacing": false
+	},
+	"whipwait": {
+		"role": "general",
+		"summary": "Numeric ms (default 2000, minimum 0); ICE-gathering wait for WHIP connections.",
+		"isUiFacing": false
+	},
+	"whipme": {
+		"role": "general",
+		"summary": "Boolean flag; removes the hidden class from the WIP 'Join Room via WHIP' menu card, whose inline display:none still applies.",
+		"isUiFacing": true
+	},
+	"whippushtoken": {
+		"role": "sender",
+		"summary": "Token string; bearer token for whippush output; empty value unhides the token input field.",
+		"isUiFacing": true
+	},
+	"whipoutkeyframe": {
+		"role": "sender",
+		"summary": "Numeric ms; after a WHIP-out connection starts, forces a video keyframe (PLI) after that delay.",
+		"isUiFacing": false
+	},
+	"whipoutkeyframenewviewer": {
+		"role": "sender",
+		"summary": "Unclear from code: sets session.whipOutKeyframeOnNewViewer, referenced only in comments.",
+		"isUiFacing": false
+	},
+	"whepplay": {
+		"role": "viewer",
+		"summary": "WHEP URL (URI-decoded); plays that WHEP stream about 1 s after load.",
+		"isUiFacing": false
+	},
+	"whepplaytoken": {
+		"role": "viewer",
+		"summary": "Token string; bearer token used for whepplay WHEP playback.",
+		"isUiFacing": false
+	},
+	"nomouseevents": {
+		"role": "general",
+		"summary": "Boolean flag; disables mouse and touch handlers on videos, including mini-preview dragging and tap stats menus.",
+		"isUiFacing": true
+	},
+	"overlaycontrols": {
+		"role": "general",
+		"summary": "Boolean flag; layout stops reserving height for the control bar so it overlays the video.",
+		"isUiFacing": true
+	},
+	"pusheffectsdata": {
+		"role": "sender",
+		"summary": "Boolean flag; posts face-mesh effect keypoint coordinates to the parent page via the IFRAME API.",
+		"isUiFacing": false
+	},
+	"pushloudness": {
+		"role": "general",
+		"summary": "Boolean flag; enables loudness output over the IFRAME API.",
+		"isUiFacing": false
+	},
+	"meshcast2": {
+		"role": "sender",
+		"summary": "Mode string (any/anon/audio/video, default any); publishes through Meshcast v2 with server discovery.",
+		"isUiFacing": false
+	},
+	"whipfallback": {
+		"role": "viewer",
+		"summary": "Boolean flag; viewer advertises and accepts a Meshcast/WHEP fallback handoff; ignored when nomeshcast is set.",
+		"isUiFacing": false
+	},
+	"chunkcast": {
+		"role": "sender",
+		"summary": "Boolean flag; sends chunked-recorder media frames out over a websocket instead of real-time chunk paths.",
+		"isUiFacing": false
+	},
+	"discordwebhook": {
+		"role": "viewer",
+		"summary": "Discord webhook URL or path; posts an alert when an incoming stream disconnects and does not reconnect within 60 s.",
+		"isUiFacing": false
+	},
+	"discordwebhook2": {
+		"role": "viewer",
+		"summary": "Discord webhook URL or path; like discordwebhook but also alerts on intentional hang-ups.",
+		"isUiFacing": false
+	},
+	"drawing": {
+		"role": "viewer",
+		"summary": "Boolean (0/false/off disables); renders incoming drawing annotations as canvas overlays on remote videos.",
+		"isUiFacing": true
+	},
+	"drawingrelay": {
+		"role": "sender",
+		"summary": "Boolean (default on; 0/false/off disables); relays a viewer's drawings to other peers allowed to draw.",
+		"isUiFacing": true
+	},
+	"nodrawingrelay": {
+		"role": "sender",
+		"summary": "Boolean flag; turns off relaying drawings between peers.",
+		"isUiFacing": true
+	},
+	"nohistory": {
+		"role": "general",
+		"summary": "Boolean flag; stops pushing rewritten URLs into browser history (default on inside iframes).",
+		"isUiFacing": false
+	},
+	"history": {
+		"role": "general",
+		"summary": "Boolean flag; re-enables browser history URL updates, overriding the iframe default.",
+		"isUiFacing": false
+	},
+	"pagezoom": {
+		"role": "viewer",
+		"summary": "Boolean flag; adds a fixed 100-400% zoom slider that scales the grid layout and allows pinch zoom.",
+		"isUiFacing": true
+	},
+	"callin": {
+		"role": "general",
+		"summary": "Mode string (default sip); loads callin.js, a phone call-in panel using SIP or Twilio.",
+		"isUiFacing": true
+	},
+	"fulltalk": {
+		"role": "general",
+		"summary": "6-character room code; connects to the PSTN call websocket to talk and hear all.",
+		"isUiFacing": false
+	},
+	"justtalk": {
+		"role": "general",
+		"summary": "6-character room code; joins the Twilio PSTN conference to talk only.",
+		"isUiFacing": false
+	},
+	"hearptsn": {
+		"role": "general",
+		"summary": "6-character room code; listens to PSTN call audio over websocket only.",
+		"isUiFacing": false
+	},
+	"updateonslotschange": {
+		"role": "viewer",
+		"summary": "Boolean flag (false/0/off disables); rebuilds and reapplies the layout when slot assignments change.",
+		"isUiFacing": true
+	},
+	"leaveorientationflag": {
+		"role": "general",
+		"summary": "Boolean flag; keeps the video-orientation extmap line in SDP instead of stripping it.",
+		"isUiFacing": false
+	},
+	"pausepreview": {
+		"role": "director",
+		"summary": "Boolean flag; sets director preview bitrate to 0 and marks the first quality button pressed.",
+		"isUiFacing": true
+	},
+	"forceviewerlandscape": {
+		"role": "viewer",
+		"summary": "Numeric degrees (default 270); rotates incoming portrait videos to display landscape.",
+		"isUiFacing": true
+	},
+	"forceviewerportrait": {
+		"role": "viewer",
+		"summary": "Numeric degrees (default 90); rotates incoming landscape videos to display portrait.",
+		"isUiFacing": true
+	},
+	"nofullscreenbutton": {
+		"role": "viewer",
+		"summary": "Boolean flag; hides the per-video full-window button on room guest tiles.",
+		"isUiFacing": true
+	},
+	"socialstream": {
+		"role": "general",
+		"summary": "Unclear from code: sets session.socialstream (string), which no code reads.",
+		"isUiFacing": false
+	},
+	"tc": {
+		"role": "general",
+		"summary": "Optional value; parses incoming MIDI timecode and shows it as an on-screen 'Timecode' overlay message.",
+		"isUiFacing": true
+	},
+	"nochunkediframestats": {
+		"role": "sender",
+		"summary": "Boolean flag; stops posting chunked-outbound frame events to the IFRAME API.",
+		"isUiFacing": false
+	},
+	"midiiframe": {
+		"role": "general",
+		"summary": "Boolean flag; forwards received MIDI messages to the parent page as IFRAME API midi-in events.",
+		"isUiFacing": false
+	},
+	"ptt": {
+		"role": "sender",
+		"summary": "Hotkey string (e.g. ctrl+m); sets the push-to-talk hotkey; empty value opens a hotkey selection prompt.",
+		"isUiFacing": true
+	},
+	"framegrabaudio": {
+		"role": "sender",
+		"summary": "Boolean (empty on; 0/false/no/off off); with framegrab, enables audio capture for the published frame source.",
+		"isUiFacing": false
+	},
+	"audio": {
+		"role": "sender",
+		"summary": "Alias for framegrabaudio in framegrab mode when framegrabaudio is absent; same boolean values.",
+		"isUiFacing": false
+	},
+	"ssstyle": {
+		"role": "viewer",
+		"summary": "Numeric style (default 1); auto-layout for screen shares, spotlighting the share; 2 puts others in a left column.",
+		"isUiFacing": true
+	},
+	"alignright": {
+		"role": "viewer",
+		"summary": "Boolean (0/false/no/off disables); right-aligns the spotlighted screen share, using screen-share layout style 2.",
+		"isUiFacing": true
+	},
+	"surfaceswitching": {
+		"role": "sender",
+		"summary": "String include/exclude (default exclude); passes surfaceSwitching to the screen-capture request.",
+		"isUiFacing": false
+	},
+	"recordwindow": {
+		"role": "general",
+		"summary": "Optional bitrate kbps (default 6000); captures the current tab and records it to disk, with clean output.",
+		"isUiFacing": true
+	},
+	"locksize": {
+		"role": "general",
+		"summary": "Unclear from code: sets session.lockWindowSize, which no code reads.",
+		"isUiFacing": false
+	},
+	"nocontrolbarspace": {
+		"role": "general",
+		"summary": "Boolean flag; stops the layout reserving dedicated space for the control bar.",
+		"isUiFacing": true
+	},
+	"ignorehighlight": {
+		"role": "viewer",
+		"summary": "Boolean flag; ignores the director's infocus (highlight) messages.",
+		"isUiFacing": true
+	},
+	"pauseinvisible": {
+		"role": "viewer",
+		"summary": "Boolean flag; videos hidden by the scene layout are muted and throttled to the hidden-scene bitrate.",
+		"isUiFacing": false
+	},
+	"zoomslider": {
+		"role": "director",
+		"summary": "Boolean flag; adds a remote camera zoom slider on guest videos for directors or remote-control viewers.",
+		"isUiFacing": true
+	},
+	"ptzslider": {
+		"role": "director",
+		"summary": "Boolean flag; adds pan/tilt/zoom slider controls on guest videos for directors or remote-control viewers.",
+		"isUiFacing": true
+	},
+	"viewslot": {
+		"role": "viewer",
+		"summary": "Numeric slot number; shows only the guest in that room slot full-frame and plays only layout audio.",
+		"isUiFacing": true
+	},
+	"exclusivelayoutaudio": {
+		"role": "viewer",
+		"summary": "Non-empty value; with a layout active, drops streams outside the layout from the mix and throttles them.",
+		"isUiFacing": false
+	},
+	"inclusivelayoutaudio": {
+		"role": "viewer",
+		"summary": "Non-empty value; keeps streams outside the active layout in the mix (turns exclusive layout audio off).",
+		"isUiFacing": false
+	},
+	"muteall": {
+		"role": "director",
+		"summary": "Boolean flag; shows the director's 'mute all guests' toggle button.",
+		"isUiFacing": true
+	},
+	"gdriveall": {
+		"role": "director",
+		"summary": "Boolean flag; shows the director's 'Google Drive record all guests' toggle button.",
+		"isUiFacing": true
+	},
+	"tipsid": {
+		"role": "sender",
+		"summary": "Overlay token string; enables receiving tips; empty value opens the tip onboarding modal.",
+		"isUiFacing": true
+	},
+	"receivetips": {
+		"role": "sender",
+		"summary": "Boolean flag; enables receiving tips and opens the onboarding modal when no tipsid is set.",
+		"isUiFacing": true
+	},
+	"tipserver": {
+		"role": "general",
+		"summary": "URL; tip backend server (default ninjabacker.com) for tip pages and notifications.",
+		"isUiFacing": false
+	},
+	"tipamounts": {
+		"role": "sender",
+		"summary": "Comma list of positive integers (default 5,10,25,50,100); tip amounts sent to viewers for tip buttons.",
+		"isUiFacing": true
+	},
+	"tipcurrency": {
+		"role": "sender",
+		"summary": "Currency code (uppercased, default USD); currency sent to viewers for tipping.",
+		"isUiFacing": true
+	},
+	"showtips": {
+		"role": "viewer",
+		"summary": "Boolean flag; viewer opts in to see tip icons on videos of performers accepting tips.",
+		"isUiFacing": true
+	},
+	"tipqrsize": {
+		"role": "viewer",
+		"summary": "Numeric px (minimum 100, default 150); size of the tip QR code; setting it forces the QR to show.",
+		"isUiFacing": true
+	},
+	"notipqr": {
+		"role": "viewer",
+		"summary": "Boolean flag; disables the tip QR code shown in OBS or scene/view links.",
+		"isUiFacing": true
+	},
+	"crop": {
+		"role": "sender",
+		"summary": "Numeric percent; forces a camera aspect-ratio constraint scaled from 16:9 (negative divides, 0 gives 4:3).",
+		"isUiFacing": false
+	},
+	"fit": {
+		"role": "general",
+		"summary": "Boolean flag; sets CSS fit-style to fit and sizes the local video to full viewport.",
+		"isUiFacing": true
+	},
+	"splitrecording": {
+		"role": "general",
+		"summary": "Numeric minutes (default 5); splits local recordings into segments of that length.",
+		"isUiFacing": false
+	},
+	"recordfolder": {
+		"role": "general",
+		"summary": "Folder name string; Google Drive folder used for recordings.",
+		"isUiFacing": false
+	},
+	"menuoffset": {
+		"role": "general",
+		"summary": "CSS length (default 50px); sets the bottom offset of the control bar and makes it absolutely positioned.",
+		"isUiFacing": true
+	},
+	"rows": {
+		"role": "viewer",
+		"summary": "Comma list of row counts indexed by guest count; auto layout arranges tiles into that many rows (negative centers a partial last row).",
+		"isUiFacing": true
+	},
+	"publish": {
+		"role": "sender",
+		"summary": "Boolean flag; enables studio publish mode, showing the publish settings panel and the local record button (ignored in record-window mode).",
+		"isUiFacing": true
+	},
+	"morescenes": {
+		"role": "director",
+		"summary": "Numeric scene count (default 16, minimum 8); sets session.maxScene and adds extra scene buttons S9 to SN to guest controls.",
+		"isUiFacing": true
+	},
+	"joinscene": {
+		"role": "sender",
+		"summary": "Comma list of scene names; guest asks to auto-join those scenes, which only works if the target has &openscene.",
+		"isUiFacing": false
+	},
+	"openscene": {
+		"role": "viewer",
+		"summary": "Boolean flag; lets this scene or director accept guests' &joinscene requests and add them to the requested scenes.",
+		"isUiFacing": false
+	},
+	"fakeuser": {
+		"role": "general",
+		"summary": "Boolean flag; joins data-only with autostart, no video, audio or iframe playback, and clean output.",
+		"isUiFacing": true
+	},
+	"pseudoguest": {
+		"role": "sender",
+		"summary": "Boolean flag; auto-joins without camera or mic, hides main menu, header, control buttons and mini taskbar, and flags itself as pseudoguest.",
+		"isUiFacing": true
+	},
+	"autochannels": {
+		"role": "director",
+		"summary": "Comma list of audio channels 1-8 (default 1,2,3,5,6,7,8); director auto-assigns joining guests to those audio channels.",
+		"isUiFacing": false
+	},
+	"autochannelmode": {
+		"role": "director",
+		"summary": "String mode for director audio-channel auto-assignment: roundrobin or rr, otherwise leastused.",
+		"isUiFacing": false
+	},
+	"preferchannel": {
+		"role": "sender",
+		"summary": "Numeric audio channel 1-8; guest's preferred channel, sent to the director for auto-assignment.",
+		"isUiFacing": false
+	},
+	"nohiddensceneoptimization": {
+		"role": "viewer",
+		"summary": "Boolean flag; disables the reduced bitrate for hidden scenes, unless &hiddenscenebitrate is set.",
+		"isUiFacing": false
+	},
+	"cccolored": {
+		"role": "viewer",
+		"summary": "Boolean flag; colors each speaker's closed-caption text with a color derived from their ID.",
+		"isUiFacing": true
+	},
+	"sessionlog": {
+		"role": "general",
+		"summary": "Boolean flag; enables session logging, shows the session marker button, and downloads the session log on hangup.",
+		"isUiFacing": true
+	},
+	"sessionlogtranscript": {
+		"role": "general",
+		"summary": "Boolean flag; adds final transcript lines to the session log (needs &sessionlog).",
+		"isUiFacing": false
+	},
+	"nopassword": {
+		"role": "general",
+		"summary": "Boolean flag; disables the room password, including the default password.",
+		"isUiFacing": false
+	},
+	"salt": {
+		"role": "general",
+		"summary": "String; custom salt combined with the password when generating room and director hashes.",
+		"isUiFacing": false
+	},
+	"showmeta": {
+		"role": "viewer",
+		"summary": "Boolean flag; shows guests' shared meta fields in their video labels.",
+		"isUiFacing": true
+	},
+	"resources": {
+		"role": "general",
+		"summary": "Comma list or boolean flag; accepts incoming resource data channels from peers and advertises the allowed resource types.",
+		"isUiFacing": false
+	},
+	"meta": {
+		"role": "sender",
+		"summary": "Comma list of field ids 1-9; prompts the guest for profile fields (pronouns, title, socials, bio, location, avatar, QR) and shares them.",
+		"isUiFacing": true
+	},
+	"slider": {
+		"role": "sender",
+		"summary": "Boolean flag; always shows the outbound video bitrate slider in the connection stats menu, even in rooms.",
+		"isUiFacing": true
+	},
+	"lowlatency": {
+		"role": "general",
+		"summary": "Boolean flag; turns off audio processing, FEC, buffers, sync and WebAudio, sets 10ms ptime and CBR; also disables the guest audio meter.",
+		"isUiFacing": true
+	},
+	"fec": {
+		"role": "general",
+		"summary": "Boolean flag read only by &lowlatency; its presence keeps FEC enabled instead of disabling it.",
+		"isUiFacing": false
+	},
+	"audiobuffer": {
+		"role": "viewer",
+		"summary": "Numeric ms; receiver audio jitter buffer target; its presence also stops &lowlatency zeroing it.",
+		"isUiFacing": false
+	},
+	"ap": {
+		"role": "general",
+		"summary": "Boolean flag read only by &lowlatency; its presence keeps the WebAudio processing pipeline and audio meter enabled.",
+		"isUiFacing": false
+	},
+	"noheadphones": {
+		"role": "sender",
+		"summary": "Boolean flag; forces echo cancellation, auto gain and noise suppression on, and voice isolation on unless already set.",
+		"isUiFacing": false
+	},
+	"isolation": {
+		"role": "sender",
+		"summary": "Boolean-ish value (false, 0, no, off disable); sets the mic voice isolation constraint.",
+		"isUiFacing": false
+	},
+	"translate": {
+		"role": "general",
+		"summary": "Language code or boolean flag; loads the live translation controller and its UI, starting translation as owner.",
+		"isUiFacing": true
+	},
+	"translationprovider": {
+		"role": "general",
+		"summary": "String provider name for live translation (default openai, or localStorage value); used with &translate.",
+		"isUiFacing": false
+	},
+	"translateaudio": {
+		"role": "general",
+		"summary": "String mode replace, duck or mix (default replace) for translated audio; used with &translate.",
+		"isUiFacing": false
+	},
+	"translationbroker": {
+		"role": "general",
+		"summary": "URL of the translation broker service; used with &translate.",
+		"isUiFacing": false
+	},
+	"waitpage": {
+		"role": "viewer",
+		"summary": "URL; shows that page as a full-screen iframe layout until a layout takes over (needs iframes allowed).",
+		"isUiFacing": true
+	},
+	"waitice": {
+		"role": "general",
+		"summary": "Boolean flag; waits for ICE candidate gathering to complete before sending SDP.",
+		"isUiFacing": false
+	},
+	"directorview": {
+		"role": "director",
+		"summary": "Boolean flag; joins as director without trying to claim the room.",
+		"isUiFacing": false
+	},
+	"graphs": {
+		"role": "general",
+		"summary": "Boolean flag; enables stats graphs, including the director's scene stats graphs.",
+		"isUiFacing": true
+	},
+	"minroombitrate": {
+		"role": "sender",
+		"summary": "Numeric kbps; floor applied to the room and scene total-bitrate caps.",
+		"isUiFacing": false
+	},
+	"weightedroombitrate": {
+		"role": "sender",
+		"summary": "Boolean value (default on; 0, false, off, no disable); gives larger camera tiles a larger share of the room video budget.",
+		"isUiFacing": false
+	},
+	"micpanning": {
+		"role": "sender",
+		"summary": "Numeric 0-180 (default 90, center); downmixes the mic to mono and pans it, adding a panning control to audio settings.",
+		"isUiFacing": true
+	},
+	"highlightmute": {
+		"role": "director",
+		"summary": "Boolean-ish value; highlighting a guest unmutes them and remotely mutes the others; presets the matching checkbox.",
+		"isUiFacing": false
+	},
+	"noobsstream": {
+		"role": "viewer",
+		"summary": "Boolean flag; initializes the reported OBS streaming state to false.",
+		"isUiFacing": false
+	},
+	"noobsvirtual": {
+		"role": "viewer",
+		"summary": "Boolean flag; initializes the reported OBS virtual camera state to false.",
+		"isUiFacing": false
+	},
+	"noobsrecord": {
+		"role": "viewer",
+		"summary": "Boolean flag; initializes the reported OBS recording state to false.",
+		"isUiFacing": false
+	},
+	"noobssourceactive": {
+		"role": "viewer",
+		"summary": "Boolean flag; initializes the reported OBS source-active state to false.",
+		"isUiFacing": false
+	},
+	"noobsvisibility": {
+		"role": "viewer",
+		"summary": "Boolean flag; initializes the reported OBS visibility state to false.",
+		"isUiFacing": false
+	},
+	"aligntop": {
+		"role": "viewer",
+		"summary": "Boolean flag; injects CSS that pins video holders to the top of the page.",
+		"isUiFacing": true
+	},
+	"retry": {
+		"role": "viewer",
+		"summary": "Numeric seconds (default 30); forces a retry of watching the requested view streams after that delay.",
+		"isUiFacing": false
+	},
+	"dropbox": {
+		"role": "general",
+		"summary": "String Dropbox token; loads the Dropbox SDK for saving recordings to Dropbox.",
+		"isUiFacing": false
+	},
+	"gdrive": {
+		"role": "general",
+		"summary": "Boolean flag; enables the Google Drive uploader for recordings.",
+		"isUiFacing": false
+	},
+	"whitemode": {
+		"role": "general",
+		"summary": "Boolean flag; applies the whitetheme body class and turns dark mode off.",
+		"isUiFacing": true
+	},
+	"androidfix": {
+		"role": "sender",
+		"summary": "Boolean flag; enables the Android H.264 profile SDP rewrite when an h264profile is set.",
+		"isUiFacing": false
+	},
+	"blackout": {
+		"role": "general",
+		"summary": "Boolean flag; shows the blackout mode button; with a value, starts blackout mode immediately.",
+		"isUiFacing": true
+	},
+	"noscreenshare": {
+		"role": "viewer",
+		"summary": "Boolean flag; disables playback of screen shares.",
+		"isUiFacing": false
+	},
+	"screenp2p": {
+		"role": "viewer",
+		"summary": "Boolean flag; prefers peer-to-peer over WHEP for incoming screen shares.",
+		"isUiFacing": false
+	},
+	"screenwheponly": {
+		"role": "viewer",
+		"summary": "Boolean flag; prefers WHEP only for incoming screen shares.",
+		"isUiFacing": false
+	},
+	"screenwhep": {
+		"role": "viewer",
+		"summary": "Boolean-ish value; true prefers WHEP, false prefers peer-to-peer, for incoming screen shares.",
+		"isUiFacing": false
+	},
+	"allowscreenvideo": {
+		"role": "viewer",
+		"summary": "Boolean-ish value (default true); overrides whether screen share video is requested.",
+		"isUiFacing": false
+	},
+	"allowscreenaudio": {
+		"role": "viewer",
+		"summary": "Boolean-ish value (default true); overrides whether screen share audio is requested.",
+		"isUiFacing": false
+	},
+	"excludeaudio": {
+		"role": "viewer",
+		"summary": "Comma list of stream IDs, including screen variants, whose audio playback is excluded.",
+		"isUiFacing": false
+	},
+	"videoonly": {
+		"role": "viewer",
+		"summary": "Boolean flag; disables audio playback for all streams.",
+		"isUiFacing": false
+	},
+	"youtube": {
+		"role": "general",
+		"summary": "String \"clientID,APIkey\"; stores YouTube credentials for the YouTube chat interface.",
+		"isUiFacing": false
+	},
+	"cbr": {
+		"role": "sender",
+		"summary": "Boolean flag; uses constant bitrate encoding and hides the WHIP-out VBR/CBR option.",
+		"isUiFacing": true
+	},
+	"slotreserve": {
+		"role": "director",
+		"summary": "Boolean value (0 or false disables); enables slot reservations, marked in the slot picker.",
+		"isUiFacing": true
+	},
+	"reservedslots": {
+		"role": "director",
+		"summary": "JSON object mapping slot numbers to stream IDs; preassigns reserved slots and enables reservations.",
+		"isUiFacing": true
+	},
+	"maxslots": {
+		"role": "director",
+		"summary": "Numeric slot count (default 20); number of slots listed in the slot picker.",
+		"isUiFacing": true
+	},
+	"alpha": {
+		"role": "general",
+		"summary": "Boolean flag; keeps the alpha channel in canvas contexts and WebCodecs encoder configs.",
+		"isUiFacing": false
+	},
+	"viewchroma": {
+		"role": "viewer",
+		"summary": "Hex color (default 0f0); chroma-keys incoming video on non-director viewers.",
+		"isUiFacing": true
+	},
+	"viewchromathreshold": {
+		"role": "viewer",
+		"summary": "Numeric chroma-key threshold for &viewchroma.",
+		"isUiFacing": true
+	},
+	"viewchromasmoothing": {
+		"role": "viewer",
+		"summary": "Numeric chroma-key edge smoothing for &viewchroma.",
+		"isUiFacing": true
+	},
+	"viewchromahide": {
+		"role": "viewer",
+		"summary": "Boolean value (default on; 0, false, off disable); hides the unkeyed source video under &viewchroma.",
+		"isUiFacing": true
+	},
+	"chunkedbuffer": {
+		"role": "sender",
+		"summary": "Numeric ms (default 5000 when given, 500 otherwise); chunked-mode sender buffer window.",
+		"isUiFacing": false
+	},
+	"chunkprofile": {
+		"role": "general",
+		"summary": "Preset name mobile, balanced or desktop; applies a bundle of chunked-mode FEC, NACK, buffer and adaptation settings.",
+		"isUiFacing": false
+	},
+	"chunkcodec": {
+		"role": "sender",
+		"summary": "String codec name; WebCodecs encoder preference for chunked mode, separate from &codec.",
+		"isUiFacing": false
+	},
+	"fixedchunkbuffer": {
+		"role": "viewer",
+		"summary": "Boolean flag; disables the adaptive chunked-mode receive buffer.",
+		"isUiFacing": false
+	},
+	"chunkadapt": {
+		"role": "sender",
+		"summary": "String mode bitrate, framerate or hybrid; chunked-mode encoder adaptation strategy.",
+		"isUiFacing": false
+	},
+	"nochunkaudio": {
+		"role": "viewer",
+		"summary": "Boolean flag; tells senders this viewer won't receive chunked audio.",
+		"isUiFacing": false
+	},
+	"debug": {
+		"role": "general",
+		"summary": "Boolean-ish value; turns on debug logging, only on vdo.ninja hosts.",
+		"isUiFacing": false
+	},
+	"webxrbridge": {
+		"role": "sender",
+		"summary": "Boolean flag; enables the external sensor bridge that accepts sensor data via postMessage.",
+		"isUiFacing": false
+	},
+	"sensorsorigin": {
+		"role": "sender",
+		"summary": "Origin string; only accepts external sensor bridge messages from this origin (with &webxrbridge).",
+		"isUiFacing": false
+	},
+	"vred": {
+		"role": "viewer",
+		"summary": "Boolean flag; adds video RED/FEC when preferring the requested codec in received SDP.",
+		"isUiFacing": false
+	},
+	"pvred": {
+		"role": "sender",
+		"summary": "Boolean flag; adds video RED/FEC when the publisher prefers a video codec.",
+		"isUiFacing": false
+	},
+	"redaudio": {
+		"role": "viewer",
+		"summary": "Boolean flag; experimental RED audio when applying the viewer's requested audio codec.",
+		"isUiFacing": false
+	},
+	"fecaudio": {
+		"role": "viewer",
+		"summary": "Boolean flag; experimental audio FEC when applying the viewer's requested audio codec.",
+		"isUiFacing": false
+	},
+	"predaudio": {
+		"role": "sender",
+		"summary": "Boolean flag; RED audio when the publisher or WHIP output prefers an audio codec.",
+		"isUiFacing": false
+	},
+	"pfecaudio": {
+		"role": "sender",
+		"summary": "Boolean flag; audio FEC when the publisher or WHIP output prefers an audio codec.",
+		"isUiFacing": false
+	},
+	"preferaudiocodec": {
+		"role": "sender",
+		"summary": "String codec name; publisher-side preferred audio codec applied to outgoing connections.",
+		"isUiFacing": false
+	},
+	"prefervideocodec": {
+		"role": "sender",
+		"summary": "String codec name; publisher-side preferred video codec applied to outgoing connections.",
+		"isUiFacing": false
+	},
+	"scenelinkcodec": {
+		"role": "director",
+		"summary": "String codec name; appends &codec= to generated scene links and disables the codec selector.",
+		"isUiFacing": true
+	},
+	"scenelinkbitrate": {
+		"role": "director",
+		"summary": "Numeric kbps; appends &totalbitrate= to generated scene links.",
+		"isUiFacing": false
+	},
+	"nonacks": {
+		"role": "viewer",
+		"summary": "Boolean flag; strips NACK feedback from received SDP.",
+		"isUiFacing": false
+	},
+	"nopli": {
+		"role": "viewer",
+		"summary": "Boolean flag; strips PLI feedback from received SDP.",
+		"isUiFacing": false
+	},
+	"noremb": {
+		"role": "viewer",
+		"summary": "Boolean flag; strips REMB bandwidth feedback from received SDP.",
+		"isUiFacing": false
+	},
+	"poke": {
+		"role": "sender",
+		"summary": "String topic or boolean flag; triggers a push notification on join, to that topic or a room-derived one.",
+		"isUiFacing": false
+	},
+	"custombeep": {
+		"role": "general",
+		"summary": "Audio URL; replaces the notification beep sound.",
+		"isUiFacing": false
+	},
+	"customleave": {
+		"role": "general",
+		"summary": "Audio URL; replaces the guest-leave sound.",
+		"isUiFacing": false
+	},
+	"customjoin": {
+		"role": "general",
+		"summary": "Audio URL; replaces the guest-join sound.",
+		"isUiFacing": false
+	},
+	"beepvolume": {
+		"role": "general",
+		"summary": "Numeric percent; volume of the beep, join and leave sounds.",
+		"isUiFacing": false
+	},
+	"welcomehtml": {
+		"role": "general",
+		"summary": "Base64 or URL-encoded HTML (sanitized, max 8192); shown as the welcome message.",
+		"isUiFacing": true
+	},
+	"mixminus": {
+		"role": "general",
+		"summary": "Boolean flag; sends each peer a mix-minus of other audio; on director or co-director, builds a custom mix per guest.",
+		"isUiFacing": false
+	},
+	"roomtier1bitrate": {
+		"role": "sender",
+		"summary": "Numeric kbps; overrides the mobile guest bitrate cap used at room-only tier 1 (default 1500).",
+		"isUiFacing": false
+	},
+	"roomtier2bitrate": {
+		"role": "sender",
+		"summary": "Numeric kbps; overrides the mobile guest bitrate cap used at room-only tier 2 and above (default 2000).",
+		"isUiFacing": false
+	},
+	"whipoutaudiocodec": {
+		"role": "sender",
+		"summary": "String codec name (e.g. opus, pcm, red); sets the preferred audio codec in WHIP output SDP.",
+		"isUiFacing": false
+	},
+	"fullhd": {
+		"role": "sender",
+		"summary": "Boolean flag; sets publish quality preset 0 (1080p) and removes the screen and webcam quality gear options.",
+		"isUiFacing": true
+	},
+	"4k": {
+		"role": "sender",
+		"summary": "Boolean flag; sets publish quality preset -2 (2160p) and removes the screen and webcam quality gear options.",
+		"isUiFacing": true
+	},
+	"nostats": {
+		"role": "general",
+		"summary": "Boolean flag; disables the stats menu and hides its Show Stats context-menu entry.",
+		"isUiFacing": true
+	},
+	"showheader": {
+		"role": "general",
+		"summary": "Boolean flag; forces the page header and head2 visible (display, opacity, hidden class removed).",
+		"isUiFacing": true
+	},
+	"nocontrolbar": {
+		"role": "general",
+		"summary": "Boolean flag; hides the controlButtons bar and removes its reserved layout space.",
+		"isUiFacing": true
+	},
+	"degrade": {
+		"role": "viewer",
+		"summary": "String (maintain-framerate, maintain-resolution, balanced) or flag; viewer asks the publisher to use this degradationPreference.",
+		"isUiFacing": false
+	},
+	"rtpprofile": {
+		"role": "sender",
+		"summary": "String talkinghead or irl; enables publisher-side opt-in RTP camera adaptation with that profile.",
+		"isUiFacing": false
+	},
+	"roomcap": {
+		"role": "director",
+		"summary": "Positive integer; participant cap sent with the director's room claim.",
+		"isUiFacing": false
+	},
+	"roomkey": {
+		"role": "general",
+		"summary": "String (sanitized); room bypass key sent on join, used as claim bypass key and appended to generated links.",
+		"isUiFacing": false
+	},
+	"noclaim": {
+		"role": "director",
+		"summary": "Boolean flag; stops a director page from auto-claiming the room.",
+		"isUiFacing": false
+	},
+	"claim": {
+		"role": "director",
+		"summary": "Value 0/false/off/no disables director room auto-claim; other values change nothing.",
+		"isUiFacing": false
+	},
+	"requireencryption": {
+		"role": "general",
+		"summary": "Boolean flag; requires encrypted signaling messages and rejects ones without an encryption vector.",
+		"isUiFacing": false
+	},
+	"unsafe": {
+		"role": "general",
+		"summary": "Boolean flag; with a custom password, allows sending and accepting unencrypted signaling messages.",
+		"isUiFacing": false
+	},
+	"audiodelay": {
+		"role": "viewer",
+		"summary": "Numeric ms (max 179000); adds a fixed Web Audio delay to incoming audio.",
+		"isUiFacing": false
+	},
+	"mirroroutput": {
+		"role": "sender",
+		"summary": "Boolean-ish (0/false/off disables); permanently mirrors the published output (sets permaMirrored).",
+		"isUiFacing": false
+	},
+	"flipoutput": {
+		"role": "sender",
+		"summary": "Boolean-ish (0/false/off disables); flips published output vertically and sets session.flipped, injecting video scaleY(-1) CSS.",
+		"isUiFacing": true
+	},
+	"lanonly": {
+		"role": "general",
+		"summary": "Boolean flag; restricts ICE to local-network candidates and clears STUN/TURN configuration.",
+		"isUiFacing": false
+	},
+	"stunonly": {
+		"role": "general",
+		"summary": "Boolean flag; filters SDP and ICE to STUN candidates only, no TURN relay.",
+		"isUiFacing": false
+	},
+	"ipv6": {
+		"role": "general",
+		"summary": "0/false drops IPv6 candidates when IPv4 exists; 1/true allows normal dual-stack without IPv4 preference.",
+		"isUiFacing": false
+	},
+	"preferipv4": {
+		"role": "general",
+		"summary": "Boolean flag; drops IPv6 candidates when IPv4 candidates exist.",
+		"isUiFacing": false
+	},
+	"activehighlight": {
+		"role": "viewer",
+		"summary": "Value 1 or 2 (0/false off); auto-focuses the loudest speaker as infocus (1) or infocus2 (2) in the layout.",
+		"isUiFacing": true
+	},
+	"activespeakerdelay": {
+		"role": "viewer",
+		"summary": "Numeric ms (default 3000); delay before the active-speaker layout switches.",
+		"isUiFacing": true
+	},
+	"fadeout": {
+		"role": "viewer",
+		"summary": "Optional numeric ms (default 500); fades out departing videos instead of removing them, sets --fadeout-speed CSS.",
+		"isUiFacing": true
+	},
+	"widgetleft": {
+		"role": "viewer",
+		"summary": "Boolean flag; places the &widget iframe on the left and shifts the play area right.",
+		"isUiFacing": true
+	},
+	"widgetwidth": {
+		"role": "viewer",
+		"summary": "Numeric percent (default 25, max 50); sets widget iframe width via the --widget-width CSS variable.",
+		"isUiFacing": true
+	},
+	"insertablestreams": {
+		"role": "general",
+		"summary": "Flag or string; enables encodedInsertableStreams in the RTCPeerConnection configuration.",
+		"isUiFacing": false
+	},
+	"outboundsamplerate": {
+		"role": "sender",
+		"summary": "Numeric Hz; sample rate for the outbound AudioContext.",
+		"isUiFacing": false
+	},
+	"micsamplerate": {
+		"role": "sender",
+		"summary": "Numeric Hz (default 48000); requested microphone sampleRate constraint.",
+		"isUiFacing": false
+	},
+	"micsamplesize": {
+		"role": "sender",
+		"summary": "Numeric bits (default 16); requested microphone sampleSize constraint.",
+		"isUiFacing": false
+	},
+	"iframetarget": {
+		"role": "general",
+		"summary": "String origin (default own origin, or * on file:); target origin for postMessage to the parent frame.",
+		"isUiFacing": false
+	},
+	"sendframes": {
+		"role": "viewer",
+		"summary": "Optional string; when embedded in an iframe, posts incoming video frames to the parent window.",
+		"isUiFacing": false
+	},
+	"bundle": {
+		"role": "general",
+		"summary": "String (default max-bundle); sets the RTCPeerConnection bundlePolicy.",
+		"isUiFacing": false
+	},
+	"planb": {
+		"role": "general",
+		"summary": "Boolean flag; switches SDP semantics to legacy plan-b.",
+		"isUiFacing": false
+	},
+	"apiserver": {
+		"role": "general",
+		"summary": "WebSocket URL; overrides the remote API server (default wss://api.vdo.ninja:443).",
+		"isUiFacing": false
+	},
+	"speedtest": {
+		"role": "sender",
+		"summary": "Flag or TURN locale string; speed-test mode: filters TURN servers, caps bitrate at 6000 kbps, sets queue type 4.",
+		"isUiFacing": false
+	},
+	"approvepopup": {
+		"role": "director",
+		"summary": "Boolean flag (director only); shows approval popups for pending join requests.",
+		"isUiFacing": true
+	},
+	"requireapproval": {
+		"role": "director",
+		"summary": "Boolean flag; room claim requires server-side approval before guests join.",
+		"isUiFacing": false
+	},
+	"hostwhep": {
+		"role": "sender",
+		"summary": "String stream ID (defaults to own stream ID); publishes via the WHEP host client (whepOut).",
+		"isUiFacing": false
+	},
+	"whipnoscreen": {
+		"role": "sender",
+		"summary": "Boolean flag; excludes screen share from WHIP output.",
+		"isUiFacing": false
+	},
+	"whipprimaryonly": {
+		"role": "sender",
+		"summary": "Boolean flag; WHIP output publishes only the primary camera, not screen share.",
+		"isUiFacing": false
+	},
+	"whipscreenonly": {
+		"role": "sender",
+		"summary": "Boolean flag; WHIP output publishes only the screen share, not the primary camera.",
+		"isUiFacing": false
+	},
+	"mediamtx": {
+		"role": "sender",
+		"summary": "String host or URL (defaults .com and :8889); builds MediaMTX WHIP/WHEP endpoints from the stream ID.",
+		"isUiFacing": false
+	},
+	"mediamtxnoscreen": {
+		"role": "sender",
+		"summary": "Boolean flag (with &mediamtx); excludes screen share from MediaMTX publishing.",
+		"isUiFacing": false
+	},
+	"mediamtxscreenonly": {
+		"role": "sender",
+		"summary": "Boolean flag (with &mediamtx); publishes only the screen share to MediaMTX.",
+		"isUiFacing": false
+	},
+	"meshcastnoscreen": {
+		"role": "sender",
+		"summary": "Boolean flag; excludes screen share from Meshcast/WHIP publishing.",
+		"isUiFacing": false
+	},
+	"meshcastscreenonly": {
+		"role": "sender",
+		"summary": "Boolean flag; Meshcast/WHIP publishes only the screen share.",
+		"isUiFacing": false
+	},
+	"meshcastprimaryonly": {
+		"role": "sender",
+		"summary": "Boolean flag; Meshcast/WHIP publishes only the primary camera.",
+		"isUiFacing": false
+	},
+	"hideeffectscontrols": {
+		"role": "sender",
+		"summary": "Boolean flag; adds hide-effects-controls class, hiding effect selector panels without disabling the effect.",
+		"isUiFacing": true
+	},
+	"digitalzoom": {
+		"role": "sender",
+		"summary": "Optional numeric zoom (default 1); enables the digital zoom video effect (effect 7).",
+		"isUiFacing": false
+	},
+	"backgroundblur": {
+		"role": "sender",
+		"summary": "Optional numeric strength (default 2); enables the background blur effect (effect 3).",
+		"isUiFacing": false
+	},
+	"greenscreen": {
+		"role": "sender",
+		"summary": "Boolean flag; selects video effect 4 (greenscreen).",
+		"isUiFacing": false
+	},
+	"virtualbackground": {
+		"role": "sender",
+		"summary": "Boolean flag; selects video effect 5 (virtual background).",
+		"isUiFacing": false
+	},
+	"transparentbg": {
+		"role": "sender",
+		"summary": "Boolean flag; selects video effect 16 (transparent background).",
+		"isUiFacing": false
+	},
+	"facemesh": {
+		"role": "sender",
+		"summary": "Boolean flag; selects video effect 6 (face mesh).",
+		"isUiFacing": false
+	},
+	"facecrop": {
+		"role": "sender",
+		"summary": "Boolean flag; selects the facecrop video effect.",
+		"isUiFacing": false
+	},
+	"chromakey": {
+		"role": "sender",
+		"summary": "Optional numeric value (default 25); selects chroma key video effect 14.",
+		"isUiFacing": false
+	},
+	"chromakeybg": {
+		"role": "sender",
+		"summary": "Optional numeric value (default 25); selects chroma key background video effect 15.",
+		"isUiFacing": false
+	},
+	"facetracker": {
+		"role": "sender",
+		"summary": "Boolean flag; selects video effect 1 (face tracking).",
+		"isUiFacing": false
+	},
+	"overlayfx": {
+		"role": "sender",
+		"summary": "Boolean flag; selects the overlay video effect.",
+		"isUiFacing": false
+	},
+	"anonymousmask": {
+		"role": "sender",
+		"summary": "Boolean flag; selects the anon mask video effect.",
+		"isUiFacing": false
+	},
+	"dogface": {
+		"role": "sender",
+		"summary": "Boolean flag; selects the dog face video effect.",
+		"isUiFacing": false
+	},
+	"zoom": {
+		"role": "sender",
+		"summary": "Numeric zoom level; requests camera zoom and enables PTZ handling.",
+		"isUiFacing": false
+	},
+	"focus": {
+		"role": "sender",
+		"summary": "Numeric; sets a manual camera focusDistance constraint.",
+		"isUiFacing": false
+	},
+	"wss": {
+		"role": "general",
+		"summary": "Optional host/URL (wss:// prefixed); sets a custom signaling websocket server.",
+		"isUiFacing": false
+	},
+	"wss2": {
+		"role": "general",
+		"summary": "Host/URL (wss:// prefixed); overrides the signaling websocket without setting the customWSS flag.",
+		"isUiFacing": false
+	},
+	"audience": {
+		"role": "general",
+		"summary": "String ID; connects to audience.vdo.ninja listen (viewer) or publish websocket for that audience.",
+		"isUiFacing": false
+	},
+	"scenewss2": {
+		"role": "director",
+		"summary": "Host/URL; websocket put in director-generated scene links, active on scene pages when wss/wss2 unset.",
+		"isUiFacing": false
+	},
+	"invitecammanaged": {
+		"role": "general",
+		"summary": "Value 1; invite.cam manages room assignment, restricting room migrations and transfers.",
+		"isUiFacing": false
+	},
+	"invitecam": {
+		"role": "viewer",
+		"summary": "String room.view-token; invite.cam shorthand that sets scene-page WSS and is kept in generated scene links.",
+		"isUiFacing": false
+	},
+	"bypass": {
+		"role": "general",
+		"summary": "Flag or value; routes signaling through iframe parent postMessage instead of a websocket.",
+		"isUiFacing": false
+	},
+	"bypasssignaling": {
+		"role": "general",
+		"summary": "Boolean flag (with &bypass); keeps routing SDP/ICE through the parent after RTC opens.",
+		"isUiFacing": false
+	},
+	"playbacktimer": {
+		"role": "viewer",
+		"summary": "Position 1-9 (default 7; 0/false/off disables); shows a viewer playback-time overlay at that position.",
+		"isUiFacing": true
+	},
+	"dropdown": {
+		"role": "general",
+		"summary": "Boolean flag; unhides the More Options dropButton chevron by clearing its classes.",
+		"isUiFacing": true
+	},
+	"compressed": {
+		"role": "general",
+		"summary": "Boolean flag; enables SDP compression (marked WIP in code).",
+		"isUiFacing": false
+	},
+	"whepshare": {
+		"role": "sender",
+		"summary": "URL (prompts if empty); shares a WHEP source, filling the whepURL input and applying WHEP share settings.",
+		"isUiFacing": false
+	},
+	"autowhep": {
+		"role": "sender",
+		"summary": "Boolean flag; derives a WHEP share URL from the WHIP output URL and applies it.",
+		"isUiFacing": false
+	},
+	"whepsharetoken": {
+		"role": "sender",
+		"summary": "String token; auth token for the WHEP share source, applied only when WHIP output settings exist.",
+		"isUiFacing": false
+	},
+	"nosignal": {
+		"role": "viewer",
+		"summary": "Pattern 1, 2/clean, 3/clock (0/false/off disables); shows a no-signal SVG wait image for absent video.",
+		"isUiFacing": true
+	},
+	"experimental": {
+		"role": "general",
+		"summary": "Unclear from code: sets session.experimental",
+		"isUiFacing": false
+	},
+	"nomobilebitratecap": {
+		"role": "sender",
+		"summary": "Boolean flag; disables the mobile guest outbound bitrate cap.",
+		"isUiFacing": false
+	},
+	"maxmobilebitrate": {
+		"role": "sender",
+		"summary": "Numeric kbps (default 350); mobile guest outbound bitrate cap in normal conditions.",
+		"isUiFacing": false
+	},
+	"lowmobilebitrate": {
+		"role": "sender",
+		"summary": "Numeric kbps (default 35); mobile guest bitrate cap with more than 4 peers or old iOS Safari.",
+		"isUiFacing": false
+	},
+	"keepsw": {
+		"role": "general",
+		"summary": "Boolean flag; skips unregistering existing service workers on load.",
+		"isUiFacing": false
+	},
+	"invite": {
+		"role": "general",
+		"summary": "Encrypted string; AES-decrypts an invite link and applies its URL parameters.",
+		"isUiFacing": false
+	},
+	"preset": {
+		"role": "general",
+		"summary": "Index or key (default 1); loads a parameter string from presets.json and merges it into the URL params.",
+		"isUiFacing": false
+	},
+	"fastmask": {
+		"role": "sender",
+		"summary": "Boolean flag; disables frame-locked segmentation for background effects.",
+		"isUiFacing": false
+	},
+	"accuratemask": {
+		"role": "sender",
+		"summary": "Boolean flag; forces frame-locked segmentation for background effects.",
+		"isUiFacing": false
+	},
+	"tfjsfacemesh": {
+		"role": "sender",
+		"summary": "Boolean flag; uses the legacy TFJS face mesh instead of the MediaPipe Face Landmarker.",
+		"isUiFacing": false
+	},
+	"codirectorinvitetemplate": {
+		"role": "director",
+		"summary": "http(s) URL template with {room} and {codirector}; replaces the generated co-director invite URL.",
+		"isUiFacing": false
+	},
+	"tfliteeffects": {
+		"role": "sender",
+		"summary": "Boolean flag; skips the MediaPipe selfie segmenter, using the TFLite effects path.",
+		"isUiFacing": false
+	},
+	"nowheptrickle": {
+		"role": "general",
+		"summary": "Boolean flag (or wheptrickle=0/false/off); disables ICE trickle on the managed Meshcast WHIP/WHEP gateway.",
+		"isUiFacing": false
+	},
+	"noaudiowhep": {
+		"role": "viewer",
+		"summary": "Boolean flag; disables WHEP audio management for incoming WHEP sessions.",
+		"isUiFacing": false
+	},
+	"meshcast2screen": {
+		"role": "sender",
+		"summary": "String Publish Key; Meshcast account key used for screen-share publishing.",
+		"isUiFacing": false
+	},
+	"requireauth": {
+		"role": "general",
+		"summary": "Same as &auth: requires sign-in before the session loads; also keeps the launcher hidden until auth resolves.",
+		"isUiFacing": true
+	},
+	"universaltoken": {
+		"role": "general",
+		"summary": "Same as &auth: requires sign-in before the session loads, using a universal auth token.",
+		"isUiFacing": true
+	},
+	"fb": {
+		"role": "sender",
+		"summary": "Alias of &feedbackbutton: shows the hear-yourself button; optional value sets the self-monitor volume.",
+		"isUiFacing": true
+	},
+	"meshcast1": {
+		"role": "sender",
+		"summary": "Publishes through Meshcast server relay on first load; value picks the region (default any). Skipped when &meshcastfailed is present.",
+		"isUiFacing": false
+	},
+	"meshcastfailed": {
+		"role": "sender",
+		"summary": "Marker added after a Meshcast attempt fails; stops &meshcast and &meshcast1 from auto-starting on reload.",
+		"isUiFacing": false
+	},
+	"hangupbutton": {
+		"role": "general",
+		"summary": "Alias &hub: shows the hang-up button in the control bar (boolean flag).",
+		"isUiFacing": true
+	},
+	"framegrab": {
+		"role": "sender",
+		"summary": "For non-directors, opens the Share Website tile pre-expanded for frame grabbing (boolean flag).",
+		"isUiFacing": true
+	},
+	"rightalign": {
+		"role": "viewer",
+		"summary": "Alias of &alignright: aligns the video layout to the right; optional value.",
+		"isUiFacing": true
+	},
+	"translatelang": {
+		"role": "general",
+		"summary": "Alias of &translate / &translationlanguage: sets the live caption translation language.",
+		"isUiFacing": true
+	},
+	"muteguest": {
+		"role": "viewer",
+		"summary": "Member of the &audiogain family: starts received guest audio at gain 0 (muted).",
+		"isUiFacing": false
+	},
+	"ado": {
+		"role": "sender",
+		"summary": "Alias of &audiodevice: preselects the audio input by name, or 0 to disable audio.",
+		"isUiFacing": false
+	},
+	"reserveslots": {
+		"role": "viewer",
+		"summary": "Alias of &slotreserve: reserves layout slots when slot mode is on.",
+		"isUiFacing": true
+	},
+	"bufferaudio": {
+		"role": "viewer",
+		"summary": "Alias of &audiobuffer: viewer-side audio buffer target in ms.",
+		"isUiFacing": false
+	},
+	"connectionprofile": {
+		"role": "general",
+		"summary": "Alias of &rtpprofile: RTP tuning profile, talkinghead or irl.",
+		"isUiFacing": false
+	},
+	"rcap": {
+		"role": "director",
+		"summary": "Alias of &roomcap: caps how many guests the room admits.",
+		"isUiFacing": false
+	},
+	"buffer3": {
+		"role": "viewer",
+		"summary": "Variant of &buffer: viewer playout buffer in ms; ignored on Chromium 51 to 77.",
+		"isUiFacing": false
+	},
+	"activespeakerfeatured": {
+		"role": "viewer",
+		"summary": "Alias of &activehighlight: auto-features the loudest speaker as infocus (1) or infocus2 (2, default).",
+		"isUiFacing": true
+	},
+	"bgblur": {
+		"role": "sender",
+		"summary": "Alias of &backgroundblur: turns on background blur; optional strength value.",
+		"isUiFacing": true
+	},
+	"screenaudio": {
+		"role": "sender",
+		"summary": "&screenaudio=0 or false shares the screen without audio, same as &screensharevideoonly; hides the screen-audio option.",
+		"isUiFacing": true
+	},
+	"hideusermenu": {
+		"role": "sender",
+		"summary": "Aliases &nousermenu, &hum: hides the User options group in the settings panel.",
+		"isUiFacing": true
+	},
+	"perma": {
+		"role": "sender",
+		"summary": "With &room, keeps the \"You are in room\" header instead of switching it to the guest invite link.",
+		"isUiFacing": true
+	},
+	"wheptrickle": {
+		"role": "viewer",
+		"summary": "&wheptrickle=0, false or off disables WHEP trickle ICE, same as &nowheptrickle.",
+		"isUiFacing": false
+	}
+}
