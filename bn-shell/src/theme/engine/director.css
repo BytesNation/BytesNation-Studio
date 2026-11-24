@@ -1,3 +1,1285 @@
 /*
  * director view group. See docs/DESIGN.md "Rules for styling the engine".
+ *
+ * Scope: #directorlayout (room header, link panels, link customizer, guest
+ * feeds and each per-guest control box), the director's own box, and the
+ * room settings popup (#roomSettings).
+ *
+ * Selector discipline: each rule mirrors the upstream selector it overrides,
+ * at the same specificity (theme.css loads after main.css, so a tie goes to
+ * us), plus the .darktheme / .whitetheme variants upstream defines. That keeps
+ * &css / &b64css user stylesheets able to override as they did upstream.
+ * !important appears only where upstream or an engine inline style already
+ * uses it on the same property; each such case is commented. Visibility
+ * (display) is never touched: the engine owns it.
  */
+
+/* ------------------------------------------------------------------ */
+/* Room header: the "LINKS (GUEST INVITES & SCENES)" bar and help notes */
+/* ------------------------------------------------------------------ */
+
+/* Upstream's refresh section gives these three panels a blur, a hairline
+   with alpha and a decorative shadow; BN panels are surface + hairline. */
+.directorContainer,
+#guestFeeds,
+.hideLinksClass {
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: none;
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	box-sizing: border-box;
+}
+
+.hideLinksClass,
+.whitetheme #roomHeader .hideLinksClass {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--bn-space-3);
+	width: 1191px;
+	max-width: calc(100% - 2 * var(--bn-space-3));
+	min-height: 40px;
+	margin: var(--bn-space-3) var(--bn-space-3) var(--bn-space-3) var(--bn-space-3);
+	padding: 0 var(--bn-space-3);
+	background-color: var(--bn-surface);
+	color: var(--bn-text);
+}
+
+/* Inline style="color:white" on both spans: !important is the only way past
+   it, and upstream's own .whitetheme fix uses !important too. */
+#directorLinksButton,
+.whitetheme #directorLinksButton {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--bn-space-2);
+	min-height: var(--bn-control-height);
+	color: var(--bn-text) !important;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	white-space: nowrap;
+}
+
+#help_directors_room,
+.whitetheme #help_directors_room {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--bn-space-1);
+	min-height: var(--bn-control-height);
+	color: var(--bn-text-muted) !important;
+	font-size: var(--bn-text-sm);
+	text-align: right;
+}
+
+#help_directors_room:hover,
+#directorLinksButton:hover {
+	color: var(--bn-text) !important;
+}
+
+#directorLinksButton i,
+#help_directors_room i {
+	font-size: 16px;
+	color: var(--bn-text-muted);
+}
+
+div#roomnotes2,
+.whitetheme #roomnotes2 {
+	box-sizing: border-box;
+	width: auto;
+	max-width: calc(100% - 2 * var(--bn-space-3));
+	margin: 0 var(--bn-space-3) var(--bn-space-3) var(--bn-space-3);
+	padding: var(--bn-space-4) !important; /* upstream sets padding with !important */
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	font-size: var(--bn-text-sm);
+	line-height: 1.6;
+}
+
+/* Inline style="color:#CCC" on the notes body and "color:red" on the
+   limitations heading; upstream's .whitetheme fix uses !important as well. */
+#roomnotes2 > span,
+.whitetheme #roomnotes2 > span {
+	color: var(--bn-text-muted) !important;
+}
+
+#roomnotes2 > span > b,
+#roomnotes2 span[style*="red"],
+.whitetheme #roomnotes2 span[style*="red"] {
+	color: var(--bn-text) !important;
+	font-weight: 600;
+}
+
+/* ------------------------------------------------------------------ */
+/* Link panels: invite a guest, capture a group scene, customizer      */
+/* ------------------------------------------------------------------ */
+
+.directorContainer,
+.whitetheme .directorContainer {
+	max-width: min(calc(100% - 2 * var(--bn-space-3)), 1191px);
+	margin: 0 0 var(--bn-space-3) var(--bn-space-3);
+	padding: 0;
+	background-color: var(--bn-surface);
+	color: var(--bn-text);
+}
+
+/* Upstream dims these panels to 0.85 brightness in dark mode. */
+body.darktheme .directorContainer {
+	filter: none;
+}
+
+/* Two halves plus one gap span the 1191px links bar exactly. */
+.directorContainer.half,
+.whitetheme .directorContainer.half {
+	width: min(calc(100% - 2 * var(--bn-space-3)), calc((1191px - var(--bn-space-3)) / 2));
+	padding: 0;
+	background-color: var(--bn-surface);
+	vertical-align: top;
+}
+
+/* The blocks carry upstream's tinted fills through --*-accent (one block uses
+   them inline); neutralising the variables flattens them onto the panel. */
+.directorBlock,
+.whitetheme .directorBlock {
+	--blue-accent: transparent;
+	--green-accent: transparent;
+	--olive-accent: transparent;
+	--red-accent: transparent;
+	min-height: 0;
+	margin: 0;
+	padding: var(--bn-space-4);
+	color: var(--bn-text);
+	font-size: var(--bn-text-sm);
+}
+
+.directorBlock h2,
+.whitetheme .directorBlock h2 {
+	display: flex;
+	align-items: center;
+	gap: var(--bn-space-2);
+	margin: 0 0 var(--bn-space-2) 0 !important; /* beats inline margin-top / margin-left on the h2 */
+	color: var(--bn-text);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+}
+
+.director-link-icons {
+	float: none;
+	bottom: 0;
+	margin: 0 !important; /* one icon carries an inline margin-right */
+	font-size: 18px;
+}
+
+.director-link-icons .las,
+.darktheme .director-link-icons .las,
+.director-link-icons.las,
+.darktheme .director-link-icons.las {
+	color: var(--bn-text-muted);
+}
+
+/* The description line under each heading. */
+#directorLinks1 .directorBlock > span[data-translate],
+#directorLinks2 .directorBlock > span[data-translate] {
+	display: block;
+	margin: 0 0 var(--bn-space-3) 0 !important; /* inline margin:5px */
+	color: var(--bn-text-muted);
+	line-height: 1.5;
+}
+
+/* Link readouts. The anchors carry an inline background (#0003), and the
+   refresh section colors them with !important; both need !important. */
+.directorBlock a.grabLinks:link,
+.directorBlock a.grabLinks:visited,
+.darktheme .directorBlock a.grabLinks:link,
+.darktheme .directorBlock a.grabLinks:visited,
+.whitetheme .directorBlock .grabLinks {
+	display: block;
+	box-sizing: border-box;
+	width: 100%;
+	margin: 0;
+	padding: var(--bn-space-2) var(--bn-space-3);
+	color: var(--bn-text) !important;
+	background-color: var(--bn-sunken) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-sm);
+	font-weight: 400;
+	line-height: 1.5;
+	text-decoration: none;
+	text-shadow: none;
+	word-break: break-all;
+}
+
+.directorBlock a.grabLinks:hover,
+.directorBlock a.grabLinks:active,
+.darktheme .directorBlock a.grabLinks:hover,
+.darktheme .directorBlock a.grabLinks:active {
+	color: var(--bn-text) !important;
+	border-color: var(--bn-border-strong);
+}
+
+/* Copy link / Customize. Inline font-size:1.15em on the scene panel's pair. */
+.directorBlock button,
+.darktheme .directorBlock button,
+.whitetheme .directorBlock button {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--bn-space-1);
+	max-width: none;
+	min-height: var(--bn-control-height);
+	margin: var(--bn-space-3) 0 0 var(--bn-space-2);
+	padding: 0 var(--bn-space-3);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	font-size: var(--bn-text-sm) !important;
+	font-weight: 500;
+	transform: none;
+	transition: background-color var(--bn-duration) var(--bn-ease), border-color var(--bn-duration) var(--bn-ease);
+}
+
+.directorBlock button:hover,
+.darktheme .directorBlock button:hover,
+.whitetheme .directorBlock button:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+	transform: none;
+}
+
+.directorBlock button i {
+	margin: 0;
+	font-size: 16px;
+	color: var(--bn-text-muted);
+}
+
+/* An open customizer: showCustomizer() paints the button inline with
+   #1e0000 and an inset shadow. That is the toggled-on state: accent fill. */
+.directorBlock button[style*="rgb(30, 0, 0)"] {
+	color: var(--bn-accent-ink);
+	background-color: var(--bn-accent) !important;
+	border-color: transparent;
+	box-shadow: none !important;
+}
+
+.directorBlock button[style*="rgb(30, 0, 0)"] i {
+	color: var(--bn-accent-ink);
+}
+
+/* Toggle switches inside the link panels and customizer. Geometry stays
+   upstream's (the engine positions them inline); only the paint changes. */
+#directorlayout .switch {
+	border-radius: var(--bn-radius-sm);
+}
+
+#directorlayout .slider {
+	background-color: var(--bn-border-strong);
+	border-radius: var(--bn-radius-sm);
+	transition: background-color var(--bn-duration) var(--bn-ease);
+}
+
+#directorlayout .slider:before {
+	background-color: var(--bn-surface-2);
+	border-radius: 2px;
+	transition: transform var(--bn-duration) var(--bn-ease);
+}
+
+#directorlayout input:checked + .slider {
+	background-color: var(--bn-accent);
+}
+
+#directorlayout input:checked + .slider:before {
+	background-color: var(--bn-accent-ink);
+}
+
+#directorlayout input:focus + .slider {
+	box-shadow: none;
+}
+
+#directorlayout input:focus-visible + .slider {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 2px;
+}
+
+/* Customizer scroll panes. */
+#customizeLinks {
+	padding-top: 0 !important; /* inline padding-top:15px */
+}
+
+.directorBlock.director-customizer-scroll {
+	margin-top: 0 !important; /* inline margin-top:5px */
+	padding: var(--bn-space-3) var(--bn-space-4) var(--bn-space-4);
+	font-size: var(--bn-text-sm);
+	scrollbar-color: var(--bn-border-strong) transparent;
+}
+
+.directorBlock.director-customizer-scroll::-webkit-scrollbar,
+.directorBlock.director-customizer-scroll::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.directorBlock.director-customizer-scroll::-webkit-scrollbar-thumb {
+	background: var(--bn-border-strong);
+	border: 2px solid transparent;
+	background-clip: padding-box;
+	border-radius: var(--bn-radius-sm);
+}
+
+.directorBlock.director-customizer-scroll::-webkit-scrollbar-thumb:hover {
+	background: var(--bn-text-faint);
+	background-clip: padding-box;
+}
+
+/* "Learn more about URL parameters" footer: inline #888 and #d8d8d8. */
+#customizeLinks a[href*="params.vdo.ninja"],
+#customizeLinks a[href*="params.vdo.ninja"] > div {
+	color: var(--bn-text-muted) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Guest feeds: the channel-strip rack                                 */
+/* ------------------------------------------------------------------ */
+
+div#guestFeeds,
+.darktheme div#guestFeeds,
+.whitetheme div#guestFeeds {
+	max-width: calc(100% - 2 * var(--bn-space-3));
+	margin: 0 var(--bn-space-3) 80px var(--bn-space-3);
+	padding: var(--bn-space-3) 0 0 var(--bn-space-3);
+	background-color: var(--bn-surface);
+	color: var(--bn-text);
+}
+
+/* One strip per guest (and the director's own). Width stays upstream's
+   fixed 269.7px so every strip lines up in the rack. */
+.directorsgrid .vidcon,
+body.darktheme .directorsgrid .vidcon,
+.whitetheme .directorsgrid .vidcon {
+	padding: 6px;
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	color: var(--bn-text);
+	font-size: var(--bn-text-sm);
+}
+
+.directorMargins {
+	margin: 0 var(--bn-space-3) var(--bn-space-3) 0;
+}
+
+/* In a scene: the engine adds .containerGreen (upstream fills the whole
+   strip green with !important). BN keeps the surface and marks the state
+   with an ok edge; the pressed "add to scene" button carries the label. */
+.containerGreen,
+body.darktheme .containerGreen {
+	background-color: var(--bn-surface-2) !important;
+	border-color: var(--bn-ok) !important;
+	box-shadow: inset 0 0 0 1px var(--bn-ok);
+}
+
+/* Another director's strip (co-director, main director): upstream fills it
+   slate or purple with !important. The engine labels the role in the strip
+   header, so BN only steps the edge up. Display stays the engine's. */
+.directorBlue,
+.directorBox {
+	background-color: var(--bn-surface-2) !important;
+	border-color: var(--bn-border-strong) !important;
+}
+
+/* "This is you, the director" note in the director's own strip: upstream uses
+   --discord-text, a light grey that disappears on the light theme. */
+#yourDirectorStatus,
+#yourDirectorStatusSS {
+	margin: 0;
+	color: var(--bn-text-muted);
+	font-size: var(--bn-text-sm);
+	font-weight: 500;
+	line-height: 1.5;
+}
+
+/* Minimized strip: the engine clips it to a 24px tab; drop the top inset so
+   the header line shows, and swap upstream's white inset for the hairline. */
+.directorsgrid .vidcon.minimized,
+body.darktheme .directorsgrid .vidcon.minimized {
+	padding-top: 0;
+	padding-bottom: 0;
+	box-shadow: none;
+}
+
+/* Placeholder strips before anyone joins (#deleteme). */
+.directorsgrid .vidcon > h2,
+.whitetheme .directorsgrid .vidcon > h2 {
+	margin: var(--bn-space-3) 0 0 0;
+	color: var(--bn-text-muted);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+}
+
+.directorsgrid .vidcon > .las,
+body.darktheme .directorsgrid .vidcon > .las {
+	color: var(--bn-text-faint);
+	background-color: var(--bn-surface-3);
+	border-radius: var(--bn-radius-sm);
+}
+
+/* Strip header: shift arrows, lock, label, stream ID, copy, minimize. */
+.shift {
+	top: 0;
+	margin: 0;
+	min-width: 36px;
+	color: var(--bn-text-muted);
+	vertical-align: middle;
+}
+
+.shift > i:hover,
+.shift > span:hover {
+	color: var(--bn-text);
+}
+
+/* One header line: label at the left, ID and its tools at the right. Upstream
+   floats the label left inside the right-aligned ID line; with a mono ID the
+   float drops to a second line, so the line is a flex row and the label takes
+   the float's visual slot via order (DOM order is untouched). */
+.streamID {
+	display: inline-flex;
+	align-items: center;
+	justify-content: flex-end;
+	gap: var(--bn-space-1);
+	width: calc(100% - 40px);
+	margin: 0;
+	color: var(--bn-text-muted);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	line-height: 24px;
+	white-space: nowrap;
+	vertical-align: middle;
+}
+
+.streamID > span:first-child {
+	flex: 0 1 auto;
+	min-width: 0;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: var(--bn-text);
+}
+
+.streamID > i {
+	flex: none;
+}
+
+.streamID i {
+	color: var(--bn-text-muted);
+	font-size: 14px;
+	top: 2px;
+}
+
+.streamID i:hover {
+	color: var(--bn-text);
+}
+
+.contolboxLabel,
+.streamID > [id^="label_"] {
+	order: -1;
+	flex: 0 0 auto;
+	min-width: 0;
+	top: 0;
+	max-width: 50%;
+	margin: 0 auto 0 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: var(--bn-text);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	font-weight: 600;
+}
+
+.contolboxLabel.addALabel,
+.streamID > .addALabel {
+	color: var(--bn-text-muted);
+	font-weight: 400;
+}
+
+.slotsbar {
+	color: var(--bn-text);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	text-shadow: none;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+}
+
+/* Video preview: full strip width, square-ish corners, dark well. */
+.directorsgrid .vidcon video {
+	box-sizing: border-box;
+	margin: 0;
+	max-width: 100%;
+	border-radius: var(--bn-radius-sm);
+	background-color: var(--bn-video-bg);
+}
+
+.controlVideoBox {
+	margin: var(--bn-space-2) 0 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Control grid inside each strip                                      */
+/* ------------------------------------------------------------------ */
+
+.controlCenterBox {
+	gap: var(--bn-space-1);
+	padding: var(--bn-space-2) 0 0;
+}
+
+.controlsGrid,
+.controlsGrid .group,
+.controlsGrid .row {
+	gap: var(--bn-space-1);
+}
+
+.controlCenterBox .flexBreak,
+.darktheme .controlCenterBox .flexBreak {
+	margin: var(--bn-space-1) 0;
+	border-bottom: 1px solid var(--bn-border);
+	filter: none;
+}
+
+/* Base button: compact, neutral, aligned. The refresh section lifts and
+   shadows every grid button on hover; BN steps the surface instead. */
+/* .darktheme :not(.promptModalInner) > button is (0,2,1) upstream, so the
+   dark variant is listed explicitly. Dense controls: 12px type and 4px
+   insets keep three labels per row inside the 270px strip. */
+.controlsGrid button,
+.darktheme .controlsGrid button,
+.whitetheme .controlsGrid button {
+	min-height: 28px;
+	padding: 0 var(--bn-space-1);
+	gap: var(--bn-space-1);
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	font-family: var(--bn-font-sans);
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1;
+	text-transform: none;
+	transform: none;
+	transition: background-color var(--bn-duration) var(--bn-ease), border-color var(--bn-duration) var(--bn-ease);
+}
+
+.controlsGrid button:hover,
+.darktheme .controlsGrid button:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+	transform: none;
+}
+
+.controlsGrid button:active {
+	transform: none;
+}
+
+/* Source labels mix "Solo Talk", "reconnect mic" and "Video off"; lowercase
+   plus a capital first letter gives one consistent sentence case. */
+.controlsGrid button span {
+	display: inline-block;
+	max-width: 100%;
+	text-transform: lowercase;
+}
+
+.controlsGrid button span::first-letter {
+	text-transform: uppercase;
+}
+
+/* Icons: one calm color. Upstream paints mute/hangup/record icons red, scene
+   and solo-talk icons green and highlight yellow regardless of state. */
+.controlsGrid button i,
+.controlsGrid button[data-action-type] i,
+.controlsGrid button[data-action-type="solo-video"] > i {
+	flex: none;
+	color: var(--bn-text-muted);
+	font-size: 14px;
+}
+
+.controlsGrid button[data-action-type="mute-guest"] {
+	box-shadow: none;
+}
+
+/* Grouped selectors (S3-S8, C1-C8, G1-G7, MIDI): upstream codes each set
+   with a pastel or dark tint (one purple). They read as IDs, so mono on the
+   neutral button; the row already groups them. */
+.controlsGrid .btn-HL-yellow,
+.controlsGrid .btn-HL-peach,
+.controlsGrid .btn-HL-green,
+.controlsGrid .btn-HL-blue,
+.controlsGrid .btn-HL-paleblue,
+.controlsGrid .btn-HL-orange,
+.controlsGrid .btn-HL-purple,
+.controlsGrid .btn-HL-red,
+.controlsGrid .btn-HL-teal,
+.darktheme .controlsGrid .btn-HL-yellow,
+.darktheme .controlsGrid .btn-HL-peach,
+.darktheme .controlsGrid .btn-HL-green,
+.darktheme .controlsGrid .btn-HL-blue,
+.darktheme .controlsGrid .btn-HL-paleblue,
+.darktheme .controlsGrid .btn-HL-orange,
+.darktheme .controlsGrid .btn-HL-purple,
+.darktheme .controlsGrid .btn-HL-red,
+.darktheme .controlsGrid .btn-HL-teal {
+	background-color: var(--bn-surface);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+}
+
+.darktheme .controlsGrid .btn-HL-yellow:hover,
+.darktheme .controlsGrid .btn-HL-peach:hover,
+.darktheme .controlsGrid .btn-HL-green:hover,
+.darktheme .controlsGrid .btn-HL-paleblue:hover,
+.darktheme .controlsGrid .btn-HL-purple:hover,
+.controlsGrid .btn-HL-peach:hover,
+.controlsGrid .btn-HL-green:hover,
+.controlsGrid .btn-HL-paleblue:hover,
+.controlsGrid .btn-HL-purple:hover {
+	background-color: var(--bn-surface-3);
+}
+
+/* Inline style="color:orange" on the C4 label. */
+.controlsGrid button span[style*="color"] {
+	color: inherit !important;
+}
+
+/* Row captions with inline colors (lightgreen "Monitor Mix", #F44 "PGM / Mic",
+   lightgreen MIDI captions): mono labels in the muted text color. */
+.controlsGrid .row > span[style*="color"] {
+	color: var(--bn-text-muted) !important;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+/* Section toggles: "Scene options", "Additional controls". */
+.controlsGrid button.hideDropMenu,
+.darktheme .controlsGrid button.hideDropMenu,
+.whitetheme .controlsGrid button.hideDropMenu {
+	justify-content: flex-start;
+	min-height: 28px;
+	margin-top: var(--bn-space-1);
+	padding: 0 var(--bn-space-1);
+	color: var(--bn-text-muted);
+	background-color: transparent;
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	border-radius: 0;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+}
+
+.controlsGrid .hideDropMenu span {
+	text-transform: uppercase;
+}
+
+.controlsGrid button.hideDropMenu:hover,
+.darktheme .controlsGrid button.hideDropMenu:hover {
+	color: var(--bn-text);
+	background-color: transparent;
+}
+
+/* Mix order readout. */
+.controlsGrid .orderspan,
+.darktheme .controlsGrid .orderspan {
+	color: var(--bn-text);
+	font-family: var(--bn-font-mono);
+}
+
+.controlsGrid .orderspan p {
+	margin: 0;
+	line-height: 1.2;
+}
+
+/* Upstream sizes the caption at 50% (6px); 10px is the floor for legibility. */
+.controlsGrid .orderspan .order-label {
+	color: var(--bn-text-muted);
+	font-family: var(--bn-font-sans);
+	font-size: 10px;
+}
+
+/* Volume slider and its value bubble. */
+.directorsgrid input[type="range"]::-webkit-slider-runnable-track {
+	background: var(--bn-border-strong);
+	border: 0;
+	box-shadow: none;
+	border-radius: 2px;
+	height: 4px;
+}
+
+.directorsgrid input[type="range"]::-webkit-slider-thumb {
+	margin-top: -6px;
+	background: var(--bn-text);
+	border: 1px solid var(--bn-text);
+	box-shadow: none;
+}
+
+.directorsgrid input[type="range"]::-moz-range-track {
+	background: var(--bn-border-strong);
+	border: 0;
+	box-shadow: none;
+	border-radius: 2px;
+	height: 4px;
+}
+
+.directorsgrid input[type="range"]::-moz-range-progress {
+	background: var(--bn-text);
+	border-radius: 2px;
+	height: 4px;
+}
+
+.directorsgrid input[type="range"]::-moz-range-thumb {
+	background: var(--bn-text);
+	border: 1px solid var(--bn-text);
+	box-shadow: none;
+}
+
+/* The refresh section forces the tooltip colors with !important. */
+.controlsGrid .tooltip .tooltiptext,
+.darktheme .controlsGrid .tooltip .tooltiptext {
+	color: var(--bn-text) !important;
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: var(--bn-shadow);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+}
+
+/* Direct message composer. The refresh section makes it a glass pane. */
+.controlsGrid .director-message-box,
+.darktheme .controlsGrid .director-message-box {
+	gap: var(--bn-space-1);
+	padding: var(--bn-space-2);
+	background: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+}
+
+.controlsGrid .director-message-box textarea,
+.darktheme .controlsGrid .director-message-box textarea {
+	min-height: 56px;
+	padding: var(--bn-space-2);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+}
+
+/* Bell toggle: inline style="color:#FFF". */
+.controlsGrid [data-action-type="messaging-box-toggle"] i {
+	color: var(--bn-text-muted) !important;
+}
+
+.darktheme .controlsGrid .director-message-box button {
+	background-color: var(--bn-surface-2);
+}
+
+/* Send is the composer's call to action, like chat Send: accent fill. */
+.controlsGrid .director-message-box .message-send,
+.darktheme .controlsGrid .director-message-box .message-send {
+	color: var(--bn-accent-ink);
+	background-color: var(--bn-accent);
+	border-color: transparent;
+	font-weight: 600;
+}
+
+.controlsGrid .director-message-box .message-send:hover {
+	background-color: var(--bn-accent-hover);
+}
+
+.controlsGrid .director-message-box .message-send i {
+	color: var(--bn-accent-ink);
+}
+
+/* Mix dropdown (custom audio mix per guest): upstream is always dark grey. */
+.mix-dropdown,
+.darktheme .mix-dropdown {
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius);
+	box-shadow: var(--bn-shadow);
+}
+
+.mix-dropdown-header,
+.mix-dropdown-section-title {
+	color: var(--bn-text-muted);
+	font-family: var(--bn-font-mono);
+	letter-spacing: var(--bn-label-tracking);
+	border-bottom-color: var(--bn-border);
+}
+
+.mix-dropdown-item {
+	color: var(--bn-text);
+	border-radius: var(--bn-radius-sm);
+}
+
+.mix-dropdown-item:hover {
+	background: var(--bn-surface-3);
+}
+
+/* Remote audio / video settings panels (generated by lib.js). */
+.advancedAudioSettings label,
+.advancedVideoSettings label,
+.darktheme .advancedAudioSettings label,
+.darktheme .advancedVideoSettings label {
+	color: var(--bn-text);
+}
+
+/* Section captions in those panels: upstream hardcodes #fff (invisible on
+   the light strip) over a 3px grey rule. */
+.advancedAudioSettings .settingsLabel,
+.advancedVideoSettings .settingsLabel,
+.darktheme .advancedAudioSettings .settingsLabel,
+.darktheme .advancedVideoSettings .settingsLabel {
+	color: var(--bn-text-muted);
+	border-top: 1px solid var(--bn-border);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: 0.04em;
+}
+
+.advancedAudioSettings div select,
+.advancedVideoSettings .settings-select-row > select {
+	box-shadow: none;
+	font-size: var(--bn-text-sm);
+}
+
+/* data-chosen marks whether the guest's device was picked: state colors. */
+.advancedAudioSettings div select[data-chosen='false'],
+.advancedVideoSettings div select[data-chosen='false'] {
+	border-color: var(--bn-error);
+}
+
+.advancedAudioSettings div select[data-chosen='true'],
+.advancedVideoSettings div select[data-chosen='true'] {
+	border-color: var(--bn-ok);
+}
+
+/* Solo view link: a mono readout with its copy button. */
+.soloButton {
+	gap: var(--bn-space-1);
+	margin-top: var(--bn-space-1);
+	font-size: var(--bn-text-sm);
+}
+
+.soloButton a.soloLink:link,
+.soloButton a.soloLink:visited,
+.darktheme .soloButton a.soloLink:link,
+.darktheme .soloButton a.soloLink:visited {
+	box-sizing: border-box;
+	width: 100%;
+	padding: 6px var(--bn-space-2);
+	color: var(--bn-text);
+	background-color: var(--bn-sunken);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 400;
+	line-height: 1.4;
+	text-decoration: none;
+	text-shadow: none;
+}
+
+.soloButton a.soloLink:hover,
+.soloButton a.soloLink:focus,
+.darktheme .soloButton a.soloLink:hover,
+.darktheme .soloButton a.soloLink:focus {
+	color: var(--bn-text);
+	border-color: var(--bn-border-strong);
+}
+
+.soloButton a.soloLink:focus {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 0;
+}
+
+.soloButton button,
+.darktheme .soloButton button,
+.whitetheme .soloButton button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	min-height: 28px;
+	margin: 0;
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	font-size: 12px;
+	font-weight: 500;
+	transform: none;
+}
+
+.soloButton button:hover,
+.darktheme .soloButton button:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+	transform: none;
+}
+
+.soloButton button i {
+	color: var(--bn-text-muted);
+	font-size: 15px;
+}
+
+/* Guest waiting on the director: raised hand, queued guest. Upstream fills
+   them yellow and magenta with !important; both are state, so warn fill. */
+.lowerRaisedHand,
+.removeFromQueue {
+	min-height: 28px;
+	margin: var(--bn-space-1) 0 0 0;
+	color: var(--bn-warn-ink) !important;
+	background-color: var(--bn-warn) !important;
+	border: 0;
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	font-weight: 600;
+}
+
+.lowerRaisedHand i,
+.removeFromQueue i {
+	color: var(--bn-warn-ink);
+}
+
+/* ------------------------------------------------------------------ */
+/* State on grid buttons                                               */
+/* ------------------------------------------------------------------ */
+
+/* Toggled on (.pressed): accent fill, accent ink. Upstream's .pressed is a
+   dark red with !important, so the override needs !important too. */
+.controlsGrid button.pressed,
+#roomSettings button.pressed {
+	color: var(--bn-accent-ink) !important;
+	background: var(--bn-accent) !important;
+	border-color: transparent;
+	box-shadow: none;
+}
+
+.controlsGrid button.pressed i,
+.controlsGrid button.pressed[data-action-type] i,
+#roomSettings button.pressed i {
+	color: var(--bn-accent-ink);
+}
+
+/* Alternate press (CTRL/CMD-click: two-way solo talk, enlarge-only highlight).
+   A second "on" mode, kept apart from the accent with the caution fill. */
+.controlsGrid button.altpress,
+.controlsGrid button.pressed.altpress {
+	color: var(--bn-warn-ink) !important;
+	background: var(--bn-warn) !important;
+	box-shadow: none;
+}
+
+.controlsGrid button.altpress i,
+.controlsGrid button.altpress[data-action-type] i {
+	color: var(--bn-warn-ink);
+}
+
+/* Armed (e.g. transfer or hangup awaiting confirmation; video off): error. */
+.controlsGrid button.armed,
+.controlsGrid button.pressed.armed {
+	color: var(--bn-error-ink) !important;
+	background: var(--bn-error) !important;
+}
+
+.controlsGrid button.armed i,
+.controlsGrid button.armed[data-action-type] i {
+	color: var(--bn-error-ink);
+}
+
+/* Engine state classes on grid buttons (timers, deafen, blind, groups). The
+   fills come from controls.css; text and icons need the matching ink here
+   because the grid button rule above is more specific than .red / .green. */
+.controlsGrid button.red,
+.controlsGrid button.red i,
+.controlsGrid button.red[data-action-type] i {
+	color: var(--bn-error-ink);
+}
+
+.controlsGrid button.green,
+.controlsGrid button.green i,
+.controlsGrid button.green[data-action-type] i {
+	color: var(--bn-ok-ink);
+}
+
+.controlsGrid button.orange,
+.controlsGrid button.orange i,
+.controlsGrid button.orange[data-action-type] i {
+	color: var(--bn-warn-ink);
+}
+
+.controlsGrid button.blue,
+.controlsGrid button.blue i,
+.controlsGrid button.blue[data-action-type] i {
+	color: var(--bn-accent-ink);
+}
+
+.controlsGrid button.red,
+.controlsGrid button.green,
+.controlsGrid button.orange,
+.controlsGrid button.blue {
+	border-color: transparent;
+}
+
+/* ------------------------------------------------------------------ */
+/* Room settings popup (#roomSettings)                                 */
+/* ------------------------------------------------------------------ */
+
+#roomSettings.customModelPopup,
+.darktheme #roomSettings.customModelPopup {
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+	font-size: var(--bn-text-sm);
+	font-weight: 400;
+}
+
+#roomSettings.pinToSide {
+	border-radius: 0;
+	border-width: 0 0 0 1px;
+}
+
+#roomSettings .promptModalInner {
+	padding: var(--bn-space-5);
+}
+
+#roomSettings h3 {
+	margin: 0;
+	color: var(--bn-text);
+	font-size: var(--bn-text-lg);
+	font-weight: 600;
+	letter-spacing: -0.01em;
+}
+
+#roomSettings label {
+	color: var(--bn-text);
+	font-weight: 400;
+}
+
+#roomSettings .modalClose {
+	top: var(--bn-space-2);
+	right: var(--bn-space-3);
+	color: var(--bn-text-muted);
+	font-size: 22px;
+	font-weight: 400;
+	line-height: 1;
+}
+
+#roomSettings .modalClose:hover {
+	color: var(--bn-text);
+}
+
+/* The pin sits left of the close mark; inline right:25px crowds it. */
+#roomSettings .modalClose[style*="right"] {
+	right: 44px !important;
+	font-size: 16px;
+	top: 12px;
+}
+
+#trbSettingInputFeedback,
+#ltbSettingInputFeedback {
+	color: var(--bn-text);
+	font-family: var(--bn-font-mono);
+	font-weight: 500;
+}
+
+#roomSettings input[type="range"]::-webkit-slider-runnable-track {
+	background: var(--bn-border-strong);
+	border: 0;
+	box-shadow: none;
+	border-radius: 2px;
+	height: 4px;
+}
+
+#roomSettings input[type="range"]::-webkit-slider-thumb {
+	margin-top: -6px;
+	background: var(--bn-text);
+	border: 1px solid var(--bn-text);
+	box-shadow: none;
+}
+
+#roomSettings input[type="range"]::-moz-range-track {
+	background: var(--bn-border-strong);
+	border: 0;
+	box-shadow: none;
+	border-radius: 2px;
+	height: 4px;
+}
+
+#roomSettings input[type="range"]::-moz-range-progress {
+	background: var(--bn-text);
+	height: 4px;
+}
+
+#roomSettings input[type="range"]::-moz-range-thumb {
+	background: var(--bn-text);
+	border: 1px solid var(--bn-text);
+	box-shadow: none;
+}
+
+#trbSettingInputManual,
+#ltbSettingInputManual {
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-1);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-sm);
+}
+
+#roomSettings button,
+.whitetheme #roomSettings button {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: var(--bn-control-height);
+	margin: var(--bn-space-1) var(--bn-space-1) 0 0;
+	padding: 0 var(--bn-space-3);
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	font-size: var(--bn-text-sm);
+	font-weight: 500;
+	transform: none;
+}
+
+#roomSettings button:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+	transform: none;
+}
+
+#roomSettings button i {
+	color: var(--bn-text-muted);
+	font-size: 16px;
+}
+
+/* Co-director invite and widget URL fields: inline 1px solid black borders. */
+#codirectorSettings_invite,
+#widgetURL {
+	border-color: var(--bn-border) !important;
+	background-color: var(--bn-sunken);
+	color: var(--bn-text);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+}
+
+/* Access control section: inline border-top #ccc. */
+#authAccessControl {
+	border-top-color: var(--bn-border) !important;
+}
+
+#authAccessControl h4 {
+	color: var(--bn-text-muted);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+}
+
+/* ------------------------------------------------------------------ */
+/* Phone                                                               */
+/* ------------------------------------------------------------------ */
+
+@media only screen and (max-width: 640px) {
+	.hideLinksClass,
+	.whitetheme #roomHeader .hideLinksClass {
+		flex-wrap: wrap;
+		gap: 0 var(--bn-space-3);
+		margin: var(--bn-space-2);
+		max-width: calc(100% - 2 * var(--bn-space-2));
+	}
+
+	div#roomnotes2,
+	.whitetheme #roomnotes2 {
+		margin: 0 var(--bn-space-2) var(--bn-space-2);
+		max-width: calc(100% - 2 * var(--bn-space-2));
+	}
+
+	.directorContainer,
+	.whitetheme .directorContainer,
+	.directorContainer.half,
+	.whitetheme .directorContainer.half {
+		width: calc(100% - 2 * var(--bn-space-2));
+		max-width: none;
+		margin: 0 var(--bn-space-2) var(--bn-space-2);
+	}
+
+	.directorBlock button,
+	.whitetheme .directorBlock button {
+		margin-top: var(--bn-space-2);
+	}
+
+	div#guestFeeds,
+	.darktheme div#guestFeeds,
+	.whitetheme div#guestFeeds {
+		width: calc(100% - 2 * var(--bn-space-2));
+		max-width: none;
+		margin: 0 var(--bn-space-2) 80px;
+		padding: var(--bn-space-2) 0 0 var(--bn-space-2);
+	}
+
+	.directorMargins {
+		margin: 0 var(--bn-space-2) var(--bn-space-2) 0;
+	}
+
+	/* One strip per row on a phone, full width. Upstream fixes the strip at
+	   269.7px with !important, so the phone width needs it too. */
+	.directorsgrid .vidcon,
+	body.darktheme .directorsgrid .vidcon,
+	.whitetheme .directorsgrid .vidcon {
+		width: calc(100% - var(--bn-space-2)) !important;
+	}
+
+	.directorsgrid .vidcon video {
+		max-width: 100%;
+		max-height: 200px;
+	}
+
+	/* The toggle caption is capped inline at 40% and wraps mid-label. */
+	.directorBlock > span > span[style*="max-width"] {
+		max-width: 100% !important;
+	}
+
+	.controlsGrid button,
+	.soloButton button {
+		min-height: 32px;
+	}
+}
