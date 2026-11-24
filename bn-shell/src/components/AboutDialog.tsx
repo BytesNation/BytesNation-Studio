@@ -1,8 +1,9 @@
 import { Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { getEngineVersion, licenseUrl, productName, sourceRepoUrl, upstreamRepoUrl } from "@/lib/engine";
+import { useShellState } from "@/lib/shell-state";
 
 const ExternalLink = ({ href, children }: { href: string; children: string }) => (
 	<a href={href} target="_blank" rel="noopener noreferrer" className="tw-text-text tw-underline tw-decoration-border-strong tw-underline-offset-[3px] hover:tw-decoration-text">
@@ -10,24 +11,31 @@ const ExternalLink = ({ href, children }: { href: string; children: string }) =>
 	</a>
 );
 
+/** App-bar button that opens the About view. */
+export const AboutButton = () => {
+	const shell = useShellState();
+	return (
+		<Tooltip>
+			<TooltipTrigger asChild>
+				<Button variant="ghost" size="icon" className="bn-tool-secondary" aria-label={`About ${productName}`} aria-haspopup="dialog" onClick={() => shell.setAboutOpen(true)}>
+					<Info size={16} aria-hidden="true" />
+				</Button>
+			</TooltipTrigger>
+			<TooltipContent>About</TooltipContent>
+		</Tooltip>
+	);
+};
+
 /**
  * About view: product identity, the AGPL-3.0 credit to the upstream engine,
- * and the source link AGPL section 13 requires for network users.
+ * and the source link AGPL section 13 requires for network users. Opened from
+ * the app bar or the command palette.
  */
 export const AboutDialog = () => {
+	const shell = useShellState();
 	const engineVersion = getEngineVersion();
 	return (
-		<Dialog>
-			<Tooltip>
-				<TooltipTrigger asChild>
-					<DialogTrigger asChild>
-						<Button variant="ghost" size="icon" aria-label={`About ${productName}`}>
-							<Info size={16} aria-hidden="true" />
-						</Button>
-					</DialogTrigger>
-				</TooltipTrigger>
-				<TooltipContent>About</TooltipContent>
-			</Tooltip>
+		<Dialog open={shell.isAboutOpen} onOpenChange={shell.setAboutOpen}>
 			<DialogContent>
 				<DialogHeader>
 					<span className="tw-font-mono tw-text-[11px] tw-uppercase tw-tracking-[0.08em] tw-text-muted">About</span>

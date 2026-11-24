@@ -45,3 +45,242 @@
 		display: none;
 	}
 }
+
+/* App-bar tools */
+.bn-cmd-trigger {
+	color: var(--bn-text-muted);
+}
+
+.bn-cmd-trigger:hover {
+	color: var(--bn-text);
+}
+
+.bn-cmd-trigger-label {
+	font-size: var(--bn-text-sm);
+}
+
+.bn-rec-time {
+	color: var(--bn-text-muted);
+}
+
+@media only screen and (max-width: 900px) {
+	.bn-cmd-trigger-label,
+	.bn-cmd-trigger-keys {
+		display: none;
+	}
+}
+
+/* On phones the palette is the menu: theme and About live in it, so their bar buttons step aside. */
+@media only screen and (max-width: 480px) {
+	.bn-has-palette .bn-tool-secondary {
+		display: none;
+	}
+}
+
+/*
+ * Command palette (cmdk renders unstyled; these are its parts).
+ * The selected row takes a surface step. The 2px accent marker that glides
+ * between rows is the active indicator, one of the three accent uses.
+ */
+.bn-cmd [cmdk-root] {
+	display: flex;
+	flex-direction: column;
+	font-family: var(--bn-font-sans);
+}
+
+/* The search row. The field is bare: the row's rule and the caret show focus,
+   and the selected row below is the working indicator. These selectors outrank
+   the theme's own input styles. */
+.bn-cmd-search {
+	border-bottom: 1px solid var(--bn-border);
+}
+
+.bn-cmd-search:focus-within {
+	border-bottom-color: var(--bn-control-border);
+}
+
+.bn-cmd input.bn-cmd-input,
+.bn-cmd input.bn-cmd-input:hover,
+.bn-cmd input.bn-cmd-input:focus,
+.bn-cmd input.bn-cmd-input:focus-visible {
+	flex: 1 1 auto;
+	min-width: 0;
+	min-height: 0;
+	height: 48px;
+	padding: 0;
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-md);
+	color: var(--bn-text);
+	background: transparent;
+	border: 0;
+	border-radius: 0;
+	outline: none;
+	box-shadow: none;
+}
+
+.bn-cmd input.bn-cmd-input::placeholder {
+	color: var(--bn-text-faint);
+	opacity: 1;
+}
+
+.bn-cmd-back {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	gap: 6px;
+	height: 26px;
+	padding: 0 8px;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text);
+	background-color: var(--bn-surface-3);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	cursor: pointer;
+	max-width: 180px;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.bn-cmd-list {
+	height: min(var(--cmdk-list-height, 0px), 404px);
+	max-height: 60vh;
+	overflow-y: auto;
+	overscroll-behavior: contain;
+	transition: height var(--bn-duration) var(--bn-ease);
+	scroll-padding-block: 8px;
+}
+
+.bn-cmd-list [cmdk-list-sizer] {
+	position: relative;
+	padding: 6px;
+}
+
+.bn-cmd-marker {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 2px;
+	background-color: var(--bn-accent);
+	border-radius: 1px;
+	pointer-events: none;
+	z-index: 1;
+}
+
+.bn-cmd [cmdk-group-heading] {
+	padding: 10px 10px 4px;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-faint);
+	user-select: none;
+}
+
+.bn-cmd-item {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-height: 36px;
+	padding: 0 10px;
+	font-size: var(--bn-text-base);
+	color: var(--bn-text);
+	border-radius: var(--bn-radius-sm);
+	cursor: pointer;
+	user-select: none;
+}
+
+.bn-cmd-item[data-selected="true"] {
+	background-color: var(--bn-surface-3);
+}
+
+.bn-cmd-item[data-disabled="true"] {
+	color: var(--bn-text-faint);
+	cursor: default;
+}
+
+.bn-cmd-glyph {
+	display: inline-flex;
+	flex: none;
+	align-items: center;
+	justify-content: center;
+	width: 16px;
+	height: 16px;
+	color: var(--bn-text-muted);
+}
+
+.bn-cmd-glyph i {
+	font-size: 17px;
+	line-height: 1;
+	color: inherit;
+}
+
+.bn-cmd-mask {
+	background-color: var(--bn-text-muted);
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+}
+
+.bn-cmd-item[data-selected="true"] .bn-cmd-glyph {
+	color: var(--bn-text);
+}
+
+.bn-cmd-item[data-selected="true"] .bn-cmd-mask {
+	background-color: var(--bn-text);
+}
+
+.bn-cmd-empty {
+	padding: 28px 12px;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	text-align: center;
+	color: var(--bn-text-muted);
+}
+
+.bn-cmd-footer {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	height: 36px;
+	padding: 0 12px;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+	border-top: 1px solid var(--bn-border);
+}
+
+@media only screen and (max-width: 640px) {
+	.bn-cmd-item {
+		min-height: 44px;
+	}
+
+	.bn-cmd-keys {
+		display: none;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.bn-cmd-list {
+		transition: none;
+	}
+}
+
+/* Notifications (Sonner). Cards are fully ours; Sonner supplies stacking, timers and swipe. */
+[data-sonner-toaster] {
+	font-family: var(--bn-font-sans);
+}
+
+/* Fixed card width, so a stack reads as one column of equal readouts. */
+[data-sonner-toast] .bn-toast {
+	box-sizing: border-box;
+	width: 360px;
+	max-width: calc(100vw - 24px);
+}

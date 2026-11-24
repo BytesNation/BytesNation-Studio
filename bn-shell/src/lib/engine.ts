@@ -1,13 +1,25 @@
 /**
- * The shell's only bridge to the engine.
+ * The shell's bridge to the engine: session state and page-level facts.
  *
- * The shell never reimplements engine behavior. It reads documented engine
- * state (window.session, DOM the engine owns) and, when it offers a control,
- * invokes the engine's own handler. Every engine touchpoint lives in this file
- * so an upstream change that breaks one is found in one place.
+ * The shell never reimplements engine behavior. It reads engine state
+ * (window.session, DOM the engine owns) and, when it offers a control, presses
+ * the engine's own control. Every engine touchpoint lives in src/lib/engine*.ts
+ * (state here, controls in engine-controls.ts, events in engine-events.ts) so an
+ * upstream change that breaks one is found in one place.
  */
 
-interface EngineSession {
+interface RecordableVideo {
+	recording?: boolean;
+	stopWriter?: unknown;
+}
+
+interface EnginePeer {
+	videoElement?: RecordableVideo | null;
+	label?: string | boolean | null;
+	streamID?: string;
+}
+
+export interface EngineSession {
 	version?: string | null;
 	darkmode?: boolean | string | null;
 	studioSoftware?: boolean;
@@ -15,6 +27,15 @@ interface EngineSession {
 	roomid?: string | boolean | null;
 	director?: boolean | string | null;
 	label?: string | boolean | null;
+	scene?: string | boolean | number | null;
+	view?: string | boolean | null;
+	whepInput?: unknown;
+	whipView?: unknown;
+	permaid?: string | boolean | null;
+	disableHotKeys?: boolean;
+	videoElement?: RecordableVideo | null;
+	screenShareElement?: RecordableVideo | null;
+	rpcs?: Record<string, EnginePeer>;
 }
 
 declare global {
@@ -57,6 +78,69 @@ export const isStudioOutput = (): boolean => {
 		return true;
 	}
 	return Boolean(session && (session.studioSoftware || session.cleanOutput));
+};
+
+/**
+ * True on pages where a person operates the studio: the launcher, the director
+ * room, a guest or publisher. False on outputs that get captured (scenes,
+ * view-only links, OBS, clean output) and inside iframes, where an embedding
+ * page owns the interface. Mirrors the engine's own mode branches
+ * (main.js: scene inside a room; view-only when nothing is published).
+ * Floating shell layers (command palette, notifications) only exist here.
+ * @returns {boolean}
+ */
+export const isOperatorSurface = (): boolean => {
+	const session = getSession();
+	if (!session || isStudioOutput()) {
+		return false;
+	}
+	if (window.self !== window.top) {
+		return false;
+	}
+	const isScene = session.scene !== false && session.scene !== undefined && session.scene !== null;
+	const hasInboundOnly = (session.view !== false && session.view !== undefined && session.view !== null) || Boolean(session.whepInput) || Boolean(session.whipView);
+	const isViewOnly = hasInboundOnly && session.permaid === false && !session.director && session.roomid === false;
+	return !isScene && !isViewOnly;
+};
+
+/**
+ * False when the link carries &disablehotkeys: the engine then ignores its own
+ * shortcuts, and the shell must not add one either.
+ * @returns {boolean}
+ */
+export const areHotkeysEnabled = (): boolean => {
+	const session = getSession();
+	return Boolean(session) && !(session as EngineSession).disableHotKeys;
+};
+
+/**
+ * True when an element is laid out. The engine hides controls with the
+ * .hidden class, inline display and URL parameters; all of them end here.
+ * @param {Element | null} element
+ * @returns {boolean}
+ */
+export const isRendered = (element: Element | null): boolean => {
+	return element !== null && element.getClientRects().length > 0;
+};
+
+const isRecordingVideo = (video: RecordableVideo | null | undefined): boolean => {
+	return Boolean(video) && ((video as RecordableVideo).recording === true || typeof (video as RecordableVideo).stopWriter === "function");
+};
+
+/**
+ * How many streams this page is recording right now: the local stream, the
+ * local screen share, and any guest the director records locally. Reads the
+ * same flag the engine's record handlers check (video.recording).
+ * @returns {number}
+ */
+export const readRecordingCount = (): number => {
+	const session = getSession();
+	if (!session) {
+		return 0;
+	}
+	const peers = session.rpcs || {};
+	const peerCount = Object.keys(peers).filter(uuid => isRecordingVideo(peers[uuid].videoElement)).length;
+	return peerCount + (isRecordingVideo(session.videoElement) ? 1 : 0) + (isRecordingVideo(session.screenShareElement) ? 1 : 0);
 };
 
 export type ColorMode = "dark" | "light";

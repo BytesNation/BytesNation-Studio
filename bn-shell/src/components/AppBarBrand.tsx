@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
+import { AnimatePresence } from "motion/react";
+import * as m from "motion/react-m";
 import { BrandMark } from "@/components/BrandMark";
 import { productName, readSignalingState } from "@/lib/engine";
+import { inlineStatusVariants } from "@/lib/motion";
 
 const signalingPollMs = 2000;
 
@@ -25,12 +28,22 @@ export const AppBarBrand = () => {
 					BytesNation <span className="tw-font-normal tw-text-muted">Studio</span>
 				</span>
 			</a>
-			{signalingState === "offline" ? (
-				<span role="status" className="tw-inline-flex tw-items-center tw-gap-1.5 tw-font-mono tw-text-[11px] tw-uppercase tw-tracking-[0.08em] tw-text-error">
-					<span aria-hidden="true" className="tw-inline-block tw-h-1.5 tw-w-1.5 tw-rounded-full tw-bg-error" />
-					Signaling offline
-				</span>
-			) : null}
+			<AnimatePresence initial={false}>
+				{signalingState === "offline" ? (
+					<m.span
+						key="signal"
+						role="status"
+						variants={inlineStatusVariants}
+						initial="hidden"
+						animate="visible"
+						exit="exit"
+						className="tw-inline-flex tw-items-center tw-gap-1.5 tw-whitespace-nowrap tw-font-mono tw-text-[11px] tw-uppercase tw-tracking-[0.08em] tw-text-error"
+					>
+						<span aria-hidden="true" className="tw-inline-block tw-h-1.5 tw-w-1.5 tw-rounded-full tw-bg-error" />
+						Signaling offline
+					</m.span>
+				) : null}
+			</AnimatePresence>
 		</div>
 	);
 };

@@ -1,11 +1,19 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { AboutDialog } from "@/components/AboutDialog";
+import { LazyMotion, MotionConfig, domMin } from "motion/react";
+import { AboutButton, AboutDialog } from "@/components/AboutDialog";
 import { AppBarBrand } from "@/components/AppBarBrand";
+import { CommandPalette } from "@/components/CommandPalette";
+import { CommandTrigger } from "@/components/CommandTrigger";
 import { CreditFooter } from "@/components/CreditFooter";
+import { Notifications } from "@/components/Notifications";
+import { RecordingIndicator } from "@/components/RecordingIndicator";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { ensureSlot, productName } from "@/lib/engine";
+import { cn } from "@/lib/cn";
+import { ensureSlot, isOperatorSurface, productName } from "@/lib/engine";
+import { watchLauncherReveal } from "@/lib/launcher-motion";
+import { ShellStateProvider } from "@/lib/shell-state";
 
 interface ShellSlots {
 	brand: HTMLElement | null;
@@ -29,17 +37,11 @@ const applyProductTitle = (): void => {
 	}
 };
 
-/**
- * Mounts shell surfaces as portals into engine-owned hosts. Each slot inherits
- * its host's visibility, so when the engine hides the header or the launcher
- * (scenes, clean output, in-call views), the shell hides with it.
- */
-export const App = () => {
+/** Keeps slots attached: the engine can rebuild header children during boot. */
+const useShellSlots = (): ShellSlots => {
 	const [slots, setSlots] = useState<ShellSlots>(findSlots);
-
 	useEffect(() => {
 		applyProductTitle();
-		// The engine can rebuild header children during boot; re-attach if a slot is lost.
 		const timer = window.setInterval(() => {
 			applyProductTitle();
 			const isDetached = !slots.brand || !document.body.contains(slots.brand) || !slots.tools || !document.body.contains(slots.tools);
@@ -49,20 +51,45 @@ export const App = () => {
 		}, 1500);
 		return () => window.clearInterval(timer);
 	}, [slots]);
+	return slots;
+};
+
+/**
+ * Mounts shell surfaces as portals into engine-owned hosts. Each slot inherits
+ * its host's visibility, so when the engine hides the header or the launcher
+ * (scenes, clean output, in-call views), the shell hides with it. The floating
+ * layers (command palette, notifications) exist only on operator surfaces.
+ */
+export const App = () => {
+	const slots = useShellSlots();
+	const [isOperator] = useState(isOperatorSurface);
+
+	useEffect(() => (isOperator ? watchLauncherReveal() : undefined), [isOperator]);
 
 	return (
-		<TooltipProvider delayDuration={300}>
-			{slots.brand ? createPortal(<div className="bn-shell"><AppBarBrand /></div>, slots.brand) : null}
-			{slots.tools
-				? createPortal(
-						<div className="bn-shell tw-flex tw-items-center tw-gap-1">
-							<ThemeToggle />
-							<AboutDialog />
-						</div>,
-						slots.tools
-					)
-				: null}
-			{slots.footer ? createPortal(<div className="bn-shell"><CreditFooter /></div>, slots.footer) : null}
-		</TooltipProvider>
+		<LazyMotion features={domMin} strict>
+			<MotionConfig reducedMotion="user">
+				<ShellStateProvider isOperator={isOperator}>
+					<TooltipProvider delayDuration={300}>
+						{slots.brand ? createPortal(<div className="bn-shell"><AppBarBrand /></div>, slots.brand) : null}
+						{slots.tools
+							? createPortal(
+									<div className={cn("bn-shell tw-flex tw-items-center tw-gap-1", isOperator ? "bn-has-palette" : "")}>
+										<RecordingIndicator />
+										{isOperator ? <CommandTrigger /> : null}
+										<ThemeToggle />
+										<AboutButton />
+									</div>,
+									slots.tools
+								)
+							: null}
+						{slots.footer ? createPortal(<div className="bn-shell"><CreditFooter /></div>, slots.footer) : null}
+						<AboutDialog />
+						{isOperator ? <CommandPalette /> : null}
+						{isOperator ? <Notifications /> : null}
+					</TooltipProvider>
+				</ShellStateProvider>
+			</MotionConfig>
+		</LazyMotion>
 	);
 };
