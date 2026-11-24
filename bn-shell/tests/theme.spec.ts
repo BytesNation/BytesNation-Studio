@@ -31,7 +31,13 @@ test.describe("theme and shell", () => {
 		await expect(footer.locator('a[href="https://github.com/steveseguin/vdo.ninja"]')).toBeVisible();
 		await expect(footer.locator('a[href="https://github.com/BytesNation/BytesNation-Studio"]')).toBeVisible();
 
-		await page.getByRole("button", { name: "About BytesNation Studio" }).click();
+		// On phones the app bar keeps only the palette button; About is a command in it.
+		if (testInfo.project.name.startsWith("mobile")) {
+			await page.locator(".bn-cmd-trigger").click();
+			await page.locator('[data-command-id="studio:about"]').click();
+		} else {
+			await page.getByRole("button", { name: "About BytesNation Studio" }).click();
+		}
 		const dialog = page.getByRole("dialog");
 		await expect(dialog).toContainText("BytesNation Studio is built on VDO.Ninja by Steve Seguin (AGPL-3.0).");
 		await expect(dialog.locator('a[href="https://github.com/BytesNation/BytesNation-Studio"]')).toBeVisible();

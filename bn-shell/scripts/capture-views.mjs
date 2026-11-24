@@ -8,7 +8,7 @@
  *
  * Usage:
  *   node scripts/capture-views.mjs --base http://127.0.0.1:8080/ --out ./shots [--group director] [--theme dark] [--browser chromium]
- * Groups: launcher, publish, director, panels, video, all (default).
+ * Groups: launcher, publish, director, panels, video, layers, all (default).
  */
 import { chromium, firefox, webkit } from "playwright";
 import { mkdirSync } from "node:fs";
@@ -33,6 +33,7 @@ const launchOptions = {
 
 const desktop = { width: 1440, height: 900 };
 const phone = { width: 390, height: 844 };
+const phone390 = phone;
 const settleMs = 2500;
 
 /**
@@ -68,6 +69,61 @@ const tryClick = async (page, selector) => {
 	} catch (clickError) {
 		console.warn(`[capture] could not click ${selector}: ${clickError.message.split("\n")[0]}`);
 	}
+};
+
+const paletteKey = process.platform === "darwin" ? "Meta+k" : "Control+k";
+
+/** Command palette, notifications and the recording readout, with their own live room. */
+const captureLayers = async (browser, { theme, withBase }) => {
+	const room = `bnlay${Date.now().toString(36)}${theme}`;
+	const launcher = await openPage(browser, { url: `${baseUrl}${theme === "light" ? "?lightmode" : ""}` });
+	await launcher.keyboard.press(paletteKey);
+	await launcher.waitForTimeout(600);
+	await capture(launcher, `palette-launcher-${theme}`);
+
+	const director = await openPage(browser, { url: withBase(`director=${room}`) });
+	const guestA = await openPage(browser, { url: withBase(`room=${room}&push=a${room}&label=Alex&webcam&autostart`), waitMs: 5000 });
+	const guestB = await openPage(browser, { url: withBase(`room=${room}&push=s${room}&label=Sam&webcam&autostart`), waitMs: 5000 });
+	await director.waitForTimeout(6000);
+	await director.keyboard.press(paletteKey);
+	await director.waitForTimeout(600);
+	await capture(director, `palette-director-${theme}`);
+	await director.keyboard.type("alex");
+	await director.waitForTimeout(300);
+	await director.keyboard.press("Enter");
+	await director.waitForTimeout(500);
+	await capture(director, `palette-guest-${theme}`);
+	await director.keyboard.press("Escape");
+
+	await guestA.keyboard.press(paletteKey);
+	await guestA.waitForTimeout(600);
+	await capture(guestA, `palette-call-${theme}`);
+	await guestA.keyboard.press("Escape");
+
+	await tryClick(director, "#chatbutton");
+	await director.fill("#chatInput", "Stand by, going live in 30.").catch(() => {});
+	await director.keyboard.press("Enter").catch(() => {});
+	await guestB.waitForTimeout(1500);
+	await capture(guestB, `notification-chat-${theme}`);
+
+	// The director records one guest: REC readout and timecode in the app bar.
+	await director.evaluate(streamId => {
+		const peers = window.session.rpcs;
+		const uuid = Object.keys(peers).find(key => peers[key].streamID === streamId);
+		const button = uuid ? document.querySelector(`[data-action-type="recorder-local"][data--u-u-i-d="${uuid}"]`) : null;
+		if (button) {
+			button.click();
+		}
+	}, `a${room}`);
+	await director.waitForTimeout(800);
+	await tryClick(director, ".promptModal button[id^='submit_']");
+	await director.waitForTimeout(4000);
+	await capture(director, `recording-readout-${theme}`);
+
+	const phone = await openPage(browser, { url: withBase(`room=${room}&push=p${room}&label=Jo&webcam&autostart`), viewport: phone390, isMobile: true, waitMs: 6000 });
+	await tryClick(phone, ".bn-cmd-trigger");
+	await phone.waitForTimeout(600);
+	await capture(phone, `palette-mobile-${theme}`);
 };
 
 /** One run of every group for one theme. */
@@ -164,6 +220,10 @@ const runTheme = async (browser, theme) => {
 			await guestPhonePanels.waitForTimeout(800);
 			await capture(guestPhonePanels, `guest-chat-mobile-${theme}`);
 		}
+	}
+
+	if (wants("layers")) {
+		await captureLayers(browser, { theme, withBase });
 	}
 
 	for (const context of browser.contexts()) {

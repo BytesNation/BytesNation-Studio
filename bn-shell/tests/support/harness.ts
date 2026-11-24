@@ -100,7 +100,7 @@ export const readVisibilityMap = async (page: Page): Promise<Record<string, bool
 		const visibility: Record<string, boolean> = {};
 		document.querySelectorAll("[id]").forEach(element => {
 			const elementId = element.id;
-			if (!elementId || elementId.indexOf("bn-") === 0 || element.closest(".bn-slot, #bn-shell-root")) {
+			if (!elementId || elementId.indexOf("bn-") === 0 || element.closest(".bn-slot, #bn-shell-root, .bn-shell")) {
 				return;
 			}
 			const baseKey = normalizeId(elementId);

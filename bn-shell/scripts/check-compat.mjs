@@ -11,7 +11,8 @@ import { fileURLToPath } from "node:url";
 
 const outDir = join(dirname(fileURLToPath(import.meta.url)), "../../bn");
 const bannedPatterns = [
-	{ name: "optional chaining", pattern: /[\w)\]]\?\.[\w([]/ },
+	// "?." followed by a digit is a ternary and a decimal (a ? .5 : b), not optional chaining.
+	{ name: "optional chaining", pattern: /[\w)\]]\?\.[A-Za-z_$([]/ },
 	{ name: "nullish coalescing", pattern: /[^?]\?\?[^?]/ },
 	{ name: "logical assignment", pattern: /(\|\||&&|\?\?)=/ },
 	{ name: "class static block", pattern: /static\s*\{/ }

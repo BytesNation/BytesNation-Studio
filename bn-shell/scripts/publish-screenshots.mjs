@@ -37,6 +37,13 @@ const viewTitles = [
 	["guest-chat", "Chat"],
 	["guest-chat-mobile", "Chat, phone"],
 	["video-context-menu", "Video context menu"],
+	["palette-launcher", "Command palette on the launcher"],
+	["palette-call", "Command palette in a call"],
+	["palette-director", "Command palette in the director room"],
+	["palette-guest", "Command palette, one guest's controls"],
+	["palette-mobile", "Command palette, phone"],
+	["notification-chat", "Notification: chat message while the chat panel is closed"],
+	["recording-readout", "Recording readout in the app bar"],
 	["scene", "Scene output (OBS browser source)"],
 	["view", "Single-stream viewer"]
 ];
