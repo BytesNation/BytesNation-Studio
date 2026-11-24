@@ -1,3 +1,1834 @@
 /*
- * publish view group. See docs/DESIGN.md "Rules for styling the engine".
+ * Publish and join flows: the launcher tiles once expanded (.skip-animation),
+ * the camera / microphone / screen setup forms, the room and invite builders,
+ * media and website sharing, the guest join prompts, and the advanced
+ * audio/video settings panels. See docs/DESIGN.md "Rules for styling the engine".
+ *
+ * Engine constraints this file respects:
+ * - Never set display on toggled engine elements. Device sections, warnings,
+ *   tips, #videoSettings, #effectsDiv and the Back control are shown and hidden
+ *   with inline style.display or .hidden; only geometry and paint change here.
+ * - The tile geometry while expanded comes from the inlightbox keyframes
+ *   (fill-mode forwards); lib.js advances on their animationend. Nothing here
+ *   touches animation on .column, .in-animation or .out-animation.
+ * - Upstream's late "refresh" block and dark-mode rules use !important and
+ *   compound selectors such as `.darktheme :not(.promptModalInner) > button`
+ *   (0,2,1). Selectors below are written to meet or beat those, and
+ *   !important appears only where upstream or inline styles force it.
+ *
+ * Layout intent: one centered 640px column. Title, then the panel: preview
+ * first, the single accent CTA, then devices as a stacked labeled form
+ * separated by hairlines.
  */
+
+/* ------------------------------------------------------------------ */
+/* Expanded tile frame                                                 */
+/* ------------------------------------------------------------------ */
+
+/* CTA hover fill. Accent ink on --bn-accent-hover measures 4.38:1 in the light
+   theme (below AA for 14px text), so light keeps the base accent on hover and
+   only dark darkens it (7.41:1). Scoped alias, not a new token. */
+.skip-animation,
+#main .promptModal {
+	--bn-publish-cta-hover: var(--bn-accent);
+}
+
+html.bn-dark .skip-animation,
+html.bn-dark #main .promptModal {
+	--bn-publish-cta-hover: var(--bn-accent-hover);
+}
+
+/* !important: landing.css pins tile padding with !important for the grid state. */
+.column.card.skip-animation,
+.darktheme .column.card.skip-animation {
+	padding: var(--bn-space-5) !important;
+	text-align: left;
+}
+
+#mainmenu .column.skip-animation > h2,
+body.darktheme #mainmenu .column.skip-animation > h2,
+#mainmenu .column.skip-animation > #add_screen {
+	max-width: 640px;
+	margin: 0 auto var(--bn-space-5);
+	font-size: var(--bn-text-xl);
+	font-weight: 600;
+	line-height: 1.2;
+	letter-spacing: -0.02em;
+	color: var(--bn-text);
+	text-align: left;
+}
+
+.skip-animation > .container-inner,
+.darktheme .skip-animation > .container-inner,
+.whitetheme .skip-animation > .container-inner,
+#container-5 .container-inner.fileshare-panel {
+	box-sizing: border-box;
+	max-width: 640px;
+	min-height: 0;
+	margin: 0 auto var(--bn-space-6);
+	padding: var(--bn-space-5);
+	font-size: var(--bn-text-base);
+	/* Upstream spaces these forms with bare <br> runs between block children.
+	   A zero strut collapses those empty lines without hiding anything; every
+	   child restores normal leading. */
+	line-height: 0;
+	text-align: left;
+}
+
+.skip-animation > .container-inner > :not(br),
+#container-4 #gencontent > p > :not(br) {
+	line-height: 1.5;
+}
+
+#container-4 #gencontent > p {
+	margin: var(--bn-space-4) 0 0;
+	line-height: 0;
+}
+
+/* Decorative tile glyph (Share Website, WHEP). Upstream paints it at 560%;
+   it is kept, quiet and small, aligned with the column. */
+.column.skip-animation > i.largeDarkIcon {
+	display: block;
+	max-width: 640px;
+	margin: 0 auto var(--bn-space-3) !important;
+	font-size: 24px !important;
+	color: var(--bn-text-muted) !important;
+	text-align: left;
+}
+
+/* Back control (.outer.close). Shown by lib.js with inline display after the
+   expand animation. The X bars become a left chevron and the label shows. */
+.column > .outer.close {
+	position: absolute;
+	top: var(--bn-space-5);
+	right: var(--bn-space-5);
+	left: auto;
+	width: auto;
+	height: var(--bn-control-height);
+	margin: 0;
+	padding: 0;
+	color: var(--bn-text-muted);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-sizing: border-box;
+	transition: background-color var(--bn-duration) var(--bn-ease), border-color var(--bn-duration) var(--bn-ease);
+}
+
+.column > .outer.close:hover {
+	color: var(--bn-text);
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+}
+
+.column > .outer.close .inner {
+	position: relative;
+	width: auto;
+	height: 100%;
+	padding: 0 var(--bn-space-3) 0 28px;
+}
+
+.column > .outer.close .labelclass,
+.column > .outer.close .labelclass span {
+	display: block;
+	opacity: 1;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	line-height: 30px;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: inherit;
+	transition: none;
+}
+
+.column > .outer.close .inner::before,
+.column > .outer.close:hover .inner::before,
+.darktheme .column > .outer.close .inner::before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 14px;
+	width: 6px;
+	height: 6px;
+	background: transparent;
+	border-left: 1.5px solid currentColor;
+	border-bottom: 1.5px solid currentColor;
+	transform: translateY(-50%) rotate(45deg);
+	transition: none;
+}
+
+.column > .outer.close .inner::after,
+.column > .outer.close:hover .inner::after {
+	content: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Shared form language inside expanded tiles                          */
+/* ------------------------------------------------------------------ */
+
+.skip-animation .container-inner p {
+	margin: 0;
+}
+
+.skip-animation .container-inner center {
+	text-align: left;
+}
+
+/* Text fields. (0,3,1) meets `.darktheme :not(.promptModalInner) > input:not([type='range'])`. */
+.skip-animation .container-inner input[type="text"],
+.skip-animation .container-inner input[type="password"],
+.skip-animation .container-inner input[type="url"],
+.skip-animation .container-inner input[type="number"],
+.skip-animation .container-inner input:not([type]) {
+	box-sizing: border-box;
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-3);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-base);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+.skip-animation .container-inner select {
+	box-sizing: border-box;
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-2);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-base);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+/* Placeholders read as hints, not values. !important: the refresh block sets
+   a near-white placeholder with !important in dark mode. Kept as separate
+   rules so an unknown vendor pseudo cannot drop the standard one. */
+.skip-animation .container-inner input::placeholder {
+	color: var(--bn-text-faint) !important;
+	opacity: 1;
+}
+
+.skip-animation .container-inner input::-webkit-input-placeholder {
+	color: var(--bn-text-faint) !important;
+}
+
+#main .promptModal input::placeholder {
+	color: var(--bn-text-faint) !important;
+}
+
+/* Native checkbox, radio and select popups follow the theme. */
+.skip-animation,
+#main .promptModal {
+	color-scheme: light;
+}
+
+html.bn-dark .skip-animation,
+html.bn-dark #main .promptModal {
+	color-scheme: dark;
+}
+
+/* Upstream gives every direct div (and span > div) in a panel a card shadow. */
+.skip-animation .container-inner > div,
+.skip-animation .container-inner > span > div,
+.skip-animation .container-inner > center > div {
+	box-shadow: none;
+}
+
+.skip-animation .container-inner input[type="text"]:hover,
+.skip-animation .container-inner input[type="password"]:hover,
+.skip-animation .container-inner input[type="url"]:hover,
+.skip-animation .container-inner select:hover {
+	border-color: var(--bn-border-strong);
+}
+
+.skip-animation .container-inner input[type="text"]:focus-visible,
+.skip-animation .container-inner input[type="password"]:focus-visible,
+.skip-animation .container-inner input[type="url"]:focus-visible,
+.skip-animation .container-inner select:focus-visible {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 0;
+	border-color: var(--bn-text);
+}
+
+/* Secondary buttons. (0,4,1) beats `.darktheme :not(.promptModalInner) > button`
+   and upstream's `.container-inner button:not(.gowebcam)` card shadow. */
+.skip-animation .container-inner button:not(.gobutton):not(.gowebcam),
+.skip-animation #gencontent2 button {
+	min-height: var(--bn-control-height);
+	margin: 0;
+	padding: 0 var(--bn-space-3);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	font-weight: 500;
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	transform: none;
+	filter: none;
+	transition: background-color var(--bn-duration) var(--bn-ease), border-color var(--bn-duration) var(--bn-ease);
+}
+
+.skip-animation .container-inner button:not(.gobutton):not(.gowebcam):hover,
+.skip-animation #gencontent2 button:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+}
+
+.skip-animation .container-inner button:not(.gobutton):not(.gowebcam):active,
+.skip-animation #gencontent2 button:active {
+	transform: none;
+}
+
+/* !important: "Create Another Invite Link" carries inline font-size 1.2em. */
+.skip-animation #gencontent2 button {
+	margin-top: var(--bn-space-4);
+	font-size: var(--bn-text-sm) !important;
+}
+
+.skip-animation #gencontent2 button i {
+	margin-right: var(--bn-space-1);
+	font-size: 14px;
+}
+
+/* Primary call to action: the one accent fill per form.
+   !important: upstream `.gowebcam:enabled` forces a green fill and radial
+   gradient with !important at (0,2,0), and the refresh block forces
+   `.gobutton` colors with !important. The pulse animation is decoration only
+   (box-shadow glow and a 1% scale); it carries no handler. */
+.skip-animation .container-inner .gobutton,
+.skip-animation .container-inner .gowebcam:enabled,
+.skip-animation #gowebcam:enabled {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	min-height: 40px;
+	margin: var(--bn-space-4) 0 0;
+	padding: 0 var(--bn-space-4);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-base);
+	font-weight: 600;
+	line-height: 1.3;
+	letter-spacing: 0;
+	color: var(--bn-accent-ink) !important;
+	background-color: var(--bn-accent) !important;
+	background-image: none !important;
+	border: 1px solid transparent !important;
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	transform: none;
+	filter: none;
+	animation: none;
+	cursor: pointer;
+	transition: background-color var(--bn-duration) var(--bn-ease);
+}
+
+.skip-animation .container-inner .gobutton:hover,
+.skip-animation .container-inner .gowebcam:enabled:hover,
+.skip-animation #gowebcam:enabled:hover {
+	background-color: var(--bn-publish-cta-hover) !important;
+	box-shadow: none;
+}
+
+.skip-animation .container-inner .gobutton:active,
+.skip-animation #gowebcam:enabled:active {
+	transform: none;
+	box-shadow: none;
+}
+
+.skip-animation .container-inner .gobutton span,
+.skip-animation #gowebcam span {
+	color: inherit;
+}
+
+/* Cards: warnings, tips, notes. Neutral surface; status color only on the
+   icon, always paired with the text. */
+.skip-animation .container-inner div.startupWarning {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: none;
+	margin: var(--bn-space-4) 0 0;
+	padding: var(--bn-space-3) var(--bn-space-3) var(--bn-space-3) 40px;
+	font-size: var(--bn-text-sm);
+	line-height: 1.5;
+	/* !important: `.darktheme .startupWarning` forces black and white with !important. */
+	color: var(--bn-text) !important;
+	background: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+.skip-animation .container-inner div.startupWarning > p {
+	display: block;
+	padding: 0;
+	text-align: left;
+}
+
+/* !important: `body.darktheme .startupWarning > .las` forces white with !important. */
+.skip-animation .container-inner div.startupWarning > i.las {
+	top: var(--bn-space-3);
+	left: var(--bn-space-3);
+	padding: 0;
+	font-size: 18px;
+	line-height: 1.2;
+	color: var(--bn-warn) !important;
+}
+
+.skip-animation .container-inner div.cameraTip {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 0;
+	margin: var(--bn-space-2) 0 0;
+	padding: var(--bn-space-2) var(--bn-space-3) var(--bn-space-2) 36px;
+	font-size: var(--bn-text-sm);
+	line-height: 1.5;
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	white-space: normal;
+}
+
+.skip-animation .container-inner div.cameraTip > p {
+	display: block;
+	padding: 0;
+}
+
+.skip-animation .container-inner div.cameraTip > i {
+	top: var(--bn-space-2);
+	left: var(--bn-space-3);
+	padding: 0;
+	font-size: 16px;
+	line-height: 1.3;
+	color: var(--bn-text-muted);
+}
+
+.skip-animation div.message-card,
+.skip-animation div.message-card.warning,
+.skip-animation div.message-card.info,
+.darktheme .skip-animation div.message-card.warning,
+.darktheme .skip-animation div.message-card.info,
+#container-5 div.message-card {
+	box-sizing: border-box;
+	width: auto;
+	max-width: none;
+	margin: var(--bn-space-4) 0 0;
+	padding: var(--bn-space-3) var(--bn-space-4) var(--bn-space-3) 44px;
+	font-size: var(--bn-text-sm);
+	line-height: 1.5;
+	color: var(--bn-text);
+	text-align: left;
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+.skip-animation div.message-card::before {
+	top: var(--bn-space-3);
+	left: var(--bn-space-4);
+	margin: 0;
+	font-size: 18px;
+	line-height: 1.2;
+	color: var(--bn-text-muted);
+}
+
+.skip-animation div.message-card.warning::before {
+	color: var(--bn-warn);
+}
+
+.skip-animation div.message-card h1 {
+	margin: 0;
+	font-size: var(--bn-text-base);
+	font-weight: 600;
+	line-height: 1.4;
+	color: var(--bn-text);
+}
+
+.skip-animation div.message-card p {
+	margin: var(--bn-space-1) 0 0;
+	color: var(--bn-text-muted);
+}
+
+.skip-animation div.message-card p:empty {
+	margin: 0;
+}
+
+.skip-animation div.message-card ul {
+	margin: var(--bn-space-2) 0 0;
+	padding-left: 18px;
+	color: var(--bn-text-muted) !important;
+}
+
+.skip-animation div.message-card li {
+	margin: var(--bn-space-1) 0;
+}
+
+.skip-animation div.message-card a,
+.skip-animation .info-box a,
+.skip-animation .invite_setting_group_links a {
+	font-weight: 500;
+	color: var(--bn-text);
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+}
+
+/* Small mono section labels used across the forms. */
+.skip-animation .container-inner .title {
+	display: block;
+	margin: 0 0 var(--bn-space-2);
+	padding: 0;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	line-height: 24px;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+	text-align: left;
+}
+
+.skip-animation .container-inner .title > i.las {
+	margin-right: var(--bn-space-1);
+	font-size: 14px;
+	vertical-align: -1px;
+	color: var(--bn-text-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Camera / microphone setup and guest join (#add_camera_inner)        */
+/* Moved into #container-3a by previewWebcam(true); ids keep it scoped. */
+/* ------------------------------------------------------------------ */
+
+#add_camera_inner > br:first-child + p {
+	margin: 0;
+}
+
+#add_camera_inner video#previewWebcam {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	max-height: 50vh;
+	margin: 0;
+	vertical-align: top;
+	/* Letterbox and the mic-only poster sit on a neutral step, not black:
+	   the engine's avatar poster is a black silhouette. */
+	background-color: var(--bn-surface-3);
+	border-radius: var(--bn-radius-lg);
+	object-fit: contain;
+}
+
+/* Permission request: secondary until access is granted; then Start takes the accent. */
+#add_camera_inner > #getPermissions {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 40px;
+	margin: var(--bn-space-4) 0 0;
+	padding: 0 var(--bn-space-4);
+	font-size: var(--bn-text-base);
+	font-weight: 600;
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius-sm);
+}
+
+/* Start / Join. Disabled while devices load ("Waiting for Camera to Load"). */
+.skip-animation #gowebcam {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 40px;
+	margin: var(--bn-space-4) 0 0;
+	padding: 0 var(--bn-space-4);
+	font-size: var(--bn-text-base);
+	font-weight: 600;
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	animation: none;
+}
+
+.skip-animation #gowebcam:disabled {
+	color: var(--bn-text-muted);
+	background-color: var(--bn-surface-3);
+	background-image: none;
+	border: 1px solid var(--bn-border);
+	cursor: not-allowed;
+	opacity: 1;
+}
+
+/* Device sections: one stacked row each, separated by a hairline.
+   div#id form reaches (1,1,1) to meet `body.darktheme #avatarDiv` and beat the
+   `.darktheme #videoMenu` / `.whitetheme #videoMenu` panel fills. */
+.container-inner div#videoMenu,
+.container-inner div#audioMenu,
+.container-inner div#headphonesDiv,
+.container-inner div#effectsDiv,
+.container-inner div#addPasswordBasic,
+.container-inner div#avatarDiv,
+.container-inner div#rememberStreamID,
+.container-inner div#audioScreenShare1,
+.container-inner div#headphonesDiv2 {
+	box-sizing: border-box;
+	width: 100%;
+	min-width: 0;
+	max-width: none;
+	margin: 0;
+	padding: var(--bn-space-4) 0;
+	vertical-align: top;
+	text-align: left;
+	background: transparent;
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	border-radius: 0;
+	box-shadow: none;
+}
+
+#add_camera_inner div#videoMenu {
+	margin-top: var(--bn-space-5);
+}
+
+#add_camera_inner div#rememberStreamID {
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+/* Video source: select plus resolution gear on one row. */
+#videoMenu > span {
+	box-sizing: border-box;
+	width: 100%;
+	padding-top: 0 !important;
+	white-space: nowrap;
+}
+
+.skip-animation #videoMenu select#videoSourceSelect {
+	width: calc(100% - 44px);
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-2);
+	vertical-align: middle;
+}
+
+#add_camera_inner #gear_webcam,
+.skip-animation #gear_screen {
+	box-sizing: border-box;
+	width: var(--bn-control-height);
+	height: var(--bn-control-height);
+	margin-left: var(--bn-space-2);
+	padding: 0;
+	line-height: 30px;
+	text-align: center;
+	vertical-align: middle;
+	color: var(--bn-text-muted);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	cursor: pointer;
+}
+
+#add_camera_inner #gear_webcam:hover,
+.skip-animation #gear_screen:hover {
+	color: var(--bn-text);
+	border-color: var(--bn-border-strong);
+}
+
+#add_camera_inner #gear_webcam > i,
+.skip-animation #gear_screen > i {
+	/* !important: the icon carries an inline font-size. */
+	font-size: 16px !important;
+	line-height: 30px;
+	vertical-align: top !important;
+}
+
+/* Resolution choices (#videoSettings, #videoSettings2): a quiet sub-panel. */
+.container-inner #videoSettings,
+.container-inner #videoSettings2,
+.darktheme .container-inner #videoSettings,
+.darktheme .container-inner #videoSettings2 {
+	box-sizing: border-box;
+	width: 100%;
+	min-width: 0;
+	max-width: none;
+	margin: 0 0 var(--bn-space-4);
+	padding: var(--bn-space-3);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-faint);
+	text-align: left;
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+.container-inner #videoSettings label,
+.container-inner #videoSettings2 label {
+	margin-right: var(--bn-space-2);
+	/* !important: the refresh block sets `:checked + label { color: inherit !important }`,
+	   which would hand the checked label the faint separator color. */
+	color: var(--bn-text) !important;
+	cursor: pointer;
+}
+
+.container-inner #videoSettings input[type="radio"],
+.container-inner #videoSettings2 input[type="radio"] {
+	margin: 0 var(--bn-space-1) 0 var(--bn-space-2);
+	vertical-align: -2px;
+}
+
+.container-inner #webcamquality > input[type="radio"]#fullhd,
+.container-inner #webcamquality2 > input[type="radio"]#maxres2 {
+	margin-left: 0;
+}
+
+.container-inner #videoSettings2,
+.darktheme .container-inner #videoSettings2 {
+	margin-top: var(--bn-space-3);
+}
+
+#webcamstats,
+#webcamstats2 {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text-muted);
+}
+
+#webcamstats:not(:empty),
+#webcamstats2:not(:empty) {
+	margin-top: var(--bn-space-2);
+}
+
+/* Audio sources: trigger row, then the device checklist. */
+#audioMenu a#multiselect-trigger {
+	display: block;
+	color: var(--bn-text-muted);
+	text-decoration: none;
+}
+
+#audioMenu a#multiselect-trigger .title {
+	margin: 0;
+}
+
+#audioMenu a#multiselect-trigger .chevron::before {
+	color: var(--bn-text-muted);
+}
+
+/* Level meters are live data: ok and warn fills. */
+#audioMenu .meter {
+	height: 6px;
+	margin-left: var(--bn-space-2);
+	vertical-align: 1px;
+	background: var(--bn-ok);
+	border-radius: 1px;
+}
+
+#audioMenu .meter2 {
+	height: 6px;
+	vertical-align: 1px;
+	background: var(--bn-warn);
+	border-radius: 1px;
+}
+
+/* !important: the refresh block paints ul#audioSource with !important in dark. */
+.container-inner ul#audioSource,
+.darktheme .container-inner ul#audioSource {
+	box-sizing: border-box;
+	margin: var(--bn-space-2) 0 0;
+	padding: var(--bn-space-1) 0;
+	font-size: var(--bn-text-base);
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-radius-sm);
+}
+
+.container-inner ul#audioSource li {
+	padding: 0 var(--bn-space-3);
+	line-height: 32px;
+}
+
+.container-inner ul#audioSource li label,
+.darktheme .container-inner ul#audioSource li label {
+	color: var(--bn-text) !important;
+	background-color: transparent !important;
+	cursor: pointer;
+}
+
+.container-inner ul#audioSource input[type="checkbox"] {
+	margin: 0 var(--bn-space-2) 0 0;
+	vertical-align: -2px;
+}
+
+.container-inner .gear_microphone {
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+/* Audio output destination with its Test button.
+   !important: upstream `.testtonebutton` pins padding and radius with !important;
+   #headphonesDiv2's Test also carries inline padding and margin. */
+.skip-animation .container-inner button.testtonebutton:not(.gobutton):not(.gowebcam) {
+	min-height: 24px;
+	height: 24px;
+	margin: 0 0 0 var(--bn-space-2) !important;
+	padding: 0 var(--bn-space-2) !important;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	vertical-align: 1px;
+	border-radius: var(--bn-radius-sm) !important;
+}
+
+.skip-animation #outputSource,
+.skip-animation #outputSourceScreenshare {
+	width: 100%;
+	margin: 0;
+}
+
+/* Selects and fields that upstream sizes by id (padding 2px 0, 24px tall). */
+.skip-animation #effectSelector,
+.skip-animation #outputSource,
+.skip-animation #outputSourceScreenshare,
+.skip-animation #passwordBasicInput {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	min-height: var(--bn-control-height);
+	margin: 0;
+	padding: 0 var(--bn-space-2);
+}
+
+.skip-animation #passwordBasicInput {
+	padding: 0 var(--bn-space-3);
+}
+
+.skip-animation #consentWarning,
+.skip-animation #consentWarning2 {
+	margin: var(--bn-space-4) 0 0;
+}
+
+#add_camera_inner #effectsDiv > span[title] {
+	color: var(--bn-text-muted);
+}
+
+#add_camera_inner #selectEffectAmount,
+#add_camera_inner #zoomPositionControls {
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+#add_camera_inner #selectEffectAmount label,
+#add_camera_inner #zoomPositionControls label {
+	color: var(--bn-text-muted);
+}
+
+/* Avatar picker */
+#add_camera_inner #selectAvatarImage label {
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+#add_camera_inner #avatarDiv .selected,
+body.darktheme #add_camera_inner #avatarDiv .selected {
+	border: 1px solid var(--bn-text);
+	border-radius: var(--bn-radius-sm);
+}
+
+/* Guest tips (&tips) */
+.container-inner div#guestTips,
+.darktheme .container-inner div#guestTips {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: none;
+	margin: var(--bn-space-4) 0 0;
+	padding: var(--bn-space-3) var(--bn-space-4);
+	font-size: var(--bn-text-base);
+	color: var(--bn-text);
+	background: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+.container-inner div#guestTips > p {
+	margin: 0 0 var(--bn-space-2);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+
+.container-inner div#guestTips .guest-tip-item {
+	gap: var(--bn-space-3);
+	line-height: 1.5;
+}
+
+.container-inner div#guestTips .guest-tip-item + .guest-tip-item {
+	margin-top: var(--bn-space-2);
+}
+
+.container-inner div#guestTips .guest-tip-item i.las,
+.darktheme .container-inner div#guestTips .guest-tip-item i.las {
+	width: 20px;
+	font-size: 18px;
+	text-align: center;
+	color: var(--bn-text-muted);
+}
+
+.container-inner div#guestTips .guest-tip-item span {
+	font-size: var(--bn-text-base);
+	line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------ */
+/* Create a Room (#container-1)                                        */
+/* ------------------------------------------------------------------ */
+
+#container-1 .container-inner > span[data-translate="rooms-allow-for"] {
+	color: var(--bn-text-muted);
+}
+
+#container-1 .container-inner > .section {
+	max-width: none;
+	margin: var(--bn-space-5) 0 0;
+	padding: var(--bn-space-5) 0 0;
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	border-radius: 0;
+	box-shadow: none;
+}
+
+/* Upstream makes every table an inline-block with 10px padding and margin. */
+#container-1 .section table {
+	display: table;
+	width: 100%;
+	margin: 0;
+	padding: 0 !important;
+	border-collapse: collapse;
+}
+
+#container-1 .section th {
+	padding-top: var(--bn-space-1);
+	padding-bottom: var(--bn-space-1);
+	font-size: var(--bn-text-base);
+	font-weight: 400;
+	line-height: 1.5;
+	vertical-align: middle;
+}
+
+#container-1 .section th b,
+#container-1 .section .labelSmall b {
+	font-weight: 400;
+}
+
+#container-1 .section th.labelLarge {
+	width: 1%;
+	padding-right: var(--bn-space-3);
+	white-space: nowrap;
+}
+
+/* !important: the room name and password fields carry inline width, padding
+   and font-size; the shuffle button sits beside the name field. */
+#container-1 #videoname1,
+#container-1 #passwordRoom {
+	width: calc(100% - 44px) !important;
+	max-width: none !important;
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-3) !important;
+	font-size: var(--bn-text-base) !important;
+	vertical-align: middle;
+}
+
+.skip-animation #container-1 #passwordRoom:disabled,
+.darktheme .skip-animation #container-1 #passwordRoom:disabled {
+	color: var(--bn-text-muted);
+	background-color: var(--bn-surface-3);
+	opacity: 1;
+}
+
+.skip-animation .container-inner button.randomRoomName:not(.gobutton):not(.gowebcam) {
+	position: relative;
+	width: var(--bn-control-height);
+	min-height: var(--bn-control-height);
+	height: var(--bn-control-height);
+	margin: 0 0 0 var(--bn-space-2);
+	padding: 0;
+	vertical-align: middle;
+	color: var(--bn-text-muted);
+}
+
+.skip-animation .container-inner button.randomRoomName:not(.gobutton):not(.gowebcam):hover {
+	color: var(--bn-text);
+}
+
+#container-1 #securityLevelRoom {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs) !important;
+	color: var(--bn-text-muted);
+}
+
+#container-1 #passwordRoomSSONote,
+#container-1 .sso-options-note,
+body.darktheme #container-1 .sso-options-note {
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+#container-1 .section input[type="checkbox"] {
+	margin: 0;
+	vertical-align: middle;
+}
+
+#container-1 #codecGroupFlag {
+	/* !important: inline font-size. */
+	font-size: var(--bn-text-base) !important;
+	margin-left: var(--bn-space-2);
+	vertical-align: middle;
+}
+
+#container-1 .sso-options-panel,
+body.darktheme #container-1 .sso-options-panel {
+	max-width: none;
+	margin-top: var(--bn-space-2);
+	padding: var(--bn-space-3);
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+/* !important: the director CTA carries inline width 480px and margins. */
+#container-1 .section > button.gobutton {
+	width: 100% !important;
+	margin: var(--bn-space-5) 0 0 !important;
+}
+
+/* Alternate paths (join as participant, reload last session) are secondary:
+   one accent fill per form. !important beats the CTA fill above and upstream's. */
+#container-1 .section > [data-translate="looking-to-just-chat-and-not-direct"] + button.gobutton,
+#container-1 #lastSavedRoom > button#goToLastSavedRoom {
+	margin: var(--bn-space-2) 0 0 !important;
+	font-weight: 500;
+	color: var(--bn-text) !important;
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border) !important;
+}
+
+#container-1 .section > [data-translate="looking-to-just-chat-and-not-direct"] + button.gobutton:hover,
+#container-1 #lastSavedRoom > button#goToLastSavedRoom:hover {
+	background-color: var(--bn-surface-3) !important;
+	border-color: var(--bn-border-strong) !important;
+}
+
+#container-1 .section > [data-translate="looking-to-just-chat-and-not-direct"] {
+	display: block;
+	font-size: var(--bn-text-sm);
+	font-style: normal;
+	color: var(--bn-text-muted);
+}
+
+#container-1 #lastSavedRoom label {
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+#container-1 #lastSavedRoom label b {
+	font-family: var(--bn-font-mono);
+	font-weight: 500;
+	color: var(--bn-text);
+}
+
+/* Tips toggle and list */
+.skip-animation .container-inner button.roomnotes-toggle:not(.gobutton):not(.gowebcam) {
+	margin: var(--bn-space-3) auto 0 !important;
+	color: var(--bn-text-muted);
+	background-color: transparent;
+	border-color: transparent;
+}
+
+.skip-animation .container-inner button.roomnotes-toggle:not(.gobutton):not(.gowebcam):hover {
+	color: var(--bn-text);
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border);
+}
+
+#container-1 ul#roomnotes,
+body.darktheme #container-1 ul#roomnotes {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: none !important;
+	margin: var(--bn-space-3) 0 0;
+	padding: var(--bn-space-3) var(--bn-space-4) var(--bn-space-3) 34px;
+	font-size: var(--bn-text-sm);
+	line-height: 1.5;
+	color: var(--bn-text-muted);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+#container-1 ul#roomnotes i {
+	color: var(--bn-text);
+	font-weight: 600;
+}
+
+#container-1 ul#roomnotes a,
+#container-1 ul#roomnotes a:visited {
+	color: var(--bn-text);
+	font-weight: 500;
+}
+
+/* ------------------------------------------------------------------ */
+/* Remote screenshare (#container-2)                                   */
+/* ------------------------------------------------------------------ */
+
+#container-2 .container-inner > .screenshare-icon {
+	width: 160px;
+	height: auto;
+	margin: 0 auto var(--bn-space-5);
+	opacity: 0.8;
+}
+
+#container-2 .container-inner > .screenshare-icon svg {
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+#container-2 .container-inner > button.mainScreenShareButton {
+	width: calc(100% - 44px);
+	margin: 0;
+	vertical-align: middle;
+}
+
+#container-2 .container-inner .audio-select-btn:not(.gobutton):not(.gowebcam) {
+	width: 100%;
+	margin: 0;
+}
+
+#container-2 .audio-device-list {
+	margin-top: var(--bn-space-2);
+	padding: var(--bn-space-2) var(--bn-space-3);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+#container-2 .audio-device-item {
+	padding: var(--bn-space-1) 0;
+	color: var(--bn-text);
+}
+
+#container-2 .audio-device-item:hover {
+	background: transparent;
+}
+
+#container-2 .audio-device-item label {
+	margin-left: 0;
+	color: var(--bn-text);
+}
+
+.skip-animation .container-inner .error-message {
+	margin-top: var(--bn-space-2);
+	padding: var(--bn-space-2) var(--bn-space-3);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-error);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+.skip-animation .container-inner .info-box {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	margin: var(--bn-space-4) 0 0;
+	padding: var(--bn-space-4);
+	font-size: var(--bn-text-sm);
+	text-align: left;
+	background: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+.skip-animation .container-inner .info-box h3,
+.whitetheme .skip-animation .container-inner .info-box h3 {
+	margin: 0;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+
+.skip-animation .container-inner .info-box h3 i {
+	font-size: 14px;
+	vertical-align: -1px;
+}
+
+.skip-animation .container-inner .info-box ul,
+.whitetheme .skip-animation .container-inner .info-box ul {
+	margin: var(--bn-space-2) 0 0;
+	padding-left: 18px;
+	line-height: 1.5;
+	color: var(--bn-text-muted);
+}
+
+.skip-animation .container-inner .info-box li {
+	margin: var(--bn-space-1) 0;
+}
+
+/* ------------------------------------------------------------------ */
+/* Create Reusable Invite (#container-4)                               */
+/* ------------------------------------------------------------------ */
+
+#container-4 #gencontent > span[data-translate="here-you-can-pre-generate"] {
+	color: var(--bn-text-muted);
+}
+
+/* !important: inline padding and font-size; `size` attribute sets the width. */
+#container-4 #gencontent input#videoname4 {
+	width: 100%;
+	padding: 0 var(--bn-space-3) !important;
+	font-size: var(--bn-text-base) !important;
+}
+
+/* !important: inline padding 20px on the generate button. */
+#container-4 #gencontent > button.gobutton {
+	padding: 0 var(--bn-space-4) !important;
+}
+
+/* !important: the settings wrapper carries inline max-width 420px and margins. */
+#container-4 #gencontent > span[style] {
+	max-width: none !important;
+	margin: var(--bn-space-5) 0 0 !important;
+}
+
+.container-inner div.invite_setting_group,
+.darktheme .container-inner div.invite_setting_group,
+.whitetheme .container-inner div.invite_setting_group {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	max-width: none;
+	margin: 0 0 var(--bn-space-3);
+	padding: var(--bn-space-4);
+	color: var(--bn-text);
+	background: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+.container-inner div.invite_setting_group h4 {
+	margin: 0 0 var(--bn-space-2);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+
+.container-inner div.invite_setting_group .invite_setting_item {
+	margin: var(--bn-space-2) 0 0;
+	line-height: 1.5;
+}
+
+.container-inner div.invite_setting_group .invite_setting_item:empty {
+	margin: 0;
+}
+
+.container-inner div.invite_setting_group input[type="checkbox"] {
+	margin: 0 var(--bn-space-2) 0 0;
+	vertical-align: -2px;
+}
+
+.container-inner div.invite_setting_group input[type="text"],
+.container-inner div.invite_setting_group select {
+	width: 240px;
+	max-width: 100%;
+	margin-left: var(--bn-space-2);
+	vertical-align: middle;
+}
+
+.container-inner .invite_setting_group_links {
+	margin-top: var(--bn-space-3);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+/* Generated links (#gencontent2): same panel as the form. */
+.skip-animation > #gencontent2 {
+	box-sizing: border-box;
+	max-width: 640px;
+	margin: 0 auto var(--bn-space-6);
+	padding: var(--bn-space-5);
+	font-size: var(--bn-text-base);
+	line-height: 1.5;
+	color: var(--bn-text);
+	text-align: left;
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+}
+
+/* !important: upstream writes color:black inline on these headings, which
+   fails on the dark panel. The heading inside the white QR card keeps black. */
+#gencontent2 > h2 {
+	margin: var(--bn-space-1) 0 var(--bn-space-2);
+	font-size: var(--bn-text-md);
+	font-weight: 600;
+	color: var(--bn-text) !important;
+}
+
+#gencontent2 > #qrcode {
+	box-sizing: border-box;
+	max-width: 100% !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+#gencontent2 #qrcode h2 {
+	font-size: var(--bn-text-md);
+	font-weight: 600;
+}
+
+/* Copy links: neutral mono fields instead of upstream's green and pink fills.
+   !important: every property here is set inline by generateQRPage(). The QR
+   card is always white, so its link uses the light-theme values directly. */
+#gencontent2 a.task,
+#gencontent2 a.task:link,
+#gencontent2 a.task:visited {
+	box-sizing: border-box;
+	width: 100% !important;
+	max-width: 100%;
+	margin: 0 !important;
+	padding: var(--bn-space-2) var(--bn-space-3) !important;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-sm);
+	font-weight: 400;
+	line-height: 1.5;
+	color: var(--bn-text) !important;
+	text-decoration: none;
+	text-shadow: none;
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-radius-sm);
+}
+
+#gencontent2 #qrcode a.task,
+#gencontent2 #qrcode a.task:link,
+#gencontent2 #qrcode a.task:visited {
+	color: #15171a !important;
+	background-color: #ffffff !important;
+	border-color: #c4bfb4 !important;
+}
+
+#gencontent2 a.task i,
+.whitetheme #gencontent2 .la-paperclip {
+	color: inherit !important;
+}
+
+#gencontent2 > ul,
+#gencontent2 li {
+	color: var(--bn-text-muted);
+	font-size: var(--bn-text-sm);
+}
+
+/* ------------------------------------------------------------------ */
+/* Stream media file (#container-5)                                    */
+/* ------------------------------------------------------------------ */
+
+#container-5 .container-inner .fileshare-intro {
+	max-width: none;
+	margin: 0 0 var(--bn-space-4);
+	color: var(--bn-text-muted);
+	text-align: left;
+}
+
+/* Primary picker label: accent fill from base.css; geometry here. */
+#container-5 .container-inner > input[type="file"] + label {
+	box-sizing: border-box;
+	display: block;
+	width: 100%;
+	min-height: 40px;
+	margin: 0;
+	padding: 0 var(--bn-space-4);
+	font-size: var(--bn-text-base);
+	line-height: 40px;
+	text-align: center;
+	border-radius: var(--bn-radius-sm);
+}
+
+#container-5 .container-inner > input[type="file"] + label:hover {
+	background: var(--bn-publish-cta-hover);
+}
+
+#container-5 .container-inner .fileshare-transfer-option {
+	justify-content: flex-start;
+	gap: var(--bn-space-3);
+	max-width: none;
+	margin: var(--bn-space-5) 0 0;
+	padding-top: var(--bn-space-5);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+	border-top: 1px solid var(--bn-border);
+}
+
+/* Secondary picker: neutral. !important: base.css paints every
+   #container-5 file label with the accent ink and fill. */
+#container-5 .fileshare-transfer-option input[type="file"] + label,
+.whitetheme #container-5 .fileshare-transfer-option input[type="file"] + label {
+	min-height: var(--bn-control-height);
+	margin: 0;
+	padding: 0 var(--bn-space-3);
+	font-size: var(--bn-text-sm);
+	font-weight: 500;
+	line-height: 30px;
+	color: var(--bn-text) !important;
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-radius-sm);
+}
+
+#container-5 .fileshare-transfer-option input[type="file"] + label:hover {
+	background: var(--bn-surface-3);
+	border-color: var(--bn-border-strong) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Share website (#container-6) and WHEP share (#container-16)         */
+/* ------------------------------------------------------------------ */
+
+/* !important: both URL fields carry inline margin, 2px border, padding and width. */
+.skip-animation .container-inner input#iframeURL,
+.skip-animation .container-inner input#whepURL {
+	width: 100% !important;
+	margin: var(--bn-space-2) 0 var(--bn-space-3) !important;
+	padding: 0 var(--bn-space-3) !important;
+	border: 1px solid var(--bn-border) !important;
+}
+
+/* Share is the primary action of the website form. */
+#container-6 .container-inner > button + button:not(.gobutton),
+.skip-animation .container-inner button#whepShareStart:not(.gobutton):not(.gowebcam),
+.skip-animation .container-inner button#whepPreviewToggle[aria-pressed="true"]:not(.gobutton):not(.gowebcam) {
+	margin-left: var(--bn-space-2);
+	font-weight: 600;
+	color: var(--bn-accent-ink);
+	background-color: var(--bn-accent);
+	border-color: transparent;
+}
+
+#container-6 .container-inner > button + button:not(.gobutton):hover,
+.skip-animation .container-inner button#whepShareStart:not(.gobutton):not(.gowebcam):hover {
+	background-color: var(--bn-publish-cta-hover);
+	border-color: transparent;
+}
+
+#container-16 .container-inner .whep-share-inline-note,
+.whitetheme #container-16 .container-inner .whep-share-inline-note {
+	width: auto;
+	margin: var(--bn-space-2) 0 0;
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+#container-6 #previewIframe:not(:empty) {
+	margin-bottom: var(--bn-space-4);
+}
+
+/* ------------------------------------------------------------------ */
+/* Guest join prompts: display name, password                          */
+/* ------------------------------------------------------------------ */
+
+/* #main is body: (1,1,0) clears `body.darktheme .promptModal` and the
+   white/dark theme variants. */
+#main .promptModal {
+	width: 440px;
+	font-size: var(--bn-text-base);
+	font-weight: 400;
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+}
+
+#main .promptModal .promptModalInner {
+	padding: var(--bn-space-5);
+}
+
+#main .promptModal .promptModalMessage {
+	width: auto;
+	margin: 0 var(--bn-space-5) 0 0 !important;
+	font-size: var(--bn-text-md);
+	font-weight: 600;
+	line-height: 1.4;
+	color: var(--bn-text);
+}
+
+#main .promptModal .modalClose {
+	top: var(--bn-space-3);
+	right: var(--bn-space-4);
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 1;
+	color: var(--bn-text-muted);
+}
+
+#main .promptModal .modalClose:hover {
+	color: var(--bn-text);
+}
+
+#main .promptModal input.largeTextEntry {
+	box-sizing: border-box;
+	width: 100%;
+	min-height: 36px;
+	margin: var(--bn-space-4) 0 0;
+	padding: 0 var(--bn-space-3);
+	font-size: var(--bn-text-base);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+#main .promptModal input.largeTextEntry:focus-visible {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 0;
+	border-color: var(--bn-text);
+}
+
+/* OK is the primary action; Cancel is neutral.
+   !important: both buttons carry inline white fill, grey border and margins;
+   in dark mode that inline white sat under light inherited text. */
+#main .promptModal button[id^="submit_"],
+#main .promptModal button[id^="cancel_"] {
+	min-width: 96px;
+	min-height: var(--bn-control-height);
+	margin: var(--bn-space-4) var(--bn-space-2) 0 0 !important;
+	padding: 0 var(--bn-space-4);
+	font-size: var(--bn-text-sm);
+	font-weight: 600;
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	transform: none;
+}
+
+#main .promptModal button[id^="submit_"] {
+	color: var(--bn-accent-ink) !important;
+	background-color: var(--bn-accent) !important;
+	border: 1px solid transparent !important;
+}
+
+#main .promptModal button[id^="submit_"]:hover {
+	background-color: var(--bn-publish-cta-hover) !important;
+}
+
+#main .promptModal button[id^="cancel_"] {
+	font-weight: 500;
+	color: var(--bn-text) !important;
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border) !important;
+}
+
+#main .promptModal button[id^="cancel_"]:hover {
+	background-color: var(--bn-surface-3) !important;
+	border-color: var(--bn-border-strong) !important;
+}
+
+/* Wrong password notice: upstream paints it white on the page ground. */
+#request_info_prompt {
+	font-size: var(--bn-text-lg);
+	font-weight: 600;
+	color: var(--bn-text);
+}
+
+/* Push-link warning (shown in OBS, which runs the light theme): inline white text.
+   !important: inline color. */
+#unexpectedPushLink {
+	color: var(--bn-text) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Advanced audio / video settings (lib.js-generated)                  */
+/* ------------------------------------------------------------------ */
+
+.advancedAudioSettings,
+.advancedVideoSettings {
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+}
+
+.advancedAudioSettings label,
+.advancedVideoSettings label,
+.darktheme .advancedAudioSettings label,
+.darktheme .advancedVideoSettings label {
+	color: var(--bn-text);
+}
+
+.advancedAudioSettings .settingsLabel,
+.advancedVideoSettings .settingsLabel,
+.darktheme .advancedAudioSettings .settingsLabel,
+.darktheme .advancedVideoSettings .settingsLabel {
+	margin-top: var(--bn-space-3);
+	padding: var(--bn-space-2) 0 var(--bn-space-1);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+	border-top: 1px solid var(--bn-border);
+}
+
+.advancedAudioSettings div select,
+.advancedVideoSettings .settings-select-row > select {
+	min-height: 28px;
+	height: auto;
+	padding: 0 var(--bn-space-2);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+/* Device chosen / not chosen is state: status hairline, plus the select text. */
+.advancedAudioSettings div select[data-chosen="false"],
+.advancedVideoSettings div select[data-chosen="false"] {
+	border: 1px solid var(--bn-error);
+}
+
+.advancedAudioSettings div select[data-chosen="true"],
+.advancedVideoSettings div select[data-chosen="true"] {
+	border: 1px solid var(--bn-border);
+}
+
+.advancedAudioSettings div button,
+.advancedVideoSettings .settings-select-row > button,
+.advancedVideoSettings button.preSelectButton {
+	min-height: 28px;
+	height: auto;
+	padding: 0 var(--bn-space-2);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+.advancedAudioSettings div button:hover,
+.advancedVideoSettings .settings-select-row > button:hover,
+.advancedVideoSettings button.preSelectButton:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+}
+
+.advancedAudioSettings input.manualInput,
+.advancedVideoSettings input.manualInput {
+	min-height: 28px;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+/* ------------------------------------------------------------------ */
+/* Range sliders in these forms                                        */
+/* Upstream's refresh paints the thumb with the accent and a blue ring. */
+/* A slider value is not an active state, so it stays neutral.          */
+/* ------------------------------------------------------------------ */
+
+.skip-animation .container-inner input[type="range"],
+.advancedAudioSettings input[type="range"],
+.advancedVideoSettings input[type="range"] {
+	accent-color: var(--bn-text);
+	background: transparent;
+	border: 0;
+}
+
+.skip-animation .container-inner input[type="range"]::-webkit-slider-runnable-track,
+.advancedAudioSettings input[type="range"]::-webkit-slider-runnable-track,
+.advancedVideoSettings input[type="range"]::-webkit-slider-runnable-track {
+	height: 4px;
+	background: var(--bn-border-strong);
+	border: 0;
+	border-radius: 1px;
+}
+
+.skip-animation .container-inner input[type="range"]::-webkit-slider-thumb,
+.advancedAudioSettings input[type="range"]::-webkit-slider-thumb,
+.advancedVideoSettings input[type="range"]::-webkit-slider-thumb {
+	width: 14px;
+	height: 14px;
+	margin-top: -5px;
+	background: var(--bn-text);
+	border: 2px solid var(--bn-surface);
+	border-radius: 50%;
+	box-shadow: none;
+}
+
+.skip-animation .container-inner input[type="range"]::-moz-range-track,
+.advancedAudioSettings input[type="range"]::-moz-range-track,
+.advancedVideoSettings input[type="range"]::-moz-range-track {
+	height: 4px;
+	background: var(--bn-border-strong);
+	border-radius: 1px;
+}
+
+.skip-animation .container-inner input[type="range"]::-moz-range-progress,
+.advancedAudioSettings input[type="range"]::-moz-range-progress,
+.advancedVideoSettings input[type="range"]::-moz-range-progress {
+	height: 4px;
+	background: var(--bn-text-muted);
+	border-radius: 1px;
+}
+
+.skip-animation .container-inner input[type="range"]::-moz-range-thumb,
+.advancedAudioSettings input[type="range"]::-moz-range-thumb,
+.advancedVideoSettings input[type="range"]::-moz-range-thumb {
+	width: 10px;
+	height: 10px;
+	background: var(--bn-text);
+	border: 2px solid var(--bn-surface);
+	border-radius: 50%;
+	box-shadow: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Phone (390px class)                                                 */
+/* ------------------------------------------------------------------ */
+
+@media only screen and (max-width: 640px) {
+	.column.card.skip-animation,
+	.darktheme .column.card.skip-animation {
+		padding: var(--bn-space-4) !important;
+	}
+
+	#mainmenu .column.skip-animation > h2,
+	body.darktheme #mainmenu .column.skip-animation > h2,
+	#mainmenu .column.skip-animation > #add_screen {
+		margin: 2px 96px var(--bn-space-4) 0;
+		font-size: var(--bn-text-lg);
+		line-height: 28px;
+	}
+
+	.column > .outer.close {
+		top: var(--bn-space-4);
+		right: var(--bn-space-4);
+	}
+
+	.skip-animation > .container-inner,
+	.darktheme .skip-animation > .container-inner,
+	.whitetheme .skip-animation > .container-inner,
+	#container-5 .container-inner.fileshare-panel,
+	.skip-animation > #gencontent2 {
+		padding: var(--bn-space-4);
+		margin-bottom: var(--bn-space-5);
+	}
+
+	/* 16px stops iOS zooming the page when a field takes focus. */
+	.skip-animation .container-inner input[type="text"],
+	.skip-animation .container-inner input[type="password"],
+	.skip-animation .container-inner input[type="url"],
+	.skip-animation .container-inner input:not([type]),
+	.skip-animation .container-inner select,
+	#container-1 #videoname1,
+	#container-1 #passwordRoom,
+	#container-4 #gencontent input#videoname4,
+	#main .promptModal input.largeTextEntry {
+		min-height: 40px;
+		font-size: var(--bn-text-md) !important;
+	}
+
+	.skip-animation #videoMenu select#videoSourceSelect {
+		width: calc(100% - 52px);
+	}
+
+	#add_camera_inner #gear_webcam,
+	.skip-animation #gear_screen {
+		width: 40px;
+		height: 40px;
+		line-height: 38px;
+	}
+
+	#add_camera_inner #gear_webcam > i,
+	.skip-animation #gear_screen > i {
+		line-height: 38px;
+	}
+
+	.skip-animation .container-inner .gobutton,
+	.skip-animation #gowebcam,
+	#add_camera_inner > #getPermissions {
+		min-height: 44px;
+	}
+
+	.skip-animation .container-inner button:not(.gobutton):not(.gowebcam) {
+		min-height: 40px;
+	}
+
+	.skip-animation .container-inner button.testtonebutton:not(.gobutton):not(.gowebcam) {
+		min-height: 28px;
+		height: 28px;
+	}
+
+	#container-2 .container-inner > button.mainScreenShareButton {
+		width: calc(100% - 52px);
+		margin: 0;
+	}
+
+	#container-1 #videoname1,
+	#container-1 #passwordRoom {
+		width: calc(100% - 52px) !important;
+	}
+
+	.skip-animation .container-inner button.randomRoomName:not(.gobutton):not(.gowebcam) {
+		width: 40px;
+		height: 40px;
+	}
+
+	#container-1 .section th {
+		padding-left: 0;
+	}
+
+	#container-1 .labelSmall {
+		padding: 0 0 var(--bn-space-1);
+		font-size: var(--bn-text-sm);
+		color: var(--bn-text-muted);
+	}
+
+	.container-inner div#guestTips,
+	.darktheme .container-inner div#guestTips {
+		font-size: var(--bn-text-base);
+	}
+
+	.container-inner div.invite_setting_group input[type="text"],
+	.container-inner div.invite_setting_group select {
+		width: 100%;
+		margin: var(--bn-space-1) 0 0;
+	}
+
+	#main .promptModal {
+		width: calc(100vw - 32px);
+	}
+}
