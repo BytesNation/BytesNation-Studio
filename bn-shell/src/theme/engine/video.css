@@ -1,3 +1,344 @@
 /*
- * video view group. See docs/DESIGN.md "Rules for styling the engine".
+ * video view group: the in-call grid, tiles and their chrome, on-video
+ * overlays, scene (&scene) and view-only (&view) outputs, and the control bar
+ * layout on phones. See docs/DESIGN.md "Rules for styling the engine".
+ *
+ * Video first. Chrome that sits on the picture is small, quiet and legible on
+ * any frame, so it uses theme-constant colors:
+ *   - text on video:  --discord-text (#edebe6 in both themes; --bn-text flips
+ *     to near-black in light, which disappears on dark video)
+ *   - tag ground:     --bn-video-bg (opaque near-black in both themes; the
+ *     light theme's --bn-scrim is too thin for AA over a white frame)
+ * State on video uses status fills with their paired ink (AA in both themes).
+ *
+ * Transparency: this file never paints a background on html, body, #main,
+ * #gridlayout, .holder, .vidcon or video. &transparent, &chroma, &clean and OBS
+ * clear those through inline styles and the --background-color,
+ * --video-holder-color and --myvideo-background variables on <html>; nothing
+ * here may shadow them. The engine's inline sizes, positions and label font
+ * sizes (&labelsize) are left alone; only chrome is restyled.
  */
+
+/* ---------------------------------------------------------------------------
+ * Name labels (&showlabels). The engine sizes the font inline from the tile
+ * size; padding is in em so the tag scales with it. Preset &labelstyle
+ * classes (.zoom, .teams, .skype, ...) are higher specificity and keep their
+ * own look, as upstream.
+ * ------------------------------------------------------------------------- */
+.video-label {
+	font-family: var(--bn-font-mono);
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: var(--bn-label-tracking);
+	line-height: 1.2;
+	color: var(--discord-text);
+	background: var(--bn-video-bg);
+	padding: 0.2em 0.45em;
+	border-radius: var(--bn-radius-sm);
+}
+
+/* ---------------------------------------------------------------------------
+ * Tile state chips: remote mic muted / unmuted, camera off, raised hand,
+ * muted in scenes. The engine positions them inline (top/right).
+ * ------------------------------------------------------------------------- */
+.video-mute-state {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--bn-space-1);
+	padding: 2px 4px;
+	line-height: 1;
+	color: var(--bn-error-ink);
+	background-color: var(--bn-error);
+	border-radius: var(--bn-radius-sm);
+}
+
+.video-mute-state.unmuted {
+	color: var(--bn-ok-ink);
+	background-color: var(--bn-ok);
+}
+
+.video-mute-state.scene-mute-state {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	text-transform: uppercase;
+	letter-spacing: var(--bn-label-tracking);
+	padding: 3px 6px;
+}
+
+/* Raised hand is a waiting state. Upstream fills it with !important, on the
+   tile chip and on the guest's own #raisehandbutton. */
+.raisedHand,
+.video-mute-state.raisedHand {
+	background-color: var(--bn-warn) !important;
+	color: var(--bn-warn-ink);
+}
+
+.raisedHand > i,
+.raisedHand .toggleSize {
+	color: var(--bn-warn-ink);
+}
+
+/* ---------------------------------------------------------------------------
+ * Audio meters on tiles. .video-meter is the speaking dot; .video-meter-2
+ * (&meterstyle=2) outlines the speaking tile. Speaking is state: ok, never
+ * accent. The engine drives visibility through inline opacity.
+ * ------------------------------------------------------------------------- */
+.video-meter {
+	background-color: var(--bn-ok);
+	/* Light ring: the light theme's ok fill is dark green and needs an edge on dark video. */
+	border: 1px solid var(--discord-text);
+	border-radius: 50%;
+}
+
+.video-meter-2 {
+	border: 3px solid var(--bn-ok);
+	border-radius: var(--bn-radius-sm);
+}
+
+/* ---------------------------------------------------------------------------
+ * Small on-video controls: the full-window (SD/HD) toggle and the self
+ * preview hide/show eye.
+ * ------------------------------------------------------------------------- */
+.fullwindowButtonimg {
+	background-color: var(--bn-video-bg);
+	border-radius: var(--bn-radius-sm);
+}
+
+.togglePreview {
+	align-items: center;
+	justify-content: center;
+	color: var(--discord-text);
+	background-color: var(--bn-video-bg);
+	border-radius: var(--bn-radius-sm);
+	font-size: 16px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Clocks, countdowns and playback timer. Timecode is a technical readout:
+ * mono, tabular, on an opaque tag. Size and position stay upstream's.
+ * ------------------------------------------------------------------------- */
+#overlayClockContainer,
+#overlayClockContainer2,
+#overlayPlaybackTimerContainer {
+	font-family: var(--bn-font-mono);
+	font-variant-numeric: tabular-nums;
+	color: var(--discord-text);
+	text-shadow: none;
+}
+
+#overlayClock,
+#overlayClock2,
+#overlayPlaybackTimer {
+	display: inline-block;
+	line-height: 1.15;
+	background-color: var(--bn-video-bg);
+	border-radius: var(--bn-radius-sm);
+}
+
+#overlayClock {
+	padding: 0.04em 0.25em;
+}
+
+#overlayClock2,
+#overlayPlaybackTimer {
+	padding: 0.06em 0.3em;
+}
+
+/* ---------------------------------------------------------------------------
+ * Director notices on video: overlay messages, closed captions and sticky
+ * messages. Prose, so the sans face; each line is its own tag.
+ * ------------------------------------------------------------------------- */
+#overlayMsgs,
+#stickyMsgs {
+	font-family: var(--bn-font-sans);
+	font-weight: 500;
+	letter-spacing: -0.01em;
+	color: var(--discord-text);
+	text-shadow: none;
+}
+
+#overlayMsgs span,
+#stickyMsgs > span {
+	display: inline;
+	padding: 0.08em 0.35em;
+	line-height: 1.5;
+	background-color: var(--bn-video-bg);
+	border-radius: var(--bn-radius-sm);
+	-webkit-box-decoration-break: clone;
+	box-decoration-break: clone;
+}
+
+#overlayMsgs span b,
+#stickyMsgs > span b {
+	font-weight: 600;
+}
+
+/* Close button on a sticky message. The engine gives it .red (error fill,
+   controls.css); here it becomes a compact square that sits on the line. */
+.overlayCloseBtn,
+.darktheme .overlayCloseBtn {
+	position: relative;
+	bottom: auto;
+	width: auto;
+	height: auto;
+	margin-left: var(--bn-space-2);
+	padding: 4px 6px;
+	font-size: 14px;
+	line-height: 1;
+	vertical-align: middle;
+	border: 0;
+	border-radius: var(--bn-radius-sm);
+	color: var(--bn-error-ink);
+	cursor: pointer;
+}
+
+/* ---------------------------------------------------------------------------
+ * Autoplay blocked / paused stream. Resuming playback is the one action on
+ * screen, so it takes the accent fill; the glyph (black in the SVG) reads as
+ * accent ink.
+ * ------------------------------------------------------------------------- */
+#bigPlayButton {
+	font-family: var(--bn-font-sans);
+	text-shadow: none;
+}
+
+.playButton,
+#bigPlayButton > .playButton {
+	background-color: var(--bn-accent);
+	border-color: var(--bn-accent);
+}
+
+/* ---------------------------------------------------------------------------
+ * Waiting for a stream (&view before the peer arrives). The spinner sits on
+ * the page ground, so it uses theme tokens; never a background.
+ * ------------------------------------------------------------------------- */
+.retry-spinner {
+	border: max(3px, 0.4vh) solid var(--bn-border-strong);
+	border-top-color: var(--bn-text-muted);
+}
+
+#retrymessage {
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-lg);
+}
+
+/* The shell mounts its credit footer into #mainmenu. In view-only and
+   wait-image scene outputs the engine strips .row from #mainmenu and reuses it
+   as the waiting canvas, so the footer would land in the output (and in OBS).
+   #bn-footer is a shell slot, not an engine element. The credit stays on the
+   launcher and in the About dialog. */
+#mainmenu:not(.row) > #bn-footer {
+	display: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * OBS tally. Upstream paints a soft inset glow on the page; BN uses a hard
+ * inset ring in the status color. box-shadow never paints the page ground.
+ * The #obsState badge carries the same classes and reads as a status chip.
+ * ------------------------------------------------------------------------- */
+#main.onair {
+	box-shadow: inset 0 0 0 6px var(--bn-ok);
+}
+
+#main.ondeck {
+	box-shadow: inset 0 0 0 6px var(--bn-warn);
+	/* Upstream forces black page text while on deck; keep theme text legible. */
+	color: var(--bn-text) !important;
+}
+
+#main.recording {
+	box-shadow: inset 0 0 0 6px var(--bn-error);
+}
+
+#obsState {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: var(--bn-label-tracking);
+	padding: 3px 8px;
+	color: var(--discord-text);
+	background-color: var(--bn-video-bg);
+	border: 0;
+	border-radius: var(--bn-radius-sm);
+	opacity: 1;
+	box-shadow: none;
+}
+
+#obsState.larger {
+	font-size: var(--bn-text-lg);
+	padding: 4px 12px;
+}
+
+#obsState.recording {
+	color: var(--bn-error-ink);
+	background-color: var(--bn-error);
+}
+
+#obsState.ondeck {
+	background-color: var(--bn-warn);
+	/* Upstream .ondeck sets color: black !important; warn ink keeps AA. */
+	color: var(--bn-warn-ink) !important;
+}
+
+/* ---------------------------------------------------------------------------
+ * Tips on video: the "Send a Tip" label and the received-tip banner.
+ * ------------------------------------------------------------------------- */
+.tipLabel {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	text-transform: uppercase;
+	letter-spacing: var(--bn-label-tracking);
+	color: var(--discord-text);
+	background: var(--bn-video-bg);
+	border-radius: var(--bn-radius-sm);
+}
+
+.tipHeart {
+	filter: none;
+}
+
+.tipBanner {
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-md);
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+}
+
+.tipBannerMessage {
+	font-style: normal;
+	color: var(--bn-text-muted);
+}
+
+/* ---------------------------------------------------------------------------
+ * Control bar on phones. Upstream adds a 3-4px margin per button below 500px;
+ * with BN's bar gap that wraps an eight-button guest bar onto two rows at
+ * 390px. Drop the margin, keep the 40px touch target down to 361px, and let
+ * upstream's smaller sizes take over below that.
+ * ------------------------------------------------------------------------- */
+@media only screen and (max-width: 500px) {
+	#subControlButtons,
+	.darktheme #subControlButtons {
+		gap: 2px;
+	}
+
+	#subControlButtons > div {
+		margin: 0;
+	}
+
+	/* Keep hang-up apart from the rest, as upstream does on phones. */
+	#subControlButtons > #hangupbutton {
+		margin-left: var(--bn-space-3);
+	}
+}
+
+@media only screen and (min-width: 361px) and (max-width: 500px) {
+	#subControlButtons > div {
+		min-width: 40px;
+		min-height: 40px;
+		border-radius: var(--bn-radius);
+	}
+}
