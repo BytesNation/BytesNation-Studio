@@ -87,7 +87,11 @@ export const readVisibilityMap = async (page: Page): Promise<Record<string, bool
 	return page.evaluate(() => {
 		// Device ids are hashed per origin and modal ids carry random suffixes, so
 		// both are normalized; repeated normalized ids are numbered in DOM order.
-		const normalizeId = (rawId: string): string => rawId.replace(/[0-9a-f]{64}/g, "<device>").replace(/pid_[a-z0-9]+/g, "pid_<n>");
+		const normalizeId = (rawId: string): string =>
+			rawId
+				.replace(/[0-9a-f]{64}/g, "<device>")
+				.replace(/pid_[a-z0-9]+/g, "pid_<n>")
+				.replace(/^\d{6,}$/, "<random>");
 		const visibility: Record<string, boolean> = {};
 		document.querySelectorAll("[id]").forEach(element => {
 			const elementId = element.id;

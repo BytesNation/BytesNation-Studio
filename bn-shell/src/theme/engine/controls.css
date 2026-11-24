@@ -17,10 +17,11 @@
 	gap: var(--bn-space-1);
 	padding: var(--bn-space-1);
 	min-width: 0;
-	background-color: var(--bn-surface);
-	border: 1px solid var(--bn-border);
+	background-color: var(--bn-console-bg);
+	border: 1px solid var(--bn-console-border);
 	border-radius: var(--bn-radius-lg);
 	box-shadow: var(--bn-shadow);
+	color: var(--bn-console-text);
 	-webkit-backdrop-filter: none;
 	backdrop-filter: none;
 }
@@ -36,7 +37,7 @@
 
 #subControlButtons div:hover,
 #subControlButtons span button:hover {
-	background-color: var(--bn-surface-3);
+	background-color: var(--bn-console-hover);
 	border-radius: var(--bn-radius);
 }
 
@@ -59,7 +60,12 @@
 
 .toggleSize {
 	font-size: 22px;
-	color: var(--bn-text);
+	color: var(--bn-console-text);
+}
+
+#subControlButtons .float,
+#subControlButtons button {
+	color: var(--bn-console-text);
 }
 
 /* State fills (override upstream !important fills). */

@@ -48,7 +48,7 @@
 	justify-content: flex-end;
 	width: auto;
 	min-width: 0;
-	height: 152px;
+	height: 160px;
 	margin: 0;
 	/* !important: upstream's mobile media queries set tile padding with higher priority. */
 	padding: var(--bn-space-4) !important;
@@ -116,13 +116,6 @@ body.darktheme #mainmenu .column > h2,
 	display: none;
 }
 
-/* The four primary actions read as the main path. */
-#container-1,
-#container-3,
-#container-2,
-#container-4 {
-	height: 176px;
-}
 
 /* Expanded (full-window) tile */
 .skip-animation,
@@ -279,4 +272,26 @@ body.darktheme .footer > a:hover,
 		width: 20px;
 		height: 20px;
 	}
+}
+
+/* Secondary tiles carry their own LineAwesome glyph (i.largeDarkIcon, or i.las
+   on #container-22). On a collapsed tile the masked Lucide icon replaces it, so
+   the glyph is collapsed to zero size and taken out of flow; the element stays
+   in the DOM and keeps its display. Expanded tiles style it in publish.css. */
+.column.card:not(.skip-animation):not(.in-animation) > i.largeDarkIcon,
+.column.card:not(.skip-animation):not(.in-animation) > i.las {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	font-size: 0 !important;
+	margin: 0 !important;
+}
+
+/* Upstream's version and legal line is kept as attribution, in flow at the
+   foot of the launcher instead of floating over the tiles. */
+#mainmenu > #credits {
+	position: static;
+	margin: var(--bn-space-4) 0 0;
+	text-align: left;
 }

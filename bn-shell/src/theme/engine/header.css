@@ -196,3 +196,8 @@ html.bn #head2 {
 	color: var(--bn-text-muted) !important;
 	font-size: var(--bn-text-sm) !important;
 }
+
+/* main.js writes this hint into #head1 with an inline color of #CCC. */
+html.bn #head1 > span[data-translate="please-select-option-to-join"] {
+	color: var(--bn-text-muted) !important;
+}

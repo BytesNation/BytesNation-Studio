@@ -108,6 +108,10 @@ const runTheme = async (browser, theme) => {
 		await capture(guestJoin, `guest-join-${theme}`);
 		const cameraPhone = await openPage(browser, { url: withBase(`push=bnphone${theme}`), viewport: phone, isMobile: true, waitMs: 4000 });
 		await capture(cameraPhone, `publish-mobile-${theme}`);
+		const createRoomPhone = await openPage(browser, { url: `${baseUrl}${theme === "light" ? "?lightmode" : ""}`, viewport: phone, isMobile: true });
+		await tryClick(createRoomPhone, "#container-1");
+		await createRoomPhone.waitForTimeout(1500);
+		await capture(createRoomPhone, `create-room-mobile-${theme}`);
 	}
 
 	if (wants("director") || wants("panels") || wants("video")) {
@@ -130,7 +134,8 @@ const runTheme = async (browser, theme) => {
 			await capture(guestA, `guest-call-${theme}`);
 			const scene = await openPage(browser, { url: withBase(`scene=0&room=${room}`), waitMs: 8000 });
 			await capture(scene, `scene-${theme}`);
-			const viewer = await openPage(browser, { url: withBase(`view=ga${room}`), waitMs: 8000 });
+			// &room lets the viewer find the guest's stream inside the room.
+			const viewer = await openPage(browser, { url: withBase(`view=ga${room}&room=${room}&solo`), waitMs: 8000 });
 			await capture(viewer, `view-${theme}`);
 			const guestPhone = await openPage(browser, { url: withBase(`room=${room}&push=gp${room}&label=Jo&webcam&autostart`), viewport: phone, isMobile: true, waitMs: 7000 });
 			await capture(guestPhone, `guest-call-mobile-${theme}`);
@@ -150,6 +155,14 @@ const runTheme = async (browser, theme) => {
 			await guestB.click("#gridlayout video", { button: "right", timeout: 3000 }).catch(() => {});
 			await guestB.waitForTimeout(600);
 			await capture(guestB, `video-context-menu-${theme}`);
+			const guestPhonePanels = await openPage(browser, { url: withBase(`room=${room}&push=gq${room}&label=Kai&webcam&autostart`), viewport: phone, isMobile: true, waitMs: 6000 });
+			await tryClick(guestPhonePanels, "#settingsbutton");
+			await guestPhonePanels.waitForTimeout(1500);
+			await capture(guestPhonePanels, `guest-settings-mobile-${theme}`);
+			await tryClick(guestPhonePanels, "#settingsbutton");
+			await tryClick(guestPhonePanels, "#chatbutton");
+			await guestPhonePanels.waitForTimeout(800);
+			await capture(guestPhonePanels, `guest-chat-mobile-${theme}`);
 		}
 	}
 
