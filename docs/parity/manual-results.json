@@ -1,13 +1,50 @@
 {
 	"note": "Checks the automated suite cannot prove. Set result to pass or fail, and by to a name and date, then rerun bn-shell/scripts/render-parity-checklist.mjs.",
 	"items": [
-		{ "check": "Real Safari on macOS with a real camera and microphone: join a room as a guest, publish, hear and see the director", "result": "", "by": "" },
-		{ "check": "Real iPhone (iOS Safari): guest join, camera flip, mute, chat, hang up", "result": "", "by": "" },
-		{ "check": "Real Android phone (Chrome): guest join, camera flip, mute, chat, hang up", "result": "", "by": "" },
-		{ "check": "Real OS screen-share picker in Chrome, Firefox and Safari: share a window and a full screen into a room", "result": "", "by": "" },
-		{ "check": "OBS Studio browser source: an existing &scene link and an &view link render transparent, with audio, exactly as on upstream", "result": "", "by": "" },
-		{ "check": "OBS Studio custom CSS and &css / &b64css links from an existing production still override the theme", "result": "", "by": "" },
-		{ "check": "Per-guest recording file: the downloaded recording plays back with audio and video", "result": "", "by": "" },
-		{ "check": "3+ participant room across mixed real browsers (director in Chrome, guests in Safari and Firefox), 10 minutes, no drops", "result": "", "by": "" }
+		{
+			"check": "Real Safari on macOS with a real camera and microphone: join a room as a guest, publish, hear and see the director",
+			"result": "",
+			"by": ""
+		},
+		{
+			"check": "Real iPhone (iOS Safari): guest join, camera flip, mute, chat, hang up",
+			"result": "",
+			"by": ""
+		},
+		{
+			"check": "Android Chrome on a Pixel 9 (Android 16) emulator with its emulated camera, and on a real Android phone: guest join, publish, director receives, mute, chat, hang up",
+			"result": "partial",
+			"by": "Claude, 2026-11-24: emulator guest published to a desktop director, director received 120x213 preview video, in-call UI and header verified; real phone not done"
+		},
+		{
+			"check": "Real OS screen-share picker in Chrome, Firefox and Safari: share a window and a full screen into a room",
+			"result": "",
+			"by": ""
+		},
+		{
+			"check": "OBS Studio browser source: an existing &scene link and an &view link render transparent, with audio, exactly as on upstream",
+			"result": "",
+			"by": ""
+		},
+		{
+			"check": "OBS Studio custom CSS and &css / &b64css links from an existing production still override the theme",
+			"result": "",
+			"by": ""
+		},
+		{
+			"check": "Per-guest recording file: the downloaded recording plays back with audio and video",
+			"result": "",
+			"by": ""
+		},
+		{
+			"check": "3+ participant room across mixed real browsers (director in Chrome, guests in Safari and Firefox), 10 minutes, no drops",
+			"result": "",
+			"by": ""
+		},
+		{
+			"check": "iOS Simulator Safari: launcher, guest join, director (simulator service did not respond on 2026-11-24; not run)",
+			"result": "",
+			"by": ""
+		}
 	]
 }

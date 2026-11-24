@@ -201,3 +201,35 @@ html.bn #head2 {
 html.bn #head1 > span[data-translate="please-select-option-to-join"] {
 	color: var(--bn-text-muted) !important;
 }
+
+/* Phones in a call: the engine's stats readout and room label share the bar
+   with the shell tools. The readout keeps its width; the room label truncates
+   to one line instead of pushing the tools off-screen. */
+@media only screen and (max-width: 640px) {
+	html.bn #head5 {
+		flex: none;
+	}
+
+	html.bn #head2,
+	html.bn #head4 {
+		flex: 1 1 auto;
+		min-width: 0;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+
+	html.bn #head2 > span,
+	html.bn #head4 > span {
+		display: inline;
+	}
+
+	html.bn #roomid,
+	html.bn #dirroomid {
+		display: inline;
+	}
+
+	html.bn #bn-tools {
+		flex: none;
+	}
+}
