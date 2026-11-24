@@ -1,0 +1,191 @@
+/*
+ * BytesNation Studio design tokens.
+ *
+ * Source of truth for every color, type and spacing value in the theme and
+ * the shell. Values match bytesnation.com (live site, Nov 2026).
+ *
+ * Rules the tokens enforce:
+ * - Accent is a fill only: primary call to action, active indicator, live and
+ *   recording dot. There is deliberately no accent text or accent border token.
+ * - Status colors (ok, warn, error) mark data and state only.
+ * - Text on an accent fill uses --bn-accent-ink in both themes (AA at 5.2:1 or better).
+ *
+ * Why tokens sit on :root and switch on html.bn-dark rather than body.darktheme:
+ * the engine implements &transparent, &chroma and OBS transparency by setting
+ * inline custom properties on <html>. Tokens defined on <body> would shadow
+ * those overrides for every descendant. boot.js mirrors body.darktheme onto
+ * html.bn-dark so inline overrides keep winning exactly as upstream.
+ */
+
+:root {
+	/* Light theme (engine light mode, &lightmode, &whitemode) */
+	--bn-bg: #f3f1ed;
+	--bn-surface: #f9f8f5;
+	--bn-surface-2: #ffffff;
+	--bn-surface-3: #ebe8e2;
+	--bn-sunken: #e7e4de;
+	--bn-border: #dedad2;
+	--bn-border-strong: #c4bfb4;
+	--bn-text: #15171a;
+	--bn-text-muted: #565a61;
+	--bn-text-faint: #666a71;
+	--bn-accent: #e8590c;
+	--bn-accent-hover: #d14f0a;
+	--bn-accent-ink: #1a0d04;
+	--bn-ok: #116a3b;
+	--bn-warn: #7a5800;
+	--bn-error: #b42318;
+	--bn-error-ink: #ffffff;
+	--bn-ok-ink: #ffffff;
+	--bn-warn-ink: #ffffff;
+	--bn-video-bg: #15171a;
+	--bn-scrim: rgba(21, 23, 26, 0.48);
+	--bn-shadow: 0 1px 2px rgba(21, 23, 26, 0.06), 0 8px 24px -12px rgba(21, 23, 26, 0.18);
+
+	/* Type */
+	--bn-font-sans: "Inter Tight", "Helvetica Neue", Arial, sans-serif;
+	--bn-font-mono: "Geist Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+	--bn-text-xs: 11px;
+	--bn-text-sm: 13px;
+	--bn-text-base: 14px;
+	--bn-text-md: 16px;
+	--bn-text-lg: 20px;
+	--bn-text-xl: 28px;
+	--bn-label-tracking: 0.08em;
+
+	/* Shape and rhythm */
+	--bn-radius-sm: 4px;
+	--bn-radius: 6px;
+	--bn-radius-lg: 8px;
+	--bn-space-1: 4px;
+	--bn-space-2: 8px;
+	--bn-space-3: 12px;
+	--bn-space-4: 16px;
+	--bn-space-5: 24px;
+	--bn-space-6: 32px;
+	--bn-bar-height: 48px;
+	--bn-control-height: 32px;
+
+	/* Motion: precise, no overshoot */
+	--bn-ease: cubic-bezier(0.16, 1, 0.3, 1);
+	--bn-duration: 160ms;
+
+	/* Dark is the product default. The engine reads --color-mode at boot when no
+	   theme URL param is present; this replaces upstream's OS-preference default. */
+	--color-mode: dark;
+
+	/*
+	 * Upstream variable remap. The engine's own rules keep working; they just
+	 * resolve to BytesNation values. Upstream uses the discord-grey ramp in dark
+	 * mode and the lighttheme ramp in light mode, so each ramp maps to one theme.
+	 */
+	--discord-grey-0: #08090b;
+	--discord-grey-1: #101215;
+	--discord-grey-2: #13151a;
+	--discord-grey-3: #16181c;
+	--discord-grey-4: #1a1d22;
+	--discord-grey-5: #1c1f24;
+	--discord-grey-6: #22252b;
+	--discord-grey-7: #2a2e35;
+	--discord-grey-8: #3a3f47;
+	--discord-text: #edebe6;
+
+	--lighttheme-1: #ffffff;
+	--lighttheme-2: #f9f8f5;
+	--lighttheme-3: #ebe8e2;
+	--lighttheme-4: #dedad2;
+	--lighttheme-5: #c4bfb4;
+	--lighttheme-6: #8c8880;
+	--lighttheme-7: #666a71;
+	--lighttheme-8: #2a2c30;
+	--lighttheme-text: #15171a;
+
+	/* Upstream "original" palette, used by the engine's non-dark mode. */
+	--background-color: var(--bn-bg);
+	--dark-background-color: #0a0b0d;
+	--container-color: var(--bn-surface);
+	--button-color: var(--bn-surface-2);
+	--blue-accent: var(--bn-surface-3);
+	--red-accent: var(--bn-surface-3);
+	--green-accent: var(--bn-surface-3);
+	--olive-accent: var(--bn-surface-3);
+	--light-grey: var(--bn-text);
+	--near-black: #0a0b0d;
+	--button-radius: var(--bn-radius-sm);
+
+	/* Links: neutral text with underline; accent is never text. Every upstream
+	   link family resolves to the current theme's text color. */
+	--a-link: var(--bn-text);
+	--a-visited: var(--bn-text);
+	--a-hover: var(--bn-text-muted);
+	--a-focus: var(--bn-text);
+	--a-active: var(--bn-text);
+	--a-dark-link: var(--bn-text);
+	--a-dark-visited: var(--bn-text);
+	--a-dark-hover: var(--bn-text-muted);
+	--a-dark-focus: var(--bn-text);
+	--a-dark-active: var(--bn-text);
+	--a-darker-link: var(--bn-text);
+	--a-darker-visited: var(--bn-text);
+	--a-darker-hover: var(--bn-text-muted);
+	--a-darker-focus: var(--bn-text);
+	--a-darker-active: var(--bn-text);
+	--a-lighter-link: var(--bn-text);
+	--a-lighter-visited: var(--bn-text);
+	--a-lighter-hover: var(--bn-text-muted);
+	--a-lighter-focus: var(--bn-text);
+	--a-lighter-active: var(--bn-text);
+
+	/* Upstream's accent is only ever a fill (primary CTA, chat send, file
+	   pickers, checked controls), which matches the BN accent rule. */
+	--accent-color: var(--bn-accent);
+	--accent-hover-color: var(--bn-accent-hover);
+
+	/* Director/co-director identity boxes: neutral; role is labeled in text. */
+	--director-box: #3a3f47;
+	--codirector-box: #2a2e35;
+	--director-dark-box: #3a3f47;
+	--codirector-dark-box: #2a2e35;
+
+	/* Upstream status-ish fills are state, so they map to BN status colors. */
+	--darktheme-red: #6b1d16;
+	--darktheme-blue: #1c1f24;
+	--darktheme-green: #14432b;
+	--darktheme-lightgreen: #14432b;
+	--darktheme-brown: #1c1f24;
+	--darktheme-yellow: #4a3a07;
+}
+
+:root.bn-dark {
+	--bn-bg: #0a0b0d;
+	--bn-surface: #101215;
+	--bn-surface-2: #16181c;
+	--bn-surface-3: #1c1f24;
+	--bn-sunken: #07080a;
+	--bn-border: #22252b;
+	--bn-border-strong: #34383f;
+	--bn-text: #edebe6;
+	--bn-text-muted: #9ea3ab;
+	--bn-text-faint: #80868f;
+	--bn-accent: #ff6a13;
+	--bn-accent-hover: #ff7c30;
+	--bn-accent-ink: #1a0d04;
+	--bn-ok: #5be49b;
+	--bn-warn: #f5c842;
+	--bn-error: #ff8d7a;
+	--bn-error-ink: #1a0d04;
+	--bn-ok-ink: #04150b;
+	--bn-warn-ink: #1a1400;
+	--bn-video-bg: #07080a;
+	--bn-scrim: rgba(0, 0, 0, 0.6);
+	--bn-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px -16px rgba(0, 0, 0, 0.7);
+
+	--background-color: var(--bn-bg);
+	--container-color: var(--bn-surface);
+	--button-color: var(--bn-surface-2);
+	--blue-accent: var(--bn-surface-3);
+	--red-accent: var(--bn-surface-3);
+	--green-accent: var(--bn-surface-3);
+	--olive-accent: var(--bn-surface-3);
+	--light-grey: var(--bn-text);
+}

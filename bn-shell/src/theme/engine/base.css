@@ -1,0 +1,223 @@
+/*
+ * Base layer: typography, form controls, links, focus, scrollbars.
+ *
+ * Selector discipline: rules mirror upstream selectors at the same or lower
+ * specificity where possible, so stylesheets users pass with &css / &b64css
+ * (appended after this file) keep overriding the presentation as they did
+ * upstream. Engine inline styles always win, as upstream.
+ */
+
+body {
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-base);
+	font-feature-settings: "ss01", "cv11";
+	color: var(--bn-text);
+	background-color: var(--background-color);
+}
+
+body.darktheme {
+	color: var(--bn-text);
+	/* Upstream dims the whole page to 0.8 opacity in dark mode; BN keeps full contrast for AA. */
+	opacity: 1;
+	scrollbar-color: var(--bn-border-strong) transparent;
+}
+
+body.whitetheme {
+	background-color: var(--bn-bg);
+	color: var(--bn-text);
+}
+
+::selection {
+	background-color: var(--bn-text);
+	color: var(--bn-bg);
+}
+
+h1,
+h2,
+h3,
+h4 {
+	font-family: var(--bn-font-sans);
+	letter-spacing: -0.01em;
+}
+
+h2,
+body.darktheme h2 {
+	color: var(--bn-text);
+	font-weight: 600;
+}
+
+label,
+body.darktheme label,
+body.darktheme form > label {
+	color: var(--bn-text);
+}
+
+/* Links: text color with an underline. Accent is never text. */
+a:link,
+a:visited,
+.darktheme a:link,
+.darktheme a:visited,
+.darktheme .infoblob a:link,
+.darktheme .infoblob a:visited {
+	color: var(--bn-text);
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+	text-underline-offset: 3px;
+}
+
+a:hover,
+.darktheme a:hover,
+.darktheme .infoblob a:hover {
+	color: var(--bn-text);
+	text-decoration-color: var(--bn-text);
+}
+
+/* Form controls */
+input,
+select,
+textarea {
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-base);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+input[type="text"],
+input[type="password"],
+input[type="number"],
+input[type="url"],
+input[type="email"],
+input[type="search"],
+input:not([type]) {
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-3);
+}
+
+input::placeholder,
+textarea::placeholder {
+	color: var(--bn-text-faint);
+	opacity: 1;
+}
+
+input:hover,
+select:hover,
+textarea:hover {
+	border-color: var(--bn-border-strong);
+}
+
+input[type="range"] {
+	accent-color: var(--bn-text);
+	border: 0;
+	background: transparent;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+	accent-color: var(--bn-accent);
+}
+
+select {
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-2);
+}
+
+button {
+	font-family: var(--bn-font-sans);
+	color: inherit;
+}
+
+button.grey {
+	background-color: var(--bn-surface-2);
+	color: var(--bn-text);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	font-weight: 500;
+}
+
+button.grey:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+}
+
+button.hint {
+	box-shadow: none;
+	-webkit-box-shadow: none;
+	color: var(--bn-text);
+}
+
+/* Keyboard focus: a solid text-color ring. Never accent (accent is fill only). */
+:focus-visible {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 2px;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 0;
+	border-color: var(--bn-text);
+}
+
+/* Upstream brightens every hovered button with a filter; BN uses surface steps instead. */
+button:hover,
+[role="button"]:not(.column):not(.controlsGrid):not(#controlButtons):hover {
+	filter: none;
+}
+
+hr {
+	background-color: var(--bn-border);
+	height: 1px;
+}
+
+/* Scrollbars: quiet, theme-aware. */
+::-webkit-scrollbar {
+	width: 10px;
+	height: 10px;
+}
+
+::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: var(--bn-border-strong);
+	border: 2px solid transparent;
+	background-clip: padding-box;
+	border-radius: 8px;
+}
+
+/* Technical readouts use the mono face. */
+code,
+kbd,
+pre,
+samp,
+.bn-mono {
+	font-family: var(--bn-font-mono);
+}
+
+/* Upstream "armed" (e.g. transfer armed) is a live state: error fill. */
+.pressed.armed,
+.armed {
+	background: var(--bn-error) !important;
+	color: var(--bn-error-ink) !important;
+}
+
+/* Primary call to action: the one accent fill per view. Upstream marks it
+   .gobutton; chat send and file pickers share the fill. Text is accent ink. */
+.gobutton,
+.chatBarInputButton,
+#container-5 input[type="file"] + label,
+input[type="file"]#fileselector4 + label {
+	color: var(--bn-accent-ink) !important;
+	border-color: transparent !important;
+	font-weight: 600;
+	box-shadow: none;
+}
+
+.gobutton i,
+.chatBarInputButton i {
+	color: var(--bn-accent-ink) !important;
+}

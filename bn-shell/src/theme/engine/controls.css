@@ -1,0 +1,159 @@
+/*
+ * In-session control bar (#controlButtons > #subControlButtons) and the
+ * engine's shared state classes.
+ *
+ * State classes are set by lib.js and carry meaning, so they map to status
+ * fills (allowed: status colors mark state):
+ *   .red      muted / off / alert          -> error fill
+ *   .green    on / ready                   -> ok fill
+ *   .orange   caution (e.g. scene muted)   -> warn fill
+ *   .blue     selected                     -> accent fill (active indicator)
+ *   .pressed  toggled on (director tools)  -> accent fill (active indicator)
+ * The bar is draggable (cursor: grab, engine drag handlers); keep pointer-events.
+ */
+
+#subControlButtons,
+.darktheme #subControlButtons {
+	gap: var(--bn-space-1);
+	padding: var(--bn-space-1);
+	min-width: 0;
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+}
+
+#subControlButtons div,
+#subControlButtons span button,
+.darktheme #subControlButtons div {
+	background-color: transparent;
+	border-radius: var(--bn-radius);
+	box-shadow: none;
+	transition: background-color var(--bn-duration) var(--bn-ease);
+}
+
+#subControlButtons div:hover,
+#subControlButtons span button:hover {
+	background-color: var(--bn-surface-3);
+	border-radius: var(--bn-radius);
+}
+
+.float,
+.float2 {
+	opacity: 1;
+	min-width: 44px;
+	min-height: 44px;
+	margin: 0;
+	padding: var(--bn-space-1);
+	color: var(--bn-text);
+	border-radius: var(--bn-radius);
+	box-shadow: none;
+}
+
+.float2 {
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+}
+
+.toggleSize {
+	font-size: 22px;
+	color: var(--bn-text);
+}
+
+/* State fills (override upstream !important fills). */
+.red,
+.red:hover,
+#subControlButtons div.red,
+#subControlButtons div.red:hover {
+	background-color: var(--bn-error) !important;
+	color: var(--bn-error-ink);
+}
+
+.red .toggleSize,
+.red > i {
+	color: var(--bn-error-ink);
+}
+
+.green,
+.green:hover,
+#subControlButtons div.green {
+	background-color: var(--bn-ok) !important;
+	color: var(--bn-ok-ink);
+}
+
+.green .toggleSize,
+.green > i {
+	color: var(--bn-ok-ink);
+}
+
+.orange,
+#subControlButtons div.orange {
+	background-color: var(--bn-warn) !important;
+	color: var(--bn-warn-ink);
+}
+
+.orange .toggleSize,
+.orange > i,
+#scenemutebutton.orange .la-broadcast-tower,
+.scene-mute-state .la-broadcast-tower {
+	color: var(--bn-warn-ink);
+}
+
+.brown,
+.brown:hover {
+	background-color: var(--bn-surface-3) !important;
+}
+
+.blue,
+.blue:hover,
+#subControlButtons div.blue {
+	background-color: var(--bn-accent) !important;
+	color: var(--bn-accent-ink);
+}
+
+.blue .toggleSize,
+.blue > i {
+	color: var(--bn-accent-ink);
+}
+
+/* Header state strips: the engine colors #header when the director mutes you. */
+#header.red,
+#header.orange {
+	color: inherit;
+}
+
+/* Notification counters on chat / file / queue buttons: data, mono. */
+#chatNotification,
+#transferNotification,
+#queueNotification {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+}
+
+/* Speaker volume popover */
+.speaker-volume-panel {
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius);
+	box-shadow: var(--bn-shadow);
+}
+
+.speaker-volume-value {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text-muted);
+}
+
+@media only screen and (max-width: 640px) {
+	.float,
+	.float2 {
+		min-width: 40px;
+		min-height: 40px;
+	}
+
+	.toggleSize {
+		font-size: 20px;
+	}
+}

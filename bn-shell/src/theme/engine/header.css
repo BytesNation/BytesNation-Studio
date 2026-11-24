@@ -1,0 +1,150 @@
+/*
+ * App bar (#header). The engine owns every child: join-by-room input, share
+ * links (#reshare, #inviteLinkURL), director room readout (#head4), guest room
+ * readout (#head2) and director notices (#head6-8). The shell prepends its own
+ * brand slot (#bn-brand) and appends tools (#bn-tools); nothing engine-owned
+ * moves.
+ *
+ * #logoname is hidden, not removed: #qos inside it is the engine's live
+ * connection-quality indicator, mirrored into the BN mark by the shell.
+ */
+
+#header {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	align-items: center;
+	gap: var(--bn-space-3);
+	min-height: var(--bn-bar-height);
+	padding: 0 var(--bn-space-3);
+	color: var(--bn-text);
+	font-size: var(--bn-text-sm);
+	/* !important: upstream's refresh section sets a translucent !important header with backdrop blur. */
+	background-color: var(--bn-surface) !important;
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	border-bottom: 1px solid var(--bn-border);
+	box-sizing: border-box;
+}
+
+#header:empty {
+	display: none;
+}
+
+/* The engine sets an inline display on #logoname when signaling connects. */
+html.bn #logoname {
+	display: none !important;
+}
+
+#head1 {
+	display: flex;
+	align-items: center;
+	gap: var(--bn-space-2);
+	padding: 0;
+}
+
+#joinroomID,
+#joinbyURL {
+	width: 220px;
+	min-height: var(--bn-control-height);
+	font-size: var(--bn-text-sm);
+}
+
+#jumptoroomButton,
+#head1a button {
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-3);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 600;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	cursor: pointer;
+}
+
+#jumptoroomButton:hover,
+#head1a button:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+}
+
+/* Readouts: labels in mono, values in mono (room ids, links are technical). */
+#head4,
+#head2,
+#head9,
+#head3,
+#copythisurl,
+#copythisurl2 {
+	color: var(--bn-text-muted);
+	font-size: var(--bn-text-sm);
+}
+
+#head4 > span,
+#head2 {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--bn-space-2);
+}
+
+#dirroomid,
+#roomid {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-sm) !important;
+	font-weight: 500;
+	color: var(--bn-text) !important;
+}
+
+#reshare,
+#inviteLinkURL,
+a.task.grabLinks {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	text-decoration: none;
+}
+
+#head3a i,
+#head9 i,
+#head4 i {
+	color: var(--bn-text-muted) !important;
+}
+
+/* Director notices to a guest are state: warn. */
+#head6,
+#head7,
+#head8 {
+	font-weight: 600;
+	color: var(--bn-warn);
+}
+
+/* Bottom-right utility buttons (language, calendar). */
+#translateButton,
+#calendarButton {
+	color: var(--bn-text-muted);
+}
+
+#translateButton:hover,
+#calendarButton:hover {
+	color: var(--bn-text);
+}
+
+@media only screen and (max-width: 640px) {
+	#header {
+		gap: var(--bn-space-2);
+		padding: 0 var(--bn-space-2);
+	}
+
+	#joinroomID {
+		width: 100%;
+		min-width: 0;
+	}
+
+	#head1 {
+		flex: 1 1 auto;
+		min-width: 0;
+	}
+}
