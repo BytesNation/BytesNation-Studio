@@ -5,7 +5,9 @@
  * Every checkbox traces to a test run; manual items stay unchecked until a
  * person records the result in docs/parity/manual-results.json.
  *
- * Usage: node bn-shell/scripts/render-parity-checklist.mjs (after `npm run test:parity`)
+ * Usage: node bn-shell/scripts/render-parity-checklist.mjs [results.json ...]
+ * With several files, a later file's result replaces an earlier one for the
+ * same test and engine (for example, a rerun of the mobile projects).
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
@@ -18,8 +20,8 @@ const projects = ["chromium", "firefox", "webkit", "mobile-chrome", "mobile-safa
 const projectLabels = { chromium: "Chrome", firefox: "Firefox", webkit: "Safari (WebKit)", "mobile-chrome": "Android Chrome", "mobile-safari": "iOS Safari" };
 
 /** Flattens Playwright JSON into {file, title, project, status, annotations}. */
-const loadResults = () => {
-	const report = JSON.parse(readFileSync(resultsPath, "utf8"));
+const loadReport = reportPath => {
+	const report = JSON.parse(readFileSync(reportPath, "utf8"));
 	const rows = [];
 	const walk = (suite, file) => {
 		const suiteFile = suite.file || file;
@@ -41,6 +43,18 @@ const loadResults = () => {
 	};
 	report.suites.forEach(suite => walk(suite, suite.file));
 	return { rows, startTime: report.stats ? report.stats.startTime : "" };
+};
+
+const loadResults = () => {
+	const reportPaths = process.argv.slice(2).length > 0 ? process.argv.slice(2) : [resultsPath];
+	const rowsByKey = new Map();
+	const startTimes = [];
+	reportPaths.forEach(reportPath => {
+		const report = loadReport(reportPath);
+		startTimes.push(report.startTime);
+		report.rows.forEach(row => rowsByKey.set(`${row.file}|${row.title}|${row.project}`, row));
+	});
+	return { rows: [...rowsByKey.values()], startTime: startTimes.filter(Boolean).join(", ") };
 };
 
 const cell = status => ({ passed: "pass", failed: "**FAIL**", skipped: "n/a" })[status] || "not run";

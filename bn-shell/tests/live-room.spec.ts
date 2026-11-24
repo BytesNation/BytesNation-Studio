@@ -119,7 +119,9 @@ for (const target of targets) {
 			// The engine asks for a recording bitrate first.
 			const submit = director.page.locator(".promptModal button[id^='submit_']").first();
 			if (await submit.isVisible({ timeout: 5000 }).catch(() => false)) {
-				await submit.click();
+				// Mobile WebKit can report the modal button as not yet actionable under
+				// load; fall back to the button's own click(), the same engine handler.
+				await submit.click({ timeout: 5000 }).catch(() => submit.evaluate(element => (element as HTMLElement).click()));
 			}
 			await expect.poll(() => director.page.evaluate(() => {
 				const engineSession = (window as unknown as { session: { rpcs: Record<string, { videoElement?: HTMLVideoElement & { recording?: unknown } }> } }).session;
