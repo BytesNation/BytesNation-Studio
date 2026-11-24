@@ -26,11 +26,14 @@
 	--bn-sunken: #e7e4de;
 	--bn-border: #dedad2;
 	--bn-border-strong: #c4bfb4;
+	/* Form-control boundary: 3:1 against every surface (WCAG 1.4.11). */
+	--bn-control-border: #8a857b;
 	--bn-text: #15171a;
 	--bn-text-muted: #565a61;
 	--bn-text-faint: #666a71;
 	--bn-accent: #e8590c;
-	--bn-accent-hover: #d14f0a;
+	/* Hover lightens so accent ink keeps AA (6:1) on it. */
+	--bn-accent-hover: #f26b1e;
 	--bn-accent-ink: #1a0d04;
 	--bn-ok: #116a3b;
 	--bn-warn: #7a5800;
@@ -167,6 +170,7 @@
 	--bn-sunken: #07080a;
 	--bn-border: #22252b;
 	--bn-border-strong: #34383f;
+	--bn-control-border: #646a73;
 	--bn-text: #edebe6;
 	--bn-text-muted: #9ea3ab;
 	--bn-text-faint: #80868f;

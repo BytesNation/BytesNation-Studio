@@ -1650,3 +1650,56 @@ body.darktheme .promptModal,
 		font-size: 10px;
 	}
 }
+
+/*
+ * Tip payment modal. lib.js forces white text into the Stripe card field, so
+ * this modal stays dark in both themes; the purple and green gradients become
+ * flat BytesNation surfaces, and the primary actions take the accent fill.
+ */
+.tipModalInner {
+	background: #16181c;
+	border: 1px solid #22252b;
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+	font-family: var(--bn-font-sans);
+}
+
+.tipModalInner h3 {
+	color: #edebe6;
+	letter-spacing: -0.01em;
+}
+
+.tipCloseBtn,
+.tipAmountBtn {
+	background: #1c1f24;
+	border: 1px solid #34383f;
+	border-radius: var(--bn-radius-sm);
+	color: #edebe6;
+}
+
+.tipCloseBtn:hover,
+.tipAmountBtn:hover {
+	background: #22252b;
+}
+
+.tipAmountBtn.selected {
+	background: #ff6a13;
+	border-color: transparent;
+	color: #1a0d04;
+}
+
+.tipModal .tipCustomInput,
+.tipModal .tipCustomInput:focus {
+	background: #101215 !important;
+	border-color: #646a73;
+}
+
+.tipConfirmBtn {
+	background: #ff6a13;
+	color: #1a0d04;
+	border-radius: var(--bn-radius-sm);
+}
+
+.tipConfirmBtn:hover:not(:disabled) {
+	background: #ff7c30;
+}

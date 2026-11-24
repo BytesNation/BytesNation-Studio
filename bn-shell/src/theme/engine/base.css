@@ -80,7 +80,7 @@ textarea {
 	font-size: var(--bn-text-base);
 	color: var(--bn-text);
 	background-color: var(--bn-surface-2);
-	border: 1px solid var(--bn-border);
+	border: 1px solid var(--bn-control-border);
 	border-radius: var(--bn-radius-sm);
 }
 
@@ -104,7 +104,7 @@ textarea::placeholder {
 input:hover,
 select:hover,
 textarea:hover {
-	border-color: var(--bn-border-strong);
+	border-color: var(--bn-text-muted);
 }
 
 input[type="range"] {
@@ -220,4 +220,33 @@ input[type="file"]#fileselector4 + label {
 .gobutton i,
 .chatBarInputButton i {
 	color: var(--bn-accent-ink) !important;
+}
+
+/* Range sliders page-wide: neutral track and thumb. Upstream's refresh paints
+   the thumb with a blue ring; the accent is not for decoration. */
+input[type="range"]::-webkit-slider-runnable-track,
+.darktheme input[type="range"]::-webkit-slider-runnable-track {
+	background: var(--bn-border-strong);
+}
+
+input[type="range"]::-moz-range-track,
+.darktheme input[type="range"]::-moz-range-track {
+	background: var(--bn-border-strong);
+}
+
+input[type="range"]::-moz-range-progress,
+.darktheme input[type="range"]::-moz-range-progress {
+	background: var(--bn-text-muted);
+}
+
+input[type="range"]::-webkit-slider-thumb,
+.darktheme input[type="range"]::-webkit-slider-thumb {
+	background: var(--bn-text);
+	border-color: var(--bn-surface);
+}
+
+input[type="range"]::-moz-range-thumb,
+.darktheme input[type="range"]::-moz-range-thumb {
+	background: var(--bn-text);
+	border-color: var(--bn-surface);
 }

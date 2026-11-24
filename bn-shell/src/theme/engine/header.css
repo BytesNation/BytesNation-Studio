@@ -148,3 +148,51 @@ a.task.grabLinks {
 		min-width: 0;
 	}
 }
+
+/* Emoji controls (save room, preview mode) render as theme icons. The span,
+   its id, title and onclick stay; only the glyph is masked (tile-icons.css). */
+html.bn #saveRoom,
+html.bn #head3a > span[onclick^="saveRoom"],
+html.bn #togglePreviewMode {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	margin-left: var(--bn-space-1) !important;
+	font-size: 0 !important;
+	color: transparent;
+	border-radius: var(--bn-radius-sm);
+	cursor: pointer;
+}
+
+html.bn #saveRoom::before,
+html.bn #head3a > span[onclick^="saveRoom"]::before,
+html.bn #togglePreviewMode::before {
+	content: "";
+	width: 16px;
+	height: 16px;
+	background-color: var(--bn-text-muted);
+	-webkit-mask-repeat: no-repeat;
+	mask-repeat: no-repeat;
+	-webkit-mask-size: contain;
+	mask-size: contain;
+}
+
+html.bn #saveRoom:hover,
+html.bn #head3a > span[onclick^="saveRoom"]:hover,
+html.bn #togglePreviewMode:hover {
+	background-color: var(--bn-surface-3);
+}
+
+html.bn #saveRoom:hover::before,
+html.bn #head3a > span[onclick^="saveRoom"]:hover::before,
+html.bn #togglePreviewMode:hover::before {
+	background-color: var(--bn-text);
+}
+
+/* #head2 carries inline color: white and font-size: 60% from upstream. */
+html.bn #head2 {
+	color: var(--bn-text-muted) !important;
+	font-size: var(--bn-text-sm) !important;
+}

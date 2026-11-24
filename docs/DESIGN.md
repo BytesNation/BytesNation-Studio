@@ -14,6 +14,7 @@ Tokens live in [`bn-shell/src/theme/tokens.css`](../bn-shell/src/theme/tokens.cs
 | `--bn-surface-3` | `#1C1F24` | `#EBE8E2` | Hover |
 | `--bn-border` | `#22252B` | `#DEDAD2` | Hairlines, panel edges |
 | `--bn-border-strong` | `#34383F` | `#C4BFB4` | Hover edges, underlines |
+| `--bn-control-border` | `#646A73` | `#8A857B` | Input and select boundaries (3:1 on every surface, WCAG 1.4.11) |
 | `--bn-text` | `#EDEBE6` | `#15171A` | Primary text |
 | `--bn-text-muted` | `#9EA3AB` | `#565A61` | Secondary text, idle icons |
 | `--bn-text-faint` | `#80868F` | `#666A71` | Tertiary text, footers (AA on every surface) |
@@ -21,12 +22,14 @@ Tokens live in [`bn-shell/src/theme/tokens.css`](../bn-shell/src/theme/tokens.cs
 | `--bn-accent-ink` | `#1A0D04` | `#1A0D04` | Text and icons on an accent fill |
 | `--bn-ok` / `--bn-warn` / `--bn-error` | `#5BE49B` / `#F5C842` / `#FF8D7A` | `#116A3B` / `#7A5800` / `#B42318` | State and data only |
 | `--bn-*-ink` | dark ink | white | Text on a status fill |
+| `--bn-on-video` | `#EDEBE6` | `#EDEBE6` | Text over live video, both themes |
+| `--bn-video-scrim` | 82% near-black | 82% near-black | Ground behind text over video; holds AA over a white frame |
 
 ### The accent rule
 
 The accent is a fill, used for three things only:
 
-1. The primary call to action in a view (`.gobutton`, chat Send, the file picker).
+1. The primary call to action in a view (`.gobutton`, chat Send, the file picker). Hover lightens the fill (`--bn-accent-hover`) so the ink keeps AA.
 2. The active indicator: a toggled-on control (`.pressed`, `.blue`).
 3. The live or recording dot.
 
