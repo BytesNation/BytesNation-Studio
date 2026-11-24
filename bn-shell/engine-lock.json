@@ -1,0 +1,7 @@
+{
+	"upstreamRepo": "steveseguin/vdo.ninja",
+	"upstreamBranch": "develop",
+	"upstreamCommit": "8e363be82533ef3d9544eca06e06a380902d929e",
+	"engineVersion": "31.5",
+	"note": "The upstream commit BytesNation Studio is built on. Update after each upstream merge; check-upstream-footprint.mjs diffs against it."
+}
