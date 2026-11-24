@@ -25,6 +25,9 @@ BytesNation Studio is licensed under the GNU AGPL-3.0, like the VDO.Ninja engine
 | class-variance-authority | 0.7.1 | Apache-2.0 | Component variants |
 | clsx | 2.1.1 | MIT | Class names |
 | tailwind-merge | 2.6.2 | MIT | Class conflict resolution |
+| motion ([motion.dev](https://motion.dev)), with framer-motion, motion-dom, motion-utils | 14.14.0 (motion-utils 14.7.0) | MIT | Shell animation: dialogs, command palette, status readouts, launcher reveal |
+| sonner ([sonner.emilkowal.ski](https://sonner.emilkowal.ski)) | 2.0.8 | MIT | Notifications |
+| cmdk ([cmdk.paco.me](https://cmdk.paco.me)) | 1.1.1 | MIT | Command palette |
 | lucide-react | 1.79.0 | ISC | Shell icons; also the source of the launcher tile icons embedded in `bn/theme.css` |
 | @fontsource/inter-tight (Inter Tight) | 5.3.0 | SIL OFL 1.1 | UI typeface, self-hosted in `bn/assets/` |
 | @fontsource/geist-mono (Geist Mono) | 5.3.0 | SIL OFL 1.1 | Mono typeface, self-hosted in `bn/assets/` |
@@ -44,6 +47,7 @@ Not used anywhere in this repository: shadcnblocks.com blocks, the shadcnblocks 
 | autoprefixer | 10.7.0 | MIT |
 | typescript | 5.9.3 | Apache-2.0 |
 | @playwright/test, playwright | 1.65.1 | Apache-2.0 |
+| @axe-core/playwright, axe-core | 4.14.1 | MPL-2.0 (test tooling only; never bundled or shipped) |
 | @types/react, @types/react-dom, @types/node | 19.3.1, 19.3.0, 24.19.2 | MIT |
 
 Their transitive dependencies are pinned in `bn-shell/package-lock.json`.

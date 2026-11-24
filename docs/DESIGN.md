@@ -30,8 +30,8 @@ Tokens live in [`bn-shell/src/theme/tokens.css`](../bn-shell/src/theme/tokens.cs
 The accent is a fill, used for three things only:
 
 1. The primary call to action in a view (`.gobutton`, chat Send, the file picker). Hover lightens the fill (`--bn-accent-hover`) so the ink keeps AA.
-2. The active indicator: a toggled-on control (`.pressed`, `.blue`).
-3. The live or recording dot.
+2. The active indicator: a toggled-on control (`.pressed`, `.blue`), and the marker on the selected command-palette row.
+3. The live or recording dot (the `REC` readout in the app bar).
 
 Never use the accent for text, borders, outlines, focus rings, glows or gradients. Focus rings use `--bn-text`.
 
@@ -61,7 +61,41 @@ Never use the accent for text, borders, outlines, focus rings, glows or gradient
 
 ## Motion
 
-Use 160ms with `cubic-bezier(0.16, 1, 0.3, 1)`. Nothing bounces or overshoots. Do not touch engine animations that carry logic: the launcher's `inlightbox` and `outlightbox` keyframes drive `animationend` handlers in `lib.js`.
+Movement is short and stops hard, like equipment. One curve, `cubic-bezier(0.16, 1, 0.3, 1)`, and three durations: 120ms, 160ms and 240ms. Tweens only: nothing springs, bounces or overshoots. The shell animates with [Motion](https://motion.dev); its tokens are in `bn-shell/src/lib/motion.ts` and mirror the CSS tokens.
+
+| Pattern | Motion |
+|---|---|
+| Floating layer (dialog, command palette) | Scrim fades; panel rises 8px with a 1.5% scale-in over 160ms, and leaves in 120ms |
+| Active marker in the palette | One 2px accent bar glides to the selected row in 120ms |
+| Icon swap (theme switch) | Old icon rotates out, new one rotates in, 120ms each |
+| Inline status (signaling offline, REC) | Slides in 6px from the left over 160ms |
+| Recording dot | Tally-lamp blink: full, then dim, with hard edges. No fade, no glow |
+| Launcher "More options" | Revealed tiles rise 6px in a 16ms stagger over 240ms |
+
+`prefers-reduced-motion` is honored everywhere: transforms and the blink stop; opacity changes stay.
+
+Do not touch engine animations that carry logic: the launcher's `inlightbox` and `outlightbox` keyframes drive `animationend` handlers in `lib.js`.
+
+## Floating layers
+
+The shell adds three layers above the engine. They exist only where a person operates the studio (launcher, director room, guest or publisher). They never render on a scene, a view link, an OBS source, clean output or inside an iframe, because those are captured or owned by another page.
+
+**Command palette** ([cmdk](https://cmdk.paco.me)), opened with Ctrl+K or Cmd+K or from the app bar:
+
+- It lists only controls the engine is rendering right now, with the engine's own translated labels, and runs one by pressing the engine's button. Hide a button with a URL parameter and its command is gone too.
+- Controls that end a session (hang up, guest hangup, transfer) are never listed. A fuzzy match plus Enter must not drop a live call.
+- The selected row takes a surface step. The gliding 2px accent marker is the active indicator, one of the three accent uses.
+- State shows as a dot and a mono label (`ON`, `OFF`, `RECORDING`), never as color alone.
+- With `&disablehotkeys` the shortcut is off and the button remains.
+
+**Notifications** ([Sonner](https://sonner.emilkowal.ski)):
+
+- A notification reports something the operator did not just do: signaling lost or restored, a guest joined or left, a chat message arrived while chat was closed, the director muted them, a recording stopped. The result of the operator's own action already shows on the control they pressed, so it gets no notification.
+- One neutral card style. Status color is only the small state dot beside a mono source label (`SIGNAL`, `GUEST`, `CHAT`, `DIRECTOR`, `RECORDING`).
+- Three visible at most, under the app bar, clear of the control bar and chat. Chat and signaling notifications replace their previous one in place.
+- Chat text is rendered as plain text. The visitor can turn notifications off from the palette.
+
+**Recording readout**: an accent dot, `REC` and a timecode in the app bar while the page records any stream. This is the recording dot the accent rule reserves.
 
 ## Banned
 

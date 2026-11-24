@@ -49,9 +49,22 @@ A classic ES5 script loaded in `<head>` right after the theme. It:
 React 19, Radix primitives and shadcn/ui-pattern components, styled with Tailwind 3 under a `tw-` prefix with preflight disabled. The engine already uses class names like `.hidden`, `.red`, `.float` and `.column`; unprefixed utilities would collide with them, and preflight would reset engine elements.
 
 - It mounts on `window.load`, after the engine has booted. It does not mount in OBS, with `&cleanoutput`, or with `&classicui`.
-- Every surface is a portal into an engine host: the brand and tools go into `#header`, the credit into `#mainmenu`. When the engine hides a host (scenes, view links, clean output, in-call layouts), the shell surface hides with it.
-- All engine access goes through `src/lib/engine.ts`. When upstream changes something the shell depends on, it breaks in one file.
+- Every app-bar and launcher surface is a portal into an engine host: the brand and tools go into `#header`, the credit into `#mainmenu`. When the engine hides a host (scenes, view links, clean output, in-call layouts), the shell surface hides with it.
+- All engine access goes through `src/lib/engine*.ts`: `engine.ts` reads session state, `engine-controls.ts` discovers and presses the engine's controls, `engine-events.ts` observes state changes. When upstream changes something the shell depends on, it breaks in one of three files.
 - A mount failure is caught and logged. The engine never depends on the shell.
+
+#### Floating layers: command palette, notifications, recording readout
+
+Three additions sit above the engine: a command palette ([cmdk](https://cmdk.paco.me)), notifications ([Sonner](https://sonner.emilkowal.ski)) and a `REC` readout, animated with [Motion](https://motion.dev). Design rules are in [DESIGN.md](DESIGN.md#floating-layers).
+
+- **Operator surfaces only.** `isOperatorSurface()` mirrors the engine's own mode branches in `main.js`: a scene inside a room, or a view-only link with nothing published, is an output. On outputs, in OBS, with clean output, and inside an iframe, none of these layers mount and Ctrl+K does nothing. A window capture of a view link can never show a palette or a notification.
+- **The palette is a remote control.** `engine-controls.ts` lists the controls the engine is rendering (`getClientRects`), reads their translated `aria-label` or text, and runs a command with `element.click()` on the engine's element. No parameter logic is repeated: whatever hides a button hides its command. Launcher tiles behind "More options" are offered only if that button would reveal them, so work-in-progress tiles the engine hides inline stay hidden. Hang up, guest hangup and transfer are excluded.
+- **A command runs after the palette is gone.** The engine's handler fires on `AnimatePresence`'s exit-complete, once the dialog and its focus trap have unmounted, so the engine owns focus (a chat field, a password prompt). Escape is stopped at the palette, so it never also closes an engine modal behind it.
+- **The hotkey yields.** Ctrl+K or Cmd+K is unused by the engine. The shell skips it when the link carries `&disablehotkeys` or when the engine already handled the key (`event.defaultPrevented`, for a custom push-to-talk combo).
+- **Notifications read state; they never write it.** The engine posts its events only to a parent page, so at the top level `engine-events.ts` observes what the engine already maintains: `#guestFeeds` children, `#chatBody` rows, the `#head6` to `#head8` director notices, the `#qos` signaling color and each video element's `recording` flag. Chat rows are read as text content.
+- **One exception to "the shell never touches engine elements".** `launcher-motion.ts` staggers in the tiles that "More options" reveals. It is limited to `opacity` and `translate` (the tile lightbox animates `width`, `height`, `top` and `left`), uses Web Animations (which fire no `animationend`), and restores each tile's inline styles to exactly what the engine had when it ends. A parity test compares every tile's `style` attribute with upstream's afterwards.
+
+The shell bundle is about 167 KB gzipped (React accounts for about a third, Motion for another). It loads as a module after the engine has booted and is never needed for the engine to work.
 
 ### Compatibility
 
