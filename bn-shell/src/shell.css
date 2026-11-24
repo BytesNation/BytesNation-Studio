@@ -1,0 +1,47 @@
+/*
+ * Shell component styles. Tailwind with the tw- prefix and no preflight, so
+ * nothing here can restyle engine elements. .bn-shell undoes the engine's
+ * global "* { display: flex; position: fixed }"-style rules inside shell
+ * subtrees where they would break layout.
+ */
+@tailwind components;
+@tailwind utilities;
+
+.bn-slot {
+	display: flex;
+	align-items: center;
+	position: static;
+}
+
+#bn-tools {
+	margin-left: auto;
+}
+
+#bn-footer {
+	display: block;
+	grid-column: 1 / -1;
+	margin-top: var(--bn-space-5);
+}
+
+.bn-shell {
+	font-family: var(--bn-font-sans);
+	color: var(--bn-text);
+	position: static;
+}
+
+.bn-shell a,
+.bn-shell a:visited {
+	color: var(--bn-text);
+}
+
+.bn-shell button {
+	margin: 0;
+	box-shadow: none;
+}
+
+/* Narrow screens: keep the mark, drop the wordmark so engine controls fit. */
+@media only screen and (max-width: 480px) {
+	.bn-wordmark {
+		display: none;
+	}
+}
