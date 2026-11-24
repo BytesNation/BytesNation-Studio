@@ -83,8 +83,8 @@ export const isStudioOutput = (): boolean => {
 /**
  * True on pages where a person operates the studio: the launcher, the director
  * room, a guest or publisher. False on outputs that get captured (scenes,
- * view-only links, OBS, clean output) and inside iframes, where an embedding
- * page owns the interface. Mirrors the engine's own mode branches
+ * view-only links, OBS, clean output), on links that hide the app bar
+ * (&hideheader), and inside iframes, where an embedding page owns the interface. Mirrors the engine's own mode branches
  * (main.js: scene inside a room; view-only when nothing is published).
  * Floating shell layers (command palette, notifications) only exist here.
  * @returns {boolean}
@@ -95,6 +95,12 @@ export const isOperatorSurface = (): boolean => {
 		return false;
 	}
 	if (window.self !== window.top) {
+		return false;
+	}
+	// &hideheader (and its aliases) removes the app bar with an inline display:
+	// the link asked for no chrome, so the layers that hang off the bar stay off too.
+	const header = document.getElementById("header");
+	if (header && header.style.display === "none") {
 		return false;
 	}
 	const isScene = session.scene !== false && session.scene !== undefined && session.scene !== null;

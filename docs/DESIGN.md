@@ -78,7 +78,7 @@ Do not touch engine animations that carry logic: the launcher's `inlightbox` and
 
 ## Floating layers
 
-The shell adds three layers above the engine. They exist only where a person operates the studio (launcher, director room, guest or publisher). They never render on a scene, a view link, an OBS source, clean output or inside an iframe, because those are captured or owned by another page.
+The shell adds three layers above the engine. They exist only where a person operates the studio (launcher, director room, guest or publisher). They never render on a scene, a view link, an OBS source, clean output, a link with `&hideheader`, or inside an iframe, because those are captured, stripped of chrome on purpose, or owned by another page.
 
 **Command palette** ([cmdk](https://cmdk.paco.me)), opened with Ctrl+K or Cmd+K or from the app bar:
 

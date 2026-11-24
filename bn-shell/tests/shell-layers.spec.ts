@@ -155,7 +155,9 @@ test.describe("output surfaces", () => {
 	const outputs = [
 		{ name: "view link", query: "view=bnlayerstream", initScript: undefined },
 		{ name: "scene link", query: "scene=0&room=bnlayerroom", initScript: undefined },
-		{ name: "OBS browser source", query: "push=bnlayerstream&webcam", initScript: "window.obsstudio = { pluginVersion: '30.0.0', getCurrentScene: function () {} };" }
+		{ name: "OBS browser source", query: "push=bnlayerstream&webcam", initScript: "window.obsstudio = { pluginVersion: '30.0.0', getCurrentScene: function () {} };" },
+		{ name: "clean output", query: "push=bnlayerstream&webcam&autostart&cleanoutput", initScript: undefined },
+		{ name: "hidden header (&hideheader)", query: "push=bnlayerstream&webcam&autostart&hideheader", initScript: undefined }
 	];
 	for (const output of outputs) {
 		test(`${output.name}: no palette, no notifications`, async ({ browser }, testInfo) => {
