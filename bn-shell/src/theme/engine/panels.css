@@ -1,3 +1,1652 @@
 /*
- * panels view group. See docs/DESIGN.md "Rules for styling the engine".
+ * Panels view group: the in-call settings drawer (#popupSelector) and every
+ * sub-panel it reveals, chat (#chatModule), context menus (nav.context-menu),
+ * engine modals (warnUser, promptAlt, confirmAlt), popups (.popup-message:
+ * copy toast, languages, calendar), the stats overlay (.debugStats), the file
+ * transfer UI, the tip toast and the header stats readout (#head5).
+ * See docs/DESIGN.md "Rules for styling the engine".
+ *
+ * One family for every floating layer: surface-2 fill, hairline border,
+ * --bn-shadow, 8px radius, mono uppercase labels, square close controls.
+ * Fields inside a floating layer sit one step down on --bn-surface.
+ *
+ * Why !important appears here: upstream main.css sets these layers with
+ * !important (context menus, chat module, the 2025 "refresh" glass rules for
+ * .alertModalInner and the chat Send button), and lib.js writes inline
+ * colors onto prompt buttons and a few icons. Each !important below beats one
+ * of those and is never used on display.
+ *
+ * Text on a surface-3 fill uses --bn-text-muted, never --bn-text-faint:
+ * faint on surface-3 is 4.44:1 in the light theme, under AA.
  */
+
+/* ------------------------------------------------------------------ */
+/* Settings drawer (#popupSelector)                                    */
+/* ------------------------------------------------------------------ */
+
+/* The engine slides the drawer by writing inline `right` (0 / -500px) and
+   hides it with inline display after 200ms. Only the paint changes here;
+   160ms stays inside that 200ms timeout. */
+#popupSelector,
+.darktheme #popupSelector,
+.whitetheme #popupSelector {
+	box-sizing: border-box;
+	padding: var(--bn-space-4) var(--bn-space-4) 96px;
+	color: var(--bn-text);
+	font-size: var(--bn-text-sm);
+	background: var(--bn-surface-2);
+	border-left: 1px solid var(--bn-border);
+	box-shadow: var(--bn-shadow);
+	transition: right var(--bn-duration) var(--bn-ease);
+}
+
+#popupSelector label,
+.darktheme #popupSelector label,
+.whitetheme #popupSelector label,
+#popupSelector .multiselect-contents label,
+#popupSelector_constraints_audio label,
+#popupSelector_constraints_video label,
+#popupSelector_user_settings label {
+	color: var(--bn-text);
+}
+
+/* Section cards. Upstream gives each a fixed 463px box; BN fills the drawer
+   width so every card shares one left and right edge. */
+#popupSelector #videoMenu3,
+#popupSelector #audioMenu2,
+#popupSelector #headphonesDiv3,
+#popupSelector #avatarDiv3,
+#popupSelector #effectsDiv3,
+#popupSelector #grabDirectorSoloLinkParent,
+#popupSelector #popupSelector_user_settings,
+.darktheme #popupSelector #videoMenu3,
+.darktheme #popupSelector #audioMenu2,
+.darktheme #popupSelector #headphonesDiv3,
+.darktheme #popupSelector #avatarDiv3,
+.darktheme #popupSelector #effectsDiv3,
+.darktheme #popupSelector #grabDirectorSoloLinkParent,
+.darktheme #popupSelector #popupSelector_user_settings {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 100%;
+	margin: 0 0 var(--bn-space-3);
+	padding: var(--bn-space-3);
+	color: var(--bn-text);
+	background-color: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	text-align: left;
+}
+
+#popupSelector #effectsDiv3 {
+	margin-top: 0;
+}
+
+/* Section titles: mono label with a muted icon. */
+#popupSelector .title {
+	margin: 0 0 var(--bn-space-2);
+	padding: 0;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+
+#popupSelector .title > i,
+#popupSelector .title .las {
+	font-size: 14px;
+	color: var(--bn-text-muted);
+	vertical-align: -2px;
+	margin-right: var(--bn-space-1);
+}
+
+#popupSelector #multiselect-trigger3 {
+	color: var(--bn-text-muted);
+	text-decoration: none;
+}
+
+/* Fields inside the drawer sit one step down from the drawer surface. */
+#popupSelector select,
+#popupSelector input[type="number"],
+#popupSelector input[type="text"],
+.darktheme #popupSelector select,
+.darktheme #popupSelector input[type="number"],
+.darktheme #popupSelector input[type="text"] {
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-2);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	line-height: 20px;
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+#popupSelector select:hover,
+#popupSelector input[type="number"]:hover,
+#popupSelector input[type="text"]:hover {
+	border-color: var(--bn-border-strong);
+}
+
+#popupSelector #videoSource3 {
+	width: calc(100% - 64px);
+}
+
+#popupSelector #refreshVideoButton,
+#popupSelector #gear_webcam3 {
+	color: var(--bn-text-muted);
+	margin-left: var(--bn-space-1);
+}
+
+#popupSelector #refreshVideoButton:hover,
+#popupSelector #gear_webcam3:hover {
+	color: var(--bn-text);
+}
+
+#popupSelector #outputSource3 {
+	width: 100%;
+	margin-top: var(--bn-space-1);
+}
+
+/* Resolution picker under the camera select. */
+#popupSelector #videoSettings3 {
+	margin-top: var(--bn-space-2);
+	padding-top: var(--bn-space-2);
+	border-top: 1px solid var(--bn-border);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+#popupSelector #webcamquality3 {
+	margin-top: 0;
+}
+
+#popupSelector #webcamquality3 label {
+	color: var(--bn-text);
+}
+
+#popupSelector #webcamstats3 {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text-muted);
+}
+
+/* Audio source multi-select list. Upstream's refresh forces its colors with
+   !important; these beat it at higher specificity. */
+#popupSelector ul#audioSource3,
+.darktheme #popupSelector ul#audioSource3 {
+	margin: var(--bn-space-1) 0 0;
+	padding: var(--bn-space-1) var(--bn-space-2);
+	background-color: var(--bn-surface) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-radius-sm);
+}
+
+#popupSelector ul#audioSource3 label,
+#popupSelector ul#audioSource3 input:checked + label,
+.darktheme #popupSelector ul#audioSource3 label,
+.darktheme #popupSelector ul#audioSource3 input:checked + label {
+	color: var(--bn-text) !important;
+	background-color: transparent !important;
+}
+
+/* Live input level: data, so status fills (level, then peak). */
+#popupSelector .meter {
+	background: var(--bn-ok);
+}
+
+#popupSelector .meter2 {
+	background: var(--bn-warn);
+}
+
+#popupSelector .meter4 {
+	background: var(--bn-border-strong);
+}
+
+/* Small inline buttons: speaker test tone, user-tab actions. */
+#popupSelector .testtonebutton,
+#popupSelector_user_settings button,
+#popupSelector .generalButton {
+	min-height: 28px;
+	padding: 0 var(--bn-space-3) !important;
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	font-weight: 500;
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm) !important;
+	box-shadow: none;
+	cursor: pointer;
+	vertical-align: middle;
+}
+
+#popupSelector .testtonebutton {
+	margin-left: var(--bn-space-3);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+}
+
+#popupSelector .generalButton {
+	max-width: none;
+	min-height: var(--bn-control-height);
+	margin: var(--bn-space-1) 0;
+	text-align: left;
+}
+
+#popupSelector .testtonebutton:hover,
+#popupSelector .testtonebutton:active,
+#popupSelector_user_settings button:hover,
+#popupSelector .generalButton:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+}
+
+/* Drawer action row: Close Settings, Audio, Video, User, Sign out. */
+#popupSelector button.toggleSettings,
+#popupSelector #advancedOptionsAudio,
+#popupSelector #advancedOptionsCamera,
+#popupSelector #advancedOptionsGeneral,
+#popupSelector #ssoSignOutBtn {
+	min-height: 36px;
+	margin: 0 var(--bn-space-1) var(--bn-space-2) 0;
+	padding: 0 var(--bn-space-3);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius);
+	box-shadow: none;
+	cursor: pointer;
+	vertical-align: middle;
+	transition: background-color var(--bn-duration) var(--bn-ease), border-color var(--bn-duration) var(--bn-ease);
+}
+
+#popupSelector button.toggleSettings b,
+#popupSelector #advancedOptionsAudio b,
+#popupSelector #advancedOptionsCamera b,
+#popupSelector #advancedOptionsGeneral b,
+#popupSelector #ssoSignOutBtn b {
+	font-weight: 500;
+}
+
+#popupSelector button.toggleSettings i,
+#popupSelector #advancedOptionsAudio i,
+#popupSelector #advancedOptionsCamera i,
+#popupSelector #advancedOptionsGeneral i,
+#popupSelector #ssoSignOutBtn i {
+	margin-right: var(--bn-space-1);
+	color: var(--bn-text-muted);
+}
+
+#popupSelector button.toggleSettings:hover,
+#popupSelector #advancedOptionsAudio:hover,
+#popupSelector #advancedOptionsCamera:hover,
+#popupSelector #advancedOptionsGeneral:hover,
+#popupSelector #ssoSignOutBtn:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+}
+
+/* The open tab (lib.js toggles .highlight): the active indicator, accent
+   fill. Mirrors the two-id selectors above so it outranks them. */
+#popupSelector #advancedOptionsAudio.highlight,
+#popupSelector #advancedOptionsCamera.highlight,
+#popupSelector #advancedOptionsGeneral.highlight,
+#popupSelector #advancedOptionsAudio.highlight:hover,
+#popupSelector #advancedOptionsCamera.highlight:hover,
+#popupSelector #advancedOptionsGeneral.highlight:hover {
+	color: var(--bn-accent-ink);
+	background-color: var(--bn-accent);
+	border-color: transparent;
+}
+
+#popupSelector #advancedOptionsAudio.highlight i,
+#popupSelector #advancedOptionsCamera.highlight i,
+#popupSelector #advancedOptionsGeneral.highlight i {
+	color: var(--bn-accent-ink);
+}
+
+/* Advanced audio / video constraint panels (built by lib.js). */
+#popupSelector .popupSelector_constraints {
+	margin-top: var(--bn-space-2);
+	padding: 0 var(--bn-space-3);
+	font-size: var(--bn-text-sm);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+}
+
+#popupSelector .popupSelector_constraints > div {
+	padding: var(--bn-space-2) 0;
+	border-bottom: 1px solid var(--bn-border);
+}
+
+#popupSelector .popupSelector_constraints > div:last-child {
+	border-bottom: 0;
+}
+
+#popupSelector .popupSelector_constraints label {
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+}
+
+#popupSelector .popupSelector_constraints button,
+#popupSelector .popupSelector_constraints .preSelectButton {
+	min-height: 28px;
+	padding: 0 var(--bn-space-3);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+#popupSelector .popupSelector_constraints button:hover {
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+}
+
+/* input.manualInput ties the .darktheme field rule above and comes later. */
+#popupSelector .popupSelector_constraints input.manualInput {
+	width: 80px;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-sm);
+	text-align: right;
+}
+
+/* Sliders inside floating layers. Upstream's refresh paints the thumb in the
+   accent with a blue ring and a drop shadow; BN uses a text-color thumb on a
+   hairline track (accent is never decoration). */
+#popupSelector input[type="range"]::-webkit-slider-runnable-track,
+.promptModal input[type="range"]::-webkit-slider-runnable-track,
+#bufferSettings input[type="range"]::-webkit-slider-runnable-track,
+#ptzControlsModal input[type="range"]::-webkit-slider-runnable-track,
+.context-menu input[type="range"]::-webkit-slider-runnable-track,
+.darktheme #popupSelector input[type="range"]::-webkit-slider-runnable-track,
+.darktheme .promptModal input[type="range"]::-webkit-slider-runnable-track,
+.darktheme #bufferSettings input[type="range"]::-webkit-slider-runnable-track,
+.darktheme #ptzControlsModal input[type="range"]::-webkit-slider-runnable-track,
+.darktheme .context-menu input[type="range"]::-webkit-slider-runnable-track {
+	height: 4px;
+	background: var(--bn-border-strong);
+	border: 0;
+	border-radius: 2px;
+	box-shadow: none;
+}
+
+#popupSelector input[type="range"]::-webkit-slider-thumb,
+.promptModal input[type="range"]::-webkit-slider-thumb,
+#bufferSettings input[type="range"]::-webkit-slider-thumb,
+#ptzControlsModal input[type="range"]::-webkit-slider-thumb,
+.context-menu input[type="range"]::-webkit-slider-thumb,
+.darktheme #popupSelector input[type="range"]::-webkit-slider-thumb,
+.darktheme .promptModal input[type="range"]::-webkit-slider-thumb,
+.darktheme #bufferSettings input[type="range"]::-webkit-slider-thumb,
+.darktheme #ptzControlsModal input[type="range"]::-webkit-slider-thumb,
+.darktheme .context-menu input[type="range"]::-webkit-slider-thumb {
+	width: 14px;
+	height: 14px;
+	margin-top: -5px;
+	background: var(--bn-text);
+	border: 2px solid var(--bn-surface-2);
+	box-shadow: none;
+}
+
+#popupSelector input[type="range"]::-moz-range-track,
+.promptModal input[type="range"]::-moz-range-track,
+#bufferSettings input[type="range"]::-moz-range-track,
+#ptzControlsModal input[type="range"]::-moz-range-track,
+.context-menu input[type="range"]::-moz-range-track,
+.darktheme #popupSelector input[type="range"]::-moz-range-track,
+.darktheme .promptModal input[type="range"]::-moz-range-track,
+.darktheme #bufferSettings input[type="range"]::-moz-range-track,
+.darktheme #ptzControlsModal input[type="range"]::-moz-range-track,
+.darktheme .context-menu input[type="range"]::-moz-range-track {
+	height: 4px;
+	background: var(--bn-border-strong);
+	border: 0;
+	border-radius: 2px;
+	box-shadow: none;
+}
+
+#popupSelector input[type="range"]::-moz-range-progress,
+.promptModal input[type="range"]::-moz-range-progress,
+#bufferSettings input[type="range"]::-moz-range-progress,
+#ptzControlsModal input[type="range"]::-moz-range-progress,
+.context-menu input[type="range"]::-moz-range-progress,
+.darktheme #popupSelector input[type="range"]::-moz-range-progress,
+.darktheme .promptModal input[type="range"]::-moz-range-progress,
+.darktheme #bufferSettings input[type="range"]::-moz-range-progress,
+.darktheme #ptzControlsModal input[type="range"]::-moz-range-progress,
+.darktheme .context-menu input[type="range"]::-moz-range-progress {
+	height: 4px;
+	background: var(--bn-text-muted);
+	border-radius: 2px;
+}
+
+#popupSelector input[type="range"]::-moz-range-thumb,
+.promptModal input[type="range"]::-moz-range-thumb,
+#bufferSettings input[type="range"]::-moz-range-thumb,
+#ptzControlsModal input[type="range"]::-moz-range-thumb,
+.context-menu input[type="range"]::-moz-range-thumb,
+.darktheme #popupSelector input[type="range"]::-moz-range-thumb,
+.darktheme .promptModal input[type="range"]::-moz-range-thumb,
+.darktheme #bufferSettings input[type="range"]::-moz-range-thumb,
+.darktheme #ptzControlsModal input[type="range"]::-moz-range-thumb,
+.darktheme .context-menu input[type="range"]::-moz-range-thumb {
+	width: 12px;
+	height: 12px;
+	background: var(--bn-text);
+	border: 2px solid var(--bn-surface-2);
+	box-shadow: none;
+}
+
+/* Upstream removes the focus outline on sliders; keyboard users need it. */
+#popupSelector input[type="range"]:focus-visible,
+.promptModal input[type="range"]:focus-visible,
+#bufferSettings input[type="range"]:focus-visible,
+#ptzControlsModal input[type="range"]:focus-visible {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 2px;
+}
+
+/* lib.js paints the loading spinner white inline; muted reads in both themes. */
+#popupSelector_constraints_loading i {
+	color: var(--bn-text-muted) !important;
+}
+
+/* Effects. */
+#popupSelector .effect-selector-group,
+#popupSelector .zoom-control-group {
+	margin: var(--bn-space-2) 0;
+}
+
+#popupSelector .effect-selector-group label {
+	display: block;
+	margin-bottom: var(--bn-space-1);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text-muted);
+}
+
+#popupSelector #effectSelector3 {
+	width: 100%;
+}
+
+#popupSelector .zoom-value {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text-muted);
+}
+
+/* Selected background / overlay image: a text-color ring, not a glow. */
+#popupSelector .selectedContentEffectsImage {
+	box-shadow: none;
+	outline: 2px solid var(--bn-text);
+	outline-offset: 1px;
+}
+
+#popupSelector .avatarSelection {
+	color: var(--bn-text-muted);
+	border-radius: var(--bn-radius);
+}
+
+#popupSelector .avatarSelection.selected,
+#popupSelector .selected {
+	border: 2px solid var(--bn-text);
+	border-radius: var(--bn-radius);
+}
+
+/* Speaker-muted hint and other tips inside the drawer: neutral note. */
+#popupSelector .cameraTip,
+.darktheme #popupSelector .cameraTip {
+	color: var(--bn-text);
+	background: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-left: 2px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+#popupSelector .cameraTip > i {
+	color: var(--bn-text-muted);
+}
+
+/* Share-screen and PiP-preview tiles. lib.js-era markup paints the PiP tile
+   #EFEFEF with a black icon inline, which vanishes against dark text. */
+#popupSelector #shareScreenGear,
+#popupSelector #pIpStartButton {
+	margin: 0 var(--bn-space-2) var(--bn-space-3) 0;
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: none;
+}
+
+#popupSelector #shareScreenGear b,
+#popupSelector #pIpStartButton b {
+	font-weight: 500;
+	font-size: var(--bn-text-sm);
+}
+
+#popupSelector #shareScreenGear i,
+#popupSelector #pIpStartButton i {
+	color: var(--bn-text-muted) !important;
+}
+
+#popupSelector #shareScreenGear:hover,
+#popupSelector #pIpStartButton:hover {
+	background-color: var(--bn-surface-3) !important;
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+}
+
+/* Director solo link: a technical readout. */
+#popupSelector #grabDirectorSoloLink,
+.darktheme #popupSelector #grabDirectorSoloLink {
+	min-height: var(--bn-control-height);
+	padding: var(--bn-space-2);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	text-decoration: none;
+}
+
+/* User tab rows. */
+#popupSelector #popupSelector_user_settings {
+	margin-top: var(--bn-space-2);
+	line-height: 1.6;
+}
+
+#popupSelector #popupSelector_user_settings label {
+	font-size: var(--bn-text-sm);
+}
+
+#popupSelector #pptHotKey {
+	font-family: var(--bn-font-mono);
+}
+
+#popupSelector #translationStatus {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Chat (#chatModule)                                                  */
+/* ------------------------------------------------------------------ */
+
+/* Upstream's refresh paints the module translucent with backdrop blur, all
+   !important; the BN family is an opaque surface. */
+#chatModule,
+.darktheme #chatModule {
+	color: var(--bn-text);
+	font-size: var(--bn-text-sm);
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-radius-lg) !important;
+	box-shadow: var(--bn-shadow);
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+}
+
+#chatModule .chat-header,
+.darktheme #chatModule .chat-header {
+	min-height: 40px;
+	box-sizing: border-box;
+	padding: 0 var(--bn-space-2) 0 var(--bn-space-3);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+	border-bottom: 1px solid var(--bn-border);
+}
+
+/* Pop-out and close: square icon controls. Display is left to upstream, which
+   hides #popOutChat below 768px. */
+#chatModule #popOutChat,
+#chatModule #closeChat {
+	box-sizing: border-box;
+	min-width: 28px;
+	height: 28px;
+	margin: 0 0 0 var(--bn-space-1);
+	padding: 0 var(--bn-space-2);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-base);
+	line-height: 26px;
+	text-align: center;
+	text-transform: none;
+	letter-spacing: 0;
+	color: var(--bn-text-muted);
+	background-color: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	text-decoration: none;
+	vertical-align: middle;
+}
+
+#chatModule #popOutChat:hover,
+#chatModule #closeChat:hover {
+	color: var(--bn-text);
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+}
+
+#chatModule #chatBody,
+.darktheme #chatModule #chatBody {
+	padding: var(--bn-space-3);
+	background-color: var(--bn-surface);
+	border: 0;
+	line-height: 1.45;
+}
+
+/* Messages: others on the panel surface with a hairline, own on a neutral
+   step. Accent is reserved for fills that mean CTA or active, so own
+   messages are not accent. */
+#chatBody .inMessage,
+#chatBody .outMessage,
+body.darktheme #chatBody .inMessage,
+body.darktheme #chatBody .outMessage {
+	max-width: 85%;
+	box-sizing: border-box;
+	margin: 0 0 var(--bn-space-2);
+	padding: var(--bn-space-2) var(--bn-space-3);
+	color: var(--bn-text);
+	border-radius: var(--bn-radius-lg);
+	overflow-wrap: anywhere;
+}
+
+#chatBody .inMessage,
+body.darktheme #chatBody .inMessage {
+	margin-right: auto;
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+}
+
+#chatBody .outMessage,
+body.darktheme #chatBody .outMessage {
+	margin-left: auto;
+	text-align: left;
+	background-color: var(--bn-surface-3);
+	border: 1px solid var(--bn-surface-3);
+}
+
+/* System notices in the message list (actions, alerts). */
+#chatBody .actionMessage,
+body.darktheme #chatBody .actionMessage {
+	color: var(--bn-text-muted);
+	background-color: transparent;
+	border: 1px dashed var(--bn-border-strong);
+	border-radius: var(--bn-radius-lg);
+}
+
+#chatBody .chat_name {
+	font-weight: 600;
+	color: var(--bn-text);
+}
+
+/* Timestamp: lib.js wraps it as <i><small><small>. Muted, not faint: it can
+   sit on surface-3. */
+#chatBody .inMessage > i:last-child,
+#chatBody .outMessage > i:last-child {
+	display: block;
+	margin-top: 2px;
+	font-family: var(--bn-font-mono);
+	font-size: 10px;
+	font-style: normal;
+	color: var(--bn-text-muted);
+}
+
+#chatBody .inMessage > i:last-child small,
+#chatBody .outMessage > i:last-child small {
+	font-size: inherit;
+}
+
+/* Links in chat are technical: mono, underlined, text color. Upstream's
+   refresh boxes them in accent-tinted chips with !important. */
+#chatModule div#chatBody a,
+.darktheme #chatModule div#chatBody a {
+	padding: 0;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text) !important;
+	background-color: transparent !important;
+	border: 0 !important;
+	border-radius: 0;
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+	text-underline-offset: 3px;
+}
+
+/* Tip messages: neutral, no gradients, no purple. */
+#chatBody .tipMessage {
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius-lg);
+}
+
+.tip-notification,
+.message.tip-message-container {
+	background: transparent;
+	border-left: 2px solid var(--bn-border-strong);
+	border-radius: 0;
+}
+
+.tip-amount {
+	background: none;
+	-webkit-text-fill-color: currentColor;
+	color: var(--bn-text);
+	font-family: var(--bn-font-mono);
+}
+
+.tip-sender {
+	color: var(--bn-text);
+}
+
+.tip-message {
+	color: var(--bn-text-muted);
+}
+
+#chatModule .chat-input-area {
+	align-items: center;
+	gap: var(--bn-space-2);
+	padding: var(--bn-space-2);
+	background-color: transparent !important;
+	border-top: 1px solid var(--bn-border);
+}
+
+#chatModule #chatInput,
+body.darktheme #chatModule #chatInput {
+	min-width: 0;
+	min-height: var(--bn-control-height);
+	margin: 0;
+	padding: 0 var(--bn-space-3);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+#chatModule #chatInput:hover {
+	border-color: var(--bn-border-strong);
+}
+
+/* Send is the view's primary CTA: accent fill, accent ink (base.css). The
+   refresh gives it a blue border and 8px radius, both !important. */
+#chatModule .chatBarInputButton {
+	width: auto;
+	min-width: 64px;
+	min-height: var(--bn-control-height);
+	margin: 0;
+	padding: 0 var(--bn-space-3);
+	font-size: var(--bn-text-sm);
+	background-color: var(--bn-accent) !important;
+	border: 1px solid transparent !important;
+	border-radius: var(--bn-radius-sm) !important;
+	box-shadow: none;
+}
+
+#chatModule .chatBarInputButton:hover {
+	background-color: var(--bn-accent-hover) !important;
+	box-shadow: none;
+}
+
+/* Attach-file button (the last button in the input row). */
+#chatModule .chat-input-area > button:last-child {
+	min-width: var(--bn-control-height);
+	min-height: var(--bn-control-height);
+	margin: 0;
+	padding: 0;
+	font-size: 18px;
+	color: var(--bn-text-muted);
+	background-color: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+#chatModule .chat-input-area > button:last-child:hover {
+	color: var(--bn-text);
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+}
+
+/* Resize handle: upstream draws a gradient dash; BN uses a plain bar. */
+#chatModule .resizer {
+	background: transparent;
+}
+
+#chatModule .resizer::before {
+	width: 32px;
+	height: 2px;
+	background: var(--bn-border-strong);
+	border-radius: 1px;
+}
+
+#chatModule .resizer:hover::before {
+	background: var(--bn-text-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Context menus (nav.context-menu) and the copy toast                 */
+/* ------------------------------------------------------------------ */
+
+/* Upstream sets every one of these with !important. */
+.context-menu,
+.darktheme .context-menu,
+.context-menu__submenu,
+.darktheme .context-menu__submenu {
+	padding: var(--bn-space-1) !important;
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow) !important;
+	box-sizing: border-box;
+}
+
+.context-menu__item {
+	margin-bottom: 0 !important;
+}
+
+/* nav.context-menu a.* outranks base.css's underlined a:link rules. */
+.context-menu__link,
+.darktheme .context-menu__link,
+nav.context-menu a.context-menu__link:link,
+nav.context-menu a.context-menu__link:visited {
+	display: flex;
+	align-items: center;
+	gap: var(--bn-space-2);
+	min-height: var(--bn-control-height);
+	box-sizing: border-box;
+	padding: 0 var(--bn-space-2);
+	color: var(--bn-text) !important;
+	border-radius: var(--bn-radius-sm);
+	text-decoration: none;
+}
+
+.context-menu__link i {
+	width: 16px;
+	font-size: 15px;
+	text-align: center;
+	color: var(--bn-text-muted);
+}
+
+.context-menu__link:hover,
+.darktheme .context-menu__link:hover {
+	color: var(--bn-text) !important;
+	background-color: var(--bn-surface-3) !important;
+}
+
+.context-menu__link:hover i,
+.context-menu__link:hover > #bufferSliderValue {
+	color: var(--bn-text);
+}
+
+.context-menu__item--has-submenu > .context-menu__link::after {
+	margin-left: auto;
+	color: var(--bn-text-muted);
+}
+
+/* Footer hint ("CTRL + Click for alt-menu"): upstream #777 is under AA on white. */
+.context-menu__tip {
+	display: block;
+	margin: var(--bn-space-1) 0 0;
+	padding: var(--bn-space-2) var(--bn-space-2) var(--bn-space-1);
+	top: 0;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text-faint);
+	border-top: 1px solid var(--bn-border);
+}
+
+.context-menu__tip,
+.context-menu__tip * {
+	color: var(--bn-text-faint) !important;
+}
+
+.context-menu select,
+.context-menu input {
+	max-width: 100%;
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+#bufferSliderValue {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Popups: copy toast (#messagePopup), languages, calendar            */
+/* ------------------------------------------------------------------ */
+
+.popup-message,
+.darktheme .popup-message {
+	padding: var(--bn-space-2) var(--bn-space-3);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+}
+
+#messagePopup {
+	min-width: 0;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: 0.02em;
+}
+
+#languages,
+#calendar {
+	box-sizing: border-box;
+	min-width: 220px;
+	padding: var(--bn-space-1);
+	text-align: left;
+}
+
+#languages {
+	max-height: calc(100vh - 80px);
+	overflow-y: auto;
+}
+
+/* Inline-block at full width, so the engine's <br> after it ends the line
+   instead of adding a blank one. */
+#languages > b,
+#calendar > b {
+	display: inline-block;
+	box-sizing: border-box;
+	width: 100%;
+	padding: var(--bn-space-2) var(--bn-space-2) var(--bn-space-1);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+
+#languages ul#languagesList,
+.darktheme #languages ul#languagesList {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+#languages ul#languagesList li {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+}
+
+#languages ul#languagesList a,
+#calendar u a,
+#calendar a {
+	display: block;
+	margin: 0;
+	padding: 6px var(--bn-space-2);
+	color: var(--bn-text);
+	border-radius: var(--bn-radius-sm);
+	text-decoration: none;
+}
+
+#languages ul#languagesList a:hover,
+#calendar a:hover {
+	background-color: var(--bn-surface-3);
+}
+
+#calendar u {
+	text-decoration: none;
+}
+
+/* "Add More Here!" footer link. */
+#languages > i,
+#languages > a {
+	display: inline-block;
+	margin: var(--bn-space-1) 0 var(--bn-space-1) var(--bn-space-2);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text-muted);
+}
+
+#languages > a {
+	margin-left: var(--bn-space-1);
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+}
+
+/* Bottom-right language / calendar icons carry an inline #d9e4eb, which is
+   invisible on the light theme. */
+#translateButton > i,
+#calendarButton > i {
+	color: var(--bn-text-muted) !important;
+}
+
+#translateButton:hover > i,
+#calendarButton:hover > i {
+	color: var(--bn-text) !important;
+}
+
+/* Screen-share help popup. */
+.popup-screen {
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow) !important;
+}
+
+.popup-screen a {
+	color: var(--bn-text) !important;
+	text-decoration: underline !important;
+}
+
+/* Tip toast (lib.js .tipBanner): upstream is a gold gradient with a glow. */
+.tipBanner {
+	padding: var(--bn-space-3) var(--bn-space-5);
+	font-size: var(--bn-text-md);
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+}
+
+.tipBannerMessage {
+	color: var(--bn-text-muted);
+}
+
+/* ------------------------------------------------------------------ */
+/* Modals: warnUser (#alertModal), promptAlt / confirmAlt (.promptModal) */
+/* ------------------------------------------------------------------ */
+
+#alertModal,
+body.darktheme #alertModal,
+#promptModal,
+.promptModal,
+.darktheme #promptModal,
+.darktheme .promptModal,
+body.darktheme .promptModal,
+.whitetheme #promptModal,
+.whitetheme .promptModal,
+#bufferSettings,
+#ptzControlsModal,
+.darktheme #ptzControlsModal {
+	font-size: var(--bn-text-base);
+	font-weight: 400;
+	line-height: 1.5;
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+	filter: none;
+}
+
+#alertModal {
+	min-width: min(90vw, 360px);
+	max-width: min(calc(100vw - 24px), 520px);
+}
+
+/* The refresh layers a translucent, blurred inner card with !important. */
+#alertModal .alertModalInner,
+.darktheme #alertModal .alertModalInner {
+	padding: var(--bn-space-5) 48px var(--bn-space-5) var(--bn-space-5);
+	background-color: transparent !important;
+	border: 0 !important;
+	border-radius: var(--bn-radius-lg) !important;
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+}
+
+#alertModalMessage {
+	font-size: var(--bn-text-base);
+	line-height: 1.55;
+}
+
+#alertModal a:link,
+#alertModal a:visited,
+#alertModal a:hover,
+#alertModal a:active {
+	color: var(--bn-text);
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+	text-underline-offset: 3px;
+}
+
+#alertModal a:hover {
+	text-decoration-color: var(--bn-text);
+}
+
+.promptModalInner {
+	box-sizing: border-box;
+	padding: var(--bn-space-5);
+}
+
+/* Right padding, not margin, clears the close control: confirmAlt writes an
+   inline margin on this span. */
+.promptModal .promptModalMessage,
+#promptModal .promptModalMessage {
+	box-sizing: border-box;
+	width: auto;
+	margin: 0 0 var(--bn-space-3) 0;
+	padding-right: var(--bn-space-6);
+	font-weight: 600;
+	color: var(--bn-text);
+}
+
+.promptModal .promptModalMessage span {
+	font-size: var(--bn-text-md) !important;
+}
+
+/* Close control shared by every modal: a square, quiet ×. */
+.modalClose {
+	top: var(--bn-space-3);
+	right: var(--bn-space-3);
+	width: 28px;
+	height: 28px;
+	box-sizing: border-box;
+	font-family: var(--bn-font-sans);
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 26px;
+	text-align: center;
+	color: var(--bn-text-muted);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	user-select: none;
+}
+
+.modalClose:hover {
+	color: var(--bn-text);
+	background-color: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+}
+
+.promptModal input[type="text"],
+.promptModal input[type="password"],
+.promptModal input[type="number"],
+.promptModal input:not([type]),
+.promptModal .largeTextEntry,
+.promptModal select,
+.promptModal textarea,
+#alertModal select,
+#alertModal input[type="text"] {
+	min-height: var(--bn-control-height);
+	font-size: var(--bn-text-sm);
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+.promptModal .largeTextEntry {
+	box-sizing: border-box;
+	width: 100%;
+	margin: var(--bn-space-2) 0;
+	padding: 0 var(--bn-space-3);
+}
+
+/* Prompt buttons carry inline white fill and #999 border from lib.js. OK is
+   the dialog's primary action (accent fill); Cancel is neutral. */
+.promptModal button,
+#bufferSettings button,
+#ptzControlsModal button {
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-3);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	font-weight: 500;
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.promptModal button[id^="cancel_"] {
+	color: var(--bn-text) !important;
+	background-color: var(--bn-surface-2) !important;
+	border: 1px solid var(--bn-border) !important;
+}
+
+/* lib.js indents the first button 30-55px inline; BN aligns both to the
+   message's left edge. */
+.promptModal button[id^="submit_"],
+.promptModal button[id^="cancel_"] {
+	margin: var(--bn-space-1) var(--bn-space-2) 0 0 !important;
+}
+
+.promptModal button[id^="submit_"] {
+	font-weight: 600;
+	color: var(--bn-accent-ink) !important;
+	background-color: var(--bn-accent) !important;
+	border: 1px solid transparent !important;
+}
+
+.promptModal button:hover,
+#bufferSettings button:hover,
+#ptzControlsModal button:hover,
+.promptModal button[id^="cancel_"]:hover {
+	background-color: var(--bn-surface-3) !important;
+	border-color: var(--bn-border-strong) !important;
+	box-shadow: none;
+}
+
+.promptModal button[id^="submit_"]:hover {
+	background-color: var(--bn-accent-hover) !important;
+	border-color: transparent !important;
+}
+
+#bufferSettings h3,
+#ptzControlsModal h3 {
+	margin: 0 0 var(--bn-space-2);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+
+#ptzControlsModal .ptz-value {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	color: var(--bn-text-muted);
+}
+
+/* Backdrop: the theme scrim instead of the page color at 0.8, so the dialog
+   lifts off the call in both themes. Opaque (blocking) backdrops untouched. */
+#modalBackdrop,
+#modalBackdrop.darktheme,
+.modalBackdrop,
+.modalBackdrop.darktheme,
+.whitetheme .modalBackdrop {
+	background-color: var(--bn-scrim);
+	opacity: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Stats overlay (.debugStats, #menuStatsBox)                          */
+/* ------------------------------------------------------------------ */
+
+.debugStats {
+	box-sizing: border-box;
+	padding: var(--bn-space-4);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	line-height: 1.45;
+	color: var(--bn-text);
+	background-color: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+}
+
+.debugStatsHeader {
+	min-height: 28px;
+	margin-bottom: var(--bn-space-2);
+	padding-bottom: var(--bn-space-2);
+	border-bottom: 1px solid var(--bn-border);
+}
+
+.debugStats h1 {
+	margin: 0;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 600;
+	line-height: 28px;
+	letter-spacing: var(--bn-label-tracking);
+	color: var(--bn-text-muted);
+}
+
+.debugStats h2 {
+	margin: var(--bn-space-3) 0 var(--bn-space-1);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 600;
+	letter-spacing: var(--bn-label-tracking);
+	color: var(--bn-text);
+}
+
+.debugStats li {
+	margin: 0;
+	padding: 3px var(--bn-space-1);
+	border-radius: 2px;
+}
+
+.debugStats li:nth-child(even) {
+	padding: 3px var(--bn-space-1);
+	background: var(--bn-surface);
+}
+
+.debugStats li span:first-child {
+	color: var(--bn-text-muted);
+}
+
+/* lib.js paints the peer label pink and a maps link light blue inline; both
+   fail AA on the light surface and are decoration, not state. */
+.debugStats b[style*="pink"],
+.debugStats a[style*="lightblue"] {
+	color: var(--bn-text) !important;
+}
+
+.debugStats span[data-resolution]:hover,
+.debugStats span[data-bitrate]:hover {
+	color: var(--bn-text);
+}
+
+.debugStats::-webkit-scrollbar-track,
+.debugStatsBody::-webkit-scrollbar-track {
+	background: transparent;
+}
+
+.debugStats::-webkit-scrollbar-thumb,
+.debugStatsBody::-webkit-scrollbar-thumb,
+.debugStats::-webkit-scrollbar-thumb:hover,
+.debugStatsBody::-webkit-scrollbar-thumb:hover {
+	background: var(--bn-border-strong);
+}
+
+.debugStats .close {
+	box-sizing: border-box;
+	width: 28px;
+	height: 28px;
+	font-family: var(--bn-font-sans);
+	font-size: 18px;
+	font-weight: 400;
+	line-height: 26px;
+	text-align: center;
+	color: var(--bn-text-muted);
+	background: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	cursor: pointer;
+}
+
+.debugStats .statsCopyBtn {
+	top: 0;
+	right: 36px;
+	height: 28px;
+	padding: 0 var(--bn-space-2);
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+	background: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+.debugStats .close:hover,
+.debugStats .statsCopyBtn:hover {
+	color: var(--bn-text);
+	background: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+}
+
+.debugStats button:not(.close):not(.statsCopyBtn) {
+	min-height: var(--bn-control-height);
+	margin: var(--bn-space-2) 0;
+	padding: 0 var(--bn-space-3);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	font-weight: 500;
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+	box-shadow: none;
+}
+
+.debugStats button:not(.close):not(.statsCopyBtn):hover {
+	background: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+	box-shadow: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* File transfer: #activeShares .file-manager and chat file offers     */
+/* ------------------------------------------------------------------ */
+
+/* Remap upstream's local palette so every file rule follows the theme. */
+.file-manager,
+#chatBody .file-transfer,
+.darktheme .file-manager,
+.darktheme #chatBody .file-transfer {
+	--file-surface: var(--bn-surface-2);
+	--file-inset: var(--bn-surface);
+	--file-text: var(--bn-text);
+	--file-muted: var(--bn-text-muted);
+	--file-border: var(--bn-border);
+}
+
+.file-manager {
+	padding: var(--bn-space-4);
+	font-size: var(--bn-text-sm);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+}
+
+#activeShares .file-manager-header h3 {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-weight: 500;
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+
+#activeShares .file-upload-zone {
+	color: var(--bn-text-muted);
+	border: 1px dashed var(--bn-border-strong);
+	border-radius: var(--bn-radius);
+}
+
+#activeShares .file-upload-zone:hover {
+	border-color: var(--bn-text-muted);
+}
+
+#activeShares .file-size,
+#activeShares .download-info,
+#activeShares .progress-text,
+#activeShares .transfer-speed {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+}
+
+#activeShares .file-progress {
+	height: 4px;
+	border-radius: 2px;
+}
+
+/* Transfer progress is data: ok fill. */
+#activeShares .progress-bar,
+.darktheme #activeShares .progress-bar {
+	background: var(--bn-ok);
+}
+
+#activeShares .button,
+#chatBody .file-transfer button {
+	min-height: var(--bn-control-height);
+	padding: 0 var(--bn-space-3);
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	font-weight: 500;
+	border-radius: var(--bn-radius-sm);
+}
+
+/* Add Files is a file picker, which the design system makes a primary CTA. */
+#activeShares .button-primary {
+	color: var(--bn-accent-ink);
+	background: var(--bn-accent);
+	border-color: transparent;
+	font-weight: 600;
+}
+
+#activeShares .button-danger,
+#chatBody .file-transfer button[data-button-type="download"]:not(:disabled) {
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border-color: var(--bn-border-strong);
+}
+
+#activeShares .button:hover,
+#chatBody .file-transfer button:not(:disabled):hover {
+	filter: none;
+	background: var(--bn-surface-3);
+	border-color: var(--bn-border-strong);
+}
+
+#activeShares .button-primary:hover {
+	background: var(--bn-accent-hover);
+	border-color: transparent;
+}
+
+#chatBody .file-transfer {
+	border-radius: var(--bn-radius-lg);
+}
+
+/* ------------------------------------------------------------------ */
+/* Header peer / bitrate readout (#head5)                              */
+/* ------------------------------------------------------------------ */
+
+/* lib.js rewrites the contents every stats tick (emoji counters plus the
+   upload bitrate). Presentation only: a calm mono readout. The upload arrow's
+   inline status color (text-shadow) is engine state and is left alone. */
+#head5,
+.whitetheme #head5 {
+	float: none;
+	margin: 0;
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	font-variant-numeric: tabular-nums;
+	line-height: 1;
+	letter-spacing: 0;
+	white-space: nowrap;
+	color: var(--bn-text-muted);
+}
+
+#head5 small {
+	font-size: 10px;
+	color: var(--bn-text-muted);
+}
+
+/* "CPU Overloaded" is a warning state; lib.js colors it #e69a0f inline,
+   2.3:1 on the light bar. */
+#head5 span[style*="e69a0f"] {
+	color: var(--bn-warn) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Phones                                                              */
+/* ------------------------------------------------------------------ */
+
+@media only screen and (max-width: 640px) {
+	#popupSelector,
+	.darktheme #popupSelector,
+	.whitetheme #popupSelector {
+		padding: var(--bn-space-3) var(--bn-space-3) 120px;
+		border-left: 0;
+	}
+
+	#popupSelector #videoMenu3,
+	#popupSelector #audioMenu2,
+	#popupSelector #headphonesDiv3,
+	#popupSelector #avatarDiv3,
+	#popupSelector #effectsDiv3,
+	#popupSelector #grabDirectorSoloLinkParent,
+	#popupSelector #popupSelector_user_settings {
+		margin-bottom: var(--bn-space-2);
+	}
+
+	#popupSelector button.toggleSettings,
+	#popupSelector #advancedOptionsAudio,
+	#popupSelector #advancedOptionsCamera,
+	#popupSelector #advancedOptionsGeneral,
+	#popupSelector #ssoSignOutBtn {
+		min-height: 40px;
+	}
+
+	#chatModule .chatBarInputButton {
+		min-height: 40px;
+	}
+
+	#chatModule #chatInput,
+	body.darktheme #chatModule #chatInput,
+	#chatModule .chat-input-area > button:last-child {
+		min-height: 40px;
+	}
+
+	#chatModule #closeChat {
+		min-width: 36px;
+		height: 36px;
+		line-height: 34px;
+	}
+
+	.modalClose {
+		width: 36px;
+		height: 36px;
+		line-height: 34px;
+	}
+
+	#alertModal .alertModalInner,
+	.darktheme #alertModal .alertModalInner {
+		padding: var(--bn-space-4) 60px var(--bn-space-4) var(--bn-space-4);
+	}
+
+	.promptModalInner {
+		padding: var(--bn-space-4);
+	}
+
+	/* Clear the 36px phone close control. */
+	.promptModal .promptModalMessage,
+	#promptModal .promptModalMessage {
+		padding-right: 44px;
+	}
+
+	.promptModal button {
+		min-height: 40px;
+	}
+
+	.promptModal button[id^="submit_"],
+	.promptModal button[id^="cancel_"] {
+		max-width: calc(100% - 8px);
+	}
+
+	.context-menu__link,
+	.darktheme .context-menu__link {
+		min-height: 40px;
+	}
+
+	#head5 {
+		font-size: 10px;
+	}
+}
