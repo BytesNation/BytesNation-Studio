@@ -116,3 +116,10 @@ docs.md
 /thirdparty/jquery.min.js.LICENSE
 /thirdparty/jquery/jquery-ui.min.js
 /thirdparty/webmidi.js
+
+# BytesNation Studio: re-include the fork's own docs, shell manifest and parity tests.
+!/docs/
+!/bn-shell/package.json
+!/bn-shell/package-lock.json
+!/bn-shell/tests/
+!/bn-shell/tests/**
