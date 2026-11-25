@@ -10,8 +10,8 @@ After a merge, check each row: the edit is still there, it still applies to the 
 | `index.html` | `<script src="./bytesnation/gate.js">` between `lib.js` and `main.js` | Marks interface pages so the theme applies, and leaves program output alone | Keep the line between the two scripts |
 | `index.html` | schema.org image links point at `bytesnation/icons/share-1200x630.png` | Share image | Reapply |
 | `index.html` | Static wordmark text in `#logoname` | Product name. `main.js` replaces it at startup on any non-upstream host | Reapply |
-| `index.html` | `aria-hidden` removed from `#credits` and its Terms and Privacy links | The links are focusable, so they must be readable | Reapply |
-| `main.js` | The `#credits` line: source link to this fork and the origin credit, through two translation keys | AGPL-3.0 section 13; credit to VDO.Ninja | Reapply on the new line |
+| `index.html` | `#credits`: `aria-hidden` removed, and a "Source code" link to this fork added after Privacy Policy | AGPL-3.0 section 13 on every screen with the footer; the links are focusable, so they must be readable | Reapply |
+| `main.js` | The `#credits` line: version and the origin credit, through a translation key | Credit to VDO.Ninja | Reapply on the new line |
 | `manifest.json` | Name, colors and icons | Product name and brand icons | Take ours |
 | `translations/*.json` | Two keys at the top of `innerHTML`: `bn-source-code`, `bn-built-on-vdo-ninja`. English in every file until translated | The credit line goes through the translation system | Keep both keys in every file |
 | `AGENTS.md` | "Component sourcing: public tier" block and the Studio notes after it | Brand kit policy | Keep ours below upstream's text |

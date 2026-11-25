@@ -854,3 +854,273 @@ html.bn-ui #mainmenu.row {
 html.bn-ui #info {
 	display: none !important;
 }
+
+/* ---------- Opened panels: joining and device setup ---------- */
+
+/* The panel reads top to bottom: title on a hairline, preview, the one primary action, then settings. */
+html.bn-ui .column.in-animation > h2,
+html.bn-ui .column.skip-animation > h2 {
+	margin: 0;
+	padding: 18px 76px 18px 16px;
+	font-size: 28px;
+	letter-spacing: -0.038em;
+	line-height: 1.1;
+	text-align: left;
+	border-bottom: 1px solid var(--bn-border);
+}
+html.bn-ui .column.in-animation .container-inner,
+html.bn-ui .column.skip-animation .container-inner {
+	max-width: 720px;
+	margin: 0 auto 48px;
+	padding: 0 16px;
+	text-align: center;
+}
+html.bn-ui .container-inner > div,
+html.bn-ui .container-inner > span > div,
+html.bn-ui .container-inner button:not(.gowebcam),
+html.bn-ui .message-card {
+	box-shadow: none !important;
+}
+
+/* Close: a 44px icon button with a thin X. */
+html.bn-ui .outer.close {
+	top: 10px;
+	right: 16px;
+	width: 44px;
+	height: 44px;
+	margin: 0;
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r2);
+	background-color: transparent;
+	transition: background-color var(--bn-press-d) var(--bn-press), transform var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui .outer.close:hover {
+	background-color: var(--bn-surface-2);
+}
+html.bn-ui .outer.close:active {
+	transform: translateY(1px);
+}
+html.bn-ui .outer.close .inner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 18px;
+	height: 18px;
+	margin: -9px 0 0 -9px;
+}
+html.bn-ui .outer.close .inner::before,
+html.bn-ui .outer.close .inner::after,
+html.bn-ui body.darktheme .outer.close .inner::before,
+html.bn-ui body.darktheme .outer.close .inner::after {
+	width: 18px;
+	height: 1.6px;
+	top: 50% !important;
+	left: 50%;
+	border-radius: 1px;
+	background: var(--bn-text);
+	transition: none;
+}
+html.bn-ui .outer.close .inner::before,
+html.bn-ui .outer.close:hover .inner::before {
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+html.bn-ui .outer.close .inner::after,
+html.bn-ui .outer.close:hover .inner::after {
+	transform: translate(-50%, -50%) rotate(-45deg);
+}
+html.bn-ui .outer.close .labelclass {
+	display: none;
+}
+
+/* The preview is media: a 6px frame on the surface. */
+html.bn-ui .previewWebcam {
+	border-radius: var(--bn-r3);
+	background-color: var(--bn-surface);
+	box-shadow: none !important;
+}
+
+/* Start: the primary action once the camera is ready; a quiet outline while it waits. */
+html.bn-ui .gowebcam,
+html.bn-ui .gowebcam:enabled {
+	min-height: 44px;
+	margin: 16px auto 24px;
+	padding: 0 32px;
+	border-radius: var(--bn-r2);
+	font-family: var(--bn-sans);
+	font-size: 16px;
+	font-weight: 500 !important;
+	box-shadow: none !important;
+	animation: none !important;
+	text-shadow: none;
+}
+html.bn-ui .gowebcam {
+	background: transparent !important;
+	border: 1px solid var(--bn-control-border);
+	color: var(--bn-text-muted) !important;
+}
+html.bn-ui .gowebcam:enabled {
+	background: var(--bn-accent) !important;
+	border: 1px solid var(--bn-accent);
+	color: var(--bn-accent-ink) !important;
+}
+html.bn-ui .gowebcam:enabled:hover {
+	background: var(--bn-accent-hover) !important;
+	border-color: var(--bn-accent-hover);
+}
+html.bn-ui .gowebcam:enabled:active {
+	transform: translateY(1px);
+}
+
+/* Settings: ruled rows in one column, labels left, values in mono. */
+html.bn-ui .container-inner #videoMenu,
+html.bn-ui .container-inner #audioMenu,
+html.bn-ui .container-inner #headphonesDiv,
+html.bn-ui .container-inner #avatarDiv,
+html.bn-ui .container-inner #effectsDiv,
+html.bn-ui .container-inner #addPasswordBasic,
+html.bn-ui .container-inner #guestTips {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto !important;
+	padding: 14px 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	text-align: left;
+	color: var(--bn-text);
+}
+html.bn-ui .container-inner #addPasswordBasic {
+	border-bottom: 1px solid var(--bn-border) !important;
+}
+html.bn-ui .container-inner #videoMenu select,
+html.bn-ui .container-inner #audioMenu .multiselect-contents label,
+html.bn-ui .container-inner #headphonesDiv select,
+html.bn-ui .container-inner #effectsDiv select {
+	font-family: var(--bn-mono);
+	font-size: 13px;
+	font-variant-numeric: tabular-nums;
+}
+html.bn-ui .container-inner #videoMenu select,
+html.bn-ui .container-inner #headphonesDiv select,
+html.bn-ui .container-inner #effectsDiv select,
+html.bn-ui .container-inner #passwordBasicInput {
+	min-height: 36px;
+	padding: 0 8px;
+}
+html.bn-ui .container-inner label,
+html.bn-ui body.darktheme .container-inner label {
+	color: var(--bn-text);
+}
+
+/* Warnings: a ruled callout in the warning color, with its icon. */
+html.bn-ui .startupWarning,
+html.bn-ui body.darktheme .startupWarning {
+	max-width: 640px;
+	margin: 12px auto;
+	padding: 12px 14px;
+	background: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-warning);
+	border-radius: var(--bn-r3);
+	box-shadow: none !important;
+	text-align: left;
+}
+html.bn-ui .startupWarning > i {
+	color: var(--bn-warning);
+}
+html.bn-ui .column.in-animation,
+html.bn-ui .column.skip-animation {
+	padding: 0 !important;
+}
+html.bn-ui .column.in-animation > h2,
+html.bn-ui .column.skip-animation > h2 {
+	padding-top: 22px;
+	padding-bottom: 22px;
+}
+html.bn-ui .container-inner #audioMenu .multiselect-contents {
+	background: var(--bn-surface);
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r2);
+}
+
+/* ---------- Meters and connection quality ---------- */
+
+/* Meters are data: level, hot and clip. */
+html.bn-ui .meter {
+	background: var(--bn-ice);
+}
+html.bn-ui .meter2 {
+	background: var(--bn-accent-text);
+}
+html.bn-ui .meter3 {
+	background: var(--bn-error);
+}
+html.bn-ui .meter4 {
+	background: var(--bn-text);
+}
+/* Connection quality is state: failing, degraded, healthy. */
+html.bn-ui .signal-meter {
+	background-color: transparent;
+	border-radius: var(--bn-r1);
+}
+html.bn-ui .signal-meter[data-level="1"] {
+	color: var(--bn-error);
+}
+html.bn-ui .signal-meter[data-level="2"],
+html.bn-ui .signal-meter[data-level="3"] {
+	color: var(--bn-warning);
+}
+html.bn-ui .signal-meter[data-level="4"],
+html.bn-ui .signal-meter[data-level="5"] {
+	color: var(--bn-ok);
+}
+
+/* ---------- Room setup ---------- */
+
+/* Upstream's rounded sections become hairline sections. */
+html.bn-ui .container-inner .section {
+	display: block;
+	max-width: 680px;
+	margin: 16px auto 0;
+	padding: 20px 0 24px;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	background: transparent !important;
+	box-shadow: none !important;
+}
+/* Only "enter as director" is primary; the other ways in are secondary. */
+html.bn-ui #goToLastSavedRoom,
+html.bn-ui #goToLastSavedRoom:enabled,
+html.bn-ui button.gowebcam[onclick="jumptoroom2()"],
+html.bn-ui button.gowebcam[onclick="jumptoroom2()"]:enabled {
+	background: transparent !important;
+	border: 1px solid var(--bn-control-border);
+	color: var(--bn-text) !important;
+}
+html.bn-ui #goToLastSavedRoom:hover,
+html.bn-ui button.gowebcam[onclick="jumptoroom2()"]:hover {
+	background: var(--bn-surface-2) !important;
+}
+html.bn-ui #container-1 .gowebcam {
+	max-width: 100%;
+}
+html.bn-ui .gowebcam,
+html.bn-ui .gobutton {
+	border-color: var(--bn-control-border) !important;
+}
+html.bn-ui .gowebcam:enabled,
+html.bn-ui button.gobutton {
+	border-color: var(--bn-accent) !important;
+}
+html.bn-ui #goToLastSavedRoom,
+html.bn-ui button.gowebcam[onclick="jumptoroom2()"] {
+	border-color: var(--bn-control-border) !important;
+}
+html.bn-ui .gobutton,
+html.bn-ui .gowebcam {
+	border-width: 1px !important;
+}

@@ -7368,8 +7368,8 @@ async function main() {
 
 	if (session.permaid === false && session.roomid === false && session.view === false && session.effect === false && session.director === false) {
 		session.effect = null;
-		// BytesNation Studio: the AGPL-3.0 section 13 source link and the one origin credit. See bytesnation/UPSTREAM-CHANGES.md.
-		getById("credits").innerHTML = "Version: " + session.version + ' | <a href="https://github.com/BytesNation/BytesNation-Studio" target="_blank" rel="noopener" data-translate="bn-source-code">Source code</a> | <span data-translate="bn-built-on-vdo-ninja">Built on <a href="https://github.com/steveseguin/vdo.ninja" target="_blank" rel="noopener">VDO.Ninja</a> by Steve Seguin. Licensed under <a href="https://github.com/BytesNation/BytesNation-Studio/blob/develop/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a>.</span> | ' + getById("credits").innerHTML;
+		// BytesNation Studio: the one origin credit (the source link is in #credits in index.html). See bytesnation/UPSTREAM-CHANGES.md.
+		getById("credits").innerHTML = "Version: " + session.version + ' | <span data-translate="bn-built-on-vdo-ninja">Built on <a href="https://github.com/steveseguin/vdo.ninja" target="_blank" rel="noopener">VDO.Ninja</a> by Steve Seguin. Licensed under <a href="https://github.com/BytesNation/BytesNation-Studio/blob/develop/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a>.</span> | ' + getById("credits").innerHTML;
 	}
 
 	if (session.mobile && session.permaid === false && !session.roomid) {
