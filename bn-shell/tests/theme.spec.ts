@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 import { bnBase, diffVisibility, openEnginePage, projectContextOptions, readEngineState, readVisibilityMap, upstreamBase, withQuery } from "./support/harness";
 
 /**
@@ -85,6 +85,31 @@ test.describe("theme and shell", () => {
 		}));
 		layers.forEach(color => expect(color).toMatch(/rgba\(0, 0, 0, 0\)|transparent|missing/));
 		await context.close();
+	});
+
+	test("a direct camera link opens the setup card full-window and centered, as upstream does", async ({ browser }, testInfo) => {
+		// A guest link with &webcam shows the camera setup at once. The launcher's expand
+		// animation never runs on that path, so the card's size has to come from a plain rule.
+		const query = "room=bndirectcam&push=bndirectcam&webcam";
+		const contextOptions = projectContextOptions(testInfo);
+		const [upstream, bytesNation] = await Promise.all([openEnginePage({ browser, url: withQuery(upstreamBase, query), contextOptions }), openEnginePage({ browser, url: withQuery(bnBase, query), contextOptions })]);
+		const readCardGeometry = (page: Page) =>
+			page.evaluate(() => {
+				const card = (document.getElementById("container-3") as HTMLElement).getBoundingClientRect();
+				const panel = (document.querySelector("#container-3 > .container-inner") as HTMLElement).getBoundingClientRect();
+				const frame = { left: Math.round(card.left), top: Math.round(card.top), width: Math.round(card.width), height: Math.round(card.height) };
+				return { frame, viewportWidth: document.documentElement.clientWidth, panelOffCenter: Math.round(Math.abs(panel.left + panel.width / 2 - document.documentElement.clientWidth / 2)) };
+			});
+		for (const opened of [upstream, bytesNation]) {
+			await opened.page.waitForSelector("#container-3.skip-animation", { state: "visible" });
+		}
+		const upstreamCard = await readCardGeometry(upstream.page);
+		const bytesNationCard = await readCardGeometry(bytesNation.page);
+		expect(upstreamCard.frame.width, "upstream's card fills the window").toBe(upstreamCard.viewportWidth);
+		expect(bytesNationCard.frame, "same frame as upstream: the whole window, on a phone too").toEqual(upstreamCard.frame);
+		expect(bytesNationCard.panelOffCenter, "the setup panel sits in the middle of the window").toBeLessThanOrEqual(1);
+		await upstream.context.close();
+		await bytesNation.context.close();
 	});
 
 	test("in OBS the shell stays out and the engine behaves as upstream", async ({ browser }, testInfo) => {

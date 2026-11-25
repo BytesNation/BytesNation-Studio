@@ -117,11 +117,14 @@ body.darktheme #mainmenu .column > h2,
 }
 
 
-/* Expanded (full-window) tile */
+/* Expanded (full-window) tile. The width has to be restated: the tile rule above
+   sets `width: auto`, and a link that opens a setup form directly (&webcam,
+   &screenshare) never runs the expand animation that would otherwise size it. */
 .skip-animation,
 .column.card.skip-animation,
 .darktheme .column.card.skip-animation {
 	display: block;
+	width: 100%;
 	height: 100%;
 	padding: var(--bn-space-5);
 	overflow-y: auto !important;
@@ -259,6 +262,15 @@ body.darktheme .footer > a:hover,
 	#container-4 {
 		height: 120px;
 		padding: var(--bn-space-3) !important;
+	}
+
+	/* An expanded tile fills the window on a phone too. The ids above would otherwise hold
+	   it at the tile height when a link opens the form without the expand animation. */
+	#container-1.skip-animation,
+	#container-2.skip-animation,
+	#container-3.skip-animation,
+	#container-4.skip-animation {
+		height: 100%;
 	}
 
 	.column > h2,
