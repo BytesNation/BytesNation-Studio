@@ -1,9 +1,10 @@
 /*
- * Add-on panels: phone call-in (callin.js, loaded by &callin) and Icecast
- * publishing (lib.js, &icecast, &icecastpush, &icecastview).
+ * Add-on surfaces: phone call-in (callin.js, loaded by &callin), Icecast
+ * publishing (lib.js, &icecast, &icecastpush, &icecastview) and the sign-in
+ * dialog (auth-client.js with auth-styles.css, loaded by &auth).
  * See docs/DESIGN.md "Rules for styling the engine".
  *
- * Each injects its own <style> at run time, after this sheet, with fixed
+ * Each brings its own styles at run time, after this sheet, with fixed
  * dark colors. The call-in panel also reads --background-color and
  * --button-color, which tokens.css remaps, so in the light theme it showed
  * white text on a light panel. Both now join the floating layer family from
@@ -203,5 +204,180 @@ html #vdo-callin-panel .vdo-callin-incoming {
 	color: var(--bn-text);
 	background: var(--bn-surface-3);
 	border: 1px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius-sm);
+}
+
+/* ------------------------------------------------------------------ */
+/* Sign-in dialog, signed-in badge and access requests (&auth)         */
+/* ------------------------------------------------------------------ */
+
+/* auth-styles.css reads six variables nothing defines and falls back to a
+   dark dialog with a blurred backdrop and one fill color per provider. Here
+   it is a floating layer like the rest; the provider is told apart by its
+   logo, not by a colored button. */
+html #auth-container {
+	background: var(--bn-scrim);
+	backdrop-filter: none;
+}
+
+/* The six variables auth-styles.css and auth-client.js's inline styles read.
+   Scoped to the sign-in surfaces, so no other rule on the page sees them. */
+html #auth-container,
+html .room-settings-panel,
+html .user-info-display,
+html .user-auth-badge,
+html .access-requests {
+	--main-bg: var(--bn-surface-2);
+	--text-color: var(--bn-text);
+	--text-color-secondary: var(--bn-text-muted);
+	--border-color: var(--bn-border);
+	--primary-color: var(--bn-border-strong);
+	--primary-color-dark: var(--bn-control-border);
+}
+
+html .auth-modal,
+html .room-settings-panel {
+	font-family: var(--bn-font-sans);
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+}
+
+html .auth-modal h2,
+html .room-settings-panel h3,
+html .setting-group label,
+html .access-request span,
+html .user-info-display .user-name {
+	color: var(--bn-text);
+}
+
+html .auth-modal p,
+html .user-info-display .user-handle {
+	color: var(--bn-text-muted);
+}
+
+html .auth-button,
+html .auth-button.google,
+html .auth-button.discord,
+html .auth-button.twitch {
+	font-family: var(--bn-font-sans);
+	font-weight: 500;
+	color: var(--bn-text);
+	background: var(--bn-surface-3);
+	border: 1px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius-sm);
+	transition: border-color var(--bn-duration) var(--bn-ease);
+}
+
+html .auth-button:hover,
+html .auth-button.google:hover,
+html .auth-button.discord:hover,
+html .auth-button.twitch:hover {
+	background: var(--bn-surface-3);
+	border-color: var(--bn-control-border);
+	box-shadow: none;
+	transform: none;
+}
+
+html .skip-auth {
+	font-family: var(--bn-font-sans);
+	color: var(--bn-text-muted);
+	background: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+html .skip-auth:hover {
+	color: var(--bn-text);
+	border-color: var(--bn-border-strong);
+}
+
+html .user-info-display {
+	background: var(--bn-surface-3);
+	border-radius: var(--bn-radius-sm);
+}
+
+html .user-info-display img {
+	border-color: var(--bn-border-strong);
+}
+
+/* The signed-in badge in the app bar: a square label, not a pill. */
+html .user-auth-badge {
+	font-family: var(--bn-font-sans);
+	color: var(--bn-text);
+	background: var(--bn-surface-3);
+	border-radius: var(--bn-radius-sm);
+}
+
+html .user-auth-badge .user-handle {
+	color: var(--bn-text);
+}
+
+html .user-auth-badge .user-provider,
+html .user-auth-badge .user-provider.google,
+html .user-auth-badge .user-provider.discord,
+html .user-auth-badge .user-provider.twitch {
+	font-family: var(--bn-font-mono);
+	color: var(--bn-text-muted);
+	opacity: 1;
+}
+
+html .access-denied-modal h3 {
+	color: var(--bn-error);
+}
+
+/* The one action on the access-denied message, and Approve on a request. */
+html .access-denied-modal button,
+html .access-request button:first-of-type {
+	font-family: var(--bn-font-sans);
+	font-weight: 600;
+	color: var(--bn-accent-ink);
+	background: var(--bn-accent);
+	border: 1px solid transparent;
+	border-radius: var(--bn-radius-sm);
+}
+
+html .access-denied-modal button:hover,
+html .access-request button:first-of-type:hover {
+	background: var(--bn-accent-hover);
+}
+
+html .access-request button:last-of-type {
+	font-family: var(--bn-font-sans);
+	color: var(--bn-text);
+	background: var(--bn-surface-3);
+	border: 1px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius-sm);
+}
+
+html .access-request button:last-of-type:hover {
+	background: var(--bn-surface-3);
+	border-color: var(--bn-control-border);
+}
+
+html .setting-group select,
+html .setting-group input[type="text"] {
+	font-family: var(--bn-font-sans);
+	color: var(--bn-text);
+	background: var(--bn-surface);
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+/* Pending access requests: a state, so the heading carries the warning color. */
+html .access-requests {
+	background: var(--bn-surface-3);
+	border: 1px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius);
+}
+
+html .access-requests h4 {
+	color: var(--bn-warn);
+}
+
+html .access-request {
+	background: var(--bn-surface);
 	border-radius: var(--bn-radius-sm);
 }

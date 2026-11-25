@@ -14,7 +14,9 @@ const views: { name: string; query: string; waitFor?: string }[] = [
 	{ name: "publish", query: "push=bncontraststream&webcam" },
 	// Panels that inject their own fixed-color styles; the call-in panel was unreadable in the light theme before it was themed.
 	{ name: "phone call-in panel", query: "push=bncontrastcall&webcam&callin", waitFor: "#vdo-callin-panel" },
-	{ name: "icecast panel", query: "push=bncontrastice&webcam&icecastpush", waitFor: "#vdo-icecast-panel" }
+	{ name: "icecast panel", query: "push=bncontrastice&webcam&icecastpush", waitFor: "#vdo-icecast-panel" },
+	// &auth alone only loads the sign-in client; &requireauth shows the dialog.
+	{ name: "sign-in dialog", query: "requireauth", waitFor: ".auth-modal" }
 ];
 
 for (const theme of ["dark", "light"] as const) {
