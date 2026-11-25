@@ -848,3 +848,9 @@ html.bn-ui #mainmenu.row {
 		margin-bottom: 44px;
 	}
 }
+
+/* Upstream's self-description of VDO.Ninja ("Powered by VDO.Ninja" on self-hosted domains).
+   The footer carries the one origin credit, so this block is hidden. Decided by George, 2026-11-25. */
+html.bn-ui #info {
+	display: none !important;
+}
