@@ -1,0 +1,207 @@
+/*
+ * Add-on panels: phone call-in (callin.js, loaded by &callin) and Icecast
+ * publishing (lib.js, &icecast, &icecastpush, &icecastview).
+ * See docs/DESIGN.md "Rules for styling the engine".
+ *
+ * Each injects its own <style> at run time, after this sheet, with fixed
+ * dark colors. The call-in panel also reads --background-color and
+ * --button-color, which tokens.css remaps, so in the light theme it showed
+ * white text on a light panel. Both now join the floating layer family from
+ * panels.css: surface-2 fill, hairline border, --bn-shadow, 8px radius, mono
+ * uppercase labels, fields one step down on --bn-surface.
+ *
+ * Every selector starts with `html` so it outranks the injected rule of the
+ * same shape whatever the source order. Nothing here touches display,
+ * position or size: the engine owns show and hide, dragging, and the
+ * minimized state.
+ */
+
+html #vdo-callin-panel,
+html #vdo-icecast-panel {
+	font-family: var(--bn-font-sans);
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-lg);
+	box-shadow: var(--bn-shadow);
+	color-scheme: light;
+}
+
+html.bn-dark #vdo-callin-panel,
+html.bn-dark #vdo-icecast-panel {
+	color-scheme: dark;
+}
+
+/* Headings. */
+html #vdo-callin-panel .vdo-callin-head {
+	background: var(--bn-surface-3);
+	border-bottom: 1px solid var(--bn-border);
+}
+
+html #vdo-callin-panel .vdo-callin-title,
+html #vdo-icecast-panel h3 {
+	font-size: var(--bn-text-md);
+	font-weight: 600;
+	color: var(--bn-text);
+}
+
+html #vdo-icecast-panel p,
+html #vdo-callin-panel .vdo-callin-note,
+html #vdo-callin-panel .vdo-callin-ringtone-status,
+html #vdo-callin-panel .vdo-callin-ringtone-value {
+	color: var(--bn-text-muted);
+}
+
+html #vdo-callin-panel .vdo-callin-warning {
+	color: var(--bn-warn);
+}
+
+/* Field labels: mono, uppercase, muted. */
+html #vdo-callin-panel label,
+html #vdo-icecast-panel label {
+	font-family: var(--bn-font-mono);
+	font-size: var(--bn-text-xs);
+	letter-spacing: var(--bn-label-tracking);
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+
+/* A checkbox row is a sentence, not a field label. */
+html #vdo-callin-panel .vdo-callin-check {
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--bn-text);
+}
+
+/* Fields. Checkboxes and the ringtone volume slider keep the page-wide
+   styling from base.css. */
+html #vdo-callin-panel input:not([type="checkbox"]):not([type="range"]),
+html #vdo-callin-panel select,
+html #vdo-icecast-panel input,
+html #vdo-icecast-panel select {
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	letter-spacing: 0;
+	text-transform: none;
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+html #vdo-callin-panel select,
+html #vdo-icecast-panel select {
+	color-scheme: inherit;
+}
+
+html #vdo-callin-panel select option,
+html #vdo-callin-panel select optgroup,
+html #vdo-icecast-panel select option {
+	color: var(--bn-text);
+	background-color: var(--bn-surface);
+}
+
+/* !important: upstream main.css sets every placeholder color with it. */
+html #vdo-callin-panel input::placeholder,
+html #vdo-icecast-panel input::placeholder {
+	color: var(--bn-text-faint) !important;
+	opacity: 1;
+}
+
+/* Buttons are secondary unless the engine marks them otherwise. The
+   .secondary selectors repeat the rule at the injected sheet's specificity. */
+html #vdo-callin-panel button,
+html #vdo-callin-panel button.secondary,
+html #vdo-icecast-panel button,
+html #vdo-icecast-panel button.secondary {
+	font-family: var(--bn-font-sans);
+	font-size: var(--bn-text-sm);
+	font-weight: 500;
+	color: var(--bn-text);
+	background: var(--bn-surface-3);
+	border: 1px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius-sm);
+	transition: background-color var(--bn-duration) var(--bn-ease), border-color var(--bn-duration) var(--bn-ease);
+}
+
+html #vdo-callin-panel button:hover:enabled,
+html #vdo-icecast-panel button:hover:enabled {
+	border-color: var(--bn-control-border);
+}
+
+/* The engine's unmarked button is its primary action (Connect, Answer,
+   Start Icecast): the accent fill, with accent ink for the text. */
+html #vdo-callin-panel button:not(.secondary):not(.danger):not(.vdo-callin-icon),
+html #vdo-icecast-panel button:not(.secondary) {
+	font-weight: 600;
+	color: var(--bn-accent-ink);
+	background: var(--bn-accent);
+	border-color: transparent;
+}
+
+html #vdo-callin-panel button:not(.secondary):not(.danger):not(.vdo-callin-icon):hover:enabled,
+html #vdo-icecast-panel button:not(.secondary):hover:enabled {
+	background: var(--bn-accent-hover);
+	border-color: transparent;
+}
+
+/* Hang up and Reject end a live call: the error fill, as .armed in base.css. */
+html #vdo-callin-panel button.danger {
+	color: var(--bn-error-ink);
+	background: var(--bn-error);
+	border-color: transparent;
+}
+
+html #vdo-callin-panel button.vdo-callin-icon {
+	color: var(--bn-text);
+	background: var(--bn-surface-2);
+	border-color: var(--bn-border);
+}
+
+/* Status readouts. Color carries state only: error, and live or ready. */
+html #vdo-callin-panel #vdo-callin-status {
+	color: var(--bn-text);
+	background: var(--bn-surface);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-radius-sm);
+}
+
+html #vdo-icecast-panel #vdo-icecast-status {
+	color: var(--bn-text-muted);
+}
+
+html #vdo-icecast-panel #vdo-icecast-status[data-state="error"] {
+	color: var(--bn-error);
+}
+
+html #vdo-icecast-panel #vdo-icecast-status[data-state="live"],
+html #vdo-icecast-panel #vdo-icecast-status[data-state="ready"] {
+	color: var(--bn-ok);
+}
+
+/* Links follow the page: text color, underlined. */
+html #vdo-callin-panel .vdo-callin-guide a {
+	color: var(--bn-text);
+	text-decoration: underline;
+}
+
+html #vdo-callin-panel .vdo-callin-guide a:hover {
+	color: var(--bn-text-muted);
+}
+
+/* Ringtone menu and the incoming-call card: layers on top of the panel. */
+html #vdo-callin-panel .vdo-callin-ringtone-menu {
+	background: var(--bn-surface-2);
+	border: 1px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius);
+	box-shadow: var(--bn-shadow);
+}
+
+html #vdo-callin-panel .vdo-callin-incoming {
+	color: var(--bn-text);
+	background: var(--bn-surface-3);
+	border: 1px solid var(--bn-border-strong);
+	border-radius: var(--bn-radius-sm);
+}
