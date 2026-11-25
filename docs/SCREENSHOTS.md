@@ -122,6 +122,48 @@ Every view of BytesNation Studio in the dark and light themes, desktop (1440 by 
 |---|---|
 | ![Video context menu, dark](screenshots/video-context-menu-dark.jpg) | ![Video context menu, light](screenshots/video-context-menu-light.jpg) |
 
+## Command palette on the launcher
+
+| Dark | Light |
+|---|---|
+| ![Command palette on the launcher, dark](screenshots/palette-launcher-dark.jpg) | ![Command palette on the launcher, light](screenshots/palette-launcher-light.jpg) |
+
+## Command palette in a call
+
+| Dark | Light |
+|---|---|
+| ![Command palette in a call, dark](screenshots/palette-call-dark.jpg) | ![Command palette in a call, light](screenshots/palette-call-light.jpg) |
+
+## Command palette in the director room
+
+| Dark | Light |
+|---|---|
+| ![Command palette in the director room, dark](screenshots/palette-director-dark.jpg) | ![Command palette in the director room, light](screenshots/palette-director-light.jpg) |
+
+## Command palette, one guest's controls
+
+| Dark | Light |
+|---|---|
+| ![Command palette, one guest's controls, dark](screenshots/palette-guest-dark.jpg) | ![Command palette, one guest's controls, light](screenshots/palette-guest-light.jpg) |
+
+## Command palette, phone
+
+| Dark | Light |
+|---|---|
+| ![Command palette, phone, dark](screenshots/palette-mobile-dark.jpg) | ![Command palette, phone, light](screenshots/palette-mobile-light.jpg) |
+
+## Notification: chat message while the chat panel is closed
+
+| Dark | Light |
+|---|---|
+| ![Notification: chat message while the chat panel is closed, dark](screenshots/notification-chat-dark.jpg) | ![Notification: chat message while the chat panel is closed, light](screenshots/notification-chat-light.jpg) |
+
+## Recording readout in the app bar
+
+| Dark | Light |
+|---|---|
+| ![Recording readout in the app bar, dark](screenshots/recording-readout-dark.jpg) | ![Recording readout in the app bar, light](screenshots/recording-readout-light.jpg) |
+
 ## Scene output (OBS browser source)
 
 | Dark | Light |
@@ -134,8 +176,27 @@ Every view of BytesNation Studio in the dark and light themes, desktop (1440 by 
 |---|---|
 | ![Single-stream viewer, dark](screenshots/view-dark.jpg) | ![Single-stream viewer, light](screenshots/view-light.jpg) |
 
-## Android Chrome guest (Pixel 9 emulator, Android 16)
+## Phone call-in panel (&callin)
 
-A real Android Chrome guest publishing its emulated camera into a room run by a desktop director.
+| Dark | Light |
+|---|---|
+| ![Phone call-in panel (&callin), dark](screenshots/callin-panel-dark.jpg) | ![Phone call-in panel (&callin), light](screenshots/callin-panel-light.jpg) |
 
-![Android Chrome guest in a call](screenshots/android-chrome-guest-emulator.jpg)
+## Phone call-in panel, phone
+
+| Dark | Light |
+|---|---|
+| ![Phone call-in panel, phone, dark](screenshots/callin-panel-mobile-dark.jpg) | ![Phone call-in panel, phone, light](screenshots/callin-panel-mobile-light.jpg) |
+
+## Icecast publishing panel (&icecastpush)
+
+| Dark | Light |
+|---|---|
+| ![Icecast publishing panel (&icecastpush), dark](screenshots/icecast-panel-dark.jpg) | ![Icecast publishing panel (&icecastpush), light](screenshots/icecast-panel-light.jpg) |
+
+## Icecast publishing panel, phone
+
+| Dark | Light |
+|---|---|
+| ![Icecast publishing panel, phone, dark](screenshots/icecast-panel-mobile-dark.jpg) | ![Icecast publishing panel, phone, light](screenshots/icecast-panel-mobile-light.jpg) |
+
