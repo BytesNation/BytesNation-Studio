@@ -1672,3 +1672,14 @@ html.bn-ui .message-card.info {
 html.bn-ui .message-card li {
 	color: var(--bn-prose);
 }
+
+/* The source link at the foot of the settings drawer (AGPL-3.0 section 13). */
+html.bn-ui .bn-source-link {
+	margin: 12px 0 0;
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+html.bn-ui .bn-source-link a:link,
+html.bn-ui .bn-source-link a:visited {
+	color: var(--bn-text-muted);
+}
