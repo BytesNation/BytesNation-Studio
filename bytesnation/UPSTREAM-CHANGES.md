@@ -1,0 +1,26 @@
+# Upstream files this fork changes
+
+BytesNation Studio keeps taking VDO.Ninja releases. Its theme lives in new files (`bytesnation/`, `brand/`, `.brand-tier`). This list holds every upstream file the fork edits, so a merge can be checked against it. Every edit inside an upstream file sits next to a comment that starts with `BytesNation Studio`.
+
+After a merge, check each row: the edit is still there, it still applies to the code around it, and nothing new in upstream needs the same treatment. Then confirm the rules in the last section.
+
+| File | What changed | Why | On conflict |
+|---|---|---|---|
+| `index.html` | Head block: title, social tags, source and licence links, favicons, theme stylesheet. Steve Seguin's `author`, `copyright`, `stance-on-war` and `twitter:creator` tags removed. `canonical` and `og:url` removed until a production domain is set. | Product name, AGPL source link, no implied affiliation | Keep upstream's new tags; reapply ours |
+| `index.html` | `<script src="./bytesnation/gate.js">` between `lib.js` and `main.js` | Marks interface pages so the theme applies, and leaves program output alone | Keep the line between the two scripts |
+| `index.html` | schema.org image links point at `bytesnation/icons/share-1200x630.png` | Share image | Reapply |
+| `index.html` | Static wordmark text in `#logoname` | Product name. `main.js` replaces it at startup on any non-upstream host | Reapply |
+| `index.html` | `aria-hidden` removed from `#credits` and its Terms and Privacy links | The links are focusable, so they must be readable | Reapply |
+| `main.js` | The `#credits` line: source link to this fork and the origin credit, through two translation keys | AGPL-3.0 section 13; credit to VDO.Ninja | Reapply on the new line |
+| `manifest.json` | Name, colors and icons | Product name and brand icons | Take ours |
+| `translations/*.json` | Two keys at the top of `innerHTML`: `bn-source-code`, `bn-built-on-vdo-ninja`. English in every file until translated | The credit line goes through the translation system | Keep both keys in every file |
+| `AGENTS.md` | "Component sourcing: public tier" block and the Studio notes after it | Brand kit policy | Keep ours below upstream's text |
+| `README.md` | Rewritten for BytesNation Studio | The fork's own README, with the credit | Take ours; read upstream's changes for anything the fork should say too |
+
+## Rules to re-check after a merge
+
+- `git diff upstream/develop -- webrtc.js` is empty.
+- `node .github/ci-validateTranslations.js` and `node .github/ci-checkTranslationKeys.js` pass.
+- `node brand/tools/check-sourcing.mjs --tier public --history` passes.
+- A view link and a scene link render the same as upstream's.
+- New URL parameters that make a page program output (like `&view`, `&scene` or `&cleanoutput`) are added to `bytesnation/gate.js`.
