@@ -13,6 +13,8 @@ After a merge, check each row: the edit is still there, it still applies to the 
 | `index.html` | `#credits`: `aria-hidden` removed, and a "Source code" link to this fork added after Privacy Policy | AGPL-3.0 section 13 on every screen with the footer; the links are focusable, so they must be readable | Reapply |
 | `index.html` | A "Source code" link after the settings drawer's buttons (`.bn-source-link`) | AGPL-3.0 section 13 during a call, where the footer is hidden | Reapply |
 | `main.js` | The `#credits` line: version and the origin credit, through a translation key | Credit to VDO.Ninja | Reapply on the new line |
+| `studio/index.html` | Title, the fonts and theme stylesheets and the theme script after `styles.css`, the two "VDO" marks emptied and hidden from screen readers (the theme draws the BytesNation mark), the product name in the preview frame's title | Live Studio carries the brand and drops upstream's mark | Reapply |
+| `index.html` | `bytesnation/fonts.css` linked before the theme | Fonts shared with Live Studio | Keep both lines together |
 | `manifest.json` | Name, colors and icons | Product name and brand icons | Take ours |
 | `translations/*.json` | Two keys at the top of `innerHTML`: `bn-source-code`, `bn-built-on-vdo-ninja`. English in every file until translated | The credit line goes through the translation system | Keep both keys in every file |
 | `AGENTS.md` | "Component sourcing: public tier" block and the Studio notes after it | Brand kit policy | Keep ours below upstream's text |

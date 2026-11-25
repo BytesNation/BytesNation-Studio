@@ -3,17 +3,21 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>VDO.Ninja Live Studio</title>
+		<title>BytesNation Studio: Live Studio</title><!-- BytesNation Studio -->
 		<link rel="icon" href="../media/favicon.ico" />
 		<link rel="stylesheet" href="../lineawesome/css/line-awesome.min.css" />
 		<link rel="stylesheet" href="./styles.css?ver=20261113-3" />
+		<!-- BytesNation Studio: fonts, theme and the &lightmode switch. See bytesnation/UPSTREAM-CHANGES.md. -->
+		<link rel="stylesheet" href="../bytesnation/fonts.css?ver=1" />
+		<link rel="stylesheet" href="../bytesnation/studio.css?ver=1" />
+		<script src="../bytesnation/theme-param.js?ver=1"></script>
 	</head>
 	<body>
 		<div id="studio-root" class="studio-shell" data-state="setup">
 			<section class="room-gate" data-view="setup">
 				<form class="room-gate__panel" id="room-form" autocomplete="off">
 					<div class="room-gate__brand">
-						<span class="brand-mark">VDO</span>
+						<span class="brand-mark" aria-hidden="true"></span><!-- BytesNation Studio -->
 						<span>Live Studio</span>
 					</div>
 					<h1>Video Producer</h1>
@@ -35,7 +39,7 @@
 			<section class="studio-workspace" data-view="studio" aria-label="Live studio workspace">
 				<header class="topbar">
 					<div class="topbar__identity">
-						<div class="brand-mark">VDO</div>
+						<div class="brand-mark" aria-hidden="true"></div><!-- BytesNation Studio -->
 						<div>
 							<div class="topbar__title">Live Studio</div>
 							<button type="button" id="room-copy" class="topbar__room" title="Copy the room name"></button>
@@ -87,7 +91,7 @@
 
 					<section class="stage-shell">
 						<div class="stage-aspect" id="stage" data-testid="stage-drop-target">
-							<iframe id="director-frame" title="VDO.Ninja program preview" allow="autoplay; camera; microphone; fullscreen; picture-in-picture; display-capture; screen-wake-lock; accelerometer; midi; geolocation; clipboard-write"></iframe>
+							<iframe id="director-frame" title="BytesNation Studio program preview" allow="autoplay; camera; microphone; fullscreen; picture-in-picture; display-capture; screen-wake-lock; accelerometer; midi; geolocation; clipboard-write"></iframe>
 							<div id="stage-bg" class="stage-bg"></div>
 							<div id="stage-overlay" class="stage-overlay" tabindex="0" aria-label="Layout editor surface"></div>
 							<div class="stage-empty" id="stage-empty">No sources on stage</div>

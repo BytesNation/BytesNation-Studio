@@ -1,0 +1,379 @@
+/*
+ * BytesNation Studio theme for Live Studio (studio/index.html).
+ * Copyright (c) 2026 BytesNation. Licensed under AGPL-3.0-only, as part of this fork; see LICENSE.
+ *
+ * Loaded after studio/styles.css. Maps the page's own palette onto the brand kit (resolved hex
+ * from brand/tokens/tokens.json), then corrects the rules where the page used its accent as a
+ * border, outline or text, which the brand reserves for the orange fill. Chrome 80 safe.
+ */
+
+:root {
+	--bn-bg: #0a0b0d;
+	--bn-surface: #101215;
+	--bn-surface-elevated: #16181c;
+	--bn-border: #22252b;
+	--bn-text: #edebe6;
+	--bn-text-muted: #9ea3ab;
+	--bn-text-faint: #80868f;
+	--bn-border-strong: #4f5154;
+	--bn-control-border: #67686b;
+	--bn-surface-2: #1b1d1f;
+	--bn-surface-3: #242628;
+	--bn-accent: #ff6a13;
+	--bn-accent-hover: #ff7f34;
+	--bn-accent-ink: #1a0d04;
+	--bn-warning: #f5c842;
+	--bn-ok: #5be49b;
+	--bn-error: #ff8d7a;
+	--bn-ice: #7fd4ff;
+	--bn-mark: url("icons/mark-on-dark.svg");
+	--bn-sans: "Inter Tight", "BN Sans Fallback", ui-sans-serif, system-ui, sans-serif;
+	--bn-mono: "Geist Mono", "BN Mono Fallback", ui-monospace, SFMono-Regular, monospace;
+
+	/* The page's own palette, onto the kit. */
+	--bg: var(--bn-bg);
+	--panel: var(--bn-surface);
+	--panel-2: var(--bn-surface-elevated);
+	--panel-3: var(--bn-surface-3);
+	--line: var(--bn-border);
+	--line-strong: var(--bn-control-border);
+	--text: var(--bn-text);
+	--muted: var(--bn-text-muted);
+	--soft: var(--bn-text-faint);
+	/* Upstream's accent draws diagrams, borders and text: data blue and neutral ink here. */
+	--accent: var(--bn-ice);
+	--accent-2: var(--bn-text-muted);
+	--danger: var(--bn-error);
+	--warning: var(--bn-warning);
+	--radius: 4px;
+	--source-radius: 6px;
+	--stage-bg: var(--bn-bg);
+	color-scheme: dark;
+}
+
+html.bn-light {
+	--bn-bg: #f3f1ed;
+	--bn-surface: #f9f8f5;
+	--bn-surface-elevated: #ffffff;
+	--bn-border: #dedad2;
+	--bn-text: #15171a;
+	--bn-text-muted: #565a61;
+	--bn-text-faint: #666a71;
+	--bn-border-strong: #aaa7a2;
+	--bn-control-border: #8a8885;
+	--bn-surface-2: #eeedea;
+	--bn-surface-3: #e4e4e1;
+	--bn-accent: #e8590c;
+	--bn-accent-hover: #eb702e;
+	--bn-warning: #7a5800;
+	--bn-ok: #116a3b;
+	--bn-error: #b42318;
+	--bn-ice: #0c6388;
+	--bn-mark: url("icons/mark-on-light.svg");
+	color-scheme: light;
+}
+
+body {
+	font-family: var(--bn-sans);
+	-webkit-font-smoothing: antialiased;
+}
+::selection {
+	background: var(--bn-text);
+	color: var(--bn-bg);
+}
+
+/* The mark replaces upstream's lettering. */
+.brand-mark {
+	width: 28px;
+	height: 28px;
+	padding: 0;
+	font-size: 0;
+	color: transparent;
+	background: var(--bn-mark) center / contain no-repeat !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+
+/* One focus ring: 2px in the text color, offset 3px. */
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+[tabindex]:focus {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 3px;
+	box-shadow: none;
+}
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible) {
+	outline: none;
+}
+.scene-name-input:focus {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 3px;
+}
+
+/* Buttons: outline by default, the one primary filled. */
+.button,
+button {
+	border-radius: 4px;
+	box-shadow: none;
+	background-image: none;
+	font-family: var(--bn-sans);
+	transition: background-color 160ms cubic-bezier(0.22, 0.8, 0.3, 1), transform 160ms cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+.button:active,
+button:active {
+	transform: translateY(1px);
+}
+.button--primary {
+	background: var(--bn-accent) !important;
+	border-color: var(--bn-accent) !important;
+	color: var(--bn-accent-ink) !important;
+}
+.button--primary:hover {
+	background: var(--bn-accent-hover) !important;
+}
+
+/* Selected and active, marked the brand's way. */
+.scene-card[aria-selected="true"] {
+	border-color: var(--bn-control-border);
+	box-shadow: inset 0 2px 0 var(--bn-accent);
+}
+#toggle-director[aria-pressed="true"] {
+	background: var(--bn-accent);
+	color: var(--bn-accent-ink);
+}
+.layout-box[data-selected="true"] {
+	border-color: var(--bn-text);
+}
+.layout-box__handle {
+	background: var(--bn-text);
+}
+.chat-message--featured {
+	border-color: var(--bn-border-strong);
+}
+.chat-message__support {
+	color: var(--bn-text);
+}
+
+/* Labels and readouts in mono. */
+.topbar__title,
+.room-gate label,
+.panel__title,
+.section-title {
+	font-family: var(--bn-sans);
+}
+.room-code,
+.topbar__room,
+.stat,
+.chat-message__time {
+	font-family: var(--bn-mono);
+	font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+}
+
+/* ---------- Upstream's fixed colors, onto tokens ---------- */
+
+.room-gate {
+	background: var(--bn-bg);
+}
+.room-gate__panel,
+.topbar,
+.studio-workspace,
+.program-panel,
+.layout-strip,
+.tabs,
+.toast {
+	background: var(--bn-bg);
+	box-shadow: none;
+}
+.room-gate__panel {
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	border-radius: 0;
+}
+.topbar {
+	border-bottom: 1px solid var(--bn-border);
+}
+.toast {
+	background: var(--bn-surface-elevated);
+	border: 1px solid var(--bn-border);
+	border-radius: 6px;
+}
+.field-row select,
+.obs-export textarea,
+.box-inspector__fields input,
+.source-card__device-row select,
+input,
+select,
+textarea {
+	background: var(--bn-surface);
+	color: var(--bn-text);
+	border: 1px solid var(--bn-control-border);
+	border-radius: 4px;
+}
+.button--secondary,
+.icon-button {
+	background: transparent;
+	border: 1px solid var(--bn-control-border);
+	color: var(--bn-text);
+}
+.button--secondary:hover,
+.icon-button:hover,
+.layout-preset:hover {
+	background: var(--bn-surface-2);
+}
+.button--danger {
+	background: transparent;
+	border: 1px solid var(--bn-error);
+	color: var(--bn-error);
+}
+#toggle-join-sound[aria-pressed="true"],
+.tab-button[aria-selected="true"] {
+	background: var(--bn-surface-3);
+	border-color: var(--bn-control-border);
+	box-shadow: inset 0 -2px 0 var(--bn-accent);
+	color: var(--bn-text);
+}
+
+/* State tags: rectangular, mono, neutral; state is a dot or a word color. */
+.status-pill,
+.scene-card__badge,
+.source-card__state,
+.source-card__slot {
+	background: transparent;
+	border: 1px solid var(--bn-control-border);
+	border-radius: 2px;
+	color: var(--bn-text-muted);
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+}
+.status-pill[data-state="live"],
+.scene-card__badge {
+	color: var(--bn-text);
+}
+.status-pill[data-state="live"]::before {
+	content: "";
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	margin-right: 6px;
+	border-radius: 50%;
+	background: var(--bn-accent);
+	vertical-align: 1px;
+}
+.status-pill[data-state="error"] {
+	border-color: var(--bn-error);
+	color: var(--bn-error);
+}
+
+/* The stage, scene thumbnails and layout boxes are a diagram of the program: data colors. */
+.scene-card[aria-selected="true"] {
+	box-shadow: inset 0 2px 0 var(--bn-accent);
+}
+.scene-thumb,
+.source-card__preview,
+.preset-icon,
+.source-card__meter,
+#director-frame {
+	background-color: var(--bn-surface);
+}
+.preset-icon {
+	box-shadow: inset 0 0 0 1px var(--bn-border);
+}
+.scene-thumb__box {
+	background: var(--bn-ice);
+}
+.stage-aspect {
+	border: 1px solid var(--bn-border);
+	box-shadow: none;
+}
+.stage-aspect[data-drop-active="true"],
+.layout-box[data-drop-target="true"] {
+	border-color: var(--bn-text);
+	box-shadow: none;
+}
+.stage-empty,
+.stage-aspect[data-layout-mode="auto"] .stage-empty {
+	color: var(--bn-text-faint);
+}
+.layout-box {
+	background: transparent;
+	box-shadow: none;
+}
+.layout-box[data-selected="true"],
+.layout-box[data-drop-target="true"],
+.layout-box[data-cover="false"] {
+	background: var(--bn-surface-2);
+}
+.layout-box__label {
+	background: var(--bn-surface-elevated);
+	color: var(--bn-text);
+	font-family: var(--bn-mono);
+	border-radius: 2px;
+}
+.layout-box__handle {
+	border-color: var(--bn-bg);
+}
+/* The audio meter is data: one solid series color, no gradient. */
+.source-card__meter-fill {
+	background: var(--bn-ice);
+}
+.source-card__meter::after {
+	background: none;
+}
+.source-card__sample {
+	color: var(--bn-text);
+}
+.source-card[data-on-stage="true"] {
+	border-color: var(--bn-control-border);
+	box-shadow: inset 0 2px 0 var(--bn-accent);
+}
+.source-card[data-disconnected="true"] {
+	border-color: var(--bn-warning);
+}
+.source-card[data-disconnected="true"] .source-card__preview::after {
+	background: var(--bn-surface);
+	color: var(--bn-warning);
+}
+.output-status[data-state="active"] {
+	border-color: var(--bn-ok);
+}
+#toggle-director[aria-pressed="true"] {
+	color: var(--bn-accent-ink);
+}
+/* Preset icons draw their layout with gradients over a base color: keep the drawing, retint the base. */
+.preset-icon--screen,
+.preset-icon--spotlight,
+.preset-icon--grid,
+.preset-icon--nine,
+.preset-icon--rows {
+	background-color: var(--bn-surface);
+}
+.status-pill[data-state="live"],
+.status-pill[data-state="error"] {
+	background: transparent;
+}
+.room-gate input,
+.room-gate select,
+.room-gate__panel input,
+.field-row input {
+	background: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-control-border) !important;
+}
