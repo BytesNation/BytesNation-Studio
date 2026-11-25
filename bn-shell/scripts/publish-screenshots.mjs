@@ -50,9 +50,15 @@ const viewTitles = [
 	["callin-panel-mobile", "Phone call-in panel, phone"],
 	["icecast-panel", "Icecast publishing panel (&icecastpush)"],
 	["icecast-panel-mobile", "Icecast publishing panel, phone"],
-	["podcast-gate", "Podcast Studio room gate: upstream's design, not redesigned yet, with the credit bar"],
-	["podcast-setup", "Podcast Studio setup check: upstream's design, not redesigned yet"],
-	["podcast-setup-mobile", "Podcast Studio setup check, phone"]
+	["sign-in", "Sign-in dialog (&requireauth)"],
+	["sign-in-mobile", "Sign-in dialog, phone"],
+	["podcast-gate", "Podcast Studio: room gate"],
+	["podcast-setup", "Podcast Studio: setup check"],
+	["podcast-setup-mobile", "Podcast Studio: setup check, phone"],
+	["podcast-control-room", "Podcast Studio: control room with two live guests"],
+	["podcast-recording", "Podcast Studio: recording"],
+	["podcast-guide", "Podcast Studio: guide"],
+	["podcast-control-room-mobile", "Podcast Studio: control room, phone"]
 ];
 
 const convert = (name, theme) => {

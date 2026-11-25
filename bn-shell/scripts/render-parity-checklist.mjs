@@ -139,8 +139,9 @@ const main = () => {
 		renderGroup(rows, "shortcuts.spec.ts", "5. Keyboard shortcuts", "Same keys pressed in upstream and BytesNation on a live local publish; engine state must match afterwards."),
 		renderGroup(rows, "iframe-api.spec.ts", "6. IFRAME API", "A host page sends the same messages to both; replies and events must match."),
 		renderGroup(rows, "theme.spec.ts", "7. Theme, branding and output guarantees"),
-		renderGroup(rows, "contrast.spec.ts", "8. WCAG AA contrast", "axe-core `color-contrast` across the main views, the phone call-in panel and the Icecast panel, in both themes. Text over live video is excluded because axe cannot read a video frame; those labels sit on an opaque scrim."),
-		renderGroup(rows, "shell-layers.spec.ts", "9. Command palette, notifications, readouts and the Podcast Studio credit", "BytesNation additions (cmdk, Sonner, Motion). The checks prove they offer only what the engine itself shows, never appear on outputs, and leave the engine exactly as upstream. On Podcast Studio (`&podcast`), which hides the app bar, they prove the credit stays on screen, the floating layers stay off, and the dark tokens apply.")
+		renderGroup(rows, "contrast.spec.ts", "8. WCAG AA contrast", "axe-core `color-contrast` across the main views, the phone call-in panel, the Icecast panel and the sign-in dialog, in both themes. Text over live video is excluded because axe cannot read a video frame; those labels sit on an opaque scrim."),
+		renderGroup(rows, "shell-layers.spec.ts", "9. Command palette, notifications, readouts and the Podcast Studio shell", "BytesNation additions (cmdk, Sonner, Motion). The checks prove they offer only what the engine itself shows, never appear on outputs, and leave the engine exactly as upstream. On Podcast Studio (`&podcast`), which hides the app bar, they prove the credit stays on screen, the floating layers stay off, the page follows the theme, and its header carries the brand, the theme switch and About."),
+		renderGroup(rows, "podcast.spec.ts", "10. Podcast Studio", "Podcast Studio builds its interface from classes, not ids, so these compare the whole structure with upstream on each screen: every element's tag, classes, text and visibility. The paint checks hold every visible element to the banned list (no blur, no gradients, no pill radii) and to AA contrast in both themes; they run in Chrome, WebKit and the Android profile.")
 	];
 
 	const paramSection = [
@@ -158,14 +159,14 @@ const main = () => {
 	const header = [
 		"# Parity checklist",
 		"",
-		"Built from [FEATURE-INVENTORY.md](FEATURE-INVENTORY.md). The redesign is done when every row is checked. Rows 1 to 9 are generated from the parity suite (`cd bn-shell && npm run test:parity && node scripts/render-parity-checklist.mjs`); the manual checks are recorded by hand.",
+		"Built from [FEATURE-INVENTORY.md](FEATURE-INVENTORY.md). The redesign is done when every row is checked. Rows 1 to 10 are generated from the parity suite (`cd bn-shell && npm run test:parity && node scripts/render-parity-checklist.mjs`); the manual checks are recorded by hand.",
 		"",
 		`Last run: ${startTime || "unknown"}. ${allAutomated.length} automated checks ran across ${projects.length} engines; ${failures.length} failed.`,
 		"",
 		"Engines: Chrome, Firefox and Safari's WebKit run as desktop browsers; Android Chrome is a Pixel 7 profile and iOS Safari an iPhone 14 profile, both emulated. Where a headless engine has no fake camera (WebKit, and Firefox for more than one capture), the live room feeds a synthetic camera and microphone, and the notes say so. Real-device and real-picker runs are in the manual checks."
 	].join("\n");
 
-	const body = [header, sections[0].text, sections[1].text, sections[2].text, paramSection, sections[3].text, sections[4].text, sections[5].text, sections[6].text, sections[7].text, renderManual()].join("\n\n");
+	const body = [header, sections[0].text, sections[1].text, sections[2].text, paramSection, sections[3].text, sections[4].text, sections[5].text, sections[6].text, sections[7].text, sections[8].text, renderManual()].join("\n\n");
 	writeFileSync(join(repoRoot, "docs/PARITY-CHECKLIST.md"), `${body}\n`);
 	process.stdout.write(`PARITY-CHECKLIST.md: ${allAutomated.length} automated checks, ${failures.length} failed\n`);
 	failures.slice(0, 40).forEach(row => process.stdout.write(`  FAIL ${row.project} ${row.title}\n`));

@@ -112,17 +112,40 @@ The engine (`main.js`, `lib.js`, `webrtc.js`) owns the DOM. The theme restyles i
 5. **White text over video is correct.** Labels, timers and overlays that sit on video keep a light color with a dark scrim behind them, in both themes.
 6. **`&classicui` must restore upstream exactly.** All theme CSS lives in `bn/theme.css`, which `boot.js` disables for that parameter.
 7. **Plain CSS only in the theme.** Custom properties, yes; `color-mix`, `@layer`, nesting, `:has()` and `oklch`, no. OBS and older Chromium builds must render it.
-8. **A surface that injects its own stylesheet needs a theme of its own.** The phone call-in panel (`callin.js`) and the Icecast panel (`lib.js`) add a `<style>` at run time with fixed dark colors, after every other sheet. Remapped variables reach them only in part: the call-in panel read `--background-color` from the theme and kept its own white text, so in the light theme it was unreadable. `engine/addons.css` themes both as floating layers. Its selectors start with `html`, one step above the injected rules, so a stylesheet passed with `&css` needs the same prefix to override them. When upstream adds another self-styled panel, look at it in both themes before shipping.
+8. **A surface that brings its own stylesheet needs a theme of its own.** The phone call-in panel (`callin.js`), the Icecast panel (`lib.js`) and the sign-in dialog (`auth-styles.css`) load their styles at run time with fixed dark colors, after every other sheet. Remapped variables reach them only in part: the call-in panel read `--background-color` from the theme and kept its own white text, so in the light theme it was unreadable. `engine/addons.css` themes all three as floating layers. Its selectors start with `html`, one step above the injected rules, so a stylesheet passed with `&css` needs the same prefix to override them. When upstream adds another self-styled panel, look at it in both themes before shipping.
 
-## Surfaces not redesigned yet
+## Podcast Studio
 
-**The sign-in dialog** (`&auth`, styled by `auth-styles.css`) keeps upstream's look: a dark dialog in both themes, with a blurred backdrop and provider-colored buttons. It is readable; it is not on brand.
+Podcast Studio (`&podcast`) is a separate interface with a stylesheet of its own. Its theme is generated from that stylesheet (see [ARCHITECTURE.md](ARCHITECTURE.md)), so the rules above are applied by a mapping, not by hand:
 
-**Podcast Studio** (`&podcast`) is not redesigned yet. It is a separate interface with a 2,484-line stylesheet of fixed colors, and it keeps upstream's look: gradients, blur and pill buttons, dark only. Until it gets its own pass, three rules hold:
+| Upstream | BytesNation |
+|---|---|
+| White text at 80% opacity and up | `--bn-text` |
+| White text below 80% | `--bn-text-muted` |
+| Green text on a status element (live, ready, recording, connected, linked) | `--bn-ok` |
+| Green or blue text anywhere else | `--bn-text`: upstream's accent as decoration becomes plain text |
+| Red and yellow text | `--bn-error`, `--bn-warn` |
+| Dark navy fills, by depth | `--bn-sunken`, `--bn-surface`, `--bn-surface-2` |
+| White, green, blue, red and yellow tints (hover, selected, linked) | `--bn-surface-2` or `--bn-surface-3`: one neutral step |
+| Solid status fills (dots, level bars) | `--bn-ok`, `--bn-warn`, `--bn-error` |
+| Gradients and striped fills | one flat fill |
+| The level meter's green to yellow to red gradient | three flat bands, fixed to the meter's track |
+| `backdrop-filter` | none |
+| Glow shadows | none; the four floating layers get `--bn-shadow` |
+| Pill radii (999px) | 4px; a small element with equal width and height stays a circle |
+| Other radii | the radius scale |
+| Uppercase labels | Geist Mono with the label tracking |
+| Uppercase buttons | sentence case, Inter Tight |
 
-- **Dark tokens, always.** `boot.js` treats `body.podcast-studio-mode` as dark, so light-theme ink never lands on its dark panels.
-- **The credit stays visible.** Podcast Studio hides the app bar and the launcher, and with them the About view and the credit footer. The shell adds a bar at the foot of the page (`#bn-podcast-credit`) with the credit sentence and the source link. Podcast Studio's page and its four full-screen layers stop short of the bar.
-- **No floating layers.** The command palette and notifications mount under `<body>`, where Podcast Studio hides everything that is not its own. An unseen open palette would lock the page, so neither mounts there.
+Decisions the mapping does not make:
+
+- **One accent per screen.** Enter studio on the room gate, Enter Control Room on the setup check, and Start Recording in the control room. A live recording turns that button to the error fill, as the engine's "armed" state does.
+- **Instrument displays stay dark in both themes.** `studio.js` draws the waveform and spectrogram on a near-black canvas and blends them with `mix-blend-mode: screen`, which shows nothing on a light surface. Like video, they keep `--bn-video-bg` and one fixed signal color.
+- **The setup check is a page, not a dialog.** Nothing exists behind it yet, so it takes the page background instead of a scrim.
+- **The shell adds a header and a footer bar.** Podcast Studio hides the app bar, so its own header carries the brand, the theme switch and About, and a bar at the foot of the page carries the credit sentence and the source link. Tooltips and the About dialog mark themselves as Podcast Studio overlays so its stylesheet leaves them on screen.
+- **No command palette or notifications.** Both act on the engine's controls, which Podcast Studio hides.
+
+What stays upstream's: the emoji in four headings and buttons, which are part of the text `studio.js` writes, and the spectrogram's own colors, which it draws on a canvas.
 
 ## Contrast
 

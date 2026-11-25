@@ -47,7 +47,7 @@
 			"by": ""
 		},
 		{
-			"check": "Podcast Studio (&podcast): host a room with two guests, run the setup check, record, and download the tracks. It is not redesigned; this row only confirms it works as on upstream",
+			"check": "Podcast Studio (&podcast): host a room with two guests, run the setup check with a real microphone and camera, record, and download the tracks; then the same with Google Drive or Dropbox linked",
 			"result": "",
 			"by": ""
 		},

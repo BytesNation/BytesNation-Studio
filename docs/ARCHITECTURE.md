@@ -7,6 +7,7 @@ index.html (upstream markup, plus 4 marked lines)
 ├── main.css           upstream styles
 ├── bn/theme.css       BytesNation theme: tokens + restyle of engine DOM   (plain CSS)
 ├── bn/boot.js         theme boot: &classicui, saved theme, dark-class mirror (ES5)
+├── bn/podcast.css     Podcast Studio theme, loaded by boot.js on &podcast links only
 ├── webrtc.js          engine: signaling, WebRTC, codecs                   (untouched)
 ├── lib.js, main.js    engine: UI logic, URL parameters                    (untouched)
 └── bn/shell.js        BytesNation shell: React portals into engine hosts  (module)
@@ -35,6 +36,15 @@ What remains is the design used here. The theme restyles the engine's own elemen
 - Tokens switch on `html.bn-dark`, not `body.darktheme`. The engine implements `&transparent`, `&chroma` and OBS transparency with inline custom properties on `<html>`. Tokens defined on `<body>` would shadow those for every descendant.
 
 Rules for writing theme CSS are in [DESIGN.md](DESIGN.md#rules-for-styling-the-engine).
+
+### `bn/podcast.css` (source: `bn-shell/src/theme/podcast/`)
+
+Podcast Studio (`&podcast`) is a separate interface that `index.html` loads on demand. Its stylesheet, `podcast/studio.css`, paints about 470 declarations with fixed colors and has no custom properties, so there is nothing to remap.
+
+- `generated.css` is written by `bn-shell/scripts/gen-podcast-theme.mjs`. The script reads every rule in upstream's stylesheet and writes an override for each paint declaration, pointing it at a BytesNation token: surfaces, text and status colors, flat fills for gradients, no blur, the radius scale, and the type faces. It is checked in, and a test fails when it no longer matches upstream's file.
+- `overrides.css` holds what a mapping cannot decide: the two elements `studio.js` paints inline, the instrument displays, and a phone layout fix.
+- Every selector sits behind `html body.podcast-studio-mode`. That outranks upstream's own rule whatever the load order, and it outranks `main.css`'s page-wide `.darktheme :not(.promptModalInner) > button`, which otherwise repaints every button in Podcast Studio.
+- `boot.js` adds the stylesheet only on `&podcast` links, so no other page carries it. `&classicui` skips it with the rest of the layer.
 
 ### `bn/boot.js` (source: `bn-shell/public/boot.js`)
 
@@ -100,9 +110,10 @@ Upstream is `steveseguin/vdo.ninja`, default branch `develop`. In this clone the
 4. Update `bn-shell/engine-lock.json` to the merged upstream commit.
 5. Regenerate the inventory: `node bn-shell/scripts/render-param-inventory.mjs`. Review the `params.json` diff for new, removed or renamed parameters. Describe any new undocumented ones in `param-descriptions.json`. If the run fails with "read(s) are not covered", upstream added or changed a way of reading parameters: teach `inventory-params.mjs` the new reader in the tables at its top, and look at any new surface it belongs to in both themes.
 6. Check the views inventory against upstream's diff for new or renamed element ids, and style anything new.
-7. Rebuild the layer: `cd bn-shell && npm ci && npm run build`.
-8. Run the parity suite (`npm run test:parity`) and the footprint check. Then capture the views (`node scripts/capture-views.mjs`) and compare them against the previous release.
-9. Open a PR into `develop` on `BytesNation/BytesNation-Studio`.
+7. Regenerate the Podcast Studio theme: `node bn-shell/scripts/gen-podcast-theme.mjs`. Review the diff of `generated.css`; a new rule upstream is themed by the mapping, and the Podcast Studio tests say whether it needs a hand-written refinement.
+8. Rebuild the layer: `cd bn-shell && npm ci && npm run build`.
+9. Run the parity suite (`npm run test:parity`) and the footprint check. Then capture the views (`node scripts/capture-views.mjs`) and compare them against the previous release.
+10. Open a PR into `develop` on `BytesNation/BytesNation-Studio`.
 
 ## Building
 

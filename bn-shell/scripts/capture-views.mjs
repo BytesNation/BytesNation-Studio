@@ -8,7 +8,7 @@
  *
  * Usage:
  *   node scripts/capture-views.mjs --base http://127.0.0.1:8080/ --out ./shots [--group director] [--theme dark] [--browser chromium]
- * Groups: launcher, publish, director, panels, video, layers, addons, all (default).
+ * Groups: launcher, publish, director, panels, video, layers, addons, podcast, all (default).
  */
 import { chromium, firefox, webkit } from "playwright";
 import { mkdirSync } from "node:fs";
@@ -34,6 +34,9 @@ const launchOptions = {
 const desktop = { width: 1440, height: 900 };
 const phone = { width: 390, height: 844 };
 const phone390 = phone;
+// Podcast Studio's control room is one long page; a tall window shows it whole with its footer bar in place.
+const tallDesktop = { width: 1440, height: 1580 };
+const tallPhone = { width: 390, height: 1600 };
 const settleMs = 2500;
 
 /**
@@ -126,7 +129,7 @@ const captureLayers = async (browser, { theme, withBase }) => {
 	await capture(phone, `palette-mobile-${theme}`);
 };
 
-/** Surfaces that appear only with their own parameter: Icecast publishing, phone call-in and Podcast Studio. */
+/** Surfaces that appear only with their own parameter: Icecast publishing, phone call-in and the sign-in dialog. */
 const captureAddons = async (browser, { theme, withBase }) => {
 	const stamp = `${Date.now().toString(36)}${theme}`;
 	const icecast = await openPage(browser, { url: withBase(`push=bnice${stamp}&webcam&autostart&icecastpush`), waitMs: 6000 });
@@ -139,12 +142,42 @@ const captureAddons = async (browser, { theme, withBase }) => {
 	const callInPhone = await openPage(browser, { url: withBase(`push=bncallp${stamp}&webcam&autostart&callin`), viewport: phone390, isMobile: true, waitMs: 6000 });
 	await capture(callInPhone, `callin-panel-mobile-${theme}`);
 
-	const podcastGate = await openPage(browser, { url: withBase("podcast"), waitMs: 6000 });
-	await capture(podcastGate, `podcast-gate-${theme}`);
-	const podcast = await openPage(browser, { url: withBase(`podcast&director=bnpod${stamp}`), waitMs: 9000 });
-	await capture(podcast, `podcast-setup-${theme}`);
-	const podcastPhone = await openPage(browser, { url: withBase(`podcast&director=bnpodp${stamp}`), viewport: phone390, isMobile: true, waitMs: 9000 });
-	await capture(podcastPhone, `podcast-setup-mobile-${theme}`);
+	const signIn = await openPage(browser, { url: withBase("requireauth"), waitMs: 5000 });
+	await capture(signIn, `sign-in-${theme}`);
+	const signInPhone = await openPage(browser, { url: withBase("requireauth"), viewport: phone390, isMobile: true, waitMs: 5000 });
+	await capture(signInPhone, `sign-in-mobile-${theme}`);
+
+};
+
+/** Podcast Studio (&podcast): its room gate, setup check, and control room with two live guests and a recording. */
+const capturePodcast = async (browser, { theme, withBase }) => {
+	const room = `bnpod${Date.now().toString(36)}${theme}`;
+	const gate = await openPage(browser, { url: withBase("podcast"), waitMs: 6000 });
+	await capture(gate, `podcast-gate-${theme}`);
+	const setup = await openPage(browser, { url: withBase(`podcast&director=${room}s`), waitMs: 8000 });
+	await capture(setup, `podcast-setup-${theme}`);
+	const host = await openPage(browser, { url: withBase(`podcast&director=${room}`), viewport: tallDesktop, waitMs: 8000 });
+	await tryClick(host, ".preflight-secondary");
+	await host.waitForTimeout(3000);
+	await openPage(browser, { url: withBase(`room=${room}&push=pa${room}&label=Alex&webcam&autostart`), waitMs: 5000 });
+	await openPage(browser, { url: withBase(`room=${room}&push=ps${room}&label=Sam&webcam&autostart`), waitMs: 5000 });
+	await host.waitForTimeout(8000);
+	await capture(host, `podcast-control-room-${theme}`);
+	await tryClick(host, ".btn-record");
+	await host.waitForTimeout(5000);
+	await capture(host, `podcast-recording-${theme}`);
+	await tryClick(host, ".btn-record");
+	await host.waitForTimeout(2000);
+	await host.evaluate(() => document.getElementById("podcast-help-link").click());
+	await host.waitForTimeout(800);
+	await capture(host, `podcast-guide-${theme}`);
+
+	const hostPhone = await openPage(browser, { url: withBase(`podcast&director=${room}p`), viewport: phone390, isMobile: true, waitMs: 8000 });
+	await capture(hostPhone, `podcast-setup-mobile-${theme}`);
+	const controlPhone = await openPage(browser, { url: withBase(`podcast&director=${room}m`), viewport: tallPhone, isMobile: true, waitMs: 8000 });
+	await tryClick(controlPhone, ".preflight-secondary");
+	await controlPhone.waitForTimeout(5000);
+	await capture(controlPhone, `podcast-control-room-mobile-${theme}`);
 };
 
 /** One run of every group for one theme. */
@@ -249,6 +282,10 @@ const runTheme = async (browser, theme) => {
 
 	if (wants("addons")) {
 		await captureAddons(browser, { theme, withBase });
+	}
+
+	if (wants("podcast")) {
+		await capturePodcast(browser, { theme, withBase });
 	}
 
 	for (const context of browser.contexts()) {
