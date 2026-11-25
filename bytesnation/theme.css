@@ -1500,3 +1500,175 @@ html.bn-ui #popupSelector #headphonesDiv3 {
 	padding: 0 !important;
 	margin: 0 !important;
 }
+
+/* ---------- Dialogs and notices ---------- */
+
+html.bn-ui #alertModal {
+	background-color: var(--bn-surface-elevated);
+	color: var(--bn-text);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r3);
+	box-shadow: none;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.5;
+}
+html.bn-ui .modal-content,
+html.bn-ui .alertModalInner,
+html.bn-ui body.darktheme .modal-content,
+html.bn-ui body.darktheme .alertModalInner {
+	background-color: var(--bn-surface-elevated) !important;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3) !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+}
+html.bn-ui .alertModalInner {
+	padding: 20px 56px 20px 20px;
+	text-align: left;
+}
+html.bn-ui #alertModal a:link,
+html.bn-ui #alertModal a:visited,
+html.bn-ui #alertModal a:hover,
+html.bn-ui #alertModal a:active {
+	color: var(--bn-text);
+}
+html.bn-ui .modalClose {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r2);
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 1;
+	color: var(--bn-text);
+	cursor: pointer;
+}
+html.bn-ui .modalClose:hover {
+	background-color: var(--bn-surface-2);
+}
+html.bn-ui #connectUsers {
+	background-color: var(--bn-surface-elevated);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r3);
+	box-shadow: none;
+	color: var(--bn-text);
+}
+html.bn-ui .chatBarInputButton {
+	background-color: transparent !important;
+	border: 1px solid var(--bn-control-border) !important;
+	color: var(--bn-text) !important;
+}
+html.bn-ui .chatBarInputButton:hover {
+	background-color: var(--bn-surface-2) !important;
+}
+html.bn-ui #alertModal {
+	border: 0;
+	background-color: transparent;
+}
+
+/* ---------- Switches ---------- */
+
+html.bn-ui .slider {
+	background-color: transparent;
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r1);
+	transition: background-color var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui .slider:before {
+	left: 3px;
+	bottom: 3px;
+	height: 16px;
+	width: 16px;
+	background-color: var(--bn-text-muted);
+	border-radius: var(--bn-r1);
+	transition: transform var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui input:checked + .slider {
+	background-color: var(--bn-accent);
+	border-color: var(--bn-accent);
+}
+html.bn-ui input:checked + .slider:before {
+	background-color: var(--bn-accent-ink);
+}
+html.bn-ui input:focus + .slider {
+	box-shadow: none;
+	outline: 2px solid var(--bn-text);
+	outline-offset: 3px;
+}
+
+/* ---------- Menus ---------- */
+
+html.bn-ui .context-menu,
+html.bn-ui .context-menu__submenu,
+html.bn-ui body.darktheme .context-menu,
+html.bn-ui body.darktheme .context-menu__submenu,
+html.bn-ui .popup-message,
+html.bn-ui body.darktheme .popup-message {
+	background-color: var(--bn-surface-elevated) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3);
+	box-shadow: none !important;
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+}
+html.bn-ui .context-menu__link,
+html.bn-ui body.darktheme .context-menu__link {
+	color: var(--bn-text) !important;
+	text-decoration: none;
+}
+html.bn-ui .context-menu__link:hover,
+html.bn-ui body.darktheme .context-menu__link:hover {
+	color: var(--bn-text) !important;
+	background-color: var(--bn-surface-2) !important;
+}
+html.bn-ui .context-menu__tip {
+	color: var(--bn-text-muted);
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+
+/* Invite and screen share groups: ruled sections in the panel's column. */
+html.bn-ui .invite_setting_group,
+html.bn-ui .audio-selector {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto !important;
+	padding: 16px 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	text-align: left;
+}
+html.bn-ui .invite_setting_group > :first-child,
+html.bn-ui .invite_setting_group h4,
+html.bn-ui .invite_setting_group b {
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	font-weight: 400;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+html.bn-ui .message-card,
+html.bn-ui .message-card.info {
+	background: var(--bn-surface) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3) !important;
+	color: var(--bn-text);
+	text-align: left;
+}
+html.bn-ui .message-card li {
+	color: var(--bn-prose);
+}
