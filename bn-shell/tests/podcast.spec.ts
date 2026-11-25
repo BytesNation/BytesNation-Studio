@@ -21,8 +21,11 @@ const screens = [
 	{
 		name: "control room",
 		query: "podcast&director=bnpodparity",
+		// Pressed through the DOM, not by pointer: on a small phone upstream's setup check
+		// leaves this button below the screen in a layer that cannot scroll, so a real tap
+		// never lands there. Both builds must still reach the control room to be compared.
 		enter: async (page: Page) => {
-			await page.getByRole("button", { name: /skip preflight/i }).click();
+			await page.evaluate(() => (document.querySelector(".preflight-secondary") as HTMLElement).click());
 		},
 		ready: ".podcast-main"
 	}
@@ -91,6 +94,16 @@ const openScreen = async (browser: Parameters<typeof openEnginePage>[0]["browser
 	await opened.page.waitForTimeout(800);
 	return opened;
 };
+
+test("podcast studio, setup check: Skip preflight can be reached and tapped, also on a phone", async ({ browser }, testInfo) => {
+	// Upstream centers the setup check in a layer that cannot scroll; on an iPhone-sized
+	// screen its buttons end up off screen. BytesNation lets that layer scroll.
+	const { context, page } = await openEnginePage({ browser, url: withQuery(bnBase, "podcast&director=bnpodparity"), contextOptions: projectContextOptions(testInfo) });
+	await page.waitForSelector(".podcast-preflight-panel", { state: "visible" });
+	await page.getByRole("button", { name: /skip preflight/i }).click({ timeout: 15_000 });
+	await expect(page.locator(".podcast-main")).toBeVisible();
+	await context.close();
+});
 
 for (const screen of screens) {
 	test(`podcast studio, ${screen.name}: same elements, text and visibility as upstream`, async ({ browser }, testInfo) => {
