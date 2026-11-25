@@ -229,22 +229,30 @@ export const ensurePodcastOverlaySlot = (slotId: string): HTMLElement => {
  * @param {{hostId: string, slotId: string, placement: "prepend" | "append"}} options
  * @returns {HTMLElement | null}
  */
-export const ensureSlot = (options: { hostId: string; slotId: string; placement: "prepend" | "append" }): HTMLElement | null => {
+export const ensureSlot = (options: { hostId: string; slotId: string; placement: "prepend" | "append" }): HTMLElement | null =>
+	ensureSlotIn({ host: document.getElementById(options.hostId), slotId: options.slotId, placement: options.placement });
+
+/**
+ * Same as ensureSlot for a host found some other way than by id, such as
+ * Podcast Studio's header, which carries a class only.
+ * @param {{host: Element | null, slotId: string, placement: "prepend" | "append"}} options
+ * @returns {HTMLElement | null} the slot, or null while the host does not exist
+ */
+export const ensureSlotIn = (options: { host: Element | null; slotId: string; placement: "prepend" | "append" }): HTMLElement | null => {
 	const existing = document.getElementById(options.slotId);
 	if (existing) {
 		return existing;
 	}
-	const host = document.getElementById(options.hostId);
-	if (!host) {
+	if (!options.host) {
 		return null;
 	}
 	const slot = document.createElement("div");
 	slot.id = options.slotId;
 	slot.className = "bn-slot";
 	if (options.placement === "prepend") {
-		host.insertBefore(slot, host.firstChild);
+		options.host.insertBefore(slot, options.host.firstChild);
 	} else {
-		host.appendChild(slot);
+		options.host.appendChild(slot);
 	}
 	return slot;
 };

@@ -1,0 +1,101 @@
+/*
+ * Hand-written refinements for Podcast Studio, layered on generated.css.
+ * Selectors sit behind `html body.podcast-studio-mode`, as there, to outrank
+ * podcast/studio.css and main.css's page-wide button rule.
+ */
+
+/* !important: studio.js writes these two elements' paint inline (cssText). */
+html body.podcast-studio-mode .podcast-preflight-backdrop {
+	background: var(--bn-scrim) !important;
+}
+
+html body.podcast-studio-mode .podcast-preflight-panel {
+	color: var(--bn-text) !important;
+	background: var(--bn-surface-2) !important;
+	border-radius: var(--bn-radius-lg) !important;
+}
+
+/* main.css paints every .recording element with a red inset glow (the
+   engine's recording tally on the page frame). On the record button the
+   error fill already says it. */
+html body.podcast-studio-mode .btn-record.recording {
+	box-shadow: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Screens                                                             */
+/* ------------------------------------------------------------------ */
+
+/* The setup check runs before the control room exists, so there is nothing
+   behind it to dim: it is a page, like the room gate. !important as above. */
+html body.podcast-studio-mode .podcast-preflight-backdrop {
+	background: var(--bn-bg) !important;
+}
+
+/* A check that passed says so with the status color; one that failed is
+   already mapped to the error color. */
+html body.podcast-studio-mode .preflight-row[data-status="ready"] {
+	border-color: var(--bn-ok);
+}
+
+/* On a phone upstream keeps each check on one row, and the status and its
+   button run past the card's edge. Stack them. */
+@media (max-width: 520px) {
+	html body.podcast-studio-mode .preflight-row {
+		flex-direction: column;
+	}
+
+	html body.podcast-studio-mode .preflight-row__controls {
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		min-width: 0;
+	}
+
+	html body.podcast-studio-mode .preflight-actions {
+		flex-wrap: wrap;
+	}
+}
+
+html body.podcast-studio-mode .podcast-footer {
+	color: var(--bn-text-muted);
+	opacity: 1;
+}
+
+/* ------------------------------------------------------------------ */
+/* Instrument displays                                                 */
+/* ------------------------------------------------------------------ */
+
+/*
+ * The waveform and spectrogram are drawn for a dark display: studio.js fills
+ * the canvas near black and both layers use mix-blend-mode: screen, which
+ * shows nothing on a light surface. Like video, they keep a dark well in both
+ * themes, with one signal color that reads on it.
+ */
+html body.podcast-studio-mode {
+	/* The dark theme's status green, fixed: a trace on a dark display. */
+	--bn-scope-signal: #5be49b;
+}
+
+html body.podcast-studio-mode .timeline-track__waveform {
+	background: var(--bn-video-bg);
+	border-color: var(--bn-border);
+}
+
+html body.podcast-studio-mode .timeline-track__waveform::after {
+	background: none;
+}
+
+html body.podcast-studio-mode .timeline-track__wavefill {
+	background: var(--bn-scope-signal);
+}
+
+html body.podcast-studio-mode .roster-item__video-thumb {
+	background: var(--bn-video-bg);
+}
+
+/* The level meter's three zones belong to its 70px track, not to the fill:
+   sized to the track, the fill uncovers them as the level rises. */
+html body.podcast-studio-mode .meter-bar-fill {
+	background-size: 70px 100%;
+}

@@ -11,7 +11,7 @@ import { RecordingIndicator } from "@/components/RecordingIndicator";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/cn";
-import { ensurePodcastOverlaySlot, ensureSlot, isOperatorSurface, isPodcastStudio, productName } from "@/lib/engine";
+import { ensurePodcastOverlaySlot, ensureSlot, ensureSlotIn, isOperatorSurface, isPodcastStudio, productName } from "@/lib/engine";
 import { watchLauncherReveal } from "@/lib/launcher-motion";
 import { ShellStateProvider } from "@/lib/shell-state";
 
@@ -19,13 +19,25 @@ interface ShellSlots {
 	brand: HTMLElement | null;
 	tools: HTMLElement | null;
 	footer: HTMLElement | null;
+	/** Podcast Studio's own header, which replaces the app bar on &podcast links. */
+	podcastBrand: HTMLElement | null;
+	podcastTools: HTMLElement | null;
 }
 
-const findSlots = (): ShellSlots => ({
-	brand: ensureSlot({ hostId: "header", slotId: "bn-brand", placement: "prepend" }),
-	tools: ensureSlot({ hostId: "header", slotId: "bn-tools", placement: "append" }),
-	footer: ensureSlot({ hostId: "mainmenu", slotId: "bn-footer", placement: "append" })
-});
+const isPodcast = isPodcastStudio();
+
+const findSlots = (): ShellSlots => {
+	const podcastHeader = isPodcast ? document.querySelector(".podcast-header") : null;
+	return {
+		brand: ensureSlot({ hostId: "header", slotId: "bn-brand", placement: "prepend" }),
+		tools: ensureSlot({ hostId: "header", slotId: "bn-tools", placement: "append" }),
+		footer: ensureSlot({ hostId: "mainmenu", slotId: "bn-footer", placement: "append" }),
+		podcastBrand: ensureSlotIn({ host: podcastHeader, slotId: "bn-podcast-brand", placement: "prepend" }),
+		podcastTools: ensureSlotIn({ host: podcastHeader, slotId: "bn-podcast-tools", placement: "append" })
+	};
+};
+
+const isAttached = (slot: HTMLElement | null): boolean => Boolean(slot && document.body.contains(slot));
 
 /**
  * The engine falls back to location.hostname for the page title on self-hosted
@@ -44,7 +56,8 @@ const useShellSlots = (): ShellSlots => {
 		applyProductTitle();
 		const timer = window.setInterval(() => {
 			applyProductTitle();
-			const isDetached = !slots.brand || !document.body.contains(slots.brand) || !slots.tools || !document.body.contains(slots.tools);
+			// Podcast Studio builds its header only after the setup check, so its slots arrive late.
+			const isDetached = !isAttached(slots.brand) || !isAttached(slots.tools) || (isPodcast && (!isAttached(slots.podcastBrand) || !isAttached(slots.podcastTools)));
 			if (isDetached) {
 				setSlots(findSlots());
 			}
@@ -59,12 +72,13 @@ const useShellSlots = (): ShellSlots => {
  * its host's visibility, so when the engine hides the header or the launcher
  * (scenes, clean output, in-call views), the shell hides with it. The floating
  * layers (command palette, notifications) exist only on operator surfaces.
- * Podcast Studio hides those hosts, so it gets the credit in a bar of its own.
+ * Podcast Studio hides those hosts: it gets the brand, the theme switch and
+ * About in its own header, and the credit in a bar of its own.
  */
 export const App = () => {
 	const slots = useShellSlots();
 	const [isOperator] = useState(isOperatorSurface);
-	const [podcastCreditSlot] = useState(() => (isPodcastStudio() ? ensurePodcastOverlaySlot("bn-podcast-credit") : null));
+	const [podcastCreditSlot] = useState(() => (isPodcast ? ensurePodcastOverlaySlot("bn-podcast-credit") : null));
 
 	useEffect(() => (isOperator ? watchLauncherReveal() : undefined), [isOperator]);
 
@@ -86,6 +100,16 @@ export const App = () => {
 								)
 							: null}
 						{slots.footer ? createPortal(<div className="bn-shell"><CreditFooter /></div>, slots.footer) : null}
+						{slots.podcastBrand ? createPortal(<div className="bn-shell"><AppBarBrand /></div>, slots.podcastBrand) : null}
+						{slots.podcastTools
+							? createPortal(
+									<div className="bn-shell tw-flex tw-items-center tw-gap-1">
+										<ThemeToggle />
+										<AboutButton />
+									</div>,
+									slots.podcastTools
+								)
+							: null}
 						{podcastCreditSlot ? createPortal(<div className="bn-shell"><PodcastCredit /></div>, podcastCreditSlot) : null}
 						<AboutDialog />
 						{isOperator ? <CommandPalette /> : null}

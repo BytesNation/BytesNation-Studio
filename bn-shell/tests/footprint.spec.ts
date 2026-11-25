@@ -17,4 +17,11 @@ test.describe("upstream footprint", () => {
 		expect(output).toContain("Upstream footprint check passed");
 		expect(browserName).toBe("chromium");
 	});
+
+	test("the Podcast Studio theme is generated from the current upstream stylesheet", ({}, testInfo) => {
+		test.skip(testInfo.project.name !== "chromium", "browser-independent check runs once");
+		// Fails after an upstream merge changes podcast/studio.css, until gen-podcast-theme.mjs is rerun.
+		const output = execFileSync("node", [join(shellDir, "scripts/gen-podcast-theme.mjs"), "--check"], { encoding: "utf8" });
+		expect(output).toContain("up to date");
+	});
 });

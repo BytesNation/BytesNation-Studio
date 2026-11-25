@@ -9,7 +9,8 @@ export const TooltipTrigger = TooltipPrimitive.Trigger;
 
 export const TooltipContent = forwardRef<ElementRef<typeof TooltipPrimitive.Content>, ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>>(({ className, sideOffset = 6, ...props }, ref) => (
 	<TooltipPrimitive.Portal>
-		<div className="bn-shell">
+		{/* Podcast Studio hides every body child that is not marked as one of its overlays. */}
+		<div className="bn-shell" data-podcast-overlay="true">
 			<TooltipPrimitive.Content
 				ref={ref}
 				sideOffset={sideOffset}

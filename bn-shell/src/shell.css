@@ -91,6 +91,35 @@ html body.podcast-studio-mode .podcast-preflight-panel {
 	margin: auto;
 }
 
+/* Podcast Studio's header: brand first, then upstream's title and status,
+   then the theme switch and About. Upstream spreads its two children apart;
+   with four, the status and the tools go to the right edge instead. */
+html body.podcast-studio-mode .podcast-header {
+	justify-content: flex-start;
+	gap: var(--bn-space-4);
+}
+
+html body.podcast-studio-mode .podcast-header .podcast-status-pill {
+	margin-left: auto;
+}
+
+#bn-podcast-brand {
+	align-self: stretch;
+	padding-right: var(--bn-space-4);
+	border-right: 1px solid var(--bn-border);
+}
+
+@media (max-width: 600px) {
+	html body.podcast-studio-mode .podcast-header {
+		flex-wrap: wrap;
+		gap: var(--bn-space-2) var(--bn-space-3);
+	}
+
+	#bn-podcast-brand .bn-wordmark {
+		display: none;
+	}
+}
+
 /* On a phone the sentence and the link stack to two lines. */
 @media (max-width: 600px) {
 	body.podcast-studio-mode {

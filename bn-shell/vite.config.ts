@@ -9,6 +9,7 @@ const shellDir = dirname(fileURLToPath(import.meta.url));
  * Builds the BytesNation shell into ../bn/ with stable entry names so
  * index.html can reference them without a manifest:
  *   bn/theme.css  engine restyle (plain CSS, loaded in <head>)
+ *   bn/podcast.css  Podcast Studio restyle (plain CSS, loaded by boot.js on &podcast links only)
  *   bn/shell.js   React shell (module, loaded at end of <body>)
  *   bn/shell.css  shell component styles (Tailwind), injected by shell.js
  *   bn/boot.js    copied verbatim from public/ (classic script, runs before the engine)
@@ -31,7 +32,8 @@ const config = defineConfig({
 		rollupOptions: {
 			input: {
 				shell: resolve(shellDir, "src/main.tsx"),
-				theme: resolve(shellDir, "src/theme/index.css")
+				theme: resolve(shellDir, "src/theme/index.css"),
+				podcast: resolve(shellDir, "src/theme/podcast/index.css")
 			},
 			output: {
 				entryFileNames: "[name].js",

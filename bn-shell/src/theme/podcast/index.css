@@ -1,0 +1,15 @@
+/*
+ * BytesNation theme for Podcast Studio (&podcast). Built to bn/podcast.css
+ * and loaded by bn/boot.js only on a &podcast link, so every other page stays
+ * as light as before.
+ *
+ * generated.css maps each of upstream's fixed colors, gradients, blurs and
+ * radii onto a BytesNation token (bn-shell/scripts/gen-podcast-theme.mjs).
+ * overrides.css holds what a mapping cannot decide: hierarchy, spacing and
+ * the few places where upstream writes styles inline.
+ *
+ * Tokens come from bn/theme.css, which is already on the page. Plain CSS
+ * only, as in the engine theme.
+ */
+@import "./generated.css";
+@import "./overrides.css";

@@ -198,13 +198,33 @@ test.describe("podcast studio (&podcast)", () => {
 		await context.close();
 	});
 
-	test("always gets the dark tokens: it is a dark-only page, also on a light-theme link", async ({ browser }, testInfo) => {
+	test("follows the theme: a light-theme link gets light tokens and readable headings", async ({ browser }, testInfo) => {
 		const { context, page } = await openEnginePage({ browser, url: withQuery(bnBase, "podcast&director=bnlayerpod&lightmode"), contextOptions: projectContextOptions(testInfo) });
-		await expect(page.locator("html")).toHaveClass(/(^|\s)bn-dark(\s|$)/);
-		// The preflight heading takes the page's ink color; in the light theme it was dark on a dark panel.
 		await expect(page.locator(".preflight-title")).toBeVisible();
+		await expect(page.locator("html")).not.toHaveClass(/(^|\s)bn-dark(\s|$)/);
+		// Before Podcast Studio had a theme, this heading took light-theme ink on upstream's dark panel.
 		const failures = (await new AxeBuilder({ page }).include(".preflight-title").include("#bn-podcast-credit").withRules(["color-contrast"]).analyze()).violations;
 		expect(failures.map(failure => failure.nodes.map(node => node.target.join(" ")))).toEqual([]);
+		await context.close();
+	});
+
+	test("its header carries the brand, the theme switch and About", async ({ browser }, testInfo) => {
+		const { context, page } = await openEnginePage({ browser, url: withQuery(bnBase, "podcast&director=bnlayerpod"), contextOptions: projectContextOptions(testInfo) });
+		await page.getByRole("button", { name: /skip preflight/i }).click();
+		const header = page.locator(".podcast-header");
+		await expect(header.locator("#bn-podcast-brand")).toBeVisible();
+		await expect(header.locator("#bn-podcast-brand")).toContainText("BytesNation");
+
+		const wasDark = await page.evaluate(() => document.documentElement.classList.contains("bn-dark"));
+		await header.getByRole("button", { name: /switch to (light|dark) theme/i }).click();
+		await expect.poll(() => page.evaluate(() => document.documentElement.classList.contains("bn-dark"))).toBe(!wasDark);
+
+		await header.getByRole("button", { name: /about bytesnation studio/i }).click();
+		const about = page.getByRole("dialog");
+		await expect(about).toBeVisible();
+		await expect(about).toContainText("BytesNation Studio is built on VDO.Ninja by Steve Seguin (AGPL-3.0).");
+		await page.keyboard.press("Escape");
+		await expect(about).toHaveCount(0);
 		await context.close();
 	});
 

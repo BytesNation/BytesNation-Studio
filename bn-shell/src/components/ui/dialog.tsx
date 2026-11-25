@@ -40,7 +40,8 @@ export const DialogContent = forwardRef<ElementRef<typeof DialogPrimitive.Conten
 		<AnimatePresence onExitComplete={onExitComplete}>
 			{isOpen ? (
 				<DialogPrimitive.Portal forceMount>
-					<div className="bn-shell">
+					{/* Podcast Studio hides every body child that is not marked as one of its overlays. */}
+					<div className="bn-shell" data-podcast-overlay="true">
 						<DialogPrimitive.Overlay asChild forceMount>
 							<m.div className="tw-fixed tw-inset-0 tw-z-[10000] tw-bg-scrim" variants={scrimVariants} initial="hidden" animate="visible" exit="exit" />
 						</DialogPrimitive.Overlay>
