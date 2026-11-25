@@ -1,0 +1,25 @@
+# Brand guard for a PUBLIC-tier repository.
+# Copy this file to .github/workflows/brand-guard.yml.
+# It fails the run when any commit breaks the component-sourcing policy.
+# See brand/component-sourcing.md.
+name: Brand guard
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # The history check needs every commit, not a shallow clone.
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node brand/tools/check-sourcing.mjs --tier public --history
