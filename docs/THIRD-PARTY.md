@@ -54,7 +54,7 @@ Their transitive dependencies are pinned in `bn-shell/package-lock.json`.
 
 ## Brand assets
 
-The BytesNation mark, wordmark and favicons in `bn/brand/` (source: `bn-shell/public/brand/`) are BytesNation brand assets taken from [bytesnation.com](https://bytesnation.com). The AGPL covers this repository's code; it grants no trademark rights to the BytesNation name or mark.
+The BytesNation mark, wordmark and favicons in `bn/brand/` (source: `bn-shell/public/brand/`), and the link preview image `bn/preview-card.png`, are BytesNation brand assets taken from [bytesnation.com](https://bytesnation.com). The AGPL covers this repository's code; it grants no trademark rights to the BytesNation name or mark.
 
 ## Checking this list
 

@@ -92,9 +92,12 @@ These are the only upstream files BytesNation Studio changes:
 |---|---|---|
 | `index.html` | `<title>`, `metaTitle`, `og:site_name` and `theme-color` say BytesNation Studio | Product branding |
 | `index.html` | The three favicon `<link>`s point at `bn/brand/`, keeping their ids; one apple-touch-icon link added | Branding; `&favicon` and engine favicon updates still work by id |
+| `index.html` | The link preview tags (`description`, `og:title`, `og:description`, `og:url`, `og:image`, the matching `twitter:` tags, and the `thumbnailUrl` and `image` microdata) name BytesNation Studio and point at `bn/preview-card.png`; one `og:image:alt` line added | A link pasted into Discord, Slack, iMessage or X shows BytesNation Studio, not upstream's name and logo. `og:url` and the image address are absolute, on `studio.bytesnation.com`, because preview crawlers need full addresses |
 | `index.html` | A marked block after `main.css` links `bn/theme.css` and `bn/boot.js` | Theme layer |
 | `index.html` | A marked line after `main.js` loads `bn/shell.js` | Shell |
 | `.gitignore` | A marked block re-includes `/docs/`, `bn-shell/package.json`, its lock file and `bn-shell/tests/` | Upstream's release `.gitignore` excludes those paths |
+
+The preview image is drawn by `bn-shell/scripts/render-preview-card.mjs` from the theme's dark tokens, the header lockup and the shipped fonts. Run it again when any of those change, then build. `canonical` and `rel="me"` still point at upstream; changing them decides how search engines index the site, and that is a product decision.
 
 `webrtc.js`, `main.js`, `lib.js`, `main.css` and every other upstream file are byte-identical to upstream. `bn-shell/scripts/check-upstream-footprint.mjs` enforces this, and the parity suite runs it.
 

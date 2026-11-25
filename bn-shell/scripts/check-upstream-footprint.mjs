@@ -29,10 +29,22 @@ const replaceableIndexLines = [
 	"<link id=\"favicon1\" rel=\"icon\" type=\"image/png\" sizes=\"32x32\" href=\"./media/favicon-32x32.png\" />",
 	"<link id=\"favicon2\" rel=\"icon\" type=\"image/png\" sizes=\"16x16\" href=\"./media/favicon-16x16.png\" />",
 	"<link id=\"favicon3\" rel=\"icon\" href=\"./media/favicon.ico\" />",
-	"<meta property=\"og:site_name\" content=\"VDO.Ninja\">"
+	"<meta property=\"og:site_name\" content=\"VDO.Ninja\">",
+	// Link preview: the title, description, address and image a chat app shows beside a link.
+	"<meta name=\"description\" content=\"Bring live video from your smartphone, computer, or friends directly into your Studio. 100% free.\" />",
+	"<meta name=\"twitter:title\" content=\"VDO.Ninja\">",
+	"<meta name=\"twitter:description\" content=\"Bring live video from your smartphone, computer, or friends directly into OBS Studio or other. 100% free.\">",
+	"<meta name=\"twitter:image\" content=\"https://vdo.ninja/media/vdoNinja_logo_full.png\">",
+	"<meta property=\"og:url\" content=\"https://vdo.ninja/\">",
+	"<meta property=\"og:title\" content=\"VDO.Ninja\">",
+	"<meta property=\"og:description\" content=\"Bring live video from your smartphone, computer, or friends directly into OBS Studio or other. 100% free.\">",
+	"<meta property=\"og:image\" content=\"https://vdo.ninja/media/vdoNinja_logo_full.png\">",
+	"<link id=\"thumbnailUrl\" itemprop=\"thumbnailUrl\" href=\"./media/vdoNinja_logo_full.png\" />",
+	"<link itemprop=\"thumbnailUrl\" href=\"./media/vdoNinja_logo_full.png\" />",
+	"<link itemprop=\"url\" href=\"./media/vdoNinja_logo_full.png\" />"
 ];
 
-const isBytesNationLine = line => /BytesNation|\.\/bn\/|#0a0b0d/.test(line);
+const isBytesNationLine = line => /BytesNation|\.\/bn\/|#0a0b0d|https:\/\/studio\.bytesnation\.com\//.test(line);
 
 const changedFiles = () => {
 	const tracked = runGit(["diff", "--name-only", lock.upstreamCommit]).split("\n").filter(Boolean);

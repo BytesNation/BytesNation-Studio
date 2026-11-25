@@ -46,6 +46,32 @@ test.describe("theme and shell", () => {
 		await context.close();
 	});
 
+	test("a pasted link previews as BytesNation Studio, with our card", async ({ browser, request }, testInfo) => {
+		// Chat apps build a link's preview from these tags alone; they never run the page.
+		const { context, page } = await openEnginePage({ browser, url: bnBase, contextOptions: projectContextOptions(testInfo) });
+		const previewTags: string[] = await page.evaluate(() =>
+			Array.from(document.querySelectorAll('meta[property^="og:"], meta[name^="twitter:"], meta[name="description"], link[itemprop]')).map(tag => `${tag.getAttribute("property") || tag.getAttribute("name") || tag.getAttribute("itemprop")}=${tag.getAttribute("content") || tag.getAttribute("href")}`)
+		);
+		const cardUrl = "https://studio.bytesnation.com/bn/preview-card.png";
+		for (const expected of ["og:title=BytesNation Studio", "og:site_name=BytesNation Studio", "og:url=https://studio.bytesnation.com/", `og:image=${cardUrl}`, "twitter:title=BytesNation Studio", `twitter:image=${cardUrl}`, "thumbnailUrl=./bn/preview-card.png"]) {
+			expect(previewTags).toContain(expected);
+		}
+		// twitter:creator is upstream's author credit, not branding; everything else must be ours.
+		const upstreamBranding = previewTags.filter(tag => /vdo\.?ninja/i.test(tag) && tag.indexOf("twitter:creator=") !== 0);
+		expect(upstreamBranding, "no preview tag may carry upstream's name or logo").toEqual([]);
+		const descriptions = previewTags.filter(tag => /^(description|og:description|twitter:description)=/.test(tag));
+		expect(descriptions).toHaveLength(3);
+		expect(new Set(descriptions.map(tag => tag.split("=")[1])).size, "one description in all three places").toBe(1);
+
+		// The card itself: served from this build, a PNG of the 1200x630 the tags declare.
+		const card = await request.get(withQuery(bnBase, "").replace(/\/$/, "") + "/bn/preview-card.png");
+		expect(card.status()).toBe(200);
+		const bytes = await card.body();
+		expect(bytes.subarray(1, 4).toString("latin1")).toBe("PNG");
+		expect({ width: bytes.readUInt32BE(16), height: bytes.readUInt32BE(20) }).toEqual({ width: 1200, height: 630 });
+		await context.close();
+	});
+
 	test("theme switch flips the engine theme and is remembered", async ({ browser }, testInfo) => {
 		test.skip(testInfo.project.name.startsWith("mobile"), "same code path as desktop");
 		const { context, page } = await openEnginePage({ browser, url: bnBase, contextOptions: projectContextOptions(testInfo) });
