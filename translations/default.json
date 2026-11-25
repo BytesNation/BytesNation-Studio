@@ -49,6 +49,8 @@
   "open-in-new-tab": "Open in new Tab",
   "copy-to-clipboard": "Copy to Clipboard",
   "innerHTML": {
+    "bn-source-code": "Source code",
+    "bn-built-on-vdo-ninja": "Built on <a href=\"https://github.com/steveseguin/vdo.ninja\" target=\"_blank\" rel=\"noopener\">VDO.Ninja</a> by Steve Seguin. Licensed under <a href=\"https://github.com/BytesNation/BytesNation-Studio/blob/develop/LICENSE\" target=\"_blank\" rel=\"noopener\">AGPL-3.0</a>.",
     "audio-compressor": "Compressor:",
     "audio-compressor-off": "Off",
     "audio-compressor-on": "On",
