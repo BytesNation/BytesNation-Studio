@@ -1,0 +1,379 @@
+/*
+ * BytesNation Studio theme for the standalone utility pages.
+ * Copyright (c) 2026 BytesNation. Licensed under AGPL-3.0-only, as part of this fork; see LICENSE.
+ *
+ * Each page keeps its own layout. This file is linked after the page's own style block, so its
+ * element rules win at equal specificity: it brings the canvas, type, controls and hairlines onto
+ * the brand kit, in dark by default and in light through &lightmode (bytesnation/theme-param.js).
+ * Capture pages (viewers, players, talent displays) never load it. Chrome 80 safe.
+ */
+
+:root {
+	--bn-bg: #0a0b0d;
+	--bn-surface: #101215;
+	--bn-surface-elevated: #16181c;
+	--bn-border: #22252b;
+	--bn-text: #edebe6;
+	--bn-text-muted: #9ea3ab;
+	--bn-text-faint: #80868f;
+	--bn-prose: #cdccc8;
+	--bn-border-strong: #4f5154;
+	--bn-control-border: #67686b;
+	--bn-surface-2: #1b1d1f;
+	--bn-surface-3: #242628;
+	--bn-accent: #ff6a13;
+	--bn-accent-hover: #ff7f34;
+	--bn-accent-ink: #1a0d04;
+	--bn-warning: #f5c842;
+	--bn-ok: #5be49b;
+	--bn-error: #ff8d7a;
+	--bn-ice: #7fd4ff;
+	--bn-sans: "Inter Tight", "BN Sans Fallback", ui-sans-serif, system-ui, sans-serif;
+	--bn-mono: "Geist Mono", "BN Mono Fallback", ui-monospace, SFMono-Regular, monospace;
+	color-scheme: dark;
+}
+html.bn-light {
+	--bn-bg: #f3f1ed;
+	--bn-surface: #f9f8f5;
+	--bn-surface-elevated: #ffffff;
+	--bn-border: #dedad2;
+	--bn-text: #15171a;
+	--bn-text-muted: #565a61;
+	--bn-text-faint: #666a71;
+	--bn-prose: #343638;
+	--bn-border-strong: #aaa7a2;
+	--bn-control-border: #8a8885;
+	--bn-surface-2: #eeedea;
+	--bn-surface-3: #e4e4e1;
+	--bn-accent: #e8590c;
+	--bn-accent-hover: #eb702e;
+	--bn-warning: #7a5800;
+	--bn-ok: #116a3b;
+	--bn-error: #b42318;
+	--bn-ice: #0c6388;
+	color-scheme: light;
+}
+
+html,
+body {
+	background: var(--bn-bg);
+	background-image: none;
+	color: var(--bn-text);
+}
+body {
+	font-family: var(--bn-sans);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+::selection {
+	background: var(--bn-text);
+	color: var(--bn-bg);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: var(--bn-sans);
+	font-weight: 500;
+	color: var(--bn-text);
+	text-shadow: none;
+	background: none;
+	-webkit-text-fill-color: currentColor;
+}
+h1 {
+	letter-spacing: -0.04em;
+}
+h2 {
+	letter-spacing: -0.03em;
+}
+p,
+li,
+dd {
+	color: var(--bn-prose);
+}
+small,
+.small,
+.muted,
+.hint,
+.note,
+.description {
+	color: var(--bn-text-muted);
+}
+a:link,
+a:visited {
+	color: var(--bn-text);
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+	text-underline-offset: 3px;
+}
+a:hover {
+	text-decoration-color: var(--bn-text);
+}
+hr {
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	background: none;
+	height: 0;
+}
+
+code,
+kbd,
+samp,
+pre {
+	font-family: var(--bn-mono);
+	font-variant-numeric: tabular-nums;
+}
+code,
+kbd {
+	background: var(--bn-surface-3);
+	color: var(--bn-text);
+	border-radius: 2px;
+}
+pre {
+	background: var(--bn-surface);
+	color: var(--bn-text);
+	border: 1px solid var(--bn-border);
+	border-radius: 6px;
+}
+pre code {
+	background: none;
+}
+
+table {
+	border-collapse: collapse;
+	color: var(--bn-text);
+}
+th,
+td {
+	border-color: var(--bn-border);
+	background: transparent;
+	color: var(--bn-text);
+}
+th {
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	font-weight: 400;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+	border-bottom: 1px solid var(--bn-border);
+}
+td {
+	border-bottom: 1px solid var(--bn-border);
+	font-variant-numeric: tabular-nums;
+}
+
+label,
+legend {
+	color: var(--bn-text);
+}
+fieldset {
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	border-radius: 0;
+}
+
+/* Controls: outlined, 4px corners, the focus ring in the text color. */
+button,
+input[type="button"],
+input[type="submit"],
+.button,
+.btn {
+	min-height: 36px;
+	padding: 0 14px;
+	background: transparent;
+	background-image: none;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-control-border);
+	border-radius: 4px;
+	box-shadow: none;
+	text-shadow: none;
+	font-family: var(--bn-sans);
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 160ms cubic-bezier(0.22, 0.8, 0.3, 1), transform 160ms cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+.button:hover,
+.btn:hover {
+	background: var(--bn-surface-2);
+	box-shadow: none;
+	transform: none;
+}
+button:active,
+.button:active,
+.btn:active {
+	transform: translateY(1px);
+}
+button:disabled,
+button[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+/* A page's own primary class becomes the one orange action. */
+button.primary,
+.btn-primary,
+.button-primary,
+.button--primary,
+input[type="submit"] {
+	background: var(--bn-accent);
+	border-color: var(--bn-accent);
+	color: var(--bn-accent-ink);
+}
+button.primary:hover,
+.btn-primary:hover,
+.button-primary:hover,
+.button--primary:hover,
+input[type="submit"]:hover {
+	background: var(--bn-accent-hover);
+	border-color: var(--bn-accent-hover);
+}
+
+input[type="text"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+input[type="search"],
+input:not([type]),
+select,
+textarea {
+	background: var(--bn-surface);
+	background-image: none;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-control-border);
+	border-radius: 4px;
+	box-shadow: none;
+	font-family: var(--bn-sans);
+}
+textarea {
+	font-family: var(--bn-mono);
+	font-size: 13px;
+}
+input::placeholder,
+textarea::placeholder {
+	color: var(--bn-text-faint);
+	opacity: 1;
+}
+select option {
+	background: var(--bn-surface-elevated);
+	color: var(--bn-text);
+}
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+progress {
+	accent-color: var(--bn-text);
+}
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+summary:focus,
+[tabindex]:focus {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 3px;
+	box-shadow: none;
+}
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Common container names across the pages: flat, ruled, no glass. */
+.container,
+.card,
+.box,
+.panel,
+.section,
+.wrapper,
+.content,
+.result,
+.results,
+.info,
+.settings,
+.controls {
+	background-color: transparent;
+	background-image: none;
+	box-shadow: none;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	color: var(--bn-text);
+}
+.card,
+.box,
+.panel {
+	border: 1px solid var(--bn-border);
+	border-radius: 6px;
+}
+
+/* States keep their meaning in the kit's colors. */
+.success,
+.ok,
+.pass,
+.passed,
+.good {
+	color: var(--bn-ok);
+}
+.warning,
+.warn {
+	color: var(--bn-warning);
+}
+.error,
+.fail,
+.failed,
+.bad,
+.danger {
+	color: var(--bn-error);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+}
+
+/* Containers named like panels lose gradients, glass and shadows, and sit on the surface. */
+[class*="card"],
+[class*="panel"],
+[class*="box"]:not(input):not([type]),
+[class*="hero"],
+[class*="banner"],
+[class*="highlight"],
+[class*="header"],
+[class*="container"],
+[class*="section"],
+[class*="modal-content"] {
+	background-image: none;
+	box-shadow: none;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+[class*="card"],
+[class*="panel"],
+[class*="box"]:not(input):not([type]),
+[class*="highlight"],
+[class*="modal-content"] {
+	background-color: var(--bn-surface);
+	border-color: var(--bn-border);
+	color: var(--bn-text);
+}
+[class*="hero"],
+[class*="banner"],
+[class*="header"],
+[class*="container"],
+[class*="section"] {
+	background-color: transparent;
+}
