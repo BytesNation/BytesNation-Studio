@@ -1683,3 +1683,18 @@ html.bn-ui .streamID {
 		white-space: normal;
 	}
 }
+
+/* The director's per-guest controls are dense: tighter on a pointer, 44px targets on touch. */
+html.bn-ui #guestFeeds .vidcon button,
+html.bn-ui .controlsGrid button {
+	min-height: 30px;
+	padding: 0 6px;
+	font-size: 12.5px;
+	letter-spacing: -0.01em;
+}
+@media (pointer: coarse) {
+	html.bn-ui #guestFeeds .vidcon button,
+	html.bn-ui .controlsGrid button {
+		min-height: 44px;
+	}
+}
