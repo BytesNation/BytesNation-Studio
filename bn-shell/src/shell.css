@@ -29,6 +29,75 @@
 	position: static;
 }
 
+/*
+ * Podcast Studio (&podcast) hides the app bar and the launcher, so the
+ * required credit gets a bar of its own at the foot of the page. It shows
+ * only while Podcast Studio is on screen. Podcast Studio's page and its four
+ * full-screen layers stop short of the bar, so it never covers a control.
+ */
+#bn-podcast-credit {
+	display: none;
+}
+
+body.podcast-studio-mode {
+	--bn-podcast-credit-height: 32px;
+}
+
+body.podcast-studio-mode #bn-podcast-credit {
+	display: block;
+	position: fixed;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 40;
+}
+
+.bn-podcast-credit {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 2px var(--bn-space-4);
+	box-sizing: border-box;
+	min-height: var(--bn-podcast-credit-height);
+	padding: 6px var(--bn-space-4);
+	background: var(--bn-surface);
+	border-top: 1px solid var(--bn-border);
+}
+
+html body.podcast-studio-mode #podcast-root {
+	min-height: calc(100vh - var(--bn-podcast-credit-height));
+	margin-bottom: var(--bn-podcast-credit-height);
+}
+
+/* !important: studio.js writes these layers' geometry inline (inset: 0). */
+html body.podcast-studio-mode #podcast-room-gate,
+html body.podcast-studio-mode .podcast-preflight-backdrop,
+html body.podcast-studio-mode .remote-overlay,
+html body.podcast-studio-mode .help-overlay {
+	bottom: var(--bn-podcast-credit-height) !important;
+}
+
+/* The setup check is taller than a phone screen and upstream centers it in a
+   layer that cannot scroll, which leaves its buttons off screen. Center it
+   with auto margins instead, so the layer scrolls when the card does not fit
+   and looks the same when it does. */
+html body.podcast-studio-mode .podcast-preflight-backdrop {
+	align-items: flex-start !important;
+	overflow-y: auto;
+}
+
+html body.podcast-studio-mode .podcast-preflight-panel {
+	margin: auto;
+}
+
+/* On a phone the sentence and the link stack to two lines. */
+@media (max-width: 600px) {
+	body.podcast-studio-mode {
+		--bn-podcast-credit-height: 52px;
+	}
+}
+
 .bn-shell a,
 .bn-shell a:visited {
 	color: var(--bn-text);

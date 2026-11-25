@@ -91,7 +91,7 @@ export const isStudioOutput = (): boolean => {
  */
 export const isOperatorSurface = (): boolean => {
 	const session = getSession();
-	if (!session || isStudioOutput()) {
+	if (!session || isStudioOutput() || isPodcastStudio()) {
 		return false;
 	}
 	if (window.self !== window.top) {
@@ -108,6 +108,15 @@ export const isOperatorSurface = (): boolean => {
 	const isViewOnly = hasInboundOnly && session.permaid === false && !session.director && session.roomid === false;
 	return !isScene && !isViewOnly;
 };
+
+/**
+ * True on a &podcast link. Podcast Studio (podcast/studio.js) replaces the
+ * page with its own interface and hides everything else, the app bar
+ * included, so the shell's floating layers stay off there. Same check as the
+ * inline script in index.html that loads it.
+ * @returns {boolean}
+ */
+export const isPodcastStudio = (): boolean => new URLSearchParams(window.location.search).has("podcast");
 
 /**
  * False when the link carries &disablehotkeys: the engine then ignores its own
@@ -193,6 +202,25 @@ export const readSignalingState = (): "online" | "offline" | "unknown" => {
 		return "unknown";
 	}
 	return qosElement.style.color === "red" ? "offline" : "online";
+};
+
+/**
+ * Finds or creates a slot directly under <body> that Podcast Studio leaves
+ * visible: its stylesheet hides every body child except its own interface
+ * and elements marked data-podcast-overlay.
+ * @param {string} slotId
+ * @returns {HTMLElement}
+ */
+export const ensurePodcastOverlaySlot = (slotId: string): HTMLElement => {
+	const existing = document.getElementById(slotId);
+	if (existing) {
+		return existing;
+	}
+	const slot = document.createElement("div");
+	slot.id = slotId;
+	slot.setAttribute("data-podcast-overlay", "true");
+	document.body.appendChild(slot);
+	return slot;
 };
 
 /**

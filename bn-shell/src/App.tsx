@@ -5,13 +5,13 @@ import { AboutButton, AboutDialog } from "@/components/AboutDialog";
 import { AppBarBrand } from "@/components/AppBarBrand";
 import { CommandPalette } from "@/components/CommandPalette";
 import { CommandTrigger } from "@/components/CommandTrigger";
-import { CreditFooter } from "@/components/CreditFooter";
+import { CreditFooter, PodcastCredit } from "@/components/CreditFooter";
 import { Notifications } from "@/components/Notifications";
 import { RecordingIndicator } from "@/components/RecordingIndicator";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { cn } from "@/lib/cn";
-import { ensureSlot, isOperatorSurface, productName } from "@/lib/engine";
+import { ensurePodcastOverlaySlot, ensureSlot, isOperatorSurface, isPodcastStudio, productName } from "@/lib/engine";
 import { watchLauncherReveal } from "@/lib/launcher-motion";
 import { ShellStateProvider } from "@/lib/shell-state";
 
@@ -59,10 +59,12 @@ const useShellSlots = (): ShellSlots => {
  * its host's visibility, so when the engine hides the header or the launcher
  * (scenes, clean output, in-call views), the shell hides with it. The floating
  * layers (command palette, notifications) exist only on operator surfaces.
+ * Podcast Studio hides those hosts, so it gets the credit in a bar of its own.
  */
 export const App = () => {
 	const slots = useShellSlots();
 	const [isOperator] = useState(isOperatorSurface);
+	const [podcastCreditSlot] = useState(() => (isPodcastStudio() ? ensurePodcastOverlaySlot("bn-podcast-credit") : null));
 
 	useEffect(() => (isOperator ? watchLauncherReveal() : undefined), [isOperator]);
 
@@ -84,6 +86,7 @@ export const App = () => {
 								)
 							: null}
 						{slots.footer ? createPortal(<div className="bn-shell"><CreditFooter /></div>, slots.footer) : null}
+						{podcastCreditSlot ? createPortal(<div className="bn-shell"><PodcastCredit /></div>, podcastCreditSlot) : null}
 						<AboutDialog />
 						{isOperator ? <CommandPalette /> : null}
 						{isOperator ? <Notifications /> : null}

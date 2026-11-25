@@ -12,6 +12,9 @@
  *    &whitemode) and OBS detection still take priority, as upstream.
  * 3. Mirrors the engine's body.darktheme onto html.bn-dark so theme tokens can
  *    switch at :root without shadowing the engine's inline overrides.
+ * 4. Podcast Studio (&podcast) is dark-only upstream: its stylesheet paints a
+ *    dark page whatever the theme. It always gets the dark tokens, so light
+ *    theme ink never lands on its dark panels.
  *
  * Copyright (C) 2026 BytesNation. AGPL-3.0-only; see LICENSE.
  */
@@ -49,7 +52,8 @@
 		// while session.darkmode stays true; follow the session when it says dark.
 		var engineSession = window.session;
 		var isSessionDark = Boolean(engineSession && engineSession.darkmode === true);
-		var isDark = document.body.classList.contains("darktheme") || isSessionDark;
+		var isPodcastStudio = document.body.classList.contains("podcast-studio-mode");
+		var isDark = document.body.classList.contains("darktheme") || isSessionDark || isPodcastStudio;
 		if (isDark) {
 			root.classList.add("bn-dark");
 		} else {

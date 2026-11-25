@@ -172,6 +172,49 @@ test.describe("output surfaces", () => {
 	}
 });
 
+test.describe("podcast studio (&podcast)", () => {
+	// Podcast Studio hides everything on the page but its own interface, the app bar included.
+	test("keeps the AGPL credit and the source link on screen", async ({ browser }, testInfo) => {
+		const { context, page } = await openEnginePage({ browser, url: withQuery(bnBase, "podcast"), contextOptions: projectContextOptions(testInfo) });
+		const credit = page.locator("#bn-podcast-credit");
+		await expect(credit).toBeVisible();
+		await expect(credit).toContainText("BytesNation Studio is built on VDO.Ninja by Steve Seguin (AGPL-3.0).");
+		await expect(credit.locator('a[href="https://github.com/steveseguin/vdo.ninja"]')).toBeVisible();
+		await expect(credit.locator('a[href="https://github.com/BytesNation/BytesNation-Studio"]')).toBeVisible();
+		const failures = (await new AxeBuilder({ page }).include("#bn-podcast-credit").withRules(["color-contrast"]).analyze()).violations;
+		expect(failures).toEqual([]);
+		await context.close();
+	});
+
+	test("gets no palette and no notifications: its page chrome is hidden, so neither could be seen", async ({ browser }, testInfo) => {
+		const { context, page } = await openEnginePage({ browser, url: withQuery(bnBase, "podcast"), contextOptions: projectContextOptions(testInfo) });
+		await page.keyboard.press("ControlOrMeta+k");
+		await page.waitForTimeout(400);
+		await expect(page.locator("[cmdk-root]")).toHaveCount(0);
+		await expect(page.locator('section[aria-label^="Studio notifications"]')).toHaveCount(0);
+		// An unseen open dialog would lock the page: nothing may be marked inert or lose pointer events.
+		const isPageLocked = await page.evaluate(() => document.body.style.pointerEvents === "none" || document.querySelectorAll("[data-aria-hidden], [inert]").length > 0);
+		expect(isPageLocked).toBe(false);
+		await context.close();
+	});
+
+	test("always gets the dark tokens: it is a dark-only page, also on a light-theme link", async ({ browser }, testInfo) => {
+		const { context, page } = await openEnginePage({ browser, url: withQuery(bnBase, "podcast&director=bnlayerpod&lightmode"), contextOptions: projectContextOptions(testInfo) });
+		await expect(page.locator("html")).toHaveClass(/(^|\s)bn-dark(\s|$)/);
+		// The preflight heading takes the page's ink color; in the light theme it was dark on a dark panel.
+		await expect(page.locator(".preflight-title")).toBeVisible();
+		const failures = (await new AxeBuilder({ page }).include(".preflight-title").include("#bn-podcast-credit").withRules(["color-contrast"]).analyze()).violations;
+		expect(failures.map(failure => failure.nodes.map(node => node.target.join(" ")))).toEqual([]);
+		await context.close();
+	});
+
+	test("the credit stays off every other page", async ({ browser }, testInfo) => {
+		const { context, page } = await openEnginePage({ browser, url: withQuery(bnBase, publishQuery), contextOptions: projectContextOptions(testInfo) });
+		await expect(page.locator("#bn-podcast-credit")).toHaveCount(0);
+		await context.close();
+	});
+});
+
 test.describe("notifications and readouts", () => {
 	test("guest join and leave, chat as plain text, and the off switch", async ({ browser }, testInfo) => {
 		const { context, page } = await openEnginePage({ browser, url: withQuery(bnBase, "director=bnlayerroom"), contextOptions: projectContextOptions(testInfo) });
