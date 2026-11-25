@@ -62,7 +62,16 @@ const findBannedPaint = (page: Page): Promise<string[]> =>
 	page.evaluate(rootSelector => {
 		const findings: string[] = [];
 		const label = (element: Element): string => `${element.tagName.toLowerCase()}.${Array.prototype.slice.call(element.classList).join(".")}`;
-		const isFlatBands = (image: string): boolean => /repeating-linear-gradient/.test(image) || /var\(|rgb/.test(image) === false || /(\d+%)\s*,[^,]+\s\1/.test(image);
+		// The level meter is drawn with a gradient function but shows three flat bands: every
+		// change of color happens at one position, so nothing blends. That is not a gradient to the eye.
+		const isFlatBands = (image: string): boolean => {
+			const stops: string[][] = [];
+			image.replace(/(rgba?\([^)]*\))\s+(-?[\d.]+(?:px|%))/g, (whole: string, color: string, position: string) => {
+				stops.push([color, position]);
+				return whole;
+			});
+			return stops.length > 1 && stops.every((stop, index) => index === 0 || stop[0] === stops[index - 1][0] || stop[1] === stops[index - 1][1]);
+		};
 		document.querySelectorAll(rootSelector).forEach(root => {
 			[root].concat(Array.prototype.slice.call(root.querySelectorAll("*"))).forEach(element => {
 				if (element.getClientRects().length === 0) {
@@ -126,3 +135,31 @@ for (const screen of screens) {
 		});
 	}
 }
+
+test("podcast studio, live: a guest in the roster and a running recording stay on brand @live", async ({ browser }, testInfo) => {
+	test.skip(testInfo.project.name !== "chromium" && testInfo.project.name !== "webkit", "two live Podcast Studio sessions per run keep traffic on the public signaling small");
+	// The roster rows and timeline tracks only exist with a real guest and a real recording,
+	// so the offline screens above never show them to the paint checks.
+	const room = `bnpodlive${Date.now().toString(36)}`;
+	const contextOptions = projectContextOptions(testInfo);
+	const host = await openEnginePage({ browser, url: withQuery(bnBase, `podcast&director=${room}`), contextOptions, offline: false });
+	await host.page.evaluate(() => (document.querySelector(".preflight-secondary") as HTMLElement).click());
+	await host.page.waitForSelector(".podcast-main", { state: "visible" });
+	const guest = await openEnginePage({ browser, url: withQuery(bnBase, `room=${room}&push=g${room}&label=Alex&webcam&autostart`), contextOptions, offline: false });
+
+	await expect(host.page.locator(".roster-item")).toHaveCount(1, { timeout: 45_000 });
+	await expect(host.page.locator(".roster-name")).toHaveText("Alex");
+	await host.page.locator(".btn-record").click();
+	await expect(host.page.locator(".btn-record")).toHaveClass(/recording/, { timeout: 20_000 });
+	await expect(host.page.locator(".timeline-track").first()).toBeVisible({ timeout: 20_000 });
+
+	expect(await findBannedPaint(host.page), "blur, gradients and pill radii are banned (docs/DESIGN.md)").toEqual([]);
+	const results = await new AxeBuilder({ page: host.page }).withRules(["color-contrast"]).exclude("canvas").exclude("video").analyze();
+	const failures = results.violations.flatMap(violation => violation.nodes.map(node => `${node.target.join(" ")}: ${node.failureSummary ? node.failureSummary.split("\n").slice(1).join(" ").trim() : ""}`));
+	expect(failures, "contrast failures while recording").toEqual([]);
+
+	await host.page.locator(".btn-record").click();
+	await expect(host.page.locator(".btn-record")).not.toHaveClass(/recording/, { timeout: 20_000 });
+	await guest.context.close();
+	await host.context.close();
+});

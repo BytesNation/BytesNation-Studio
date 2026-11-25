@@ -57,11 +57,6 @@ html body.podcast-studio-mode .preflight-row[data-status="ready"] {
 	}
 }
 
-html body.podcast-studio-mode .podcast-footer {
-	color: var(--bn-text-muted);
-	opacity: 1;
-}
-
 /* ------------------------------------------------------------------ */
 /* Instrument displays                                                 */
 /* ------------------------------------------------------------------ */

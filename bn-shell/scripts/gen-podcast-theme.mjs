@@ -19,6 +19,7 @@
  *   box-shadow                       -> the one elevation shadow, or none
  *   border-radius                    -> the radius scale; pills become squares
  *   font-family, uppercase labels    -> Inter Tight, Geist Mono for labels
+ *   opacity used to dim text         -> full opacity with the muted text token
  *
  * Hand-written refinements live next to the output in overrides.css. Rerun
  * after an upstream merge; the output is checked in, and a test fails if it
@@ -46,6 +47,9 @@ const buttonSelector = /button|btn|__submit|__close|-toggle|preflight-(?:primary
 const floatingSelector = /room-gate__panel|preflight-panel|remote-overlay__|help-overlay__|modal|menu|popover|toast|dialog|dropdown|tooltip/;
 const backdropSelector = /backdrop|-overlay$|^\.remote-overlay$|^\.help-overlay$/;
 const pageSelector = /^body\.podcast-studio-mode$|^#podcast-root$|^#podcast-room-gate$/;
+
+/** Opacity that is not there to dim text: disabled controls, overlays and the waveform. */
+const keptOpacitySelector = /:disabled|\[disabled\]|::before|::after|wavefill/;
 
 const colorPattern = /#[0-9a-fA-F]{3,8}\b|rgba?\([^)]*\)/g;
 
@@ -252,6 +256,21 @@ const mapType = (selector, declaration) => {
 };
 
 /**
+ * Upstream dims secondary text with opacity on top of its color. On a token
+ * that is already the muted text color, the result drops under AA contrast.
+ * The dimming moves into the color: full opacity, and the muted token where
+ * the rule sets no color of its own.
+ * @returns {string[][]} [property, value] pairs
+ */
+const mapOpacity = (selector, value, hasOwnColor) => {
+	const amount = parseFloat(value);
+	if (!(amount < 1) || keptOpacitySelector.test(selector)) {
+		return [];
+	}
+	return hasOwnColor || amount >= 0.8 ? [["opacity", "1"]] : [["opacity", "1"], ["color", "var(--bn-text-muted)"]];
+};
+
+/**
  * Builds the overrides for one upstream rule.
  * @param {string} selector
  * @param {{property: string, value: string, isImportant: boolean}[]} declarations
@@ -261,6 +280,7 @@ const themeDeclarations = (selector, declarations) => {
 	const background = declarations.find(declaration => declaration.property === "background" || declaration.property === "background-color");
 	const role = background ? fillRole(selector, background.value) : matchesAny(selector, liveSelectors) ? "error" : matchesAny(selector, primarySelectors) ? "accent" : "surface";
 	const isUppercase = declarations.some(declaration => declaration.property === "text-transform" && declaration.value === "uppercase");
+	const hasOwnColor = declarations.some(declaration => declaration.property === "color");
 	const lines = [];
 	const push = (property, value, isImportant) => {
 		if (value !== null && value !== undefined) {
@@ -288,6 +308,8 @@ const themeDeclarations = (selector, declarations) => {
 			push(property, "var(--bn-text)", isImportant);
 		} else if (property === "letter-spacing" && !isUppercase) {
 			push(property, "0", isImportant);
+		} else if (property === "opacity") {
+			mapOpacity(selector, value, hasOwnColor).forEach(([mappedProperty, mappedValue]) => push(mappedProperty, mappedValue, isImportant));
 		} else {
 			mapType(selector, declaration).forEach(([mappedProperty, mappedValue]) => push(mappedProperty, mappedValue, isImportant));
 		}
