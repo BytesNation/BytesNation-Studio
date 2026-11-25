@@ -87,7 +87,9 @@ const findBannedPaint = (page: Page): Promise<string[]> =>
 				if (/gradient\(/.test(style.backgroundImage) && !isFlatBands(style.backgroundImage)) {
 					findings.push(`${label(element)}: gradient ${style.backgroundImage.slice(0, 60)}`);
 				}
-				if (radius > 8 && !isCircle) {
+				// A browser clamps a radius to half the box, so a 4px level bar never rounds more than 2px.
+				const drawnRadius = Math.min(radius, box.width / 2, box.height / 2);
+				if (drawnRadius > 8 && !isCircle) {
 					findings.push(`${label(element)}: radius ${style.borderTopLeftRadius}`);
 				}
 			});
@@ -160,6 +162,15 @@ test("podcast studio, live: a guest in the roster and a running recording stay o
 
 	await host.page.locator(".btn-record").click();
 	await expect(host.page.locator(".btn-record")).not.toHaveClass(/recording/, { timeout: 20_000 });
+
+	// The guest's remote controls open in a layer of their own, and the guide in another.
+	await host.page.getByRole("button", { name: /remote controls/i }).first().click();
+	await expect(host.page.locator(".remote-overlay__panel")).toBeVisible();
+	await host.page.evaluate(() => (document.getElementById("podcast-help-link") as HTMLElement).click());
+	await expect(host.page.locator(".help-overlay__panel")).toBeVisible();
+	expect(await findBannedPaint(host.page), "banned paint in the remote controls or the guide").toEqual([]);
+	const layerResults = await new AxeBuilder({ page: host.page }).include(".remote-overlay").include(".help-overlay").withRules(["color-contrast"]).exclude("canvas").exclude("video").analyze();
+	expect(layerResults.violations.flatMap(violation => violation.nodes.map(node => `${node.target.join(" ")}: ${node.failureSummary ? node.failureSummary.split("\n").slice(1).join(" ").trim() : ""}`)), "contrast failures in the remote controls or the guide").toEqual([]);
 	await guest.context.close();
 	await host.context.close();
 });
