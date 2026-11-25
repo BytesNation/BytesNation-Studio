@@ -1124,3 +1124,379 @@ html.bn-ui .gobutton,
 html.bn-ui .gowebcam {
 	border-width: 1px !important;
 }
+
+/* ---------- In-call control bar ---------- */
+
+html.bn-ui #subControlButtons,
+html.bn-ui body.darktheme #subControlButtons {
+	padding: 4px;
+	background-color: var(--bn-surface-elevated) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3);
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+}
+html.bn-ui #subControlButtons div,
+html.bn-ui #subControlButtons span button {
+	min-width: 44px;
+	min-height: 44px;
+	margin: 2px;
+	background-color: transparent;
+	border: 1px solid transparent;
+	border-radius: var(--bn-r2) !important;
+	box-shadow: none !important;
+	color: var(--bn-text);
+	opacity: 1;
+	transition: background-color var(--bn-press-d) var(--bn-press), transform var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui #subControlButtons div:hover,
+html.bn-ui #subControlButtons span button:hover {
+	background-color: var(--bn-surface-2);
+}
+html.bn-ui #subControlButtons div:active {
+	transform: translateY(1px);
+}
+html.bn-ui #subControlButtons i,
+html.bn-ui .float i,
+html.bn-ui .float2 i {
+	color: var(--bn-text);
+}
+html.bn-ui .float,
+html.bn-ui .float2 {
+	opacity: 1;
+	box-shadow: none !important;
+	color: var(--bn-text);
+}
+html.bn-ui #subControlButtons span,
+html.bn-ui #subControlButtons button {
+	font-family: var(--bn-sans);
+	font-size: 13px;
+	color: var(--bn-text);
+}
+
+/* State, not decoration: off or failed, on or selected, warning. */
+html.bn-ui .red,
+html.bn-ui .red:hover,
+html.bn-ui #subControlButtons div.red {
+	background-color: var(--bn-surface) !important;
+	border-color: var(--bn-error) !important;
+	color: var(--bn-error) !important;
+}
+html.bn-ui .red i,
+html.bn-ui .red > i {
+	color: var(--bn-error) !important;
+}
+html.bn-ui .green,
+html.bn-ui .green:hover,
+html.bn-ui .blue,
+html.bn-ui .blue:hover,
+html.bn-ui .pressed {
+	background-color: var(--bn-surface-3) !important;
+	border-color: var(--bn-control-border) !important;
+	box-shadow: inset 0 -2px 0 var(--bn-accent) !important;
+	color: var(--bn-text) !important;
+}
+html.bn-ui .orange,
+html.bn-ui .orange:hover {
+	background-color: var(--bn-surface) !important;
+	border-color: var(--bn-warning) !important;
+	color: var(--bn-warning) !important;
+}
+html.bn-ui #scenemutebutton.orange .la-broadcast-tower,
+html.bn-ui .scene-mute-state .la-broadcast-tower {
+	color: var(--bn-warning);
+}
+
+/* ---------- Director's control room ---------- */
+
+html.bn-ui .hideLinksClass,
+html.bn-ui .directorContainer,
+html.bn-ui #guestFeeds {
+	background-color: transparent !important;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+html.bn-ui .hideLinksClass {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	letter-spacing: 0.09em;
+	color: var(--bn-text-muted);
+}
+html.bn-ui .directorBlock,
+html.bn-ui body.darktheme .directorBlock {
+	background-color: transparent !important;
+	color: var(--bn-text);
+}
+html.bn-ui .directorBlock h2,
+html.bn-ui .directorBlock .title,
+html.bn-ui .directorBlock span[data-translate="invite-a-guest"],
+html.bn-ui .directorBlock span[data-translate="capture-a-group-scene"] {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+/* A link to copy is a readout: mono, on a well. */
+html.bn-ui a.grabLinks,
+html.bn-ui a.grabLinks:link,
+html.bn-ui a.grabLinks:visited {
+	display: block;
+	padding: 10px 12px;
+	background-color: var(--bn-surface) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r3);
+	font-family: var(--bn-mono);
+	font-size: 13px;
+	font-weight: 400;
+	color: var(--bn-text) !important;
+	text-decoration: none;
+	word-break: break-all;
+}
+/* Guest slots: ruled cells. */
+html.bn-ui .vidcon.directorMargins,
+html.bn-ui body.darktheme .vidcon.directorMargins {
+	background-color: transparent !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+html.bn-ui .vidcon.directorMargins > i.la-user-circle {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-border-strong) !important;
+}
+
+/* ---------- Header readouts ---------- */
+
+/* Peers, listeners, viewers, scenes and upload bitrate are readouts. */
+html.bn-ui #head5 {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	font-variant-numeric: tabular-nums;
+	color: var(--bn-text-muted);
+	margin-right: 16px;
+}
+html.bn-ui #head2,
+html.bn-ui #head4 {
+	font-size: 12px !important;
+	color: var(--bn-text-muted) !important;
+}
+/* Upload quality: lib.js tints the marker inline; the theme maps each tint to a state. */
+html.bn-ui #head5 span[style*="#0F0"],
+html.bn-ui #head5 span[style*="#4d9bff"] {
+	text-shadow: 0 0 0 var(--bn-ok) !important;
+}
+html.bn-ui #head5 span[style*="yellow"],
+html.bn-ui #head5 span[style*="orange"] {
+	text-shadow: 0 0 0 var(--bn-warning) !important;
+}
+html.bn-ui #head5 span[style*="#F00"] {
+	text-shadow: 0 0 0 var(--bn-error) !important;
+}
+/* Signalling: the plug takes the state color. */
+html.bn-ui #qos i {
+	color: inherit !important;
+	font-size: 16px;
+}
+
+/* Hang up is destructive. */
+html.bn-ui #hangupbutton i,
+html.bn-ui #hangupbutton2 i,
+html.bn-ui button[data-action-type="hangup"] i {
+	color: var(--bn-error) !important;
+}
+
+/* Director's per-guest controls: icons in the text color; color is kept for state. */
+html.bn-ui .controlsGrid button,
+html.bn-ui #guestFeeds .vidcon button {
+	box-shadow: none !important;
+	border-radius: var(--bn-r2) !important;
+	background-color: transparent;
+	border: 1px solid var(--bn-control-border);
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+}
+html.bn-ui .controlsGrid button i,
+html.bn-ui #guestFeeds .vidcon button i {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-ui #guestFeeds .vidcon button.red i,
+html.bn-ui #guestFeeds .vidcon button[data-action-type="hangup"] i {
+	color: var(--bn-error) !important;
+}
+html.bn-ui #guestFeeds .vidcon .streamID,
+html.bn-ui #guestFeeds .vidcon [id^="label_"] {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+
+/* Every .gobutton is a primary action; upstream's refresh forces its own fill. */
+html.bn-ui button.gobutton {
+	background-color: var(--bn-accent) !important;
+	color: var(--bn-accent-ink) !important;
+}
+html.bn-ui button.gobutton:hover {
+	background-color: var(--bn-accent-hover) !important;
+	border-color: var(--bn-accent-hover) !important;
+}
+html.bn-ui button.gobutton.hidden {
+	display: none !important;
+}
+html.bn-ui .brown,
+html.bn-ui .brown:hover {
+	background-color: var(--bn-surface-3) !important;
+	border-color: var(--bn-control-border) !important;
+	box-shadow: inset 0 -2px 0 var(--bn-accent) !important;
+	color: var(--bn-text) !important;
+}
+
+/* ---------- Chat ---------- */
+
+html.bn-ui #chatModule,
+html.bn-ui body.darktheme #chatModule {
+	background-color: var(--bn-surface-elevated) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3) !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+}
+html.bn-ui .chat-header,
+html.bn-ui body.darktheme .chat-header {
+	padding: 8px 8px 8px 14px;
+	color: var(--bn-text-muted) !important;
+	border-bottom: 1px solid var(--bn-border) !important;
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+}
+html.bn-ui .chat-header a,
+html.bn-ui .chat-header a:link,
+html.bn-ui .chat-header a:visited {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	margin-left: 4px;
+	border: 1px solid var(--bn-control-border) !important;
+	border-radius: var(--bn-r2) !important;
+	background: transparent !important;
+	color: var(--bn-text) !important;
+	font-family: var(--bn-sans);
+	text-decoration: none;
+	cursor: pointer;
+}
+html.bn-ui .chat-header a:hover {
+	background: var(--bn-surface-2) !important;
+}
+html.bn-ui #chatBody,
+html.bn-ui body.darktheme #chatBody {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text);
+	font-size: 15px;
+}
+/* Messages are ruled rows, not bubbles. Who sent it is the alignment. */
+html.bn-ui .inMessage,
+html.bn-ui .outMessage,
+html.bn-ui body.darktheme .inMessage,
+html.bn-ui body.darktheme .outMessage {
+	margin: 0;
+	padding: 8px 4px;
+	background-color: transparent !important;
+	border-bottom: 1px solid var(--bn-border);
+	border-radius: 0;
+	color: var(--bn-text);
+}
+html.bn-ui .inMessage i,
+html.bn-ui .outMessage i {
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	font-style: normal;
+	color: var(--bn-text-muted);
+}
+html.bn-ui .tipMessage,
+html.bn-ui .actionMessage,
+html.bn-ui body.darktheme .actionMessage {
+	background: var(--bn-surface-2) !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r2);
+}
+html.bn-ui div#chatBody a,
+html.bn-ui body.darktheme div#chatBody a {
+	background-color: transparent !important;
+	border: 0 !important;
+	color: var(--bn-text) !important;
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+}
+html.bn-ui .chat-input-area {
+	padding: 8px;
+	border-top: 1px solid var(--bn-border);
+}
+html.bn-ui #chatInput {
+	min-height: 40px;
+	padding: 0 10px;
+}
+html.bn-ui .chat-input-area button {
+	min-height: 40px;
+}
+
+/* ---------- Settings drawer ---------- */
+
+html.bn-ui #popupSelector,
+html.bn-ui body.darktheme #popupSelector {
+	background: var(--bn-surface-elevated) !important;
+	border-left: 1px solid var(--bn-border);
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	color: var(--bn-text);
+	padding: 16px;
+}
+html.bn-ui #popupSelector label,
+html.bn-ui body.darktheme #popupSelector label,
+html.bn-ui #popupSelector .multiselect-contents label {
+	color: var(--bn-text) !important;
+}
+html.bn-ui #popupSelector > div,
+html.bn-ui #popupSelector > span > div,
+html.bn-ui #popupSelector .videoMenu,
+html.bn-ui #popupSelector .multiselect,
+html.bn-ui #popupSelector .audioMenu {
+	background: transparent !important;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+html.bn-ui #popupSelector select,
+html.bn-ui #popupSelector .multiselect-contents label {
+	font-family: var(--bn-mono);
+	font-size: 13px;
+}
+html.bn-ui #popupSelector .multiselect-contents {
+	background: var(--bn-surface);
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r2);
+}
+html.bn-ui #popupSelector #videoMenu3,
+html.bn-ui #popupSelector #headphonesDiv3 {
+	display: block;
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
