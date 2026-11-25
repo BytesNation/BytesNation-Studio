@@ -200,3 +200,57 @@ Every view of BytesNation Studio in the dark and light themes, desktop (1440 by 
 |---|---|
 | ![Icecast publishing panel, phone, dark](screenshots/icecast-panel-mobile-dark.jpg) | ![Icecast publishing panel, phone, light](screenshots/icecast-panel-mobile-light.jpg) |
 
+## Sign-in dialog (&requireauth)
+
+| Dark | Light |
+|---|---|
+| ![Sign-in dialog (&requireauth), dark](screenshots/sign-in-dark.jpg) | ![Sign-in dialog (&requireauth), light](screenshots/sign-in-light.jpg) |
+
+## Sign-in dialog, phone
+
+| Dark | Light |
+|---|---|
+| ![Sign-in dialog, phone, dark](screenshots/sign-in-mobile-dark.jpg) | ![Sign-in dialog, phone, light](screenshots/sign-in-mobile-light.jpg) |
+
+## Podcast Studio: room gate
+
+| Dark | Light |
+|---|---|
+| ![Podcast Studio: room gate, dark](screenshots/podcast-gate-dark.jpg) | ![Podcast Studio: room gate, light](screenshots/podcast-gate-light.jpg) |
+
+## Podcast Studio: setup check
+
+| Dark | Light |
+|---|---|
+| ![Podcast Studio: setup check, dark](screenshots/podcast-setup-dark.jpg) | ![Podcast Studio: setup check, light](screenshots/podcast-setup-light.jpg) |
+
+## Podcast Studio: setup check, phone
+
+| Dark | Light |
+|---|---|
+| ![Podcast Studio: setup check, phone, dark](screenshots/podcast-setup-mobile-dark.jpg) | ![Podcast Studio: setup check, phone, light](screenshots/podcast-setup-mobile-light.jpg) |
+
+## Podcast Studio: control room with two live guests
+
+| Dark | Light |
+|---|---|
+| ![Podcast Studio: control room with two live guests, dark](screenshots/podcast-control-room-dark.jpg) | ![Podcast Studio: control room with two live guests, light](screenshots/podcast-control-room-light.jpg) |
+
+## Podcast Studio: recording
+
+| Dark | Light |
+|---|---|
+| ![Podcast Studio: recording, dark](screenshots/podcast-recording-dark.jpg) | ![Podcast Studio: recording, light](screenshots/podcast-recording-light.jpg) |
+
+## Podcast Studio: guide
+
+| Dark | Light |
+|---|---|
+| ![Podcast Studio: guide, dark](screenshots/podcast-guide-dark.jpg) | ![Podcast Studio: guide, light](screenshots/podcast-guide-light.jpg) |
+
+## Podcast Studio: control room, phone
+
+| Dark | Light |
+|---|---|
+| ![Podcast Studio: control room, phone, dark](screenshots/podcast-control-room-mobile-dark.jpg) | ![Podcast Studio: control room, phone, light](screenshots/podcast-control-room-mobile-light.jpg) |
+
