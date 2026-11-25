@@ -1,8 +1,8 @@
 # Parity checklist
 
-Built from [FEATURE-INVENTORY.md](FEATURE-INVENTORY.md). The redesign is done when every row is checked. Rows 1 to 8 are generated from the parity suite (`cd bn-shell && npm run test:parity && node scripts/render-parity-checklist.mjs`); the manual checks are recorded by hand.
+Built from [FEATURE-INVENTORY.md](FEATURE-INVENTORY.md). The redesign is done when every row is checked. Rows 1 to 9 are generated from the parity suite (`cd bn-shell && npm run test:parity && node scripts/render-parity-checklist.mjs`); the manual checks are recorded by hand.
 
-Last run: 2026-11-24T21:35:18.849Z, 2026-11-24T22:07:36.364Z. 1578 automated checks ran across 5 engines; 0 failed.
+Last run: 2026-11-25T01:23:32.156Z. 1823 automated checks ran across 5 engines; 0 failed.
 
 Engines: Chrome, Firefox and Safari's WebKit run as desktop browsers; Android Chrome is a Pixel 7 profile and iOS Safari an iPhone 14 profile, both emulated. Where a headless engine has no fake camera (WebKit, and Firefox for more than one capture), the live room feeds a synthetic camera and microphone, and the notes say so. Real-device and real-picker runs are in the manual checks.
 
@@ -39,30 +39,30 @@ Real peers through the unmodified engine and its default signaling. Five session
 
 Notes from the runs:
 
-- Chrome: downloaded Alex_1795556141735.webm
+- Chrome: downloaded Alex_1795569840968.webm
 - Firefox: camera and microphone supplied by the test's synthetic media (canvas + oscillator)
 - Firefox: screen capture supplied by the test's synthetic getDisplayMedia; the real OS picker is on the manual checklist
-- Firefox: downloaded Alex_1795556756797.webm
+- Firefox: downloaded Alex_1795570515971.webm
 - Safari (WebKit): camera and microphone supplied by the test's synthetic media (canvas + oscillator)
 - Safari (WebKit): screen capture supplied by the test's synthetic getDisplayMedia; the real OS picker is on the manual checklist
-- Safari (WebKit): downloaded Alex_1795556995701.webm
+- Safari (WebKit): downloaded Alex_1795570804327.webm
 - Android Chrome: mobile browsers do not offer screen capture to web pages; mobile-chrome skips this step as upstream does
-- Android Chrome: downloaded Alex_1795558071512.webm
+- Android Chrome: downloaded Alex_1795571046251.webm
 - iOS Safari: camera and microphone supplied by the test's synthetic media (canvas + oscillator)
 - iOS Safari: mobile browsers do not offer screen capture to web pages; mobile-safari skips this step as upstream does
-- iOS Safari: downloaded Alex_1795558250661.webm
+- iOS Safari: downloaded Alex_1795571281044.webm
 
 ## 4. URL parameters
 
-All 678 parameters in the inventory. Full table: [parity/url-parameters.md](parity/url-parameters.md).
+All 745 parameters in the inventory. Full table: [parity/url-parameters.md](parity/url-parameters.md).
 
 | Engine | Parameters run | Matched upstream |
 |---|---|---|
-| Chrome | 678 | 678 |
-| Firefox | 196 | 196 |
-| Safari (WebKit) | 196 | 196 |
-| Android Chrome | 196 | 196 |
-| iOS Safari | 196 | 196 |
+| Chrome | 745 | 745 |
+| Firefox | 213 | 213 |
+| Safari (WebKit) | 213 | 213 |
+| Android Chrome | 213 | 213 |
+| iOS Safari | 213 | 213 |
 
 ## 5. Keyboard shortcuts
 
@@ -99,7 +99,7 @@ A host page sends the same messages to both; replies and events must match.
 
 ## 8. WCAG AA contrast
 
-axe-core `color-contrast` across the main views in both themes. Text over live video is excluded because axe cannot read a video frame; those labels sit on an opaque scrim.
+axe-core `color-contrast` across the main views, the phone call-in panel and the Icecast panel, in both themes. Text over live video is excluded because axe cannot read a video frame; those labels sit on an opaque scrim.
 
 | | Check | Chrome | Firefox | Safari (WebKit) | Android Chrome | iOS Safari |
 |---|---|---|---|---|---|---|
@@ -107,10 +107,43 @@ axe-core `color-contrast` across the main views in both themes. Text over live v
 | [x] | contrast AA: director, dark | pass | n/a | pass | n/a | n/a |
 | [x] | contrast AA: guest join, dark | pass | n/a | pass | n/a | n/a |
 | [x] | contrast AA: publish, dark | pass | n/a | pass | n/a | n/a |
+| [x] | contrast AA: phone call-in panel, dark | pass | n/a | pass | n/a | n/a |
+| [x] | contrast AA: icecast panel, dark | pass | n/a | pass | n/a | n/a |
 | [x] | contrast AA: launcher, light | pass | n/a | pass | n/a | n/a |
 | [x] | contrast AA: director, light | pass | n/a | pass | n/a | n/a |
 | [x] | contrast AA: guest join, light | pass | n/a | pass | n/a | n/a |
 | [x] | contrast AA: publish, light | pass | n/a | pass | n/a | n/a |
+| [x] | contrast AA: phone call-in panel, light | pass | n/a | pass | n/a | n/a |
+| [x] | contrast AA: icecast panel, light | pass | n/a | pass | n/a | n/a |
+
+## 9. Command palette, notifications, readouts and the Podcast Studio credit
+
+BytesNation additions (cmdk, Sonner, Motion). The checks prove they offer only what the engine itself shows, never appear on outputs, and leave the engine exactly as upstream. On Podcast Studio (`&podcast`), which hides the app bar, they prove the credit stays on screen, the floating layers stay off, and the dark tokens apply.
+
+| | Check | Chrome | Firefox | Safari (WebKit) | Android Chrome | iOS Safari |
+|---|---|---|---|---|---|---|
+| [x] | contrast AA: command palette and a notification, dark | pass | n/a | pass | n/a | n/a |
+| [x] | contrast AA: command palette and a notification, light | pass | n/a | pass | n/a | n/a |
+| [x] | opens on the launcher and lists exactly the tools upstream offers | pass | pass | pass | pass | pass |
+| [x] | offers exactly the controls the engine renders, and follows hide parameters | pass | pass | pass | pass | pass |
+| [x] | never offers a control that ends the session | pass | pass | pass | pass | pass |
+| [x] | running a command equals pressing the engine's control | pass | pass | pass | pass | pass |
+| [x] | opening and closing it leaves the engine exactly as upstream | pass | pass | pass | pass | pass |
+| [x] | &disablehotkeys turns the hotkey off; the button still opens it | pass | pass | pass | n/a | n/a |
+| [x] | opens the About view with the AGPL credit | pass | pass | pass | pass | pass |
+| [x] | view link: no palette, no notifications | pass | pass | pass | pass | pass |
+| [x] | scene link: no palette, no notifications | pass | pass | pass | pass | pass |
+| [x] | OBS browser source: no palette, no notifications | pass | pass | pass | pass | pass |
+| [x] | clean output: no palette, no notifications | pass | pass | pass | pass | pass |
+| [x] | hidden header (&hideheader): no palette, no notifications | pass | pass | pass | pass | pass |
+| [x] | keeps the AGPL credit and the source link on screen | pass | pass | pass | pass | pass |
+| [x] | gets no palette and no notifications: its page chrome is hidden, so neither could be seen | pass | pass | pass | pass | pass |
+| [x] | always gets the dark tokens: it is a dark-only page, also on a light-theme link | pass | pass | pass | pass | pass |
+| [x] | the credit stays off every other page | pass | pass | pass | pass | pass |
+| [x] | guest join and leave, chat as plain text, and the off switch | pass | pass | pass | pass | pass |
+| [x] | recording readout follows the engine's recording flag | pass | pass | pass | pass | pass |
+| [x] | launcher reveal animation leaves the tiles as the engine set them | pass | pass | pass | pass | pass |
+| [x] | hang up behaves as upstream | pass | pass | pass | pass | pass |
 
 ## Manual checks
 
@@ -127,3 +160,6 @@ These need real hardware or a real host application, so the suite cannot prove t
 | [ ] | Per-guest recording file: the downloaded recording plays back with audio and video | not done |  |
 | [ ] | 3+ participant room across mixed real browsers (director in Chrome, guests in Safari and Firefox), 10 minutes, no drops | not done |  |
 | [ ] | iOS Simulator Safari: launcher, guest join, director (simulator service did not respond on 2026-11-24; not run) | not done |  |
+| [ ] | Podcast Studio (&podcast): host a room with two guests, run the setup check, record, and download the tracks. It is not redesigned; this row only confirms it works as on upstream | not done |  |
+| [ ] | Icecast publishing (&icecastpush and &icecastview) to a real Icecast or AzuraCast mount: start, hear the stream on the mount, stop | not done |  |
+| [ ] | Phone call-in (&callin) with a real SIP provider or Twilio worker: connect, dial out, answer an incoming call, hang up | not done |  |
