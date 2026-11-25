@@ -15,6 +15,8 @@ After a merge, check each row: the edit is still there, it still applies to the 
 | `main.js` | The `#credits` line: version and the origin credit, through a translation key | Credit to VDO.Ninja | Reapply on the new line |
 | `studio/index.html` | Title, the fonts and theme stylesheets and the theme script after `styles.css`, the two "VDO" marks emptied and hidden from screen readers (the theme draws the BytesNation mark), the product name in the preview frame's title | Live Studio carries the brand and drops upstream's mark | Reapply |
 | `index.html` | `bytesnation/fonts.css` linked before the theme | Fonts shared with Live Studio | Keep both lines together |
+| `podcast/studio.js` | The footer line: "Powered by VDO.Ninja • Low-latency P2P backbone intact •" becomes the origin credit and a "Source code" link, read from the two `bn-` translation keys | Podcast Studio hides the app footer; AGPL-3.0 section 13 and the one credit | Reapply on the footer line |
+| `index.html` | `bytesnation/podcast.css` linked after the theme | Podcast Studio theme | Keep with the theme lines |
 | `manifest.json` | Name, colors and icons | Product name and brand icons | Take ours |
 | `translations/*.json` | Two keys at the top of `innerHTML`: `bn-source-code`, `bn-built-on-vdo-ninja`. English in every file until translated | The credit line goes through the translation system | Keep both keys in every file |
 | `AGENTS.md` | "Component sourcing: public tier" block and the Studio notes after it | Brand kit policy | Keep ours below upstream's text |

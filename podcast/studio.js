@@ -4320,7 +4320,7 @@ class PodcastStudioApp {
     // Footer
     const footer = createElement('footer', 'podcast-footer');
     footer.innerHTML = `
-      <div>${tr('Powered by VDO.Ninja • Low-latency P2P backbone intact •')} <span class="podcast-help-link" id="podcast-help-link" role="button" tabindex="0">${tr('Guide')}</span></div>
+      <div><!-- BytesNation Studio: origin credit and AGPL-3.0 section 13 source link. See bytesnation/UPSTREAM-CHANGES.md. --><span data-translate="bn-built-on-vdo-ninja">${(translation && translation.innerHTML && translation.innerHTML['bn-built-on-vdo-ninja']) || 'Built on <a href="https://github.com/steveseguin/vdo.ninja" target="_blank" rel="noopener">VDO.Ninja</a> by Steve Seguin. Licensed under <a href="https://github.com/BytesNation/BytesNation-Studio/blob/develop/LICENSE" target="_blank" rel="noopener">AGPL-3.0</a>.'}</span> <a class="bn-source-link" href="https://github.com/BytesNation/BytesNation-Studio" target="_blank" rel="noopener" data-translate="bn-source-code">${(translation && translation.innerHTML && translation.innerHTML['bn-source-code']) || 'Source code'}</a> <span class="podcast-help-link" id="podcast-help-link" role="button" tabindex="0">${tr('Guide')}</span></div>
       <div class="cloud-status">
         <span id="podcast-cloud-drive">${this.cloud?.hasDriveAccess() ? tr('Google Drive linked') : tr('Drive link pending')}</span>
         <span id="podcast-cloud-dropbox">${this.cloud?.hasDropboxAccess() ? tr('Dropbox linked') : tr('Dropbox link pending')}</span>
