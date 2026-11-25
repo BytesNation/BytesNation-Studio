@@ -6,7 +6,7 @@ After a merge, check each row: the edit is still there, it still applies to the 
 
 | File | What changed | Why | On conflict |
 |---|---|---|---|
-| `index.html` | Head block: title, social tags, source and licence links, favicons, theme stylesheet. Steve Seguin's `author`, `copyright`, `stance-on-war` and `twitter:creator` tags removed. `canonical`, `og:url` and the share image point at studio.bytesnation.com. | Product name, AGPL source link, no implied affiliation | Keep upstream's new tags; reapply ours |
+| `index.html` | Head block: title, social tags, source and licence links, favicons, theme stylesheet. Steve Seguin's `author`, `stance-on-war` and `twitter:creator` tags removed. `og:url` and the share image point at studio.bytesnation.com. His `copyright` tag and the `canonical` link to `https://vdo.ninja/` are left exactly as upstream has them. | Product name, AGPL source link, no implied affiliation. The copyright tag is upstream's notice, and notices stay. `canonical` tells search engines this page is a copy of upstream's app: the fork runs on upstream's signalling service and does not compete with it in search. Link previews read the `og:` and `twitter:` tags, which are ours | Keep upstream's new tags; reapply ours; take upstream's `copyright` and `canonical` lines as they come |
 | `index.html` | `<script src="./bytesnation/gate.js">` between `lib.js` and `main.js` | Marks interface pages so the theme applies, and leaves program output alone | Keep the line between the two scripts |
 | `index.html` | schema.org image links point at `bytesnation/icons/share-1200x630.png` | Share image | Reapply |
 | `index.html` | Static wordmark text in `#logoname`, and an `aria-label` with the product name | Product name; the link keeps a screen-reader name after `main.js` empties it to an icon | Reapply |
@@ -41,6 +41,7 @@ After a merge, check each row: the edit is still there, it still applies to the 
 
 - `bytesnation/engine.json` names the upstream commit just merged.
 - `git diff upstream/develop -- webrtc.js` is empty.
+- `index.html` still carries upstream's `copyright` meta tag and its `canonical` link, unchanged.
 - `node .github/ci-validateTranslations.js` and `node .github/ci-checkTranslationKeys.js` pass.
 - `node brand/tools/check-sourcing.mjs --tier public --history` passes.
 - A view link and a scene link render the same as upstream's.
