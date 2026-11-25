@@ -1421,7 +1421,7 @@
 	},
 	"tfliteeffects": {
 		"role": "sender",
-		"summary": "Boolean flag; skips the MediaPipe selfie segmenter, using the TFLite effects path.",
+		"summary": "Boolean flag; skips both the MediaPipe selfie segmenter and the Longpipe effects pipeline, using the TFLite effects path.",
 		"isUiFacing": false
 	},
 	"nowheptrickle": {
@@ -1446,7 +1446,7 @@
 	},
 	"universaltoken": {
 		"role": "general",
-		"summary": "Same as &auth: requires sign-in before the session loads, using a universal auth token.",
+		"summary": "Token string; turns on sign-in mode with a universal token, which lifts the sign-in requirement on view, scene and solo links.",
 		"isUiFacing": true
 	},
 	"fb": {
@@ -1548,5 +1548,351 @@
 		"role": "viewer",
 		"summary": "&wheptrickle=0, false or off disables WHEP trickle ICE, same as &nowheptrickle.",
 		"isUiFacing": false
+	},
+	"authtoken": {
+		"role": "general",
+		"summary": "Token string the sign-in redirect adds; turns on sign-in mode, is saved for the room, then is removed from the address bar.",
+		"isUiFacing": false
+	},
+	"slotslist": {
+		"role": "viewer",
+		"summary": "Comma-separated slot numbers; limits processing to those slots. Ignored when &slots is also set.",
+		"isUiFacing": true
+	},
+	"holdercolor": {
+		"role": "general",
+		"summary": "CSS color (a bare number gets a # prefix); background color of each video's holder. Defaults to the border color, then #000.",
+		"isUiFacing": true
+	},
+	"chunkbitrate": {
+		"role": "sender",
+		"summary": "Integer kbps, 1 to 100000; video bitrate for the chunked (WebCodecs) encoder, separate from the legacy &chunked value.",
+		"isUiFacing": false
+	},
+	"chunkfec": {
+		"role": "sender",
+		"summary": "Integer 0 to 12; forward error correction rate for chunked mode. Takes effect at 2 or more, which also forces indexed chunks.",
+		"isUiFacing": false
+	},
+	"chunknack": {
+		"role": "sender",
+		"summary": "Boolean (empty, 1 or true is on); keeps sent chunks so receivers can ask for lost ones again. Forces indexed chunks.",
+		"isUiFacing": false
+	},
+	"chunkindex": {
+		"role": "sender",
+		"summary": "Boolean; sends chunks with explicit indices (the indexed protocol). Forced on by &chunknack or &chunkfec of 2 or more.",
+		"isUiFacing": false
+	},
+	"chunkchunksize": {
+		"role": "sender",
+		"summary": "Integer bytes, 2048 to 65536 (default 16384); payload size of each chunk when NACK or FEC is on.",
+		"isUiFacing": false
+	},
+	"chunkretry": {
+		"role": "sender",
+		"summary": "Integer ms, 0 to 60000; minimum time sent chunks stay available for resend requests.",
+		"isUiFacing": false
+	},
+	"chunkcache": {
+		"role": "sender",
+		"summary": "Integer ms, 0 to 60000; fixed length of the resend cache, replacing the computed length (which tops out at 30 s).",
+		"isUiFacing": false
+	},
+	"chunkadaptfloor": {
+		"role": "sender",
+		"summary": "Integer kbps, 0 to 10000; lowest bitrate chunked-mode adaptation may fall to. Default is 20% of the base bitrate, at least 200.",
+		"isUiFacing": false
+	},
+	"chunkadaptceil": {
+		"role": "sender",
+		"summary": "Integer kbps, 0 to 100000; highest bitrate chunked-mode adaptation may rise to. Default is the base bitrate.",
+		"isUiFacing": false
+	},
+	"chunkadaptthreshold": {
+		"role": "sender",
+		"summary": "Number, 0 to 10000 (default 380); pressure level at which chunked-mode adaptation starts cutting bitrate or frames.",
+		"isUiFacing": false
+	},
+	"chunkadaptmaxdrop": {
+		"role": "sender",
+		"summary": "Integer 0 to 120 (default 6); cap on the frames chunked-mode adaptation may queue up to drop in framerate or hybrid mode.",
+		"isUiFacing": false
+	},
+	"chunkadaptinterval": {
+		"role": "sender",
+		"summary": "Integer ms, 100 to 60000 (default 800, floor 200); how often chunked-mode adaptation re-evaluates.",
+		"isUiFacing": false
+	},
+	"chunkadaptresolution": {
+		"role": "sender",
+		"summary": "Boolean; lets chunked-mode adaptation scale the encoded resolution down at low bitrates.",
+		"isUiFacing": false
+	},
+	"chunkbuffer": {
+		"role": "viewer",
+		"summary": "Integer ms, 0 to 180000; playout buffer for chunked video on the receiving side.",
+		"isUiFacing": false
+	},
+	"chunkbufferfloor": {
+		"role": "viewer",
+		"summary": "Integer ms, 0 to 180000; lower bound of the adaptive chunked playout buffer.",
+		"isUiFacing": false
+	},
+	"chunkbufferceil": {
+		"role": "viewer",
+		"summary": "Integer ms, 0 to 180000; upper bound of the adaptive chunked playout buffer.",
+		"isUiFacing": false
+	},
+	"chunkbufferadaptive": {
+		"role": "viewer",
+		"summary": "Boolean (default on); lets the chunked playout buffer size itself from network conditions. 0 or false fixes it, as &fixedchunkbuffer does.",
+		"isUiFacing": false
+	},
+	"chunkjitterslack": {
+		"role": "viewer",
+		"summary": "Integer ms, 0 to 10000; extra allowance added to the chunked playout buffer for jitter.",
+		"isUiFacing": false
+	},
+	"chunknackattempts": {
+		"role": "viewer",
+		"summary": "Integer 1 to 20 (default 3); how many times a receiver asks again for a missing chunk.",
+		"isUiFacing": false
+	},
+	"chunknackdelay": {
+		"role": "viewer",
+		"summary": "Integer ms, 50 to 5000 (default 180); wait between requests for a missing chunk.",
+		"isUiFacing": false
+	},
+	"nomediapipe": {
+		"role": "sender",
+		"summary": "Boolean flag; skips the MediaPipe selfie segmenter. Unlike &forcetflite it leaves the Longpipe effects pipeline on.",
+		"isUiFacing": false
+	},
+	"longpipe": {
+		"role": "sender",
+		"summary": "Value 0, false or off turns the Longpipe background-effects pipeline off; any other value leaves it on.",
+		"isUiFacing": false
+	},
+	"nolongpipe": {
+		"role": "sender",
+		"summary": "Boolean flag; turns the Longpipe background-effects pipeline off, so effects use the older segmenters.",
+		"isUiFacing": false
+	},
+	"longpipepreset": {
+		"role": "sender",
+		"summary": "Preset name: xs, small, medium, large, xl, auto, or the shorthands fast, balanced and quality; picks the Longpipe segmentation model instead of the automatic choice.",
+		"isUiFacing": false
+	},
+	"longpipeauto": {
+		"role": "sender",
+		"summary": "Boolean flag; selects Longpipe's auto preset, the same as &longpipepreset=auto.",
+		"isUiFacing": false
+	},
+	"longpipeadaptive": {
+		"role": "sender",
+		"summary": "Boolean flag; turns on Longpipe's adaptive mode. Only applies with the auto preset.",
+		"isUiFacing": false
+	},
+	"nolongpipeadaptive": {
+		"role": "sender",
+		"summary": "Boolean flag; keeps Longpipe's adaptive mode off, overriding &longpipeadaptive.",
+		"isUiFacing": false
+	},
+	"longpipeoutput": {
+		"role": "sender",
+		"summary": "Output size cap for Longpipe effects: source or native, 4k or 2160, 1440 or 2k, 1080, 720, or WIDTHxHEIGHT. Default 1920x1080, or 1280x720 on mobile and slower devices.",
+		"isUiFacing": false
+	},
+	"longpipetemporal": {
+		"role": "sender",
+		"summary": "Mask smoothing mode for Longpipe: off (default), warp, or stabilized.",
+		"isUiFacing": false
+	},
+	"longpipedebug": {
+		"role": "sender",
+		"summary": "Boolean flag; turns on Longpipe's debug output.",
+		"isUiFacing": false
+	},
+	"icecast": {
+		"role": "general",
+		"summary": "Flag; turns on Icecast audio publishing and works out the source from the link: local audio on a push link, received audio on a view link.",
+		"isUiFacing": true
+	},
+	"icecastpush": {
+		"role": "sender",
+		"summary": "Flag; publishes this page's own audio to an Icecast server.",
+		"isUiFacing": true
+	},
+	"icecastview": {
+		"role": "viewer",
+		"summary": "Flag; publishes the audio this page receives to an Icecast server.",
+		"isUiFacing": true
+	},
+	"icecaststream": {
+		"role": "viewer",
+		"summary": "Comma-separated stream IDs; which received streams feed the Icecast output. Falls back to the &view list.",
+		"isUiFacing": false
+	},
+	"icecasttarget": {
+		"role": "general",
+		"summary": "Full Icecast source URL, mount included. Takes priority over &icecastserver with &icecastmount.",
+		"isUiFacing": false
+	},
+	"icecastserver": {
+		"role": "general",
+		"summary": "Icecast server address; combined with &icecastmount to build the source URL.",
+		"isUiFacing": false
+	},
+	"icecastmount": {
+		"role": "general",
+		"summary": "Icecast mount point; combined with &icecastserver to build the source URL.",
+		"isUiFacing": false
+	},
+	"icecastuser": {
+		"role": "general",
+		"summary": "Icecast source username; default source.",
+		"isUiFacing": false
+	},
+	"icecastpass": {
+		"role": "general",
+		"summary": "Icecast source password. Read from the link in place of the saved one.",
+		"isUiFacing": false
+	},
+	"icecastformat": {
+		"role": "general",
+		"summary": "Audio format sent to Icecast, as a MIME type; default audio/aac.",
+		"isUiFacing": false
+	},
+	"icecastbitrate": {
+		"role": "general",
+		"summary": "Icecast audio bitrate; a value under 1000 is read as kbps, otherwise bps. Default 128 kbps.",
+		"isUiFacing": false
+	},
+	"icecastrelay": {
+		"role": "general",
+		"summary": "URL of the relay that forwards audio to Icecast, replacing the default relay; 0, false, off, no, direct or none sends without a relay. Podcast Studio reads it too.",
+		"isUiFacing": false
+	},
+	"icecastrelaytoken": {
+		"role": "general",
+		"summary": "Access token sent to the Icecast relay. Podcast Studio reads it too.",
+		"isUiFacing": false
+	},
+	"icecastname": {
+		"role": "general",
+		"summary": "Stream name shown in Icecast listings; default VDO.Ninja Live.",
+		"isUiFacing": false
+	},
+	"icecastgenre": {
+		"role": "general",
+		"summary": "Stream genre shown in Icecast listings; default Live.",
+		"isUiFacing": false
+	},
+	"icecastdescription": {
+		"role": "general",
+		"summary": "Stream description shown in Icecast listings.",
+		"isUiFacing": false
+	},
+	"icecastpublic": {
+		"role": "general",
+		"summary": "Boolean; 0, false, off or no keeps the stream out of public Icecast directories, any other value lists it.",
+		"isUiFacing": false
+	},
+	"icecastauto": {
+		"role": "general",
+		"summary": "Boolean; starts Icecast publishing on load once the settings are complete.",
+		"isUiFacing": false
+	},
+	"callinoutput": {
+		"role": "general",
+		"summary": "Audio output device for call-in audio and the ringtone.",
+		"isUiFacing": false
+	},
+	"callinapi": {
+		"role": "general",
+		"summary": "URL of the Twilio worker the call-in panel uses, replacing the default.",
+		"isUiFacing": false
+	},
+	"twiliotarget": {
+		"role": "general",
+		"summary": "Phone number that pre-fills the Twilio outbound test field. &callintarget fills it too.",
+		"isUiFacing": false
+	},
+	"siptarget": {
+		"role": "general",
+		"summary": "Dial target that pre-fills the SIP call-in panel, ahead of the saved profile. &callintarget fills it too.",
+		"isUiFacing": false
+	},
+	"callintarget": {
+		"role": "general",
+		"summary": "Pre-fills the dial target in both the SIP and the Twilio call-in panels.",
+		"isUiFacing": false
+	},
+	"sipwss": {
+		"role": "general",
+		"summary": "WebSocket address of the SIP server, ahead of the saved profile.",
+		"isUiFacing": false
+	},
+	"sipuri": {
+		"role": "general",
+		"summary": "SIP URI to register as, ahead of the saved profile.",
+		"isUiFacing": false
+	},
+	"sipuser": {
+		"role": "general",
+		"summary": "SIP auth username, ahead of the saved profile.",
+		"isUiFacing": false
+	},
+	"sipdisplay": {
+		"role": "general",
+		"summary": "Display name sent on SIP calls, ahead of the saved profile; default VDO.Ninja.",
+		"isUiFacing": false
+	},
+	"sipregister": {
+		"role": "general",
+		"summary": "Boolean (default on); whether the call-in panel registers with the SIP server.",
+		"isUiFacing": false
+	},
+	"sipautoanswer": {
+		"role": "general",
+		"summary": "Boolean (default off); answers incoming SIP calls without a prompt.",
+		"isUiFacing": false
+	},
+	"sipauto": {
+		"role": "general",
+		"summary": "Boolean; connects to the SIP or SignalWire server on load.",
+		"isUiFacing": false
+	},
+	"sipautodial": {
+		"role": "general",
+		"summary": "Boolean; dials the pre-filled target once connected.",
+		"isUiFacing": false
+	},
+	"sippass": {
+		"role": "general",
+		"summary": "Never used as a password: the call-in panel strips it from the address bar and ignores the value.",
+		"isUiFacing": false
+	},
+	"signalwirespace": {
+		"role": "general",
+		"summary": "SignalWire space name; the scheme, path and .signalwire.com suffix are trimmed off.",
+		"isUiFacing": false
+	},
+	"podcast": {
+		"role": "general",
+		"summary": "Flag; loads Podcast Studio on the main page and hides the director layout and control bar.",
+		"isUiFacing": true
+	},
+	"studioiso": {
+		"role": "general",
+		"summary": "Boolean (default on); 0, false, off or no turns off Podcast Studio's record-to-disk controls.",
+		"isUiFacing": false
+	},
+	"novideobutton": {
+		"role": "sender",
+		"summary": "Disables the video button, so the guest cannot turn their camera off. Upstream's page summary for this parameter is a stray \"What is new\".",
+		"isUiFacing": true,
+		"replacesUpstreamSummary": true
 	}
 }

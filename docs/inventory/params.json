@@ -42,7 +42,7 @@
 			"sas"
 		],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Auto-hides remote guests videos when added, if those guests are not speaking actively",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6630"
@@ -108,7 +108,7 @@
 		"param": "allowedscenes",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Option to filter which OBS scenes a remote guest has access to controlling when using &controlobs",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4506"
@@ -213,7 +213,7 @@
 		"param": "app",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Loads the site into an \"app mode\" and allows you to load a new URL via the website itself",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2424"
@@ -295,7 +295,7 @@
 			"audiohint"
 		],
 		"role": "Sender",
-		"summary": "'=music fixed bitrate; =speech bitrate is variable'",
+		"summary": "=music fixed bitrate; =speech bitrate is variable",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5551"
@@ -365,6 +365,15 @@
 		"source": "code",
 		"isUiFacing": true,
 		"firstLocation": "main.js:404"
+	},
+	{
+		"param": "authtoken",
+		"aliases": [],
+		"role": "General",
+		"summary": "Token string the sign-in redirect adds; turns on sign-in mode, is saved for the room, then is removed from the address bar.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:433"
 	},
 	{
 		"param": "autoadd",
@@ -440,7 +449,7 @@
 		"param": "autorecord",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Records the local video and the remote video(s) automatically on their initial load",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2577"
@@ -564,7 +573,7 @@
 			"cssb64"
 		],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Lets you add css to the URL, but as a single string, so no external reference to a file is needed",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:3091"
@@ -586,7 +595,7 @@
 		"param": "batterymeter",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Shows the battery meter for guests that are on devices with a battery that's draining/charging",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1652"
@@ -636,7 +645,7 @@
 			"bitcut"
 		],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "If the total bitrate drops below the specified bitrate, the viewer will auto-hide the audio and video for that stream",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1686"
@@ -676,7 +685,7 @@
 		"param": "blur",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Will try to add a blurred background to the video so it fits the structured video container",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5982"
@@ -714,7 +723,7 @@
 			"bc"
 		],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "A useful flag to allow the director to present their own video to the group, often used in conjunction with a virtual webcam or Meshcast. It allows for larger groups rooms by reducing load on guests",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1423"
@@ -725,7 +734,7 @@
 			"bct"
 		],
 		"role": "Director",
-		"summary": ">-",
+		"summary": "Will let you specify the default for whether to transfer a guest from room to room in broadcast mode or not",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1385"
@@ -803,6 +812,37 @@
 		"firstLocation": "main.js:1545"
 	},
 	{
+		"param": "callinapi",
+		"aliases": [
+			"twilioapi"
+		],
+		"role": "General",
+		"summary": "URL of the Twilio worker the call-in panel uses, replacing the default.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2386"
+	},
+	{
+		"param": "callinoutput",
+		"aliases": [
+			"sipoutput"
+		],
+		"role": "General",
+		"summary": "Audio output device for call-in audio and the ringtone.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:711"
+	},
+	{
+		"param": "callintarget",
+		"aliases": [],
+		"role": "General",
+		"summary": "Pre-fills the dial target in both the SIP and the Twilio call-in panels.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2388"
+	},
+	{
 		"param": "cbr",
 		"aliases": [],
 		"role": "Sender",
@@ -831,7 +871,7 @@
 			"cft"
 		],
 		"role": "",
-		"summary": ">-",
+		"summary": "Accepts the special token without needing to specify the cloudflare.vdo.ninja part if using &whipout instead",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1120"
@@ -903,6 +943,117 @@
 		"firstLocation": "main.js:5401"
 	},
 	{
+		"param": "chunkadaptceil",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Integer kbps, 0 to 100000; highest bitrate chunked-mode adaptation may rise to. Default is the base bitrate.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5408"
+	},
+	{
+		"param": "chunkadaptfloor",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Integer kbps, 0 to 10000; lowest bitrate chunked-mode adaptation may fall to. Default is 20% of the base bitrate, at least 200.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5407"
+	},
+	{
+		"param": "chunkadaptinterval",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Integer ms, 100 to 60000 (default 800, floor 200); how often chunked-mode adaptation re-evaluates.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5411"
+	},
+	{
+		"param": "chunkadaptmaxdrop",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Integer 0 to 120 (default 6); cap on the frames chunked-mode adaptation may queue up to drop in framerate or hybrid mode.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5410"
+	},
+	{
+		"param": "chunkadaptresolution",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean; lets chunked-mode adaptation scale the encoded resolution down at low bitrates.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5412"
+	},
+	{
+		"param": "chunkadaptthreshold",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Number, 0 to 10000 (default 380); pressure level at which chunked-mode adaptation starts cutting bitrate or frames.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5409"
+	},
+	{
+		"param": "chunkbitrate",
+		"aliases": [
+			"chunkvideobitrate",
+			"webcodecsbitrate"
+		],
+		"role": "Sender",
+		"summary": "Integer kbps, 1 to 100000; video bitrate for the chunked (WebCodecs) encoder, separate from the legacy &chunked value.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5383"
+	},
+	{
+		"param": "chunkbuffer",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Integer ms, 0 to 180000; playout buffer for chunked video on the receiving side.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5392"
+	},
+	{
+		"param": "chunkbufferadaptive",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Boolean (default on); lets the chunked playout buffer size itself from network conditions. 0 or false fixes it, as &fixedchunkbuffer does.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5395"
+	},
+	{
+		"param": "chunkbufferceil",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Integer ms, 0 to 180000; upper bound of the adaptive chunked playout buffer.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5394"
+	},
+	{
+		"param": "chunkbufferfloor",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Integer ms, 0 to 180000; lower bound of the adaptive chunked playout buffer.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5393"
+	},
+	{
+		"param": "chunkcache",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Integer ms, 0 to 60000; fixed length of the resend cache, replacing the computed length (which tops out at 30 s).",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5415"
+	},
+	{
 		"param": "chunkcast",
 		"aliases": [],
 		"role": "Sender",
@@ -910,6 +1061,15 @@
 		"source": "code",
 		"isUiFacing": false,
 		"firstLocation": "main.js:1505"
+	},
+	{
+		"param": "chunkchunksize",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Integer bytes, 2048 to 65536 (default 16384); payload size of each chunk when NACK or FEC is on.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5416"
 	},
 	{
 		"param": "chunkcodec",
@@ -930,7 +1090,7 @@
 			"chunk"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Does not use webRTC's video streaming protocols; rather it uses a custom-made protocol",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5210"
@@ -947,6 +1107,60 @@
 		"firstLocation": "main.js:5251"
 	},
 	{
+		"param": "chunkfec",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Integer 0 to 12; forward error correction rate for chunked mode. Takes effect at 2 or more, which also forces indexed chunks.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5378"
+	},
+	{
+		"param": "chunkindex",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean; sends chunks with explicit indices (the indexed protocol). Forced on by &chunknack or &chunkfec of 2 or more.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5417"
+	},
+	{
+		"param": "chunkjitterslack",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Integer ms, 0 to 10000; extra allowance added to the chunked playout buffer for jitter.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5399"
+	},
+	{
+		"param": "chunknack",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean (empty, 1 or true is on); keeps sent chunks so receivers can ask for lost ones again. Forces indexed chunks.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5379"
+	},
+	{
+		"param": "chunknackattempts",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Integer 1 to 20 (default 3); how many times a receiver asks again for a missing chunk.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5423"
+	},
+	{
+		"param": "chunknackdelay",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Integer ms, 50 to 5000 (default 180); wait between requests for a missing chunk.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5424"
+	},
+	{
 		"param": "chunkprofile",
 		"aliases": [],
 		"role": "General",
@@ -954,6 +1168,15 @@
 		"source": "code",
 		"isUiFacing": false,
 		"firstLocation": "main.js:5311"
+	},
+	{
+		"param": "chunkretry",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Integer ms, 0 to 60000; minimum time sent chunks stay available for resend requests.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "main.js:5414"
 	},
 	{
 		"param": "claim",
@@ -1001,7 +1224,7 @@
 			"cv"
 		],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Hides many of the UI elements and pop-ups that may cause unwanted visual elements",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:573"
@@ -1067,7 +1290,7 @@
 			"dp"
 		],
 		"role": "Director",
-		"summary": ">-",
+		"summary": "Allows assistant directors to have access to the director's room, with a subset of control",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:8222"
@@ -1139,7 +1362,7 @@
 			"hint"
 		],
 		"role": "Sender",
-		"summary": "'=motion prioritizes frame rate; =detail prioritizes resolution'",
+		"summary": "=motion prioritizes frame rate; =detail prioritizes resolution",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5547"
@@ -1171,7 +1394,7 @@
 			"obs"
 		],
 		"role": "General",
-		"summary": ">-",
+		"summary": "The ability for VDO.Ninja to Remotely Control OBS Studio while streaming/directing",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2681"
@@ -1182,7 +1405,7 @@
 			"crb"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Allows a guest to control their total room video bitrate dynamically from the settings panel (under video settings)",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4354"
@@ -1191,7 +1414,7 @@
 		"param": "cover",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Has the videos fully \"cover\" their assigned areas, even if it means cropping the video",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2509"
@@ -1247,7 +1470,7 @@
 			"lowbitratescene"
 		],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Specifies an OBS cut scene to switch to when the bitrate drops below a threshold",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1727"
@@ -1424,7 +1647,7 @@
 		"param": "distort",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Will try to \"distort\" your microphone's output audio, making your voice a bit anonymous",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5112"
@@ -1495,7 +1718,7 @@
 			"usedtx"
 		],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Turns off the audio encoder automatically when no little to no sound is detected",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5116"
@@ -1504,7 +1727,7 @@
 		"param": "e2ee",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Support for something called \"end to end encryption\" using \"insertable streams\"",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6893"
@@ -1576,7 +1799,7 @@
 		"param": "enhance",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Tells the remote source that you would like them to prioritize the audio stream over other streams",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6343"
@@ -1587,7 +1810,7 @@
 			"eq"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Provides access to a generic audio equalizer that can be applied to the local microphone",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4448"
@@ -1740,15 +1963,6 @@
 		"firstLocation": "lib.js:7544"
 	},
 	{
-		"param": "fb",
-		"aliases": [],
-		"role": "Sender",
-		"summary": "Alias of &feedbackbutton: shows the hear-yourself button; optional value sets the self-monitor volume.",
-		"source": "code",
-		"isUiFacing": true,
-		"firstLocation": "main.js:632"
-	},
-	{
 		"param": "fec",
 		"aliases": [],
 		"role": "General",
@@ -1768,7 +1982,9 @@
 	},
 	{
 		"param": "feedbackbutton",
-		"aliases": [],
+		"aliases": [
+			"fb"
+		],
 		"role": "Sender",
 		"summary": "Optional numeric volume percent; unhides the 'hear yourself' self-monitor button and sets its playback volume.",
 		"source": "code",
@@ -1856,7 +2072,7 @@
 		"param": "forcecontrols",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Will try to keep the video controls visible, even if your mouse isn't hovering over the video",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:653"
@@ -1877,7 +2093,7 @@
 			"fl"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Forces the video output to landscape mode, regardless of how the phone is rotated",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1767"
@@ -1889,7 +2105,7 @@
 			"fp"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Forces the video output to portrait mode, regardless of how the phone is rotated",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1772"
@@ -2083,7 +2299,7 @@
 			"gv"
 		],
 		"role": "General",
-		"summary": ">-",
+		"summary": "The same as &group, except it lets you see those groups without actually needing to join them with your mic/camera",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5490"
@@ -2175,7 +2391,7 @@
 		"param": "hiddenscenebitrate",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Can be used to force videos not added yet to a scene to run at the specified bitrate",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:3045"
@@ -2252,7 +2468,7 @@
 			"hpb"
 		],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Will hide the default big play button that overlays a video when auto play is not allowed",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1062"
@@ -2316,10 +2532,26 @@
 			"queue3"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Like &queue, except the guest gets a message telling them they need to wait until approved by the director",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:7193"
+	},
+	{
+		"param": "holdercolor",
+		"aliases": [
+			"videobg",
+			"videobgcolor",
+			"videobackground",
+			"videobackgroundcolor",
+			"holderbg",
+			"holderbgcolor"
+		],
+		"role": "General",
+		"summary": "CSS color (a bare number gets a # prefix); background color of each video's holder. Defaults to the border color, then #000.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:4719"
 	},
 	{
 		"param": "holdwithvideo",
@@ -2327,7 +2559,7 @@
 			"queue4"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Just like &hold, except the director does see the guest's video and audio before the guest is activated",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:7207"
@@ -2356,10 +2588,205 @@
 		"param": "humb64",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "The same as &hangupmessage, except this takes an input as a base64 encoded string",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1874"
+	},
+	{
+		"param": "icecast",
+		"aliases": [
+			"icecastout"
+		],
+		"role": "General",
+		"summary": "Flag; turns on Icecast audio publishing and works out the source from the link: local audio on a push link, received audio on a view link.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "lib.js:77643"
+	},
+	{
+		"param": "icecastauto",
+		"aliases": [
+			"icecastautostart"
+		],
+		"role": "General",
+		"summary": "Boolean; starts Icecast publishing on load once the settings are complete.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:79026"
+	},
+	{
+		"param": "icecastbitrate",
+		"aliases": [
+			"icecastab"
+		],
+		"role": "General",
+		"summary": "Icecast audio bitrate; a value under 1000 is read as kbps, otherwise bps. Default 128 kbps.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77728"
+	},
+	{
+		"param": "icecastdescription",
+		"aliases": [
+			"icecastdesc"
+		],
+		"role": "General",
+		"summary": "Stream description shown in Icecast listings.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77731"
+	},
+	{
+		"param": "icecastformat",
+		"aliases": [
+			"icecastmime",
+			"icecasttype"
+		],
+		"role": "General",
+		"summary": "Audio format sent to Icecast, as a MIME type; default audio/aac.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77716"
+	},
+	{
+		"param": "icecastgenre",
+		"aliases": [],
+		"role": "General",
+		"summary": "Stream genre shown in Icecast listings; default Live.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77730"
+	},
+	{
+		"param": "icecastmount",
+		"aliases": [
+			"icecastmountpoint"
+		],
+		"role": "General",
+		"summary": "Icecast mount point; combined with &icecastserver to build the source URL.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77702"
+	},
+	{
+		"param": "icecastname",
+		"aliases": [],
+		"role": "General",
+		"summary": "Stream name shown in Icecast listings; default VDO.Ninja Live.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77729"
+	},
+	{
+		"param": "icecastpass",
+		"aliases": [
+			"icecastpassword",
+			"icecastsourcepassword"
+		],
+		"role": "General",
+		"summary": "Icecast source password. Read from the link in place of the saved one.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77704"
+	},
+	{
+		"param": "icecastpublic",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean; 0, false, off or no keeps the stream out of public Icecast directories, any other value lists it.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77732"
+	},
+	{
+		"param": "icecastpush",
+		"aliases": [
+			"icecastlocal",
+			"icecastmic"
+		],
+		"role": "Sender",
+		"summary": "Flag; publishes this page's own audio to an Icecast server.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "lib.js:77632"
+	},
+	{
+		"param": "icecastrelay",
+		"aliases": [
+			"icecastrelayurl"
+		],
+		"role": "General",
+		"summary": "URL of the relay that forwards audio to Icecast, replacing the default relay; 0, false, off, no, direct or none sends without a relay. Podcast Studio reads it too.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77717"
+	},
+	{
+		"param": "icecastrelaytoken",
+		"aliases": [],
+		"role": "General",
+		"summary": "Access token sent to the Icecast relay. Podcast Studio reads it too.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77727"
+	},
+	{
+		"param": "icecastserver",
+		"aliases": [
+			"icecasthost"
+		],
+		"role": "General",
+		"summary": "Icecast server address; combined with &icecastmount to build the source URL.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77701"
+	},
+	{
+		"param": "icecaststream",
+		"aliases": [
+			"icecastsid"
+		],
+		"role": "Viewer",
+		"summary": "Comma-separated stream IDs; which received streams feed the Icecast output. Falls back to the &view list.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:78743"
+	},
+	{
+		"param": "icecasttarget",
+		"aliases": [
+			"icecasturl",
+			"icecastsource"
+		],
+		"role": "General",
+		"summary": "Full Icecast source URL, mount included. Takes priority over &icecastserver with &icecastmount.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77700"
+	},
+	{
+		"param": "icecastuser",
+		"aliases": [
+			"icecastusername"
+		],
+		"role": "General",
+		"summary": "Icecast source username; default source.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:77711"
+	},
+	{
+		"param": "icecastview",
+		"aliases": [
+			"icecastremote",
+			"icecastfromview"
+		],
+		"role": "Viewer",
+		"summary": "Flag; publishes the audio this page receives to an Icecast server.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "lib.js:77633"
 	},
 	{
 		"param": "icefilter",
@@ -2424,7 +2851,7 @@
 			"ac"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Audio capture device to select N-number of audio channels; force mono or stereo capture",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:3887"
@@ -2446,7 +2873,7 @@
 			"ib"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "When combined with the either &webcam or &screenshare, this option won't auto-load the camera/mic selection page",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2160"
@@ -2609,7 +3036,7 @@
 		"param": "layout",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Shows the guest a return feed of the current mixer layout when using the Mixer App",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2219"
@@ -2618,7 +3045,7 @@
 		"param": "layouts",
 		"aliases": [],
 		"role": "Director",
-		"summary": ">-",
+		"summary": "An ordered array of layouts, which can be used to switch between using the API layouts action",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2266"
@@ -2667,7 +3094,7 @@
 		"param": "locked",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Will force a the VDO.Ninja's mixer output keep the mixed render contained to a specific aspect-ratio, regardless of the browser's window size",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1713"
@@ -2680,6 +3107,83 @@
 		"source": "code",
 		"isUiFacing": false,
 		"firstLocation": "main.js:2155"
+	},
+	{
+		"param": "longpipe",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Value 0, false or off turns the Longpipe background-effects pipeline off; any other value leaves it on.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:66993"
+	},
+	{
+		"param": "longpipeadaptive",
+		"aliases": [
+			"lpadaptive"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; turns on Longpipe's adaptive mode. Only applies with the auto preset.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:66987"
+	},
+	{
+		"param": "longpipeauto",
+		"aliases": [
+			"lpauto"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; selects Longpipe's auto preset, the same as &longpipepreset=auto.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:66953"
+	},
+	{
+		"param": "longpipedebug",
+		"aliases": [
+			"lpdebug"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; turns on Longpipe's debug output.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:67354"
+	},
+	{
+		"param": "longpipeoutput",
+		"aliases": [
+			"lpoutput",
+			"lpresolution"
+		],
+		"role": "Sender",
+		"summary": "Output size cap for Longpipe effects: source or native, 4k or 2160, 1440 or 2k, 1080, 720, or WIDTHxHEIGHT. Default 1920x1080, or 1280x720 on mobile and slower devices.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:66862"
+	},
+	{
+		"param": "longpipepreset",
+		"aliases": [
+			"lppreset",
+			"lpmodel"
+		],
+		"role": "Sender",
+		"summary": "Preset name: xs, small, medium, large, xl, auto, or the shorthands fast, balanced and quality; picks the Longpipe segmentation model instead of the automatic choice.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:66954"
+	},
+	{
+		"param": "longpipetemporal",
+		"aliases": [
+			"lptemporal"
+		],
+		"role": "Sender",
+		"summary": "Mask smoothing mode for Longpipe: off (default), warp, or stabilized.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:66898"
 	},
 	{
 		"param": "lowcut",
@@ -2771,7 +3275,7 @@
 			"mfps"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Like &fps, except it will allow for lower frame rates if the specific frame rate requested failed",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6458"
@@ -2861,7 +3365,7 @@
 			"wossbitrate"
 		],
 		"role": "",
-		"summary": ">-",
+		"summary": "Option to change outbound screen-share video bitrate of the &meshcast parameter",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6014"
@@ -2910,7 +3414,7 @@
 		"param": "mediasettings",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Adds the option to change the video and audio settings dynamically via the settings menu",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:3065"
@@ -2928,7 +3432,7 @@
 		"param": "meshcast",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Triggers the service, causing the outbound audio/video stream to be transferred to a hosted server",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1481"
@@ -3198,7 +3702,7 @@
 		"param": "midioffset",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Allows you to set a series of buttons on a MIDI controller to be mute controls for those guests",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1900"
@@ -3660,7 +4164,7 @@
 			"ng"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Lowers your mic volume to 10% of its current value based on volume-level activity",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6645"
@@ -3669,10 +4173,39 @@
 		"param": "noisegatesettings",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Lets you tweak the &noisegate variables, making it more or less aggressive as needed",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6696"
+	},
+	{
+		"param": "nolongpipe",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; turns the Longpipe background-effects pipeline off, so effects use the older segmenters.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:66992"
+	},
+	{
+		"param": "nolongpipeadaptive",
+		"aliases": [
+			"nolpadaptive"
+		],
+		"role": "Sender",
+		"summary": "Boolean flag; keeps Longpipe's adaptive mode off, overriding &longpipeadaptive.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:66986"
+	},
+	{
+		"param": "nomediapipe",
+		"aliases": [],
+		"role": "Sender",
+		"summary": "Boolean flag; skips the MediaPipe selfie segmenter. Unlike &forcetflite it leaves the Longpipe effects pipeline on.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "lib.js:67524"
 	},
 	{
 		"param": "nomeshcast",
@@ -3969,9 +4502,9 @@
 			"nvb"
 		],
 		"role": "Sender",
-		"summary": "What is new",
-		"source": "upstream docs",
-		"isUiFacing": null,
+		"summary": "Disables the video button, so the guest cannot turn their camera off. Upstream's page summary for this parameter is a stray \"What is new\".",
+		"source": "code",
+		"isUiFacing": true,
 		"firstLocation": "main.js:1286"
 	},
 	{
@@ -3991,7 +4524,7 @@
 			"nif"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Disables IFrames from loading, such as remotely shared websites by another guest or director",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4971"
@@ -4009,7 +4542,7 @@
 		"param": "obsfix",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Disables or adjusts the sensitivity of the VP8/VP9 Codec packet loss 'fix' for OBS",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4334"
@@ -4041,7 +4574,7 @@
 		"param": "optimize",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Video bitrate reduced when the video is not visible in OBS (not active in a scene)",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:899"
@@ -4200,7 +4733,7 @@
 		"param": "permaid",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Will save that stream ID to local storage and reuse it every time &permaid is used without a stream ID",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:7238"
@@ -4238,7 +4771,7 @@
 			"pip2"
 		],
 		"role": "General",
-		"summary": ">-",
+		"summary": "New floating picture in picture mode, so you can pop out the entire video mix as a pinned window overlay",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1853"
@@ -4250,7 +4783,7 @@
 			"mypip"
 		],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Will cause your self-video preview window to pop out into its own picture in picture",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4478"
@@ -4277,10 +4810,19 @@
 		"param": "playchannel",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Will play either the left or right audio stream-only for an incoming stereo stream",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6338"
+	},
+	{
+		"param": "podcast",
+		"aliases": [],
+		"role": "General",
+		"summary": "Flag; loads Podcast Studio on the main page and hides the director layout and control bar.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "index.html:19"
 	},
 	{
 		"param": "poke",
@@ -4446,7 +4988,7 @@
 			"s"
 		],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Improves the audio quality, changes default audio settings and sets the audio mode to stereo",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:3741"
@@ -4458,7 +5000,7 @@
 			"approve"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Another security option, for those concerned about random spying of their streams",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:3266"
@@ -4467,7 +5009,7 @@
 		"param": "proxy",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Forces your computer to try to connect to the handshake service via a different physical network end point and domain name",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4279"
@@ -4597,7 +5139,7 @@
 			"qt"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Will transfer a guest from one room into another, but once transferred, the guest will be in Queue mode",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1404"
@@ -4615,7 +5157,7 @@
 		"param": "rampuptime",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "When a guest connects, this tries to load video from that guest for a few seconds, even if not yet added to a scene",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:3057"
@@ -4686,7 +5228,7 @@
 			"motionrecord"
 		],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Takes a video snapshot and saves it to disk whenever there is motion detected in a video",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1697"
@@ -4792,7 +5334,7 @@
 		"param": "retransmit",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Will relay the incoming 'chunked' media stream to others connected to you, without transcoding",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2953"
@@ -4843,7 +5385,7 @@
 			"rbr"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Limits any guest viewer in the group chat room from pulling the video stream at more than the specified bitrate value",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4045"
@@ -5072,7 +5614,7 @@
 			"queue2"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Replaces the way &queue worked before, where the guest can see/hear the director, but not other guests, until activated",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:7187"
@@ -5114,7 +5656,7 @@
 			"ss2"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Will show the \"Share your Screen\" button before asking the user to select screenshare options",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2077"
@@ -5185,7 +5727,7 @@
 			"sshint"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "=motion prioritizes screen-share frame rate; =detail prioritizes screen-share resolution",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5555"
@@ -5231,7 +5773,7 @@
 			"sshide"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Hides the local screen-share sub-window that appears when screen sharing in a room",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:7886"
@@ -5242,7 +5784,7 @@
 			"ssid"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Pre-sets the screenshare stream id for a screen share if its a secondary stream",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:7902"
@@ -5276,7 +5818,7 @@
 			"ssproaudio"
 		],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Sets the audio mode for screen-shares to stereo and changes default audio settings to improve audio quality",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:3797"
@@ -5287,7 +5829,7 @@
 			"sstype"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Defines how webcam and screenshare of a guest in a room interacts which each other",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2096"
@@ -5326,7 +5868,7 @@
 		"param": "secure",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Disconnects communication with the handshake server as soon as possible and provides verbose feedback",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6423"
@@ -5371,7 +5913,7 @@
 			"filtersensors"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "An option to explicitly list what &sensor data you want to capture and transmit",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5511"
@@ -5538,13 +6080,133 @@
 		"firstLocation": "main.js:1637"
 	},
 	{
+		"param": "signalwirespace",
+		"aliases": [
+			"swspace",
+			"callinspace"
+		],
+		"role": "General",
+		"summary": "SignalWire space name; the scheme, path and .signalwire.com suffix are trimmed off.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:219"
+	},
+	{
 		"param": "sink",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Outputs the audio to the specified audio output device, rather than the default",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6134"
+	},
+	{
+		"param": "sipauto",
+		"aliases": [
+			"callinauto"
+		],
+		"role": "General",
+		"summary": "Boolean; connects to the SIP or SignalWire server on load.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2759"
+	},
+	{
+		"param": "sipautoanswer",
+		"aliases": [
+			"callinautoanswer"
+		],
+		"role": "General",
+		"summary": "Boolean (default off); answers incoming SIP calls without a prompt.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2451"
+	},
+	{
+		"param": "sipautodial",
+		"aliases": [
+			"callinautodial"
+		],
+		"role": "General",
+		"summary": "Boolean; dials the pre-filled target once connected.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:1984"
+	},
+	{
+		"param": "sipdisplay",
+		"aliases": [
+			"callindisplay"
+		],
+		"role": "General",
+		"summary": "Display name sent on SIP calls, ahead of the saved profile; default VDO.Ninja.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2416"
+	},
+	{
+		"param": "sippass",
+		"aliases": [
+			"callinpass"
+		],
+		"role": "General",
+		"summary": "Never used as a password: the call-in panel strips it from the address bar and ignores the value.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:599"
+	},
+	{
+		"param": "sipregister",
+		"aliases": [
+			"callinregister"
+		],
+		"role": "General",
+		"summary": "Boolean (default on); whether the call-in panel registers with the SIP server.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2440"
+	},
+	{
+		"param": "siptarget",
+		"aliases": [],
+		"role": "General",
+		"summary": "Dial target that pre-fills the SIP call-in panel, ahead of the saved profile. &callintarget fills it too.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2417"
+	},
+	{
+		"param": "sipuri",
+		"aliases": [
+			"callinuri"
+		],
+		"role": "General",
+		"summary": "SIP URI to register as, ahead of the saved profile.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2401"
+	},
+	{
+		"param": "sipuser",
+		"aliases": [
+			"callinuser"
+		],
+		"role": "General",
+		"summary": "SIP auth username, ahead of the saved profile.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2402"
+	},
+	{
+		"param": "sipwss",
+		"aliases": [
+			"callinwss"
+		],
+		"role": "General",
+		"summary": "WebSocket address of the SIP server, ahead of the saved profile.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2395"
 	},
 	{
 		"param": "slider",
@@ -5599,10 +6261,19 @@
 		"param": "slots",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Will force the auto-mixer to have that number of slots, even if there are more or less videos available to fill them",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:5167"
+	},
+	{
+		"param": "slotslist",
+		"aliases": [],
+		"role": "Viewer",
+		"summary": "Comma-separated slot numbers; limits processing to those slots. Ignored when &slots is also set.",
+		"source": "code",
+		"isUiFacing": true,
+		"firstLocation": "main.js:5169"
 	},
 	{
 		"param": "smallshare",
@@ -5698,7 +6369,7 @@
 		"param": "statsinterval",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Lets you change the default stats update interval from 3-seconds to something else",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6214"
@@ -5716,7 +6387,7 @@
 		"param": "streamlabs",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Tells VDO.Ninja to not block VDO.Ninja from attempting to run when using Streamlabs for MacOS",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4590"
@@ -5738,6 +6409,15 @@
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2463"
+	},
+	{
+		"param": "studioiso",
+		"aliases": [],
+		"role": "General",
+		"summary": "Boolean (default on); 0, false, off or no turns off Podcast Studio's record-to-disk controls.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "podcast/studio.js:82"
 	},
 	{
 		"param": "stun",
@@ -5792,7 +6472,7 @@
 			"scalabilitymode"
 		],
 		"role": "",
-		"summary": ">-",
+		"summary": "Useful for publishing to WHIP broadcast servers that support scalable video modes",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:1240"
@@ -5937,11 +6617,10 @@
 	{
 		"param": "tfliteeffects",
 		"aliases": [
-			"forcetflite",
-			"nomediapipe"
+			"forcetflite"
 		],
 		"role": "Sender",
-		"summary": "Boolean flag; skips the MediaPipe selfie segmenter, using the TFLite effects path.",
+		"summary": "Boolean flag; skips both the MediaPipe selfie segmenter and the Longpipe effects pipeline, using the TFLite effects path.",
 		"source": "code",
 		"isUiFacing": false,
 		"firstLocation": "lib.js:67524"
@@ -6148,6 +6827,15 @@
 		"firstLocation": "main.js:7001"
 	},
 	{
+		"param": "twiliotarget",
+		"aliases": [],
+		"role": "General",
+		"summary": "Phone number that pre-fills the Twilio outbound test field. &callintarget fills it too.",
+		"source": "code",
+		"isUiFacing": false,
+		"firstLocation": "callin.js:2388"
+	},
+	{
 		"param": "tz",
 		"aliases": [],
 		"role": "General",
@@ -6158,11 +6846,9 @@
 	},
 	{
 		"param": "universaltoken",
-		"aliases": [
-			"authtoken"
-		],
+		"aliases": [],
 		"role": "General",
-		"summary": "Same as &auth: requires sign-in before the session loads, using a universal auth token.",
+		"summary": "Token string; turns on sign-in mode with a universal token, which lifts the sign-in requirement on view, scene and solo links.",
 		"source": "code",
 		"isUiFacing": true,
 		"firstLocation": "main.js:433"
@@ -6236,7 +6922,7 @@
 		"param": "vdo",
 		"aliases": [],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Like &videodevice for selecting a default video device, but you can still choose to change the camera",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:4798"
@@ -6448,7 +7134,7 @@
 		"param": "waitimage",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "You can add a custom image which shows up while waiting for the &scene or &view link",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:8363"
@@ -6457,7 +7143,7 @@
 		"param": "waitmessage",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "You can add a custom message which shows up while waiting for the &scene or &view link",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:8430"
@@ -6475,7 +7161,7 @@
 		"param": "waittimeout",
 		"aliases": [],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Specifies a delay for &waitimage and &waitmessage while waiting for the &scene or &view link",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:8403"
@@ -6497,7 +7183,7 @@
 			"wc2"
 		],
 		"role": "Sender",
-		"summary": ">-",
+		"summary": "Will show the \"Share your Camera\" button before asking the user to select camera options",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:2073"
@@ -6807,7 +7493,7 @@
 		"param": "widget",
 		"aliases": [],
 		"role": "General",
-		"summary": ">-",
+		"summary": "Will load a side-bar with an IFrame embed, with support for YouTube / Twitch / Social Stream",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:6742"
@@ -6883,7 +7569,7 @@
 			"zb"
 		],
 		"role": "Viewer",
-		"summary": ">-",
+		"summary": "Lets you set the target bitrate for a guest when they 'zoom in' (fullscreen) on a video",
 		"source": "upstream docs",
 		"isUiFacing": null,
 		"firstLocation": "main.js:7896"

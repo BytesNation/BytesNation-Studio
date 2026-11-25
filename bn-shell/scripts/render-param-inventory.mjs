@@ -6,7 +6,9 @@
  *   - the engine code (via inventory-params.mjs): every parameter it reads;
  *   - rawdoc.md (upstream docs): summary, role and aliases where documented;
  *   - docs/inventory/param-descriptions.json: code-derived descriptions for
- *     parameters upstream does not document.
+ *     parameters upstream does not document. An entry marked
+ *     "replacesUpstreamSummary" also wins over an upstream summary that is
+ *     wrong for its parameter.
  *
  * After an upstream merge, rerun it: new parameters without any description are
  * listed under "Needs description", and the git diff of params.json shows what
@@ -56,7 +58,8 @@ const buildRows = () => {
 	const missing = [];
 	const rows = params.map(entry => {
 		const overlayEntry = overlay[entry.param];
-		const summary = entry.summary || (overlayEntry ? overlayEntry.summary : "");
+		const isReplacingUpstream = Boolean(overlayEntry && overlayEntry.replacesUpstreamSummary);
+		const summary = (isReplacingUpstream ? overlayEntry.summary : entry.summary) || (overlayEntry ? overlayEntry.summary : "");
 		if (!summary) {
 			missing.push(entry.param);
 		}
@@ -65,7 +68,7 @@ const buildRows = () => {
 			aliases: entry.aliases,
 			role: roleLabel(entry.role || (overlayEntry ? overlayEntry.role : "")),
 			summary,
-			source: entry.isDocumented ? "upstream docs" : overlayEntry ? "code" : "none",
+			source: entry.isDocumented && !isReplacingUpstream ? "upstream docs" : overlayEntry ? "code" : "none",
 			isUiFacing: overlayEntry ? Boolean(overlayEntry.isUiFacing) : null,
 			firstLocation: entry.firstLocation
 		};
@@ -84,7 +87,9 @@ const renderMarkdown = ({ rows, missing }) => {
 		"",
 		`${rows.length} parameters (${rows.length + aliasCount} names counting aliases). ${documentedCount} are documented upstream in \`rawdoc.md\`; ${rows.length - documentedCount - missing.length} are described from the code; ${missing.length} need a description.`,
 		"",
-		"Every parameter here must behave exactly as upstream after the redesign. The redesign changes no parameter parsing: all of it lives in `main.js`, `lib.js` and `webrtc.js`, which BytesNation Studio does not modify. `&classicui` (alias `&bnclassic`) is the only parameter BytesNation adds; it is read by `bn/boot.js`, not the engine.",
+		"Every parameter here must behave exactly as upstream after the redesign. The redesign changes no parameter parsing. It lives in `main.js`, `lib.js` and `webrtc.js`, in `auth-client.js` and `callin.js` (loaded for `&auth` and `&callin`), in Podcast Studio (`podcast/`, loaded for `&podcast`) and in two inline `&podcast` checks in `index.html`. BytesNation Studio modifies none of those files except `index.html`, and there only the marked brand and theme lines. `&classicui` (alias `&bnclassic`) is the only parameter BytesNation adds; it is read by `bn/boot.js`, not the engine.",
+		"",
+		"The list is extracted by `bn-shell/scripts/inventory-params.mjs`, which fails if it meets a way of reading a parameter that it does not understand.",
 		"",
 		"Role: Sender (publishing side), Viewer (view and scene side), Director, or General. Source: where the summary comes from.",
 		"",

@@ -818,6 +818,18 @@ Detection: `&notmobile` / `&mobile` override; else iOS/iPad, or UA `/Android|Pix
 | Push-to-talk | user hotkey | `#pptHotKey` | `toggleMute(true)` main.js:10865-10883 | hotkey set |
 | Exit fullscreen | Escape | n/a | main.js:10844 | fullscreen |
 
+## Add-on surfaces (each loaded by its own parameter)
+
+Three surfaces live on `index.html` but are built at run time by code outside the static markup, each with a stylesheet of its own that it injects after the page's styles. The first inventory pass missed them, because the parameter scan read only literal `urlParams.has("name")` calls and these read their parameters through helper functions. They are listed in [url-parameters.md](url-parameters.md) now.
+
+| Surface | Parameter | Selector | Built by (file:line) | Controls | Redesign status |
+|---|---|---|---|---|---|
+| Icecast publishing panel | `&icecastpush`, `&icecastview`, `&icecast` (plus the `&icecast...` settings) | `#vdo-icecast-panel`, fixed bottom right | `vdoIcecastEnsurePanel` lib.js:78785, wired in `setupVDOIcecast` lib.js:78938 | Source URL `#vdo-icecast-target`, username `#vdo-icecast-username`, password `#vdo-icecast-password`, format `#vdo-icecast-format`, Start `#vdo-icecast-start` (`vdoIcecastControllerStart` lib.js:78897), Settings `#vdo-icecast-settings` (shows or hides `#vdo-icecast-form`), Stop `#vdo-icecast-stop`, status `#vdo-icecast-status` with `data-state` idle, ready, live or error | Themed (`addons.css`) |
+| Phone call-in panel | `&callin` (plus the `&sip...`, `&callin...`, `&twilio...` and `&signalwire...` settings) | `#vdo-callin-panel`, fixed right, draggable, can minimize | `setupCallIn` callin.js:583, loaded by main.js:1547 | Provider select (SIP / PBX, Twilio, SignalWire), SIP WebSocket URL, SIP URI, auth username, password, display name, dial target, three checkboxes (register, auto-answer, remember password), Save profile, Forget, Connect (`connectSip` callin.js:1950), Dial (`dialSip` callin.js:2101), Hang up, ringtone menu (bell icon), minimize (chevron icon), incoming-call card with Answer and Reject, status `#vdo-callin-status`, setup guide link | Themed (`addons.css`) |
+| Podcast Studio | `&podcast` | `#podcast-root`, `#podcast-room-gate`, `.podcast-preflight-backdrop`, `.remote-overlay`, `.help-overlay`; `body.podcast-studio-mode` hides every other body child, the app bar and the launcher included | inline loader index.html:3647, `podcast/bootstrap.js`, `PodcastStudioApp` podcast/studio.js:1623, styles `podcast/studio.css` (2,484 lines, fixed colors, no custom properties) | Room gate (podcast/studio.js:1036): room name, password, Enter Studio, Back to classic. Setup check (podcast/studio.js:1280): mic, camera and disk tests, Enter Control Room, Skip preflight. Control room (podcast/studio.js:3655 on): header, host panel, guest panels, invite panel, session tools (recording, recording settings), timeline with waveform and spectrogram, chat panel, help guide (podcast/studio.js:6442) | **Not redesigned.** It keeps upstream's own look: gradients, blur, pill buttons, dark only. BytesNation adds three things: the credit bar `#bn-podcast-credit`, the dark tokens on every `&podcast` link, and a setup check that scrolls on small screens. The command palette and notifications stay off here |
+
+Engine strings in these surfaces still say "VDO.Ninja": the Icecast panel's description, the default Icecast stream name ("VDO.Ninja Live"), and the default SIP display name ("VDO.Ninja"). They are defaults inside `lib.js` and `callin.js`, which BytesNation does not modify; `&icecastname` and `&sipdisplay` override the two names per link.
+
 ## Other entry points
 
 | Control | Selector | Label / translate key | Handler (file:line) | Shown/hidden by |

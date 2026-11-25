@@ -6,15 +6,15 @@ The full tables are in `docs/inventory/`:
 
 | Appendix | What it covers | Size |
 |---|---|---|
-| [url-parameters.md](inventory/url-parameters.md) | Every URL parameter the engine reads, with aliases, role, behavior and source line | 678 parameters, 1,166 names with aliases |
-| [views-and-controls.md](inventory/views-and-controls.md) | Every view of the main app, the switches between views, and every control in each view: DOM id, label, handler, and the parameter that shows or hides it | 26 views, 647 controls |
+| [url-parameters.md](inventory/url-parameters.md) | Every URL parameter the main page reads, with aliases, role, behavior and source line | 745 parameters, 1,281 names with aliases |
+| [views-and-controls.md](inventory/views-and-controls.md) | Every view of the main app, the switches between views, and every control in each view: DOM id, label, handler, and the parameter that shows or hides it. Podcast Studio is listed by screen, not control by control | 29 views, 647 controls plus the three add-on surfaces |
 | [shortcuts-and-apis.md](inventory/shortcuts-and-apis.md) | Keyboard shortcuts, IFRAME API (inbound and outbound), remote control API, MIDI, and other hooks | 70 shortcuts, 88 inbound and 145 outbound IFRAME messages, 95 remote API actions, 48 MIDI mappings, 50 other hooks |
 | [pages.md](inventory/pages.md) | Every HTML page besides `index.html`: purpose, category, branding, own parameters | 155 pages |
-| [params.json](inventory/params.json) | Machine-readable parameter inventory; the parity tests and the upstream-merge diff read it | 678 records |
+| [params.json](inventory/params.json) | Machine-readable parameter inventory; the parity tests and the upstream-merge diff read it | 745 records |
 
 ## How it was built
 
-- **URL parameters** come straight from the code. `bn-shell/scripts/inventory-params.mjs` finds every `urlParams.has()` and `urlParams.get()` call in `main.js`, `lib.js` and `webrtc.js`. Names checked together in every chain, or declared as aliases in upstream's docs, are grouped as aliases. Descriptions come from upstream's `rawdoc.md` (368 parameters) or, where upstream documents nothing, were read from the code (310 parameters, kept in `param-descriptions.json`). `render-param-inventory.mjs` writes the table.
+- **URL parameters** come straight from the code. `bn-shell/scripts/inventory-params.mjs` reads every script that touches the main page's URL: `main.js`, `lib.js`, `webrtc.js`, `auth-client.js`, `callin.js`, Podcast Studio (`podcast/`) and the inline scripts in `index.html`. It covers the four ways the engine reads a parameter: a literal name at the call site, a helper that takes the name or a list of aliases, a list of names checked in a loop, and a name built at run time. A read that fits none of these fails the run with its file and line, so a new kind of reader upstream cannot drop parameters without anyone noticing. Names checked together in every chain, or declared as aliases in upstream's docs, are grouped as aliases. Descriptions come from upstream's `rawdoc.md` where a parameter is documented, and from the code (`param-descriptions.json`) where it is not.
 - **Views, controls, shortcuts and APIs** were traced through `index.html`, `main.js` and `lib.js`, with a file and line for every entry.
 - **Pages** were read one by one.
 
@@ -41,7 +41,9 @@ After every upstream merge, rerun `node bn-shell/scripts/render-param-inventory.
 | Popups and modals | Engine prompts | Popups and modals |
 | Help, info, language, calendar | Launcher footer and corner buttons | Help / info footer, language, calendar |
 | Mobile | Any view on iOS or Android | Mobile, iOS and Android behavior |
-| Podcast Studio | `&podcast` (`podcast/index.html` redirects there) | Other entry points |
+| Podcast Studio | `&podcast` (`podcast/index.html` redirects there) | Add-on surfaces |
+| Phone call-in panel | `&callin` | Add-on surfaces |
+| Icecast publishing panel | `&icecastpush`, `&icecastview`, `&icecast` | Add-on surfaces |
 
 The main app's view state lives in `body` classes and `session` flags that `main.js` sets from URL parameters. Nothing in this list depends on page markup beyond the element ids, classes and child order the engine reads.
 

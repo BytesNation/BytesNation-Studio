@@ -98,7 +98,7 @@ Upstream is `steveseguin/vdo.ninja`, default branch `develop`. In this clone the
 2. Fetch and merge: `git fetch upstream && git merge upstream/develop`.
 3. Resolve conflicts. Expect them only in the `index.html` lines listed above. Take upstream's version of each line, then reapply the BytesNation change. Never resolve a conflict in an engine file in BytesNation's favor; there should be none.
 4. Update `bn-shell/engine-lock.json` to the merged upstream commit.
-5. Regenerate the inventory: `node bn-shell/scripts/render-param-inventory.mjs`. Review the `params.json` diff for new, removed or renamed parameters. Describe any new undocumented ones in `param-descriptions.json`.
+5. Regenerate the inventory: `node bn-shell/scripts/render-param-inventory.mjs`. Review the `params.json` diff for new, removed or renamed parameters. Describe any new undocumented ones in `param-descriptions.json`. If the run fails with "read(s) are not covered", upstream added or changed a way of reading parameters: teach `inventory-params.mjs` the new reader in the tables at its top, and look at any new surface it belongs to in both themes.
 6. Check the views inventory against upstream's diff for new or renamed element ids, and style anything new.
 7. Rebuild the layer: `cd bn-shell && npm ci && npm run build`.
 8. Run the parity suite (`npm run test:parity`) and the footprint check. Then capture the views (`node scripts/capture-views.mjs`) and compare them against the previous release.
