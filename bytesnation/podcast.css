@@ -371,3 +371,66 @@ html.bn-podcast .podcast-panel h3 {
 	text-transform: none;
 	letter-spacing: -0.015em;
 }
+
+/* Gate labels: upstream fixes them light for its dark-only page. */
+html.bn-podcast #podcast-room-gate label,
+html.bn-podcast #podcast-room-gate label span,
+html.bn-podcast .podcast-room-gate__form label span {
+	color: var(--bn-text-muted) !important;
+}
+
+/* ---------- Text colors: upstream fixes them for its dark-only page ---------- */
+
+html.bn-podcast #podcast-root,
+html.bn-podcast .podcast-preflight-panel {
+	color: var(--bn-text);
+}
+/* Primary text. */
+html.bn-podcast .host-audio-field__label,
+html.bn-podcast .invite-option__label,
+html.bn-podcast .dest-light__name,
+html.bn-podcast .host-audio-advanced span,
+html.bn-podcast .host-audio-toggle span,
+html.bn-podcast .roster-item__name,
+html.bn-podcast .timeline-track__name,
+html.bn-podcast .marker-item__label {
+	color: var(--bn-text) !important;
+}
+/* Secondary text, labels and readouts. */
+html.bn-podcast .podcast-header__room,
+html.bn-podcast .host-audio-hint,
+html.bn-podcast .host-audio-summary,
+html.bn-podcast .dest-group__label,
+html.bn-podcast .dest-group__hint,
+html.bn-podcast .dest-light__status,
+html.bn-podcast .preflight-subtitle,
+html.bn-podcast .empty-state,
+html.bn-podcast .timeline-placeholder,
+html.bn-podcast .recording-summary__item,
+html.bn-podcast .session-tool__hint,
+html.bn-podcast .podcast-panel p {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-podcast .podcast-header__room,
+html.bn-podcast .host-audio-summary,
+html.bn-podcast .dest-group__label {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	font-variant-numeric: tabular-nums;
+}
+html.bn-podcast .dest-group__label {
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	font-size: 11px;
+}
+html.bn-podcast .iso-config-row__label {
+	color: var(--bn-text) !important;
+}
+html.bn-podcast .iso-config-row__status,
+html.bn-podcast .capture-mode-label {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-podcast .iso-config-row__status[data-state="warning"],
+html.bn-podcast .iso-config-row__status.warning {
+	color: var(--bn-warning) !important;
+}

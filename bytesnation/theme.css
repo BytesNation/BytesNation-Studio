@@ -1635,3 +1635,37 @@ html.bn-ui .bn-source-link a:link,
 html.bn-ui .bn-source-link a:visited {
 	color: var(--bn-text-muted);
 }
+
+/* ---------- Contrast fixes: upstream text colors fixed for the dark theme only ---------- */
+
+html.bn-ui .message-card li,
+html.bn-ui .message-card p,
+html.bn-ui .message-card span {
+	color: var(--bn-prose) !important;
+}
+html.bn-ui .hideLinksClass span,
+html.bn-ui .hideLinksClass a,
+html.bn-ui #directorLinksButton,
+html.bn-ui #help_directors_room {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-ui .info-box {
+	background: var(--bn-surface) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r3);
+	color: var(--bn-text);
+	text-align: left;
+}
+html.bn-ui .info-box ul,
+html.bn-ui .info-box li {
+	color: var(--bn-prose) !important;
+}
+html.bn-ui .streamID,
+html.bn-ui .streamID span,
+html.bn-ui .contolboxLabel {
+	color: var(--bn-text) !important;
+}
+html.bn-ui .streamID {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}

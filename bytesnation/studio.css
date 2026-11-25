@@ -27,6 +27,8 @@
 	--bn-error: #ff8d7a;
 	--bn-ice: #7fd4ff;
 	--bn-mark: url("icons/mark-on-dark.svg");
+	/* The stage stands in for program video, so it stays dark in both themes. */
+	--bn-stage-text: #9ea3ab;
 	--bn-sans: "Inter Tight", "BN Sans Fallback", ui-sans-serif, system-ui, sans-serif;
 	--bn-mono: "Geist Mono", "BN Mono Fallback", ui-monospace, SFMono-Regular, monospace;
 
@@ -376,4 +378,12 @@ textarea {
 	background: var(--bn-surface) !important;
 	color: var(--bn-text) !important;
 	border: 1px solid var(--bn-control-border) !important;
+}
+.stage-empty,
+.stage-aspect[data-layout-mode="auto"] .stage-empty {
+	color: var(--bn-text-muted);
+}
+.stage-empty,
+.stage-aspect[data-layout-mode="auto"] .stage-empty {
+	color: var(--bn-stage-text);
 }
