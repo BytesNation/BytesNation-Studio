@@ -72,6 +72,30 @@ test.describe("theme and shell", () => {
 		await context.close();
 	});
 
+	test("an installed copy is BytesNation Studio, and the page claims no upstream identity", async ({ browser, request }, testInfo) => {
+		const { context, page } = await openEnginePage({ browser, url: bnBase, contextOptions: projectContextOptions(testInfo) });
+		const manifestUrl = await page.evaluate(() => (document.querySelector('link[rel="manifest"]') as HTMLLinkElement).href);
+		const manifestResponse = await request.get(manifestUrl);
+		expect(manifestResponse.status()).toBe(200);
+		const manifestText = await manifestResponse.text();
+		const manifest = JSON.parse(manifestText);
+		expect(manifest.name).toBe("BytesNation Studio");
+		expect(manifestText, "the manifest carries no upstream name or icon").not.toMatch(/ninja/i);
+		// A manifest's addresses resolve against its own location: the app must still open the site's root.
+		expect(new URL(manifest.start_url, manifestUrl).href).toBe(bnBase);
+		expect(new URL(manifest.scope, manifestUrl).href).toBe(bnBase);
+		for (const icon of manifest.icons) {
+			expect((await request.get(new URL(icon.src, manifestUrl).href)).status(), `icon ${icon.src}`).toBe(200);
+		}
+		await expect(page.locator('link[rel="me"]')).toHaveCount(0);
+		// Kept on purpose: search engines are told this page is a copy of upstream's app (docs/ARCHITECTURE.md).
+		await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://vdo.ninja/");
+		// Upstream's notices stay.
+		await expect(page.locator('meta[name="author"]')).toHaveAttribute("content", "Steve Seguin");
+		await expect(page.locator('meta[name="license"]')).toHaveAttribute("content", /steveseguin\/vdo\.ninja/);
+		await context.close();
+	});
+
 	test("theme switch flips the engine theme and is remembered", async ({ browser }, testInfo) => {
 		test.skip(testInfo.project.name.startsWith("mobile"), "same code path as desktop");
 		const { context, page } = await openEnginePage({ browser, url: bnBase, contextOptions: projectContextOptions(testInfo) });

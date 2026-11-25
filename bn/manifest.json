@@ -1,0 +1,25 @@
+{
+	"name": "BytesNation Studio",
+	"short_name": "BytesNation",
+	"description": "BytesNation Studio brings guests, phones and screens into OBS as live video. Peer to peer, in the browser, nothing to install.",
+	"start_url": "../",
+	"scope": "../",
+	"display": "standalone",
+	"background_color": "#0a0b0d",
+	"theme_color": "#0a0b0d",
+	"orientation": "any",
+	"icons": [
+		{
+			"src": "brand/favicon-192.png",
+			"sizes": "192x192",
+			"type": "image/png",
+			"purpose": "any"
+		},
+		{
+			"src": "brand/favicon-512.png",
+			"sizes": "512x512",
+			"type": "image/png",
+			"purpose": "any"
+		}
+	]
+}

@@ -93,11 +93,20 @@ These are the only upstream files BytesNation Studio changes:
 | `index.html` | `<title>`, `metaTitle`, `og:site_name` and `theme-color` say BytesNation Studio | Product branding |
 | `index.html` | The three favicon `<link>`s point at `bn/brand/`, keeping their ids; one apple-touch-icon link added | Branding; `&favicon` and engine favicon updates still work by id |
 | `index.html` | The link preview tags (`description`, `og:title`, `og:description`, `og:url`, `og:image`, the matching `twitter:` tags, and the `thumbnailUrl` and `image` microdata) name BytesNation Studio and point at `bn/preview-card.png`; one `og:image:alt` line added | A link pasted into Discord, Slack, iMessage or X shows BytesNation Studio, not upstream's name and logo. `og:url` and the image address are absolute, on `studio.bytesnation.com`, because preview crawlers need full addresses |
+| `index.html` | The manifest link points at `bn/manifest.json`; upstream's `manifest.json` stays as shipped | A copy installed on a phone or desktop is named BytesNation Studio and wears our icon, not upstream's name and logo |
+| `index.html` | The `rel="me"` link to `vdo.ninja/about` is removed | It told machines this site belongs to upstream's author |
 | `index.html` | A marked block after `main.css` links `bn/theme.css` and `bn/boot.js` | Theme layer |
 | `index.html` | A marked line after `main.js` loads `bn/shell.js` | Shell |
 | `.gitignore` | A marked block re-includes `/docs/`, `bn-shell/package.json`, its lock file and `bn-shell/tests/` | Upstream's release `.gitignore` excludes those paths |
 
-The preview image is drawn by `bn-shell/scripts/render-preview-card.mjs` from the theme's dark tokens, the header lockup and the shipped fonts. Run it again when any of those change, then build. `canonical` and `rel="me"` still point at upstream; changing them decides how search engines index the site, and that is a product decision.
+The preview image is drawn by `bn-shell/scripts/render-preview-card.mjs` from the theme's dark tokens, the header lockup and the shipped fonts. Run it again when any of those change, then build.
+
+Upstream's license grants no right to the VDO.Ninja name, logo or branding, and none to claim affiliation (`LICENCE.md`). That is why the preview, the manifest and `rel="me"` are ours. Two upstream lines are kept on purpose (decided 2026-11-25):
+
+- `canonical` still points at `https://vdo.ninja/`. It tells search engines this page is a copy of upstream's app and sends the ranking there. BytesNation Studio runs on upstream's signaling servers by courtesy, and does not compete with upstream in search. Revisit if the site moves to its own signaling.
+- `twitter:creator` still names upstream's author, who did create the app.
+
+The copyright, license, author and source tags in the head are upstream's notices and never change.
 
 `webrtc.js`, `main.js`, `lib.js`, `main.css` and every other upstream file are byte-identical to upstream. `bn-shell/scripts/check-upstream-footprint.mjs` enforces this, and the parity suite runs it.
 

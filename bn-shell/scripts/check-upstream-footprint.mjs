@@ -41,7 +41,10 @@ const replaceableIndexLines = [
 	"<meta property=\"og:image\" content=\"https://vdo.ninja/media/vdoNinja_logo_full.png\">",
 	"<link id=\"thumbnailUrl\" itemprop=\"thumbnailUrl\" href=\"./media/vdoNinja_logo_full.png\" />",
 	"<link itemprop=\"thumbnailUrl\" href=\"./media/vdoNinja_logo_full.png\" />",
-	"<link itemprop=\"url\" href=\"./media/vdoNinja_logo_full.png\" />"
+	"<link itemprop=\"url\" href=\"./media/vdoNinja_logo_full.png\" />",
+	// Identity: the installed app's manifest is ours, and the page no longer claims to be upstream's author.
+	"<link rel=\"manifest\" href=\"manifest.json\">",
+	"<link rel=\"me\" href=\"https://vdo.ninja/about\" />"
 ];
 
 const isBytesNationLine = line => /BytesNation|\.\/bn\/|#0a0b0d|https:\/\/studio\.bytesnation\.com\//.test(line);
