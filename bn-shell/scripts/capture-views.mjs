@@ -8,7 +8,7 @@
  *
  * Usage:
  *   node scripts/capture-views.mjs --base http://127.0.0.1:8080/ --out ./shots [--group director] [--theme dark] [--browser chromium]
- * Groups: launcher, publish, director, panels, video, layers, all (default).
+ * Groups: launcher, publish, director, panels, video, layers, addons, all (default).
  */
 import { chromium, firefox, webkit } from "playwright";
 import { mkdirSync } from "node:fs";
@@ -126,6 +126,30 @@ const captureLayers = async (browser, { theme, withBase }) => {
 	await capture(phone, `palette-mobile-${theme}`);
 };
 
+/** Surfaces that appear only with their own parameter: Icecast publishing, phone call-in and Podcast Studio. */
+const captureAddons = async (browser, { theme, withBase }) => {
+	const stamp = `${Date.now().toString(36)}${theme}`;
+	const icecast = await openPage(browser, { url: withBase(`push=bnice${stamp}&webcam&autostart&icecastpush`), waitMs: 6000 });
+	await capture(icecast, `icecast-panel-${theme}`);
+	await tryClick(icecast, "#vdo-icecast-settings");
+	await icecast.waitForTimeout(600);
+	await capture(icecast, `icecast-settings-${theme}`);
+	const icecastPhone = await openPage(browser, { url: withBase(`push=bnicep${stamp}&webcam&autostart&icecastpush`), viewport: phone390, isMobile: true, waitMs: 6000 });
+	await capture(icecastPhone, `icecast-panel-mobile-${theme}`);
+
+	const callIn = await openPage(browser, { url: withBase(`push=bncall${stamp}&webcam&autostart&callin`), waitMs: 6000 });
+	await capture(callIn, `callin-panel-${theme}`);
+	const callInPhone = await openPage(browser, { url: withBase(`push=bncallp${stamp}&webcam&autostart&callin`), viewport: phone390, isMobile: true, waitMs: 6000 });
+	await capture(callInPhone, `callin-panel-mobile-${theme}`);
+
+	const podcastGate = await openPage(browser, { url: withBase("podcast"), waitMs: 6000 });
+	await capture(podcastGate, `podcast-gate-${theme}`);
+	const podcast = await openPage(browser, { url: withBase(`podcast&director=bnpod${stamp}`), waitMs: 9000 });
+	await capture(podcast, `podcast-studio-${theme}`);
+	const podcastPhone = await openPage(browser, { url: withBase(`podcast&director=bnpodp${stamp}`), viewport: phone390, isMobile: true, waitMs: 9000 });
+	await capture(podcastPhone, `podcast-studio-mobile-${theme}`);
+};
+
 /** One run of every group for one theme. */
 const runTheme = async (browser, theme) => {
 	const themeParam = theme === "light" ? "&lightmode" : "";
@@ -224,6 +248,10 @@ const runTheme = async (browser, theme) => {
 
 	if (wants("layers")) {
 		await captureLayers(browser, { theme, withBase });
+	}
+
+	if (wants("addons")) {
+		await captureAddons(browser, { theme, withBase });
 	}
 
 	for (const context of browser.contexts()) {
