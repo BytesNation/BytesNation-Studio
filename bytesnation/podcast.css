@@ -1,0 +1,436 @@
+/*
+ * BytesNation Studio theme for Podcast Studio (index.html?podcast).
+ * Copyright (c) 2026 BytesNation. Licensed under AGPL-3.0-only, as part of this fork; see LICENSE.
+ *
+ * podcast/studio.css has no custom properties and fixes its colors in place, so this file
+ * restyles it by role. Every rule is scoped to html.bn-podcast, which bytesnation/gate.js sets on
+ * Podcast Studio's interface, and reads the tokens bytesnation/theme.css puts on body in both
+ * themes. podcast/bootstrap.js injects studio.css after this file; the html.bn-podcast prefix
+ * outranks it. Chrome 80 safe.
+ */
+
+html.bn-podcast body {
+	--bn-scrim: rgba(243, 241, 237, 0.88);
+}
+html.bn-podcast body.darktheme {
+	--bn-scrim: rgba(10, 11, 13, 0.88);
+}
+
+/* ---------- Canvas and type ---------- */
+
+html.bn-podcast body.podcast-studio-mode,
+html.bn-podcast #podcast-root,
+html.bn-podcast #podcast-room-gate {
+	background: var(--bn-bg) !important;
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+}
+html.bn-podcast #podcast-root h1,
+html.bn-podcast #podcast-root h2,
+html.bn-podcast #podcast-root h3,
+html.bn-podcast #podcast-room-gate h1,
+html.bn-podcast #podcast-room-gate h2 {
+	font-family: var(--bn-sans);
+	font-weight: 500;
+	letter-spacing: -0.025em;
+	color: var(--bn-text);
+}
+
+/* ---------- Panels, rows and wells ---------- */
+
+/* Panels sit on hairlines. Nothing floats. */
+html.bn-podcast .podcast-panel,
+html.bn-podcast .podcast-room-gate__panel,
+html.bn-podcast .help-overlay__panel,
+html.bn-podcast .remote-overlay__panel,
+html.bn-podcast .podcast-preflight-panel,
+html.bn-podcast .remote-overlay__legacy,
+html.bn-podcast .remote-overlay__legacy .controlCenterBox {
+	background: var(--bn-bg) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: 6px !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	color: var(--bn-text);
+}
+html.bn-podcast .podcast-room-gate__panel {
+	border-width: 1px 0 0 !important;
+	border-radius: 0 !important;
+}
+/* Rows inside a panel: ruled, flat. */
+html.bn-podcast .roster-item,
+html.bn-podcast .marker-item,
+html.bn-podcast .timeline-entry,
+html.bn-podcast .timeline-track,
+html.bn-podcast .recording-summary__item,
+html.bn-podcast .preflight-row,
+html.bn-podcast .help-section,
+html.bn-podcast .help-section[open],
+html.bn-podcast .invite-option,
+html.bn-podcast .session-tool,
+html.bn-podcast .iso-config-summary,
+html.bn-podcast .iso-config-advanced,
+html.bn-podcast .host-audio-advanced,
+html.bn-podcast .host-audio-advanced__summary,
+html.bn-podcast .empty-state,
+html.bn-podcast .timeline-placeholder,
+html.bn-podcast .timeline-archive,
+html.bn-podcast .dest-group-divider {
+	background: transparent !important;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	color: var(--bn-text);
+}
+html.bn-podcast .invite-option:hover,
+html.bn-podcast .help-section__title:hover {
+	background: var(--bn-surface-2) !important;
+}
+/* Wells hold something technical: the timeline, code, video thumbnails. */
+html.bn-podcast .timeline-surface,
+html.bn-podcast .timeline-surface.timeline-tracklist,
+html.bn-podcast .roster-item__video-thumb,
+html.bn-podcast .help-section__body code {
+	background: var(--bn-surface) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: 6px !important;
+	box-shadow: none !important;
+}
+html.bn-podcast .timeline-track::before {
+	background: var(--bn-border) !important;
+	box-shadow: none !important;
+}
+
+/* Overlays dim the page with the canvas color, without blur. */
+html.bn-podcast .help-overlay,
+html.bn-podcast .remote-overlay,
+html.bn-podcast .podcast-preflight-backdrop {
+	background: var(--bn-scrim) !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+}
+
+/* ---------- Controls ---------- */
+
+html.bn-podcast .btn-secondary,
+html.bn-podcast .chat-panel__action,
+html.bn-podcast .cloud-sync-list__button,
+html.bn-podcast .help-overlay__close,
+html.bn-podcast .remote-overlay__close,
+html.bn-podcast .host-audio-refresh,
+html.bn-podcast .host-input-toggle,
+html.bn-podcast .host-screen-toggle,
+html.bn-podcast .invite-link-copy,
+html.bn-podcast .iso-config-row__button,
+html.bn-podcast .iso-config-row__button--secondary,
+html.bn-podcast .panel-collapse-toggle,
+html.bn-podcast .podcast-room-gate__cancel,
+html.bn-podcast .preflight-secondary,
+html.bn-podcast .preflight-row__action,
+html.bn-podcast .record-group-button,
+html.bn-podcast .roster-action-button,
+html.bn-podcast .podcast-help-link {
+	background: transparent !important;
+	border: 1px solid var(--bn-control-border) !important;
+	border-radius: 4px !important;
+	box-shadow: none !important;
+	color: var(--bn-text) !important;
+	font-family: var(--bn-sans);
+	font-weight: 500;
+	letter-spacing: 0;
+	text-transform: none;
+}
+html.bn-podcast .btn-secondary:hover:not(:disabled),
+html.bn-podcast .chat-panel__action:hover,
+html.bn-podcast .cloud-sync-list__button:hover,
+html.bn-podcast .help-overlay__close:hover,
+html.bn-podcast .host-audio-refresh:hover:not(:disabled),
+html.bn-podcast .host-screen-toggle:hover:not(:disabled),
+html.bn-podcast .invite-link-copy:not(:disabled):hover,
+html.bn-podcast .iso-config-row__button:hover:not(:disabled),
+html.bn-podcast .iso-config-row__button--secondary:hover:not(:disabled),
+html.bn-podcast .panel-collapse-toggle:hover,
+html.bn-podcast .podcast-room-gate__cancel:hover,
+html.bn-podcast .preflight-secondary:hover,
+html.bn-podcast .record-group-button:hover,
+html.bn-podcast .roster-action-button:hover {
+	background: var(--bn-surface-2) !important;
+}
+
+/* The one primary action on each screen: enter, start the session, record. */
+html.bn-podcast .podcast-room-gate__submit,
+html.bn-podcast .preflight-primary,
+html.bn-podcast .btn-record {
+	background: var(--bn-accent) !important;
+	border: 1px solid var(--bn-accent) !important;
+	border-radius: 4px !important;
+	box-shadow: none !important;
+	color: var(--bn-accent-ink) !important;
+	font-family: var(--bn-sans);
+	font-weight: 500;
+	letter-spacing: 0;
+	text-transform: none;
+}
+html.bn-podcast .podcast-room-gate__submit:hover,
+html.bn-podcast .preflight-primary:not(:disabled):hover,
+html.bn-podcast .btn-record:hover:not(:disabled) {
+	background: var(--bn-accent-hover) !important;
+	border-color: var(--bn-accent-hover) !important;
+}
+/* While recording, the button is the stop control: it reads as state, with the live dot beside the label. */
+html.bn-podcast .btn-record.recording,
+html.bn-podcast .btn-record.recording:hover:not(:disabled) {
+	background: var(--bn-surface) !important;
+	border-color: var(--bn-error) !important;
+	color: var(--bn-error) !important;
+}
+
+/* On and selected take the accent marker; muted reads as error. */
+html.bn-podcast .host-input-toggle.active,
+html.bn-podcast .host-screen-toggle.active,
+html.bn-podcast .iso-config-row__button[data-state='enabled'],
+html.bn-podcast .iso-config-row__button--backup[data-state='enabled'],
+html.bn-podcast .cloud-sync-list__button[data-state='linked'],
+html.bn-podcast .roster-action-button--drive[data-state="active"] {
+	background: var(--bn-surface-3) !important;
+	border-color: var(--bn-control-border) !important;
+	box-shadow: inset 0 -2px 0 var(--bn-accent) !important;
+	color: var(--bn-text) !important;
+}
+html.bn-podcast .host-mute-toggle.muted {
+	background: var(--bn-surface) !important;
+	border-color: var(--bn-error) !important;
+	color: var(--bn-error) !important;
+	box-shadow: none !important;
+}
+
+/* Inputs. */
+html.bn-podcast .podcast-room-gate__form input,
+html.bn-podcast .podcast-room-gate__form input:focus,
+html.bn-podcast .invite-link-input,
+html.bn-podcast .host-audio-select,
+html.bn-podcast .capture-mode-select,
+html.bn-podcast .cloud-sync-token__input,
+html.bn-podcast .icecast-config .icecast-config__input {
+	background: var(--bn-surface) !important;
+	border: 1px solid var(--bn-control-border) !important;
+	border-radius: 4px !important;
+	box-shadow: none !important;
+	color: var(--bn-text) !important;
+	font-family: var(--bn-sans);
+}
+html.bn-podcast .invite-link-input,
+html.bn-podcast .host-audio-select,
+html.bn-podcast .capture-mode-select {
+	font-family: var(--bn-mono);
+	font-size: 13px;
+}
+html.bn-podcast .podcast-room-gate__form input:focus {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 3px;
+}
+
+/* ---------- State ---------- */
+
+/* Tags are rectangular, mono and neutral. */
+html.bn-podcast .podcast-status-pill,
+html.bn-podcast .marker-badge,
+html.bn-podcast .timeline-track__badge,
+html.bn-podcast .session-recording-status {
+	background: transparent !important;
+	border: 1px solid var(--bn-control-border) !important;
+	border-radius: 2px !important;
+	box-shadow: none !important;
+	color: var(--bn-text-muted) !important;
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+}
+/* A track that is recording is on air: the live dot. */
+html.bn-podcast .timeline-track[data-state="recording"] .timeline-track__badge {
+	color: var(--bn-text) !important;
+}
+html.bn-podcast .timeline-track[data-state="recording"] .timeline-track__badge::before {
+	content: "";
+	display: inline-block;
+	width: 6px;
+	height: 6px;
+	margin-right: 6px;
+	border-radius: 50%;
+	background: var(--bn-accent);
+	vertical-align: 1px;
+}
+/* Destination and preflight lights: healthy, degraded, failed. */
+html.bn-podcast .dest-light__dot {
+	background: var(--bn-text-faint) !important;
+	box-shadow: none !important;
+}
+html.bn-podcast .dest-light[data-state="green"] .dest-light__dot {
+	background: var(--bn-ok) !important;
+}
+html.bn-podcast .dest-light[data-state="yellow"] .dest-light__dot {
+	background: var(--bn-warning) !important;
+}
+html.bn-podcast .dest-light[data-state="red"] .dest-light__dot {
+	background: var(--bn-error) !important;
+}
+html.bn-podcast .preflight-row[data-status='ready'] {
+	box-shadow: inset 2px 0 0 var(--bn-ok) !important;
+}
+html.bn-podcast .preflight-row[data-status='testing'] {
+	box-shadow: inset 2px 0 0 var(--bn-warning) !important;
+}
+html.bn-podcast .preflight-row[data-status='error'] {
+	box-shadow: inset 2px 0 0 var(--bn-error) !important;
+}
+
+/* Meters and waveforms are data. */
+html.bn-podcast .meter-bar,
+html.bn-podcast .timeline-track__waveform {
+	background: var(--bn-surface) !important;
+	border-radius: 2px !important;
+	box-shadow: none !important;
+}
+html.bn-podcast .meter-bar-fill,
+html.bn-podcast .timeline-track__wavefill {
+	background: var(--bn-ice) !important;
+	box-shadow: none !important;
+}
+html.bn-podcast .timeline-track__waveform::after {
+	background: none !important;
+}
+
+/* ---------- Chat inside Podcast Studio ---------- */
+
+html.bn-podcast body.podcast-studio-mode #chatModule,
+html.bn-podcast body.podcast-studio-mode #chatModule #chatBody {
+	background: var(--bn-surface-elevated) !important;
+	border-color: var(--bn-border) !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+}
+html.bn-podcast body.podcast-studio-mode #chatModule .message {
+	background: transparent !important;
+	border-bottom: 1px solid var(--bn-border);
+	border-radius: 0 !important;
+	color: var(--bn-text);
+}
+
+/* ---------- Header, footer and headings ---------- */
+
+/* Podcast Studio hides the app header, so its own header carries the lockup (decorative). */
+html.bn-podcast .podcast-header {
+	background: var(--bn-bg) !important;
+	border-bottom: 1px solid var(--bn-border) !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+}
+html.bn-podcast .podcast-header__left::before {
+	content: "";
+	flex: none;
+	width: 112px;
+	height: 20px;
+	margin-right: 16px;
+	background: var(--bn-lockup) left center / auto 100% no-repeat;
+}
+html.bn-podcast .podcast-footer {
+	background: var(--bn-bg) !important;
+	border-top: 1px solid var(--bn-border) !important;
+	color: var(--bn-text-muted) !important;
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+html.bn-podcast .podcast-footer a:link,
+html.bn-podcast .podcast-footer a:visited {
+	color: var(--bn-text-muted);
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+}
+html.bn-podcast .podcast-footer .bn-source-link {
+	margin: 0 8px;
+}
+html.bn-podcast .podcast-preflight-panel h1,
+html.bn-podcast .podcast-preflight-panel h2,
+html.bn-podcast .podcast-room-gate__panel h1,
+html.bn-podcast .podcast-room-gate__panel h2,
+html.bn-podcast .podcast-header h1 {
+	font-family: var(--bn-sans);
+	font-weight: 500;
+	letter-spacing: -0.025em;
+	text-transform: none;
+	color: var(--bn-text);
+}
+/* Headings are set as written, not uppercased. */
+html.bn-podcast .podcast-panel h2,
+html.bn-podcast .podcast-panel h3 {
+	text-transform: none;
+	letter-spacing: -0.015em;
+}
+
+/* Gate labels: upstream fixes them light for its dark-only page. */
+html.bn-podcast #podcast-room-gate label,
+html.bn-podcast #podcast-room-gate label span,
+html.bn-podcast .podcast-room-gate__form label span {
+	color: var(--bn-text-muted) !important;
+}
+
+/* ---------- Text colors: upstream fixes them for its dark-only page ---------- */
+
+html.bn-podcast #podcast-root,
+html.bn-podcast .podcast-preflight-panel {
+	color: var(--bn-text);
+}
+/* Primary text. */
+html.bn-podcast .host-audio-field__label,
+html.bn-podcast .invite-option__label,
+html.bn-podcast .dest-light__name,
+html.bn-podcast .host-audio-advanced span,
+html.bn-podcast .host-audio-toggle span,
+html.bn-podcast .roster-item__name,
+html.bn-podcast .timeline-track__name,
+html.bn-podcast .marker-item__label {
+	color: var(--bn-text) !important;
+}
+/* Secondary text, labels and readouts. */
+html.bn-podcast .podcast-header__room,
+html.bn-podcast .host-audio-hint,
+html.bn-podcast .host-audio-summary,
+html.bn-podcast .dest-group__label,
+html.bn-podcast .dest-group__hint,
+html.bn-podcast .dest-light__status,
+html.bn-podcast .preflight-subtitle,
+html.bn-podcast .empty-state,
+html.bn-podcast .timeline-placeholder,
+html.bn-podcast .recording-summary__item,
+html.bn-podcast .session-tool__hint,
+html.bn-podcast .podcast-panel p {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-podcast .podcast-header__room,
+html.bn-podcast .host-audio-summary,
+html.bn-podcast .dest-group__label {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	font-variant-numeric: tabular-nums;
+}
+html.bn-podcast .dest-group__label {
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	font-size: 11px;
+}
+html.bn-podcast .iso-config-row__label {
+	color: var(--bn-text) !important;
+}
+html.bn-podcast .iso-config-row__status,
+html.bn-podcast .capture-mode-label {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-podcast .iso-config-row__status[data-state="warning"],
+html.bn-podcast .iso-config-row__status.warning {
+	color: var(--bn-warning) !important;
+}

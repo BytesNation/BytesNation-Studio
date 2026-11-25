@@ -83,3 +83,43 @@ node .github/ci-checkTranslationKeys.js
 When runtime validation is warranted, use the actual browser or embedded runtime with rooms and peers you control. Keep test code and diagnostic artifacts outside this release repository.
 
 Review the diff and report what changed, what passed, and what remains unverified. Documentation-only edits need content, link, and diff checks. Read [CONTRIBUTING.md](CONTRIBUTING.md) before submitting upstream.
+
+## Component sourcing: public tier
+
+This repository is public. It must never contain Shadcnblocks code, a
+`@shadcnblocks` registry entry, the `SHADCNBLOCKS_API_KEY` name in config, or
+anything ported or adapted from a Shadcnblocks block. The licence forbids it,
+and restyling or rewriting a block does not change that.
+
+- Build interface from `brand/`: the tokens, the `bn-*` primitives in
+  `brand/css/bytesnation.css`, the springs and the mark. Follow
+  `brand/guidelines.md`.
+- For behavior, use native HTML first, then shadcn/ui from its own registry
+  (`npx shadcn@latest add <name>`) or Radix primitives, styled through
+  `brand/tokens/tailwind.css`.
+- Do not open the Shadcnblocks site or registry. Do not read, copy or adapt
+  interface files from any private BytesNation repository. If this session has
+  already read such files, stop and say so before writing any layout.
+- Run `node brand/tools/check-sourcing.mjs --tier public --history` before
+  every commit that touches interface code. It must pass.
+- If this repository is open source or a fork of an open-source project, the
+  rule holds even if the repository is made private: its licence may require
+  the source to be given to users.
+
+The full policy is in `brand/component-sourcing.md`.
+
+## BytesNation Studio notes
+
+These are stricter than the block above, and they win where the two differ.
+
+- No build step, no package installs, no framework. shadcn/ui, Radix, Tailwind
+  and the Motion library are out, even though the block above allows them.
+- Do not link `brand/css/bytesnation.css` into the app: it uses `@layer`,
+  `color-mix()` and `linear()`, which Chrome 80 drops. The app's theme is
+  `bytesnation/theme.css`, written by hand from the resolved hex values in
+  `brand/tokens/tokens.json`.
+- Theme rules are scoped to `html.bn-ui`. `bytesnation/gate.js` sets it on
+  interface pages only, so program output (view and scene links, clean output,
+  OBS and Meld) keeps upstream's presentation exactly.
+- Every upstream file this fork edits is listed in
+  `bytesnation/UPSTREAM-CHANGES.md`. Add a row when you edit another one.

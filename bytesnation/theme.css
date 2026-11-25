@@ -1,0 +1,1700 @@
+/*
+ * BytesNation Studio theme for the main app (index.html).
+ * Copyright (c) 2026 BytesNation. Licensed under AGPL-3.0-only, as part of this fork; see LICENSE.
+ * The BytesNation name and mark are not licensed with the code; see brand/LICENSE.md.
+ *
+ * Values come from brand/tokens/tokens.json (kit 2.0.0), as resolved hex.
+ * Written by hand for the app's browser floor, Chrome 80:
+ *   - no cascade layers, no color-mix(), no linear() outside @supports, no :is() or :where(),
+ *     no flex gap, no inset shorthand, no aspect-ratio;
+ *   - :focus-visible appears only in rules Chrome 80 drops whole, leaving the :focus ring.
+ *
+ * Every rule is scoped to html.bn-ui, which bytesnation/gate.js sets on interface pages only.
+ * Program output (view, scene, clean output, OBS) never gets the class and stays upstream's.
+ */
+
+/* Fonts are in bytesnation/fonts.css, loaded before this file. */
+
+/* ---------- Dark by default ---------- */
+
+/* main.js reads --color-mode from :root to pick the theme; &lightmode still wins. */
+html.bn-ui {
+	--color-mode: dark;
+	background-color: #0a0b0d;
+}
+
+/* ---------- Tokens: light ---------- */
+
+html.bn-ui body {
+	--bn-bg: #f3f1ed;
+	--bn-surface: #f9f8f5;
+	--bn-surface-elevated: #ffffff;
+	--bn-border: #dedad2;
+	--bn-text: #15171a;
+	--bn-text-muted: #565a61;
+	--bn-text-faint: #666a71;
+	--bn-prose: #343638;
+	--bn-border-strong: #aaa7a2;
+	--bn-control-border: #8a8885;
+	--bn-surface-2: #eeedea;
+	--bn-surface-3: #e4e4e1;
+	--bn-accent: #e8590c;
+	--bn-accent-hover: #eb702e;
+	--bn-accent-ink: #1a0d04;
+	--bn-warning: #7a5800;
+	--bn-ok: #116a3b;
+	--bn-error: #b42318;
+	--bn-ice: #0c6388;
+	--bn-accent-text: #a83d08;
+	--bn-lockup: url("icons/lockup-on-light.svg");
+	--bn-icon-room: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23565A61' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='2' width='5' height='5' rx='1'/%3E%3Crect x='9' y='2' width='5' height='5' rx='1'/%3E%3Crect x='2' y='9' width='5' height='5' rx='1'/%3E%3Crect x='9' y='9' width='5' height='5' rx='1'/%3E%3C/svg%3E");
+	--bn-icon-camera: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23565A61' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='1.5' y='4' width='9.5' height='8' rx='1.5'/%3E%3Cpath d='M11 7.2l3.5-2v5.6L11 8.8'/%3E%3C/svg%3E");
+	--bn-icon-screen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23565A61' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='1.5' y='2.5' width='13' height='9' rx='1.5'/%3E%3Cpath d='M8 11.5v3M5.5 14.5h5'/%3E%3C/svg%3E");
+	--bn-icon-invite: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23565A61' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 1.5L1.5 7l5 2.5 2.5 5z'/%3E%3Cpath d='M6.5 9.5l8-8'/%3E%3C/svg%3E");
+}
+
+/* ---------- Tokens: dark ---------- */
+
+html.bn-ui body.darktheme {
+	--bn-bg: #0a0b0d;
+	--bn-surface: #101215;
+	--bn-surface-elevated: #16181c;
+	--bn-border: #22252b;
+	--bn-text: #edebe6;
+	--bn-text-muted: #9ea3ab;
+	--bn-text-faint: #80868f;
+	--bn-prose: #cdccc8;
+	--bn-border-strong: #4f5154;
+	--bn-control-border: #67686b;
+	--bn-surface-2: #1b1d1f;
+	--bn-surface-3: #242628;
+	--bn-accent: #ff6a13;
+	--bn-accent-hover: #ff7f34;
+	--bn-accent-ink: #1a0d04;
+	--bn-warning: #f5c842;
+	--bn-ok: #5be49b;
+	--bn-error: #ff8d7a;
+	--bn-ice: #7fd4ff;
+	--bn-accent-text: #ff9a63;
+	--bn-lockup: url("icons/lockup-on-dark.svg");
+	--bn-icon-room: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%239EA3AB' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='2' width='5' height='5' rx='1'/%3E%3Crect x='9' y='2' width='5' height='5' rx='1'/%3E%3Crect x='2' y='9' width='5' height='5' rx='1'/%3E%3Crect x='9' y='9' width='5' height='5' rx='1'/%3E%3C/svg%3E");
+	--bn-icon-camera: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%239EA3AB' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='1.5' y='4' width='9.5' height='8' rx='1.5'/%3E%3Cpath d='M11 7.2l3.5-2v5.6L11 8.8'/%3E%3C/svg%3E");
+	--bn-icon-screen: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%239EA3AB' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='1.5' y='2.5' width='13' height='9' rx='1.5'/%3E%3Cpath d='M8 11.5v3M5.5 14.5h5'/%3E%3C/svg%3E");
+	--bn-icon-invite: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%239EA3AB' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M14.5 1.5L1.5 7l5 2.5 2.5 5z'/%3E%3Cpath d='M6.5 9.5l8-8'/%3E%3C/svg%3E");
+}
+
+/* ---------- Shared tokens ---------- */
+
+html.bn-ui body {
+	--bn-sans: "Inter Tight", "BN Sans Fallback", ui-sans-serif, system-ui, sans-serif;
+	--bn-mono: "Geist Mono", "BN Mono Fallback", ui-monospace, SFMono-Regular, monospace;
+	--bn-r1: 2px;
+	--bn-r2: 4px;
+	--bn-r3: 6px;
+	--bn-press-d: 160ms;
+	--bn-snap-d: 260ms;
+	--bn-fade-d: 200ms;
+	/* Chrome 80 cannot parse linear(); these curves approximate the kit's springs. */
+	--bn-press: cubic-bezier(0.22, 0.8, 0.3, 1);
+	--bn-snap: cubic-bezier(0.3, 1.2, 0.4, 1);
+	--bn-ease-out: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+@supports (transition-timing-function: linear(0, 1)) {
+	html.bn-ui body {
+		--bn-press-d: 350ms;
+		--bn-press: linear(0, 0.2794, 0.6159, 0.8186, 0.9198, 0.966, 0.986, 0.9943, 0.9977, 0.9991, 0.9997, 1);
+		--bn-snap-d: 500ms;
+		--bn-snap: linear(0, 0.1381, 0.3867, 0.6146, 0.7821, 0.8898, 0.9521, 0.9845, 0.999, 1.0042, 1.005, 1.0041, 1.0028, 1.0017, 1.001, 1.0005, 1);
+	}
+}
+
+/* ---------- Upstream palette mapped onto the kit ---------- */
+
+/* Upstream's dark greys, darkest to lightest, become canvas, surfaces and outlines. */
+html.bn-ui body {
+	--discord-grey-0: var(--bn-bg);
+	--discord-grey-1: var(--bn-surface);
+	--discord-grey-2: var(--bn-surface);
+	--discord-grey-3: var(--bn-surface-elevated);
+	--discord-grey-4: var(--bn-surface-elevated);
+	--discord-grey-5: var(--bn-surface-elevated);
+	--discord-grey-6: var(--bn-surface-2);
+	--discord-grey-7: var(--bn-surface);
+	--discord-grey-8: var(--bn-control-border);
+	--discord-text: var(--bn-text);
+	--muted-icon: var(--bn-text-muted);
+
+	--lighttheme-1: var(--bn-surface-elevated);
+	--lighttheme-2: var(--bn-surface);
+	--lighttheme-3: var(--bn-surface);
+	--lighttheme-4: var(--bn-border);
+	--lighttheme-5: var(--bn-border);
+	--lighttheme-6: var(--bn-border-strong);
+	--lighttheme-7: var(--bn-control-border);
+	--lighttheme-8: var(--bn-text);
+	--lighttheme-text: var(--bn-text);
+	--light-grey: var(--bn-surface-3);
+	--gray90: var(--bn-text);
+
+	/* Links are the text color, marked by a neutral underline. */
+	--a-link: var(--bn-text);
+	--a-visited: var(--bn-text);
+	--a-hover: var(--bn-text);
+	--a-focus: var(--bn-text);
+	--a-active: var(--bn-text);
+	--a-dark-link: var(--bn-text);
+	--a-dark-visited: var(--bn-text);
+	--a-dark-hover: var(--bn-text);
+	--a-dark-focus: var(--bn-text);
+	--a-dark-active: var(--bn-text);
+	--a-darker-link: var(--bn-text);
+	--a-darker-visited: var(--bn-text);
+	--a-darker-hover: var(--bn-text);
+	--a-darker-focus: var(--bn-text);
+	--a-darker-active: var(--bn-text);
+	--a-lighter-link: var(--bn-text);
+	--a-lighter-visited: var(--bn-text);
+	--a-lighter-hover: var(--bn-text);
+	--a-lighter-focus: var(--bn-text);
+	--a-lighter-active: var(--bn-text);
+
+	--background-color: var(--bn-bg);
+	--dark-background-color: var(--bn-bg);
+	--container-color: var(--bn-surface);
+	--button-color: var(--bn-surface-elevated);
+	--accent-color: var(--bn-text);
+	--accent-hover-color: var(--bn-text);
+	/* Upstream tints categories; the brand keeps them neutral. */
+	--blue-accent: var(--bn-surface-2);
+	--red-accent: var(--bn-surface-2);
+	--green-accent: var(--bn-surface-2);
+	--olive-accent: var(--bn-surface-2);
+	--near-black: var(--bn-bg);
+	--director-box: var(--bn-control-border);
+	--codirector-box: var(--bn-control-border);
+	--director-dark-box: var(--bn-control-border);
+	--codirector-dark-box: var(--bn-control-border);
+	--button-radius: var(--bn-r2);
+
+	--file-surface: var(--bn-surface);
+	--file-inset: var(--bn-surface-elevated);
+	--file-text: var(--bn-text);
+	--file-muted: var(--bn-text-muted);
+	--file-border: var(--bn-border);
+	--mesh-canvas: var(--bn-bg);
+	--mesh-surface: var(--bn-surface);
+	--mesh-toolbar: var(--bn-surface);
+	--mesh-status: var(--bn-surface);
+	--mesh-border: var(--bn-border);
+	--mesh-text: var(--bn-text);
+	--mesh-muted: var(--bn-text-muted);
+	--mesh-node: var(--bn-surface-elevated);
+	/* Meters and graphs are data. */
+	--audio-graph-line: var(--bn-ice);
+	--audio-graph-clip: var(--bn-error);
+}
+
+/* ---------- Base ---------- */
+
+html.bn-ui body {
+	background-color: var(--bn-bg);
+	background-image: none;
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+html.bn-ui {
+	background-image: none;
+}
+html.bn-ui ::selection {
+	background: var(--bn-text);
+	color: var(--bn-bg);
+}
+html.bn-ui h1,
+html.bn-ui h2,
+html.bn-ui h3,
+html.bn-ui h4 {
+	font-family: var(--bn-sans);
+	font-weight: 500;
+	color: var(--bn-text);
+}
+html.bn-ui a:link,
+html.bn-ui a:visited {
+	color: var(--bn-text);
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+	text-underline-offset: 3px;
+}
+html.bn-ui a:hover {
+	text-decoration-color: var(--bn-text);
+}
+
+/* One focus ring for everything: 2px in the text color, offset 3px. */
+html.bn-ui a:focus,
+html.bn-ui button:focus,
+html.bn-ui input:focus,
+html.bn-ui select:focus,
+html.bn-ui textarea:focus,
+html.bn-ui summary:focus,
+html.bn-ui [tabindex]:focus,
+html.bn-ui [role="button"]:focus {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 3px;
+	box-shadow: none;
+}
+/* Pointer focus loses the ring where the browser knows the difference. Chrome 80 drops this rule. */
+html.bn-ui a:focus:not(:focus-visible),
+html.bn-ui button:focus:not(:focus-visible),
+html.bn-ui [tabindex]:focus:not(:focus-visible),
+html.bn-ui [role="button"]:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* ---------- Controls ---------- */
+
+html.bn-ui button,
+html.bn-ui select,
+html.bn-ui input[type="text"],
+html.bn-ui input[type="url"],
+html.bn-ui input[type="password"],
+html.bn-ui input[type="number"],
+html.bn-ui input[type="email"],
+html.bn-ui input:not([type]),
+html.bn-ui textarea {
+	font-family: var(--bn-sans);
+	border-radius: var(--bn-r2);
+	box-shadow: none;
+	background-image: none;
+	text-shadow: none;
+}
+
+html.bn-ui button {
+	min-height: 36px;
+	padding: 0 14px;
+	background-color: transparent;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-control-border);
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.2;
+	cursor: pointer;
+	filter: none;
+	transition: background-color var(--bn-press-d) var(--bn-press), transform var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui button:hover {
+	background-color: var(--bn-surface-2);
+	filter: none;
+	transform: none;
+	box-shadow: none;
+}
+html.bn-ui button:active {
+	background-color: var(--bn-surface-3);
+	transform: translateY(1px);
+}
+html.bn-ui button[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
+	transform: none;
+}
+
+/* Colored category buttons go neutral: color carries state only. */
+html.bn-ui button[class*="btn-HL-"] {
+	background-color: transparent;
+	color: var(--bn-text);
+	border-color: var(--bn-control-border);
+}
+
+/* The one primary action on a screen. */
+html.bn-ui button.gobutton,
+html.bn-ui button#gowebcam {
+	min-height: 44px;
+	padding: 0 20px;
+	background-color: var(--bn-accent);
+	border-color: var(--bn-accent);
+	color: var(--bn-accent-ink);
+	font-size: 16px;
+	font-weight: 500;
+}
+html.bn-ui button.gobutton:hover,
+html.bn-ui button#gowebcam:hover {
+	background-color: var(--bn-accent-hover);
+	border-color: var(--bn-accent-hover);
+}
+html.bn-ui button.gobutton:active,
+html.bn-ui button#gowebcam:active {
+	background-color: var(--bn-accent);
+}
+/* The room panel has three go buttons: only "enter as director" is primary. */
+html.bn-ui #goToLastSavedRoom,
+html.bn-ui button.gobutton[onclick="jumptoroom2()"] {
+	background-color: transparent;
+	border-color: var(--bn-control-border);
+	color: var(--bn-text);
+}
+html.bn-ui #goToLastSavedRoom:hover,
+html.bn-ui button.gobutton[onclick="jumptoroom2()"]:hover {
+	background-color: var(--bn-surface-2);
+}
+
+html.bn-ui select,
+html.bn-ui input[type="text"],
+html.bn-ui input[type="url"],
+html.bn-ui input[type="password"],
+html.bn-ui input[type="number"],
+html.bn-ui input[type="email"],
+html.bn-ui input:not([type]),
+html.bn-ui textarea {
+	background-color: var(--bn-surface);
+	color: var(--bn-text);
+	border: 1px solid var(--bn-control-border);
+	font-size: 15px;
+}
+html.bn-ui input::placeholder,
+html.bn-ui textarea::placeholder {
+	color: var(--bn-text-faint);
+	opacity: 1;
+}
+html.bn-ui select option {
+	background-color: var(--bn-surface-elevated);
+	color: var(--bn-text);
+}
+
+html.bn-ui input[type="checkbox"],
+html.bn-ui input[type="radio"] {
+	accent-color: var(--bn-text);
+}
+
+/* Range inputs: a hairline track and a square thumb in the text color. */
+html.bn-ui input[type="range"]::-webkit-slider-runnable-track {
+	background: var(--bn-border-strong);
+	border: 0;
+	box-shadow: none;
+	border-radius: var(--bn-r1);
+}
+html.bn-ui input[type="range"]::-webkit-slider-thumb {
+	background-color: var(--bn-text);
+	border: 1px solid var(--bn-bg);
+	box-shadow: none;
+	border-radius: var(--bn-r1);
+}
+html.bn-ui input[type="range"]::-moz-range-track {
+	background: var(--bn-border-strong);
+	border: 0;
+	box-shadow: none;
+}
+html.bn-ui input[type="range"]::-moz-range-thumb {
+	background-color: var(--bn-text);
+	border: 1px solid var(--bn-bg);
+	box-shadow: none;
+	border-radius: var(--bn-r1);
+}
+
+/* ---------- Header ---------- */
+
+html.bn-ui #header {
+	min-height: 56px;
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	padding: 6px 16px;
+	background-color: var(--bn-bg) !important;
+	color: var(--bn-text);
+	border-bottom: 1px solid var(--bn-border);
+	box-shadow: none;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	font-family: var(--bn-sans);
+}
+/* The lockup: decorative, so it is drawn by CSS and stays out of the accessibility tree. */
+html.bn-ui #header::before {
+	content: "";
+	flex: none;
+	width: 134px;
+	height: 24px;
+	order: -2;
+	margin-right: 8px;
+	background-image: var(--bn-lockup);
+	background-repeat: no-repeat;
+	background-size: auto 100%;
+	background-position: left center;
+}
+/* Signalling state: the engine colors #qos #FFF7 when connected and red when not. */
+html.bn-ui #logoname {
+	order: 10;
+	margin: 0 0 0 auto !important;
+	color: var(--bn-text-muted) !important;
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+html.bn-ui #qos {
+	color: var(--bn-ok) !important;
+}
+html.bn-ui #qos[style*="red"] {
+	color: var(--bn-error) !important;
+}
+html.bn-ui #head1 {
+	display: flex;
+	align-items: center;
+}
+html.bn-ui #joinroomID {
+	height: 36px;
+	width: 220px;
+	padding: 0 10px;
+	margin: 0 8px 0 0;
+	font-size: 14px;
+}
+html.bn-ui #jumptoroomButton {
+	margin: 0;
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	letter-spacing: 0.09em;
+}
+html.bn-ui #header [id^="head"] {
+	font-family: var(--bn-sans);
+	color: var(--bn-text);
+}
+html.bn-ui #header #copythisurl,
+html.bn-ui #header #copythisurl2 {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-ui #header i[class*="la-"] {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-ui #dirroomid,
+html.bn-ui #roomid {
+	color: var(--bn-text) !important;
+	font-family: var(--bn-mono);
+}
+
+/* ---------- Start screen: ruled rows, not tiles ---------- */
+
+html.bn-ui #mainmenu.row {
+	max-width: 82rem;
+	margin: 0 auto;
+	padding: 40px 16px 0;
+	text-align: left;
+}
+html.bn-ui .column.card,
+html.bn-ui .column {
+	background-color: transparent !important;
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	border-radius: 0;
+	box-shadow: none !important;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	transform: none;
+	color: var(--bn-text);
+}
+html.bn-ui .darktheme .column.card,
+html.bn-ui body.darktheme .column.card,
+html.bn-ui body.darktheme .column {
+	background-color: transparent !important;
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	box-shadow: none !important;
+}
+html.bn-ui .column > h2,
+html.bn-ui .column h2 {
+	color: var(--bn-text);
+	font-size: 22px;
+	letter-spacing: -0.025em;
+	line-height: 1.2;
+}
+html.bn-ui .column:hover {
+	background-color: var(--bn-surface) !important;
+	transform: none;
+	box-shadow: none !important;
+}
+html.bn-ui .container-inner,
+html.bn-ui body.darktheme .container-inner {
+	background-color: transparent;
+	border-radius: 0;
+	color: var(--bn-text);
+}
+
+/* Upstream's tile icons are dark glyphs drawn for a light tile. */
+html.bn-ui body.darktheme .largeDarkIcon,
+html.bn-ui body.darktheme .column.card > i {
+	color: var(--bn-text-muted);
+}
+
+/* The menu is a twelve-column grid of ruled cells. Hidden cells take no space. */
+html.bn-ui #mainmenu.row {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+	grid-column-gap: 32px;
+	align-items: start;
+	counter-reset: bn-tile;
+	height: auto;
+	min-height: 100vh;
+}
+html.bn-ui #mainmenu.row::after {
+	display: none;
+}
+html.bn-ui #mainmenu > :not(.column),
+html.bn-ui #mainmenu > #dropButton,
+html.bn-ui #mainmenu > .fullcolumn {
+	grid-column: 1 / -1;
+}
+
+/* A start option, at rest: index, icon, title, arrow, on a hairline. */
+html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation) {
+	position: relative;
+	width: auto;
+	min-width: 0;
+	height: auto;
+	min-height: 168px;
+	margin: 0;
+	padding: 20px 16px 24px;
+	text-align: left;
+	background-image: none;
+	transition: background-color var(--bn-press-d) var(--bn-press), transform var(--bn-press-d) var(--bn-press);
+	overflow: hidden !important;
+}
+html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation):active {
+	transform: translateY(1px);
+}
+html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation)::before {
+	counter-increment: bn-tile;
+	content: counter(bn-tile, decimal-leading-zero);
+	display: block;
+	margin-bottom: 40px;
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	line-height: 1.4;
+	letter-spacing: 0.01em;
+	color: var(--bn-text-muted);
+	font-variant-numeric: tabular-nums;
+}
+html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation)::after {
+	content: "\2192";
+	position: absolute;
+	top: 18px;
+	right: 16px;
+	font-size: 18px;
+	color: var(--bn-text-muted);
+	transition: transform var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation):hover::after {
+	transform: translateX(3px);
+	color: var(--bn-text);
+}
+html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation) > h2 {
+	margin: 0;
+	padding: 0;
+	font-size: 22px;
+	letter-spacing: -0.025em;
+	line-height: 1.2;
+	text-align: left;
+}
+/* Icons sit beside the index, in the muted ink of the theme. */
+html.bn-ui #mainmenu > #container-1.column.card:not(.in-animation):not(.skip-animation),
+html.bn-ui #mainmenu > #container-2.column.card:not(.in-animation):not(.skip-animation),
+html.bn-ui #mainmenu > #container-3.column.card:not(.in-animation):not(.skip-animation),
+html.bn-ui #mainmenu > #container-4.column.card:not(.in-animation):not(.skip-animation) {
+	background-repeat: no-repeat;
+	background-position: 16px 56px;
+	background-size: 24px 24px;
+}
+html.bn-ui #mainmenu > #container-1.column.card:not(.in-animation):not(.skip-animation) {
+	background-image: var(--bn-icon-room);
+}
+html.bn-ui #mainmenu > #container-3.column.card:not(.in-animation):not(.skip-animation) {
+	background-image: var(--bn-icon-camera);
+}
+html.bn-ui #mainmenu > #container-2.column.card:not(.in-animation):not(.skip-animation) {
+	background-image: var(--bn-icon-screen);
+}
+html.bn-ui #mainmenu > #container-4.column.card:not(.in-animation):not(.skip-animation) {
+	background-image: var(--bn-icon-invite);
+}
+html.bn-ui #mainmenu > #container-1.column.card:not(.in-animation):not(.skip-animation)::before,
+html.bn-ui #mainmenu > #container-2.column.card:not(.in-animation):not(.skip-animation)::before,
+html.bn-ui #mainmenu > #container-3.column.card:not(.in-animation):not(.skip-animation)::before,
+html.bn-ui #mainmenu > #container-4.column.card:not(.in-animation):not(.skip-animation)::before {
+	margin-bottom: 52px;
+}
+/* Secondary tiles keep their glyph, set small and muted. */
+html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation) > i.largeDarkIcon {
+	display: block;
+	margin: 12px 0 0 !important;
+	font-size: 28px !important;
+	color: var(--bn-text-muted);
+	text-align: left;
+}
+
+/* An opened option fills the window on the canvas. */
+html.bn-ui .column.in-animation,
+html.bn-ui .column.skip-animation,
+html.bn-ui body.darktheme .column.in-animation,
+html.bn-ui body.darktheme .column.skip-animation {
+	background-color: var(--bn-bg) !important;
+	background-image: none !important;
+	border-top: 0;
+	text-align: left;
+}
+html.bn-ui #empty-container {
+	border-top: 1px solid var(--bn-border);
+	min-height: 168px;
+	height: auto;
+	width: auto;
+	margin: 0;
+}
+
+/* More options: a ghost button under the grid. */
+html.bn-ui #dropButton {
+	width: 120px;
+	min-height: 44px;
+	margin: 24px auto;
+	padding: 6px 0 0;
+	font-size: 20px;
+	text-align: center;
+	color: var(--bn-text-muted);
+	background-color: transparent;
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r2);
+	transition: background-color var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui #dropButton:hover {
+	background-color: var(--bn-surface-2);
+	color: var(--bn-text);
+}
+
+/* ---------- Info and footer ---------- */
+
+html.bn-ui .infoblob {
+	color: var(--bn-prose);
+	max-width: 82rem;
+	margin: 0 auto;
+	font-size: 16px;
+	line-height: 1.6;
+}
+html.bn-ui .infoblob h2 {
+	font-size: 28px;
+	letter-spacing: -0.038em;
+	border-top: 1px solid var(--bn-border);
+	padding-top: 24px;
+}
+html.bn-ui .footer,
+html.bn-ui body.darktheme .footer,
+html.bn-ui .footer > a,
+html.bn-ui body.darktheme .footer > a {
+	color: var(--bn-text-muted);
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	font-variant-numeric: tabular-nums;
+}
+html.bn-ui #credits {
+	position: static;
+	margin: 32px 0 0;
+	padding: 16px 0 32px;
+	border-top: 1px solid var(--bn-border);
+	text-align: left;
+	line-height: 1.8;
+}
+html.bn-ui #credits a:link,
+html.bn-ui #credits a:visited {
+	color: var(--bn-text-muted);
+}
+html.bn-ui #credits a:hover {
+	color: var(--bn-text);
+}
+
+/* ---------- Reduced motion: nothing moves, everything is still there ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	html.bn-ui *,
+	html.bn-ui *::before,
+	html.bn-ui *::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* ---------- Start screen fixes ---------- */
+
+html.bn-ui body {
+	min-height: 100vh;
+}
+/* The product name beside the lockup: the BytesNation wordmark, then "Studio" in the same ink. */
+html.bn-ui #header::after {
+	content: "Studio";
+	order: -1;
+	flex: none;
+	margin-right: 24px;
+	font-family: var(--bn-sans);
+	font-size: 17px;
+	font-weight: 500;
+	letter-spacing: -0.03em;
+	line-height: 24px;
+	color: var(--bn-text);
+}
+html.bn-ui #dropButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+html.bn-ui #info {
+	float: none;
+	padding: 0 16px;
+}
+html.bn-ui .infoblob {
+	padding: 0;
+}
+html.bn-ui #translateButton i,
+html.bn-ui #calendarButton i,
+html.bn-ui #helpbutton i,
+html.bn-ui #reportbutton i {
+	color: var(--bn-text-muted) !important;
+}
+/* main.js centers #mainmenu as a flex item, which would size the grid to its content. */
+html.bn-ui #mainmenu.row {
+	width: 100%;
+	box-sizing: border-box;
+}
+@media (max-width: 640px) {
+	html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation) {
+		padding: 16px 16px 20px !important;
+	}
+	html.bn-ui #header {
+		height: auto !important;
+	}
+	html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation) {
+		height: auto !important;
+	}
+	html.bn-ui #mainmenu.row {
+		display: block;
+	}
+	html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation) {
+		display: block;
+	}
+	html.bn-ui #header {
+		padding: 8px 16px;
+	}
+	html.bn-ui #head1 {
+		width: 100%;
+		margin-top: 8px;
+	}
+	html.bn-ui #joinroomID {
+		flex: 1 1 auto;
+		width: auto;
+		min-width: 0;
+		height: 44px;
+	}
+	html.bn-ui #jumptoroomButton {
+		min-height: 44px;
+		min-width: 64px;
+	}
+	html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation) {
+		min-height: 0;
+		padding-bottom: 20px;
+	}
+	html.bn-ui #mainmenu > .column.card:not(.in-animation):not(.skip-animation)::before {
+		margin-bottom: 44px;
+	}
+}
+
+/* Upstream's self-description of VDO.Ninja ("Powered by VDO.Ninja" on self-hosted domains).
+   The footer carries the one origin credit, so this block is hidden. Decided by George, 2026-11-25. */
+html.bn-ui #info {
+	display: none !important;
+}
+
+/* ---------- Opened panels: joining and device setup ---------- */
+
+/* The panel reads top to bottom: title on a hairline, preview, the one primary action, then settings. */
+html.bn-ui .column.in-animation > h2,
+html.bn-ui .column.skip-animation > h2 {
+	margin: 0;
+	padding: 18px 76px 18px 16px;
+	font-size: 28px;
+	letter-spacing: -0.038em;
+	line-height: 1.1;
+	text-align: left;
+	border-bottom: 1px solid var(--bn-border);
+}
+html.bn-ui .column.in-animation .container-inner,
+html.bn-ui .column.skip-animation .container-inner {
+	max-width: 720px;
+	margin: 0 auto 48px;
+	padding: 0 16px;
+	text-align: center;
+}
+html.bn-ui .container-inner > div,
+html.bn-ui .container-inner > span > div,
+html.bn-ui .container-inner button:not(.gowebcam),
+html.bn-ui .message-card {
+	box-shadow: none !important;
+}
+
+/* Close: a 44px icon button with a thin X. */
+html.bn-ui .outer.close {
+	top: 10px;
+	right: 16px;
+	width: 44px;
+	height: 44px;
+	margin: 0;
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r2);
+	background-color: transparent;
+	transition: background-color var(--bn-press-d) var(--bn-press), transform var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui .outer.close:hover {
+	background-color: var(--bn-surface-2);
+}
+html.bn-ui .outer.close:active {
+	transform: translateY(1px);
+}
+html.bn-ui .outer.close .inner {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 18px;
+	height: 18px;
+	margin: -9px 0 0 -9px;
+}
+html.bn-ui .outer.close .inner::before,
+html.bn-ui .outer.close .inner::after,
+html.bn-ui body.darktheme .outer.close .inner::before,
+html.bn-ui body.darktheme .outer.close .inner::after {
+	width: 18px;
+	height: 1.6px;
+	top: 50% !important;
+	left: 50%;
+	border-radius: 1px;
+	background: var(--bn-text);
+	transition: none;
+}
+html.bn-ui .outer.close .inner::before,
+html.bn-ui .outer.close:hover .inner::before {
+	transform: translate(-50%, -50%) rotate(45deg);
+}
+html.bn-ui .outer.close .inner::after,
+html.bn-ui .outer.close:hover .inner::after {
+	transform: translate(-50%, -50%) rotate(-45deg);
+}
+html.bn-ui .outer.close .labelclass {
+	display: none;
+}
+
+/* The preview is media: a 6px frame on the surface. */
+html.bn-ui .previewWebcam {
+	border-radius: var(--bn-r3);
+	background-color: var(--bn-surface);
+	box-shadow: none !important;
+}
+
+/* Start: the primary action once the camera is ready; a quiet outline while it waits. */
+html.bn-ui .gowebcam,
+html.bn-ui .gowebcam:enabled {
+	min-height: 44px;
+	margin: 16px auto 24px;
+	padding: 0 32px;
+	border-radius: var(--bn-r2);
+	font-family: var(--bn-sans);
+	font-size: 16px;
+	font-weight: 500 !important;
+	box-shadow: none !important;
+	animation: none !important;
+	text-shadow: none;
+}
+html.bn-ui .gowebcam {
+	background: transparent !important;
+	border: 1px solid var(--bn-control-border);
+	color: var(--bn-text-muted) !important;
+}
+html.bn-ui .gowebcam:enabled {
+	background: var(--bn-accent) !important;
+	border: 1px solid var(--bn-accent);
+	color: var(--bn-accent-ink) !important;
+}
+html.bn-ui .gowebcam:enabled:hover {
+	background: var(--bn-accent-hover) !important;
+	border-color: var(--bn-accent-hover);
+}
+html.bn-ui .gowebcam:enabled:active {
+	transform: translateY(1px);
+}
+
+/* Settings: ruled rows in one column, labels left, values in mono. */
+html.bn-ui .container-inner #videoMenu,
+html.bn-ui .container-inner #audioMenu,
+html.bn-ui .container-inner #headphonesDiv,
+html.bn-ui .container-inner #avatarDiv,
+html.bn-ui .container-inner #effectsDiv,
+html.bn-ui .container-inner #addPasswordBasic,
+html.bn-ui .container-inner #guestTips {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto !important;
+	padding: 14px 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	text-align: left;
+	color: var(--bn-text);
+}
+html.bn-ui .container-inner #addPasswordBasic {
+	border-bottom: 1px solid var(--bn-border) !important;
+}
+html.bn-ui .container-inner #videoMenu select,
+html.bn-ui .container-inner #audioMenu .multiselect-contents label,
+html.bn-ui .container-inner #headphonesDiv select,
+html.bn-ui .container-inner #effectsDiv select {
+	font-family: var(--bn-mono);
+	font-size: 13px;
+	font-variant-numeric: tabular-nums;
+}
+html.bn-ui .container-inner #videoMenu select,
+html.bn-ui .container-inner #headphonesDiv select,
+html.bn-ui .container-inner #effectsDiv select,
+html.bn-ui .container-inner #passwordBasicInput {
+	min-height: 36px;
+	padding: 0 8px;
+}
+html.bn-ui .container-inner label,
+html.bn-ui body.darktheme .container-inner label {
+	color: var(--bn-text);
+}
+
+/* Warnings: a ruled callout in the warning color, with its icon. */
+html.bn-ui .startupWarning,
+html.bn-ui body.darktheme .startupWarning {
+	max-width: 640px;
+	margin: 12px auto;
+	padding: 12px 14px;
+	background: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-warning);
+	border-radius: var(--bn-r3);
+	box-shadow: none !important;
+	text-align: left;
+}
+html.bn-ui .startupWarning > i {
+	color: var(--bn-warning);
+}
+html.bn-ui .column.in-animation,
+html.bn-ui .column.skip-animation {
+	padding: 0 !important;
+}
+html.bn-ui .column.in-animation > h2,
+html.bn-ui .column.skip-animation > h2 {
+	padding-top: 22px;
+	padding-bottom: 22px;
+}
+html.bn-ui .container-inner #audioMenu .multiselect-contents {
+	background: var(--bn-surface);
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r2);
+}
+
+/* ---------- Meters and connection quality ---------- */
+
+/* Meters are data: level, hot and clip. */
+html.bn-ui .meter {
+	background: var(--bn-ice);
+}
+html.bn-ui .meter2 {
+	background: var(--bn-accent-text);
+}
+html.bn-ui .meter3 {
+	background: var(--bn-error);
+}
+html.bn-ui .meter4 {
+	background: var(--bn-text);
+}
+/* Connection quality is state: failing, degraded, healthy. */
+html.bn-ui .signal-meter {
+	background-color: transparent;
+	border-radius: var(--bn-r1);
+}
+html.bn-ui .signal-meter[data-level="1"] {
+	color: var(--bn-error);
+}
+html.bn-ui .signal-meter[data-level="2"],
+html.bn-ui .signal-meter[data-level="3"] {
+	color: var(--bn-warning);
+}
+html.bn-ui .signal-meter[data-level="4"],
+html.bn-ui .signal-meter[data-level="5"] {
+	color: var(--bn-ok);
+}
+
+/* ---------- Room setup ---------- */
+
+/* Upstream's rounded sections become hairline sections. */
+html.bn-ui .container-inner .section {
+	display: block;
+	max-width: 680px;
+	margin: 16px auto 0;
+	padding: 20px 0 24px;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	background: transparent !important;
+	box-shadow: none !important;
+}
+/* Only "enter as director" is primary; the other ways in are secondary. */
+html.bn-ui #goToLastSavedRoom,
+html.bn-ui #goToLastSavedRoom:enabled,
+html.bn-ui button.gowebcam[onclick="jumptoroom2()"],
+html.bn-ui button.gowebcam[onclick="jumptoroom2()"]:enabled {
+	background: transparent !important;
+	border: 1px solid var(--bn-control-border);
+	color: var(--bn-text) !important;
+}
+html.bn-ui #goToLastSavedRoom:hover,
+html.bn-ui button.gowebcam[onclick="jumptoroom2()"]:hover {
+	background: var(--bn-surface-2) !important;
+}
+html.bn-ui #container-1 .gowebcam {
+	max-width: 100%;
+}
+html.bn-ui .gowebcam,
+html.bn-ui .gobutton {
+	border-color: var(--bn-control-border) !important;
+}
+html.bn-ui .gowebcam:enabled,
+html.bn-ui button.gobutton {
+	border-color: var(--bn-accent) !important;
+}
+html.bn-ui #goToLastSavedRoom,
+html.bn-ui button.gowebcam[onclick="jumptoroom2()"] {
+	border-color: var(--bn-control-border) !important;
+}
+html.bn-ui .gobutton,
+html.bn-ui .gowebcam {
+	border-width: 1px !important;
+}
+
+/* ---------- In-call control bar ---------- */
+
+html.bn-ui #subControlButtons,
+html.bn-ui body.darktheme #subControlButtons {
+	padding: 4px;
+	background-color: var(--bn-surface-elevated) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3);
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+}
+html.bn-ui #subControlButtons div,
+html.bn-ui #subControlButtons span button {
+	min-width: 44px;
+	min-height: 44px;
+	margin: 2px;
+	background-color: transparent;
+	border: 1px solid transparent;
+	border-radius: var(--bn-r2) !important;
+	box-shadow: none !important;
+	color: var(--bn-text);
+	opacity: 1;
+	transition: background-color var(--bn-press-d) var(--bn-press), transform var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui #subControlButtons div:hover,
+html.bn-ui #subControlButtons span button:hover {
+	background-color: var(--bn-surface-2);
+}
+html.bn-ui #subControlButtons div:active {
+	transform: translateY(1px);
+}
+html.bn-ui #subControlButtons i,
+html.bn-ui .float i,
+html.bn-ui .float2 i {
+	color: var(--bn-text);
+}
+html.bn-ui .float,
+html.bn-ui .float2 {
+	opacity: 1;
+	box-shadow: none !important;
+	color: var(--bn-text);
+}
+html.bn-ui #subControlButtons span,
+html.bn-ui #subControlButtons button {
+	font-family: var(--bn-sans);
+	font-size: 13px;
+	color: var(--bn-text);
+}
+
+/* State, not decoration: off or failed, on or selected, warning. */
+html.bn-ui .red,
+html.bn-ui .red:hover,
+html.bn-ui #subControlButtons div.red {
+	background-color: var(--bn-surface) !important;
+	border-color: var(--bn-error) !important;
+	color: var(--bn-error) !important;
+}
+html.bn-ui .red i,
+html.bn-ui .red > i {
+	color: var(--bn-error) !important;
+}
+html.bn-ui .green,
+html.bn-ui .green:hover,
+html.bn-ui .blue,
+html.bn-ui .blue:hover,
+html.bn-ui .pressed {
+	background-color: var(--bn-surface-3) !important;
+	border-color: var(--bn-control-border) !important;
+	box-shadow: inset 0 -2px 0 var(--bn-accent) !important;
+	color: var(--bn-text) !important;
+}
+html.bn-ui .orange,
+html.bn-ui .orange:hover {
+	background-color: var(--bn-surface) !important;
+	border-color: var(--bn-warning) !important;
+	color: var(--bn-warning) !important;
+}
+html.bn-ui #scenemutebutton.orange .la-broadcast-tower,
+html.bn-ui .scene-mute-state .la-broadcast-tower {
+	color: var(--bn-warning);
+}
+
+/* ---------- Director's control room ---------- */
+
+html.bn-ui .hideLinksClass,
+html.bn-ui .directorContainer,
+html.bn-ui #guestFeeds {
+	background-color: transparent !important;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+html.bn-ui .hideLinksClass {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	letter-spacing: 0.09em;
+	color: var(--bn-text-muted);
+}
+html.bn-ui .directorBlock,
+html.bn-ui body.darktheme .directorBlock {
+	background-color: transparent !important;
+	color: var(--bn-text);
+}
+html.bn-ui .directorBlock h2,
+html.bn-ui .directorBlock .title,
+html.bn-ui .directorBlock span[data-translate="invite-a-guest"],
+html.bn-ui .directorBlock span[data-translate="capture-a-group-scene"] {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	font-weight: 400;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+/* A link to copy is a readout: mono, on a well. */
+html.bn-ui a.grabLinks,
+html.bn-ui a.grabLinks:link,
+html.bn-ui a.grabLinks:visited {
+	display: block;
+	padding: 10px 12px;
+	background-color: var(--bn-surface) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r3);
+	font-family: var(--bn-mono);
+	font-size: 13px;
+	font-weight: 400;
+	color: var(--bn-text) !important;
+	text-decoration: none;
+	word-break: break-all;
+}
+/* Guest slots: ruled cells. */
+html.bn-ui .vidcon.directorMargins,
+html.bn-ui body.darktheme .vidcon.directorMargins {
+	background-color: transparent !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+}
+html.bn-ui .vidcon.directorMargins > i.la-user-circle {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-border-strong) !important;
+}
+
+/* ---------- Header readouts ---------- */
+
+/* Peers, listeners, viewers, scenes and upload bitrate are readouts. */
+html.bn-ui #head5 {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	font-variant-numeric: tabular-nums;
+	color: var(--bn-text-muted);
+	margin-right: 16px;
+}
+html.bn-ui #head2,
+html.bn-ui #head4 {
+	font-size: 12px !important;
+	color: var(--bn-text-muted) !important;
+}
+/* Upload quality: lib.js tints the marker inline; the theme maps each tint to a state. */
+html.bn-ui #head5 span[style*="#0F0"],
+html.bn-ui #head5 span[style*="#4d9bff"] {
+	text-shadow: 0 0 0 var(--bn-ok) !important;
+}
+html.bn-ui #head5 span[style*="yellow"],
+html.bn-ui #head5 span[style*="orange"] {
+	text-shadow: 0 0 0 var(--bn-warning) !important;
+}
+html.bn-ui #head5 span[style*="#F00"] {
+	text-shadow: 0 0 0 var(--bn-error) !important;
+}
+/* Signalling: the plug takes the state color. */
+html.bn-ui #qos i {
+	color: inherit !important;
+	font-size: 16px;
+}
+
+/* Hang up is destructive. */
+html.bn-ui #hangupbutton i,
+html.bn-ui #hangupbutton2 i,
+html.bn-ui button[data-action-type="hangup"] i {
+	color: var(--bn-error) !important;
+}
+
+/* Director's per-guest controls: icons in the text color; color is kept for state. */
+html.bn-ui .controlsGrid button,
+html.bn-ui #guestFeeds .vidcon button {
+	box-shadow: none !important;
+	border-radius: var(--bn-r2) !important;
+	background-color: transparent;
+	border: 1px solid var(--bn-control-border);
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+}
+html.bn-ui .controlsGrid button i,
+html.bn-ui #guestFeeds .vidcon button i {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-ui #guestFeeds .vidcon button.red i,
+html.bn-ui #guestFeeds .vidcon button[data-action-type="hangup"] i {
+	color: var(--bn-error) !important;
+}
+html.bn-ui #guestFeeds .vidcon .streamID,
+html.bn-ui #guestFeeds .vidcon [id^="label_"] {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+
+/* Every .gobutton is a primary action; upstream's refresh forces its own fill. */
+html.bn-ui button.gobutton {
+	background-color: var(--bn-accent) !important;
+	color: var(--bn-accent-ink) !important;
+}
+html.bn-ui button.gobutton:hover {
+	background-color: var(--bn-accent-hover) !important;
+	border-color: var(--bn-accent-hover) !important;
+}
+html.bn-ui button.gobutton.hidden {
+	display: none !important;
+}
+html.bn-ui .brown,
+html.bn-ui .brown:hover {
+	background-color: var(--bn-surface-3) !important;
+	border-color: var(--bn-control-border) !important;
+	box-shadow: inset 0 -2px 0 var(--bn-accent) !important;
+	color: var(--bn-text) !important;
+}
+
+/* ---------- Chat ---------- */
+
+html.bn-ui #chatModule,
+html.bn-ui body.darktheme #chatModule {
+	background-color: var(--bn-surface-elevated) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3) !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+}
+html.bn-ui .chat-header,
+html.bn-ui body.darktheme .chat-header {
+	padding: 8px 8px 8px 14px;
+	color: var(--bn-text-muted) !important;
+	border-bottom: 1px solid var(--bn-border) !important;
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+}
+html.bn-ui .chat-header a,
+html.bn-ui .chat-header a:link,
+html.bn-ui .chat-header a:visited {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	margin-left: 4px;
+	border: 1px solid var(--bn-control-border) !important;
+	border-radius: var(--bn-r2) !important;
+	background: transparent !important;
+	color: var(--bn-text) !important;
+	font-family: var(--bn-sans);
+	text-decoration: none;
+	cursor: pointer;
+}
+html.bn-ui .chat-header a:hover {
+	background: var(--bn-surface-2) !important;
+}
+html.bn-ui #chatBody,
+html.bn-ui body.darktheme #chatBody {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text);
+	font-size: 15px;
+}
+/* Messages are ruled rows, not bubbles. Who sent it is the alignment. */
+html.bn-ui .inMessage,
+html.bn-ui .outMessage,
+html.bn-ui body.darktheme .inMessage,
+html.bn-ui body.darktheme .outMessage {
+	margin: 0;
+	padding: 8px 4px;
+	background-color: transparent !important;
+	border-bottom: 1px solid var(--bn-border);
+	border-radius: 0;
+	color: var(--bn-text);
+}
+html.bn-ui .inMessage i,
+html.bn-ui .outMessage i {
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	font-style: normal;
+	color: var(--bn-text-muted);
+}
+html.bn-ui .tipMessage,
+html.bn-ui .actionMessage,
+html.bn-ui body.darktheme .actionMessage {
+	background: var(--bn-surface-2) !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r2);
+}
+html.bn-ui div#chatBody a,
+html.bn-ui body.darktheme div#chatBody a {
+	background-color: transparent !important;
+	border: 0 !important;
+	color: var(--bn-text) !important;
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+}
+html.bn-ui .chat-input-area {
+	padding: 8px;
+	border-top: 1px solid var(--bn-border);
+}
+html.bn-ui #chatInput {
+	min-height: 40px;
+	padding: 0 10px;
+}
+html.bn-ui .chat-input-area button {
+	min-height: 40px;
+}
+
+/* ---------- Settings drawer ---------- */
+
+html.bn-ui #popupSelector,
+html.bn-ui body.darktheme #popupSelector {
+	background: var(--bn-surface-elevated) !important;
+	border-left: 1px solid var(--bn-border);
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	color: var(--bn-text);
+	padding: 16px;
+}
+html.bn-ui #popupSelector label,
+html.bn-ui body.darktheme #popupSelector label,
+html.bn-ui #popupSelector .multiselect-contents label {
+	color: var(--bn-text) !important;
+}
+html.bn-ui #popupSelector > div,
+html.bn-ui #popupSelector > span > div,
+html.bn-ui #popupSelector .videoMenu,
+html.bn-ui #popupSelector .multiselect,
+html.bn-ui #popupSelector .audioMenu {
+	background: transparent !important;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	padding-top: 12px;
+	padding-bottom: 12px;
+}
+html.bn-ui #popupSelector select,
+html.bn-ui #popupSelector .multiselect-contents label {
+	font-family: var(--bn-mono);
+	font-size: 13px;
+}
+html.bn-ui #popupSelector .multiselect-contents {
+	background: var(--bn-surface);
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r2);
+}
+html.bn-ui #popupSelector #videoMenu3,
+html.bn-ui #popupSelector #headphonesDiv3 {
+	display: block;
+	background: transparent !important;
+	border: 0 !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+/* ---------- Dialogs and notices ---------- */
+
+html.bn-ui #alertModal {
+	background-color: var(--bn-surface-elevated);
+	color: var(--bn-text);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r3);
+	box-shadow: none;
+	font-weight: 400;
+	font-size: 16px;
+	line-height: 1.5;
+}
+html.bn-ui .modal-content,
+html.bn-ui .alertModalInner,
+html.bn-ui body.darktheme .modal-content,
+html.bn-ui body.darktheme .alertModalInner {
+	background-color: var(--bn-surface-elevated) !important;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3) !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+}
+html.bn-ui .alertModalInner {
+	padding: 20px 56px 20px 20px;
+	text-align: left;
+}
+html.bn-ui #alertModal a:link,
+html.bn-ui #alertModal a:visited,
+html.bn-ui #alertModal a:hover,
+html.bn-ui #alertModal a:active {
+	color: var(--bn-text);
+}
+html.bn-ui .modalClose {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r2);
+	font-size: 20px;
+	font-weight: 400;
+	line-height: 1;
+	color: var(--bn-text);
+	cursor: pointer;
+}
+html.bn-ui .modalClose:hover {
+	background-color: var(--bn-surface-2);
+}
+html.bn-ui #connectUsers {
+	background-color: var(--bn-surface-elevated);
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r3);
+	box-shadow: none;
+	color: var(--bn-text);
+}
+html.bn-ui .chatBarInputButton {
+	background-color: transparent !important;
+	border: 1px solid var(--bn-control-border) !important;
+	color: var(--bn-text) !important;
+}
+html.bn-ui .chatBarInputButton:hover {
+	background-color: var(--bn-surface-2) !important;
+}
+html.bn-ui #alertModal {
+	border: 0;
+	background-color: transparent;
+}
+
+/* ---------- Switches ---------- */
+
+html.bn-ui .slider {
+	background-color: transparent;
+	border: 1px solid var(--bn-control-border);
+	border-radius: var(--bn-r1);
+	transition: background-color var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui .slider:before {
+	left: 3px;
+	bottom: 3px;
+	height: 16px;
+	width: 16px;
+	background-color: var(--bn-text-muted);
+	border-radius: var(--bn-r1);
+	transition: transform var(--bn-press-d) var(--bn-press);
+}
+html.bn-ui input:checked + .slider {
+	background-color: var(--bn-accent);
+	border-color: var(--bn-accent);
+}
+html.bn-ui input:checked + .slider:before {
+	background-color: var(--bn-accent-ink);
+}
+html.bn-ui input:focus + .slider {
+	box-shadow: none;
+	outline: 2px solid var(--bn-text);
+	outline-offset: 3px;
+}
+
+/* ---------- Menus ---------- */
+
+html.bn-ui .context-menu,
+html.bn-ui .context-menu__submenu,
+html.bn-ui body.darktheme .context-menu,
+html.bn-ui body.darktheme .context-menu__submenu,
+html.bn-ui .popup-message,
+html.bn-ui body.darktheme .popup-message {
+	background-color: var(--bn-surface-elevated) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3);
+	box-shadow: none !important;
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+}
+html.bn-ui .context-menu__link,
+html.bn-ui body.darktheme .context-menu__link {
+	color: var(--bn-text) !important;
+	text-decoration: none;
+}
+html.bn-ui .context-menu__link:hover,
+html.bn-ui body.darktheme .context-menu__link:hover {
+	color: var(--bn-text) !important;
+	background-color: var(--bn-surface-2) !important;
+}
+html.bn-ui .context-menu__tip {
+	color: var(--bn-text-muted);
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+
+/* Invite and screen share groups: ruled sections in the panel's column. */
+html.bn-ui .invite_setting_group,
+html.bn-ui .audio-selector {
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 640px;
+	margin: 0 auto !important;
+	padding: 16px 0 !important;
+	background: transparent !important;
+	border: 0 !important;
+	border-top: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+	box-shadow: none !important;
+	text-align: left;
+}
+html.bn-ui .invite_setting_group > :first-child,
+html.bn-ui .invite_setting_group h4,
+html.bn-ui .invite_setting_group b {
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	font-weight: 400;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+}
+html.bn-ui .message-card,
+html.bn-ui .message-card.info {
+	background: var(--bn-surface) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: var(--bn-r3) !important;
+	color: var(--bn-text);
+	text-align: left;
+}
+html.bn-ui .message-card li {
+	color: var(--bn-prose);
+}
+
+/* The source link at the foot of the settings drawer (AGPL-3.0 section 13). */
+html.bn-ui .bn-source-link {
+	margin: 12px 0 0;
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+html.bn-ui .bn-source-link a:link,
+html.bn-ui .bn-source-link a:visited {
+	color: var(--bn-text-muted);
+}
+
+/* ---------- Contrast fixes: upstream text colors fixed for the dark theme only ---------- */
+
+html.bn-ui .message-card li,
+html.bn-ui .message-card p,
+html.bn-ui .message-card span {
+	color: var(--bn-prose) !important;
+}
+html.bn-ui .hideLinksClass span,
+html.bn-ui .hideLinksClass a,
+html.bn-ui #directorLinksButton,
+html.bn-ui #help_directors_room {
+	color: var(--bn-text-muted) !important;
+}
+html.bn-ui .info-box {
+	background: var(--bn-surface) !important;
+	border: 1px solid var(--bn-border);
+	border-radius: var(--bn-r3);
+	color: var(--bn-text);
+	text-align: left;
+}
+html.bn-ui .info-box ul,
+html.bn-ui .info-box li {
+	color: var(--bn-prose) !important;
+}
+html.bn-ui .streamID,
+html.bn-ui .streamID span,
+html.bn-ui .contolboxLabel {
+	color: var(--bn-text) !important;
+}
+html.bn-ui .streamID {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+@media (max-width: 640px) {
+	html.bn-ui .hideLinksClass {
+		font-family: var(--bn-sans);
+		font-size: 13px;
+		letter-spacing: 0;
+		white-space: normal;
+		overflow-wrap: anywhere;
+	}
+	html.bn-ui .hideLinksClass span {
+		display: inline-block;
+		max-width: 100%;
+		white-space: normal;
+	}
+}
+
+/* The director's per-guest controls are dense: tighter on a pointer, 44px targets on touch. */
+html.bn-ui #guestFeeds .vidcon button,
+html.bn-ui .controlsGrid button {
+	min-height: 30px;
+	padding: 0 6px;
+	font-size: 12.5px;
+	letter-spacing: -0.01em;
+}
+@media (pointer: coarse) {
+	html.bn-ui #guestFeeds .vidcon button,
+	html.bn-ui .controlsGrid button {
+		min-height: 44px;
+	}
+}

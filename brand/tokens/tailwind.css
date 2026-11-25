@@ -1,0 +1,113 @@
+/*
+  BytesNation bridge for Tailwind CSS v4 and shadcn/ui.
+
+  Maps the brand tokens onto the names Tailwind utilities and shadcn/ui
+  components read, so a stock shadcn/ui component picks up the brand with no
+  edits. Hand-written, and it holds no values of its own: every line points at
+  a token from tokens.css.
+
+  Use, in your main stylesheet:
+
+    @import "tailwindcss";
+    @import "./brand/css/bytesnation.css";   (or ./brand/tokens/tokens.css alone)
+    @import "./brand/tokens/tailwind.css";
+
+  Two names mean something different from stock shadcn/ui:
+  - --primary is the brand accent, the orange fill. Use bg-primary for it.
+  - Tailwind's accent utilities (bg-accent) are shadcn/ui's neutral hover wash,
+    not the orange. The raw --accent variable stays the brand fill.
+
+  After any "npx shadcn@latest init" or "add", check that the CLI did not write
+  its own :root palette into your stylesheet. If it did, delete what it added.
+
+  The website itself keeps its bridge in apps/web/src/styles/shadcn.css, which
+  leaves Tailwind's default radius scale alone for the sake of older utilities.
+  A new project should use this file, which clamps every radius to the brand's
+  three steps.
+*/
+
+/* Dark is html[data-theme="dark"], not a .dark class. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme {
+  --font-sans: "Inter Tight", "BN Sans Fallback", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", "BN Mono Fallback", ui-monospace, SFMono-Regular, monospace;
+}
+
+:root {
+  --background: var(--bg);
+  --foreground: var(--text);
+  --muted-foreground: var(--text-muted);
+  --primary: var(--accent);
+  --primary-foreground: var(--accent-ink);
+  /* The focus ring is the text color. The accent is never an outline. */
+  --ring: var(--text);
+  /* shadcn/ui derives its radius scale from this. It is the largest brand step. */
+  --radius: var(--r-3);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+
+  --color-card: var(--surface);
+  --color-card-foreground: var(--foreground);
+  --color-popover: var(--surface-elevated);
+  --color-popover-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--surface-2);
+  --color-secondary-foreground: var(--foreground);
+  --color-muted: var(--surface-2);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--surface-3);
+  --color-accent-foreground: var(--foreground);
+  --color-destructive: var(--error);
+
+  --color-success: var(--ok);
+  --color-warning: var(--warning);
+
+  --color-border: var(--border);
+  --color-input: var(--control-border);
+  --color-ring: var(--ring);
+
+  /* Charts take data colors, never the interface accent. */
+  --color-chart-1: var(--ice);
+  --color-chart-2: var(--accent-text);
+  --color-chart-3: var(--ok);
+  --color-chart-4: var(--text-muted);
+  --color-chart-5: var(--text-faint);
+
+  --color-sidebar: var(--surface);
+  --color-sidebar-foreground: var(--foreground);
+  --color-sidebar-primary: var(--primary);
+  --color-sidebar-primary-foreground: var(--primary-foreground);
+  --color-sidebar-accent: var(--surface-3);
+  --color-sidebar-accent-foreground: var(--foreground);
+  --color-sidebar-border: var(--border);
+  --color-sidebar-ring: var(--ring);
+
+  /* Radius: three brand steps. Anything larger is clamped to the top step, so a
+     stock component cannot bring a big rounded corner with it. rounded-full is
+     still available, and it is for dots only. */
+  --radius-xs: var(--r-1);
+  --radius-sm: var(--r-1);
+  --radius-md: var(--r-2);
+  --radius-lg: var(--r-3);
+  --radius-xl: var(--r-3);
+  --radius-2xl: var(--r-3);
+  --radius-3xl: var(--r-3);
+  --radius-4xl: var(--r-3);
+}
+
+@layer base {
+  /* Tailwind v4 borders default to currentColor. Stock components write a bare "border". */
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+}

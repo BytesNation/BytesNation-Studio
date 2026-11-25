@@ -1,0 +1,6 @@
+{
+	"upstreamRepo": "steveseguin/vdo.ninja",
+	"upstreamBranch": "develop",
+	"upstreamCommit": "8e363be82533ef3d9544eca06e06a380902d929e",
+	"note": "The upstream commit this fork's engine matches. Update it after each upstream merge. The deploy tooling records it, with the engine version from index.html, in bytesnation/deploy.json on the served site."
+}

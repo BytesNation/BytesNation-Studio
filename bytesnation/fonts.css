@@ -1,0 +1,52 @@
+/*
+ * BytesNation Studio: self-hosted fonts, shared by every themed page.
+ * Inter Tight and Geist Mono are under the SIL Open Font License; see bytesnation/fonts/*-OFL.txt.
+ */
+
+@font-face {
+	font-family: "Inter Tight";
+	src: url("fonts/InterTight-Regular.woff2") format("woff2");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Inter Tight";
+	src: url("fonts/InterTight-Medium.woff2") format("woff2");
+	font-weight: 500;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Inter Tight";
+	src: url("fonts/InterTight-SemiBold.woff2") format("woff2");
+	font-weight: 600 700;
+	font-style: normal;
+	font-display: swap;
+}
+@font-face {
+	font-family: "Geist Mono";
+	src: url("fonts/GeistMono-Regular.woff2") format("woff2");
+	font-weight: 400 500;
+	font-style: normal;
+	font-display: swap;
+}
+/* Metric-matched fallbacks from the kit. Chrome 80 ignores the override descriptors, harmlessly. */
+@font-face {
+	font-family: "BN Sans Fallback";
+	src: local("Arial"), local("Liberation Sans"), local("Nimbus Sans");
+	font-weight: 400;
+	size-adjust: 96.3855%;
+	ascent-override: 100.5078%;
+	descent-override: 25.0256%;
+	line-gap-override: 0%;
+}
+@font-face {
+	font-family: "BN Mono Fallback";
+	src: local("DejaVu Sans Mono"), local("Liberation Mono"), local("Courier New");
+	font-weight: 400 500;
+	size-adjust: 99.6594%;
+	ascent-override: 100.8435%;
+	descent-override: 29.6008%;
+	line-gap-override: 0%;
+}

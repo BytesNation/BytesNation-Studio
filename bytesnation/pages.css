@@ -1,0 +1,759 @@
+/*
+ * BytesNation Studio theme for the standalone utility pages.
+ * Copyright (c) 2026 BytesNation. Licensed under AGPL-3.0-only, as part of this fork; see LICENSE.
+ *
+ * Each page keeps its own layout. This file is linked after the page's own style block, so its
+ * element rules win at equal specificity: it brings the canvas, type, controls and hairlines onto
+ * the brand kit, in dark by default and in light through &lightmode (bytesnation/theme-param.js).
+ * Capture pages (viewers, players, talent displays) never load it. Chrome 80 safe.
+ */
+
+:root {
+	--bn-bg: #0a0b0d;
+	--bn-surface: #101215;
+	--bn-surface-elevated: #16181c;
+	--bn-border: #22252b;
+	--bn-text: #edebe6;
+	--bn-text-muted: #9ea3ab;
+	--bn-text-faint: #80868f;
+	--bn-prose: #cdccc8;
+	--bn-border-strong: #4f5154;
+	--bn-control-border: #67686b;
+	--bn-surface-2: #1b1d1f;
+	--bn-surface-3: #242628;
+	--bn-accent: #ff6a13;
+	--bn-accent-hover: #ff7f34;
+	--bn-accent-ink: #1a0d04;
+	--bn-warning: #f5c842;
+	--bn-ok: #5be49b;
+	--bn-error: #ff8d7a;
+	--bn-ice: #7fd4ff;
+	--bn-sans: "Inter Tight", "BN Sans Fallback", ui-sans-serif, system-ui, sans-serif;
+	--bn-mono: "Geist Mono", "BN Mono Fallback", ui-monospace, SFMono-Regular, monospace;
+	color-scheme: dark;
+}
+html.bn-light {
+	--bn-bg: #f3f1ed;
+	--bn-surface: #f9f8f5;
+	--bn-surface-elevated: #ffffff;
+	--bn-border: #dedad2;
+	--bn-text: #15171a;
+	--bn-text-muted: #565a61;
+	--bn-text-faint: #666a71;
+	--bn-prose: #343638;
+	--bn-border-strong: #aaa7a2;
+	--bn-control-border: #8a8885;
+	--bn-surface-2: #eeedea;
+	--bn-surface-3: #e4e4e1;
+	--bn-accent: #e8590c;
+	--bn-accent-hover: #eb702e;
+	--bn-warning: #7a5800;
+	--bn-ok: #116a3b;
+	--bn-error: #b42318;
+	--bn-ice: #0c6388;
+	color-scheme: light;
+}
+
+html,
+body {
+	background: var(--bn-bg);
+	background-image: none;
+	color: var(--bn-text);
+}
+body {
+	font-family: var(--bn-sans);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+::selection {
+	background: var(--bn-text);
+	color: var(--bn-bg);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+	font-family: var(--bn-sans);
+	font-weight: 500;
+	color: var(--bn-text);
+	text-shadow: none;
+	background: none;
+	-webkit-text-fill-color: currentColor;
+}
+h1 {
+	letter-spacing: -0.04em;
+}
+h2 {
+	letter-spacing: -0.03em;
+}
+p,
+li,
+dd {
+	color: var(--bn-prose);
+}
+small,
+.small,
+.muted,
+.hint,
+.note,
+.description {
+	color: var(--bn-text-muted);
+}
+a:link,
+a:visited {
+	color: var(--bn-text);
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+	text-underline-offset: 3px;
+}
+a:hover {
+	text-decoration-color: var(--bn-text);
+}
+hr {
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	background: none;
+	height: 0;
+}
+
+code,
+kbd,
+samp,
+pre {
+	font-family: var(--bn-mono);
+	font-variant-numeric: tabular-nums;
+}
+code,
+kbd {
+	background: var(--bn-surface-3);
+	color: var(--bn-text);
+	border-radius: 2px;
+}
+pre {
+	background: var(--bn-surface);
+	color: var(--bn-text);
+	border: 1px solid var(--bn-border);
+	border-radius: 6px;
+}
+pre code {
+	background: none;
+}
+
+table {
+	border-collapse: collapse;
+	color: var(--bn-text);
+}
+th,
+td {
+	border-color: var(--bn-border);
+	background: transparent;
+	color: var(--bn-text);
+}
+th {
+	font-family: var(--bn-mono);
+	font-size: 11px;
+	font-weight: 400;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--bn-text-muted);
+	border-bottom: 1px solid var(--bn-border);
+}
+td {
+	border-bottom: 1px solid var(--bn-border);
+	font-variant-numeric: tabular-nums;
+}
+
+label,
+legend {
+	color: var(--bn-text);
+}
+fieldset {
+	border: 0;
+	border-top: 1px solid var(--bn-border);
+	border-radius: 0;
+}
+
+/* Controls: outlined, 4px corners, the focus ring in the text color. */
+button,
+input[type="button"],
+input[type="submit"],
+.button,
+.btn {
+	min-height: 36px;
+	padding: 0 14px;
+	background: transparent;
+	background-image: none;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-control-border);
+	border-radius: 4px;
+	box-shadow: none;
+	text-shadow: none;
+	font-family: var(--bn-sans);
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 160ms cubic-bezier(0.22, 0.8, 0.3, 1), transform 160ms cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+button:hover,
+input[type="button"]:hover,
+input[type="submit"]:hover,
+.button:hover,
+.btn:hover {
+	background: var(--bn-surface-2);
+	box-shadow: none;
+	transform: none;
+}
+button:active,
+.button:active,
+.btn:active {
+	transform: translateY(1px);
+}
+button:disabled,
+button[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+/* A page's own primary class becomes the one orange action. */
+button.primary,
+.btn-primary,
+.button-primary,
+.button--primary,
+input[type="submit"] {
+	background: var(--bn-accent);
+	border-color: var(--bn-accent);
+	color: var(--bn-accent-ink);
+}
+button.primary:hover,
+.btn-primary:hover,
+.button-primary:hover,
+.button--primary:hover,
+input[type="submit"]:hover {
+	background: var(--bn-accent-hover);
+	border-color: var(--bn-accent-hover);
+}
+
+input[type="text"],
+input[type="url"],
+input[type="password"],
+input[type="number"],
+input[type="email"],
+input[type="search"],
+input:not([type]),
+select,
+textarea {
+	background: var(--bn-surface);
+	background-image: none;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-control-border);
+	border-radius: 4px;
+	box-shadow: none;
+	font-family: var(--bn-sans);
+}
+textarea {
+	font-family: var(--bn-mono);
+	font-size: 13px;
+}
+input::placeholder,
+textarea::placeholder {
+	color: var(--bn-text-faint);
+	opacity: 1;
+}
+select option {
+	background: var(--bn-surface-elevated);
+	color: var(--bn-text);
+}
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+progress {
+	accent-color: var(--bn-text);
+}
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+textarea:focus,
+summary:focus,
+[tabindex]:focus {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 3px;
+	box-shadow: none;
+}
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible),
+[tabindex]:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Common container names across the pages: flat, ruled, no glass. */
+.container,
+.card,
+.box,
+.panel,
+.section,
+.wrapper,
+.content,
+.result,
+.results,
+.info,
+.settings,
+.controls {
+	background-color: transparent;
+	background-image: none;
+	box-shadow: none;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+	color: var(--bn-text);
+}
+.card,
+.box,
+.panel {
+	border: 1px solid var(--bn-border);
+	border-radius: 6px;
+}
+
+/* States keep their meaning in the kit's colors. */
+.success,
+.ok,
+.pass,
+.passed,
+.good {
+	color: var(--bn-ok);
+}
+.warning,
+.warn {
+	color: var(--bn-warning);
+}
+.error,
+.fail,
+.failed,
+.bad,
+.danger {
+	color: var(--bn-error);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+}
+
+/* Containers named like panels lose gradients, glass and shadows, and sit on the surface. */
+[class*="card"],
+[class*="panel"],
+[class*="box"]:not(input):not([type]),
+[class*="hero"],
+[class*="banner"],
+[class*="highlight"],
+[class*="header"],
+[class*="container"],
+[class*="section"],
+[class*="modal-content"] {
+	background-image: none;
+	box-shadow: none;
+	backdrop-filter: none;
+	-webkit-backdrop-filter: none;
+}
+[class*="card"],
+[class*="panel"],
+[class*="box"]:not(input):not([type]),
+[class*="highlight"],
+[class*="modal-content"] {
+	background-color: var(--bn-surface);
+	border-color: var(--bn-border);
+	color: var(--bn-text);
+}
+[class*="hero"],
+[class*="banner"],
+[class*="header"],
+[class*="container"],
+[class*="section"] {
+	background-color: transparent;
+}
+
+/* ---------- Controls, firmly ----------
+   Pages color their buttons by id and class (blue, green, purple). Color carries state only,
+   so every button takes the outline style; the page's primary keeps the orange fill, and a
+   selected or pressed control takes the accent marker. */
+button,
+input[type="button"],
+.button,
+.btn,
+[class*="btn"]:not(input):not(select):not(textarea),
+[role="button"] {
+	background-color: transparent !important;
+	background-image: none !important;
+	border-color: var(--bn-control-border) !important;
+	color: var(--bn-text) !important;
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+button:hover,
+input[type="button"]:hover,
+.button:hover,
+.btn:hover,
+[class*="btn"]:not(input):not(select):not(textarea):hover,
+[role="button"]:hover {
+	background-color: var(--bn-surface-2) !important;
+}
+button.primary,
+.btn-primary,
+.button-primary,
+.button--primary,
+input[type="submit"] {
+	background-color: var(--bn-accent) !important;
+	border-color: var(--bn-accent) !important;
+	color: var(--bn-accent-ink) !important;
+}
+button.primary:hover,
+.btn-primary:hover,
+.button-primary:hover,
+.button--primary:hover,
+input[type="submit"]:hover {
+	background-color: var(--bn-accent-hover) !important;
+}
+button.active,
+button.selected,
+.tab.active,
+[class*="tab"].active,
+[aria-pressed="true"],
+[aria-selected="true"] {
+	background-color: var(--bn-surface-3) !important;
+	box-shadow: inset 0 -2px 0 var(--bn-accent) !important;
+	color: var(--bn-text) !important;
+}
+
+/* Status cells and badges: no tinted fills; the word carries the state color. */
+[class*="badge"],
+[class*="pill"],
+[class*="tag"]:not(textarea) {
+	background-color: transparent !important;
+	background-image: none !important;
+	border: 1px solid var(--bn-control-border);
+	border-radius: 2px !important;
+	font-family: var(--bn-mono);
+}
+.supported,
+.yes,
+[class*="success"] {
+	background-color: transparent !important;
+	color: var(--bn-ok) !important;
+}
+.unsupported,
+.no,
+[class*="error"],
+[class*="fail"] {
+	background-color: transparent !important;
+	color: var(--bn-error) !important;
+}
+[class*="warning"],
+[class*="warn"] {
+	background-color: transparent !important;
+	color: var(--bn-warning) !important;
+	border-color: var(--bn-warning);
+}
+
+/* Readout boxes and result panels: wells, not colored tiles. */
+[class*="result"],
+[class*="stat"],
+[class*="metric"],
+[class*="output"] {
+	background-image: none !important;
+}
+[class*="result"],
+[class*="metric"] {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text);
+}
+
+/* ---------- Pages built on main.css (devices, supports, midi) ---------- */
+
+#header {
+	background: var(--bn-bg) !important;
+	border-bottom: 1px solid var(--bn-border) !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	color: var(--bn-text) !important;
+	font-family: var(--bn-sans);
+}
+#header a,
+#header a:link,
+#header a:visited {
+	color: var(--bn-text) !important;
+	text-decoration: none;
+	font-weight: 600;
+	letter-spacing: -0.03em;
+}
+h2 {
+	background-color: transparent !important;
+	background-image: none !important;
+	border-bottom: 1px solid var(--bn-border);
+}
+.notice {
+	background: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-warning) !important;
+	border-radius: 6px;
+}
+.device,
+.supportedOption,
+.subproperty,
+.supportedOption > span,
+.subproperty span,
+#longCameraSupportedStrings {
+	background: transparent !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-border) !important;
+	box-shadow: none !important;
+}
+.supportedOption,
+.subproperty,
+.device {
+	border-bottom: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+}
+.supportedOption > span:nth-child(1),
+.subproperty span:nth-child(1) {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+
+/* Fields that pages paint white. */
+select,
+input[type="text"],
+input:not([type]),
+.inputfield,
+.changeText {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-control-border) !important;
+}
+.details {
+	background: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+}
+
+/* Graph and log panels: wells. The graphs are data and keep their own series colors. */
+canvas[id$="-graph"],
+#log,
+#explanation,
+#details,
+#container[style],
+#container {
+	background-color: var(--bn-surface) !important;
+}
+/* supports.html: a supported property reads in the ok color; the rest is a ruled table. */
+.prettyJson > .property > span,
+.subproperty:nth-child(even),
+#longCameraSupportedStrings > span {
+	background: transparent !important;
+	color: var(--bn-text) !important;
+	border-bottom: 1px solid var(--bn-border);
+}
+.prettyJson > .property > span:nth-child(1),
+#longCameraSupportedStrings > span:nth-child(1) {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	color: var(--bn-text-muted) !important;
+}
+.prettyJson .property.ok > span {
+	background: transparent !important;
+	color: var(--bn-ok) !important;
+}
+code {
+	background: var(--bn-surface-3) !important;
+	color: var(--bn-text) !important;
+}
+
+/* ---------- Page by page: fills the shared rules miss ---------- */
+
+/* Panels and wells: the surface, ruled. */
+.sidebar,
+.step,
+.code-block,
+#urlOutput,
+.status,
+.table-wrap,
+.modal,
+.description,
+.codec-status,
+.codec-list,
+.status-bar,
+#chat-panel,
+#chat-messages,
+.control-dock,
+.monitor-column,
+.control-tabs,
+.aggregate-bitrate,
+.max-w-4xl,
+.mt-8,
+.tooltiptext,
+.empty,
+p#url,
+.fonts-row,
+dropbox-main,
+main {
+	background-color: var(--bn-surface) !important;
+	background-image: none !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-border) !important;
+	box-shadow: none !important;
+}
+.topbar,
+.footer-status,
+header,
+section,
+#container,
+.row,
+.footer {
+	background-color: transparent !important;
+	background-image: none !important;
+	box-shadow: none !important;
+}
+.pad-surface {
+	background-color: var(--bn-surface-3) !important;
+}
+.modal-overlay {
+	background-color: rgba(10, 11, 13, 0.88) !important;
+}
+html.bn-light .modal-overlay {
+	background-color: rgba(243, 241, 237, 0.88) !important;
+}
+input,
+textarea {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+}
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+input[type="color"],
+input[type="file"] {
+	background-color: transparent !important;
+}
+
+/* Callouts: a ruled box; warnings and errors take their color on the border and the label. */
+.note,
+.compatibility-notice,
+.update-notice,
+.help-info,
+.important {
+	background-color: var(--bn-surface) !important;
+	background-image: none !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: 6px;
+}
+.note,
+.compatibility-notice,
+.important {
+	border-color: var(--bn-warning) !important;
+}
+.update-notice {
+	border-color: var(--bn-ok) !important;
+}
+
+/* State marks: true and false, good and degraded. */
+.status-true {
+	background: transparent !important;
+	color: var(--bn-ok) !important;
+	border: 1px solid var(--bn-ok);
+}
+.status-false {
+	background: transparent !important;
+	color: var(--bn-error) !important;
+	border: 1px solid var(--bn-error);
+}
+[class*="performance-indicator"] {
+	background: transparent !important;
+	color: var(--bn-warning) !important;
+	border: 1px solid var(--bn-warning);
+}
+.step-number {
+	background: transparent !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-control-border);
+	border-radius: 2px !important;
+	font-family: var(--bn-mono);
+}
+/* An "on" toggle is a selected state: the accent fill. */
+input:checked + .toggle-slider,
+.toggle-slider.active {
+	background-color: var(--bn-accent) !important;
+}
+.toggle-slider {
+	background-color: var(--bn-surface-3) !important;
+}
+
+/* Tables, footers, inspectors and chips the earlier rules miss. */
+tr,
+th {
+	background-color: transparent !important;
+}
+.site-footer,
+.inspector,
+.example,
+.example-output,
+.layout-visual,
+#toast,
+.toast,
+.stats,
+.template-line,
+.browser-version {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-border) !important;
+}
+/* Layout diagrams are data. */
+.layout-cell {
+	background-color: var(--bn-ice) !important;
+	color: var(--bn-bg) !important;
+}
+.streamdeck-button {
+	background-color: var(--bn-surface-3) !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-border) !important;
+}
+.copy-feedback,
+.example-full {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-ok) !important;
+	border: 1px solid var(--bn-ok) !important;
+}
+.inMessage,
+.outMessage {
+	background-color: transparent !important;
+	color: var(--bn-text) !important;
+	border-bottom: 1px solid var(--bn-border);
+}
+nav a,
+.nav a,
+.links a,
+a[class*="link"],
+.quick-links a {
+	background-color: transparent !important;
+}
+footer {
+	background-color: var(--bn-bg) !important;
+	color: var(--bn-text-muted) !important;
+}
+
+/* Links are text with a neutral underline, never a tinted chip. */
+a:link,
+a:visited {
+	background-color: transparent !important;
+}
+.url-input-section,
+details {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-border) !important;
+}

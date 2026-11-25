@@ -1,0 +1,308 @@
+/*
+ * BytesNation Studio theme for the Meet app (meet.html).
+ * Copyright (c) 2026 BytesNation. Licensed under AGPL-3.0-only, as part of this fork; see LICENSE.
+ *
+ * Linked after meet.html's own style block, so equal-specificity rules here win. The call itself
+ * runs in an iframe of index.html, which bytesnation/theme.css styles. Dark by default; &lightmode
+ * switches to light through bytesnation/theme-param.js. Chrome 80 safe.
+ */
+
+:root {
+	--bn-bg: #0a0b0d;
+	--bn-surface: #101215;
+	--bn-surface-elevated: #16181c;
+	--bn-border: #22252b;
+	--bn-text: #edebe6;
+	--bn-text-muted: #9ea3ab;
+	--bn-text-faint: #80868f;
+	--bn-border-strong: #4f5154;
+	--bn-control-border: #67686b;
+	--bn-surface-2: #1b1d1f;
+	--bn-surface-3: #242628;
+	--bn-accent: #ff6a13;
+	--bn-accent-hover: #ff7f34;
+	--bn-accent-ink: #1a0d04;
+	--bn-lockup: url("icons/lockup-on-dark.svg");
+	--bn-sans: "Inter Tight", "BN Sans Fallback", ui-sans-serif, system-ui, sans-serif;
+	--bn-mono: "Geist Mono", "BN Mono Fallback", ui-monospace, SFMono-Regular, monospace;
+	color-scheme: dark;
+}
+html.bn-light {
+	--bn-bg: #f3f1ed;
+	--bn-surface: #f9f8f5;
+	--bn-surface-elevated: #ffffff;
+	--bn-border: #dedad2;
+	--bn-text: #15171a;
+	--bn-text-muted: #565a61;
+	--bn-text-faint: #666a71;
+	--bn-border-strong: #aaa7a2;
+	--bn-control-border: #8a8885;
+	--bn-surface-2: #eeedea;
+	--bn-surface-3: #e4e4e1;
+	--bn-accent: #e8590c;
+	--bn-accent-hover: #eb702e;
+	--bn-lockup: url("icons/lockup-on-light.svg");
+	color-scheme: light;
+}
+
+body {
+	background: var(--bn-bg);
+	box-shadow: none;
+	border-radius: 0;
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+	scrollbar-color: var(--bn-border-strong) var(--bn-bg);
+	-webkit-font-smoothing: antialiased;
+}
+::selection {
+	background: var(--bn-text);
+	color: var(--bn-bg);
+}
+
+/* The welcome screen: the canvas, a lockup, a title, one form, one primary action. */
+#welcomeWindow {
+	background: var(--bn-bg);
+	box-shadow: none;
+}
+#welcomeWindow .title::before {
+	content: "";
+	display: block;
+	width: 134px;
+	height: 24px;
+	margin-bottom: 40px;
+	background: var(--bn-lockup) left center / auto 100% no-repeat;
+}
+#welcomeWindow h1,
+#welcomeWindow h2 {
+	font-family: var(--bn-sans);
+	font-weight: 500;
+	color: var(--bn-text);
+	text-shadow: none;
+}
+#welcomeWindow h1 {
+	font-size: 48px;
+	letter-spacing: -0.045em;
+	line-height: 1;
+}
+#welcomeWindow h2 {
+	font-size: 19px;
+	letter-spacing: 0;
+	color: var(--bn-text-muted);
+}
+b {
+	text-shadow: none;
+}
+
+input,
+select,
+textarea {
+	min-height: 40px;
+	padding: 0 10px;
+	background: var(--bn-surface);
+	color: var(--bn-text);
+	border: 1px solid var(--bn-control-border);
+	border-radius: 4px;
+	font-family: var(--bn-sans);
+	font-size: 15px;
+	box-shadow: none;
+}
+input::placeholder {
+	color: var(--bn-text-faint);
+}
+button {
+	min-height: 40px;
+	padding: 0 16px;
+	background: transparent;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-control-border);
+	border-radius: 4px;
+	font-family: var(--bn-sans);
+	font-size: 15px;
+	font-weight: 500;
+	box-shadow: none;
+	cursor: pointer;
+	transition: background-color 160ms cubic-bezier(0.22, 0.8, 0.3, 1), transform 160ms cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+button:hover {
+	background: var(--bn-surface-2);
+}
+button:active {
+	transform: translateY(1px);
+}
+/* Join is the one primary action on the welcome screen. */
+#welcomeWindow button[onclick^="joinRoom"],
+#welcomeWindow button[onclick^="startRoom"],
+#welcomeWindow button.join {
+	background: var(--bn-accent);
+	border-color: var(--bn-accent);
+	color: var(--bn-accent-ink);
+}
+#welcomeWindow button[onclick^="joinRoom"]:hover,
+#welcomeWindow button[onclick^="startRoom"]:hover,
+#welcomeWindow button.join:hover {
+	background: var(--bn-accent-hover);
+	border-color: var(--bn-accent-hover);
+}
+button.pressed,
+button[data-state='true'] {
+	background-color: var(--bn-surface-3) !important;
+	box-shadow: inset 0 -2px 0 var(--bn-accent);
+	color: var(--bn-text);
+}
+button.menuButtons {
+	background: transparent !important;
+}
+
+a:focus,
+button:focus,
+input:focus,
+select:focus,
+[tabindex]:focus {
+	outline: 2px solid var(--bn-text);
+	outline-offset: 3px;
+}
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+	outline: none;
+}
+
+/* Groups and tiles: ruled and flat. */
+.group,
+.thing,
+.empty {
+	background: transparent;
+	border: 1px solid var(--bn-border);
+	border-radius: 4px;
+	box-shadow: none;
+	color: var(--bn-text);
+	font-family: var(--bn-sans);
+}
+.groupContainer:hover > .group,
+.groupContainer > button:hover {
+	box-shadow: none;
+	background: var(--bn-surface-2);
+}
+.pressed > .group {
+	background: var(--bn-surface-3);
+	box-shadow: inset 0 -2px 0 var(--bn-accent);
+}
+iframe,
+#iframeContainer {
+	background-color: var(--bn-bg);
+	box-shadow: none;
+}
+
+/* Chat. */
+#chatModule,
+#chatBody,
+.message {
+	background: var(--bn-surface-elevated);
+	border-radius: 6px;
+	box-shadow: none;
+	color: var(--bn-text);
+}
+.inMessage,
+.outMessage,
+.actionMessage {
+	background: transparent;
+	color: var(--bn-text);
+	border-bottom: 1px solid var(--bn-border);
+	border-radius: 0;
+}
+#chatInput {
+	background-color: var(--bn-surface);
+	color: var(--bn-text);
+}
+.ui-widget-header {
+	background: var(--bn-surface-elevated);
+	color: var(--bn-text);
+	border-color: var(--bn-border);
+}
+.settings,
+.widget {
+	background: var(--bn-surface-elevated);
+	color: var(--bn-text);
+}
+.popup-message,
+.modal-content {
+	background-color: var(--bn-surface-elevated) !important;
+	border: 1px solid var(--bn-border) !important;
+	box-shadow: none !important;
+	color: var(--bn-text);
+}
+.modal {
+	background-color: rgba(10, 11, 13, 0.88);
+}
+.context-menu__link {
+	color: var(--bn-text) !important;
+}
+.context-menu__link:hover {
+	color: var(--bn-text) !important;
+	background-color: var(--bn-surface-2) !important;
+}
+
+/* The footer: the origin credit and the source link, in mono. */
+.footer {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	color: var(--bn-text-muted);
+}
+.footer a:link,
+.footer a:visited {
+	background-color: transparent;
+	color: var(--bn-text-muted);
+	text-decoration: underline;
+	text-decoration-color: var(--bn-border-strong);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+}
+
+/* Upstream styles every link as a chip; the footer's links are plain, underlined text. */
+.footer a:link,
+.footer a:visited {
+	display: inline;
+	padding: 0;
+	margin: 0;
+	border: 0;
+	border-radius: 0;
+	box-shadow: none;
+}
+.footer .discord,
+.footer .github {
+	background-color: transparent;
+}
+/* The shuffle button: an outlined icon button; the icon is drawn dark, so it is inverted on dark. */
+.randomRoomName {
+	background-color: transparent !important;
+	border: 1px solid var(--bn-control-border);
+	border-radius: 4px;
+	filter: invert(1);
+}
+html.bn-light .randomRoomName {
+	filter: none;
+}
+.footer a.discord,
+.footer a.github {
+	display: inline-block;
+}
+
+/* Mixer and MIDI controller: the stage and their tooltips. */
+#container {
+	background: var(--bn-bg);
+}
+#sources.col {
+	background: var(--bn-surface);
+}
+.tooltiptext {
+	background: var(--bn-surface-elevated) !important;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-border);
+}
