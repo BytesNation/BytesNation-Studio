@@ -23,6 +23,9 @@ After a merge, check each row: the edit is still there, it still applies to the 
 | `room.html` | Title and the redirect link text carry the product name | Product name | Reapply |
 | `translate.html` | The logo image's `alt` text | Product name | Reapply |
 | `media/` images: `favicon-16x16.png`, `favicon-32x32.png`, `favicon.ico`, `icon-144x144.png`, `icon-192x192.png`, `icon-512x512.png`, `icon.png`, `icon.svg`, `old_icon.png`, `logo.png`, `vdoNinja_logo_full.png` | Replaced with BytesNation renders at the same pixel sizes (scratch tooling, from `brand/logo`) | Pages, social tags and desktop notifications reference these paths; replacing the files rebrands all of them without markup edits. None is used in program output | Take ours; if upstream changes a file, re-render it |
+| `devices.html`, `supports.html`, `midi.html` | The copied app header's "VDO.Ninja" text carries the product name | Product name | Reapply |
+| Tool headings: `base64`, `changepassword`, `codecs`, `icecast`, `iframe`, `midi`, `midiconfig`, `mixer`, `whip` (four), `monitor` | "VDO.Ninja" in the heading becomes the product name where it names this tool's host. Headings about VDO.Ninja itself (its plugins, its docs, "About VDO.Ninja") are kept | Product name | Reapply |
+| `plugin.html`, `results.html`, `streamdeck.html` | Google Fonts links removed | The brand fonts are self-hosted; no third-party request | Reapply |
 | `manifest.json` | Name, colors and icons | Product name and brand icons | Take ours |
 | `translations/*.json` | Two keys at the top of `innerHTML`: `bn-source-code`, `bn-built-on-vdo-ninja`. English in every file until translated | The credit line goes through the translation system | Keep both keys in every file |
 | `AGENTS.md` | "Component sourcing: public tier" block and the Studio notes after it | Brand kit policy | Keep ours below upstream's text |

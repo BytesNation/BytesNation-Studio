@@ -293,3 +293,16 @@ html.bn-light .randomRoomName {
 .footer a.github {
 	display: inline-block;
 }
+
+/* Mixer and MIDI controller: the stage and their tooltips. */
+#container {
+	background: var(--bn-bg);
+}
+#sources.col {
+	background: var(--bn-surface);
+}
+.tooltiptext {
+	background: var(--bn-surface-elevated) !important;
+	color: var(--bn-text);
+	border: 1px solid var(--bn-border);
+}

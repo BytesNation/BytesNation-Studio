@@ -377,3 +377,383 @@ button:focus:not(:focus-visible),
 [class*="section"] {
 	background-color: transparent;
 }
+
+/* ---------- Controls, firmly ----------
+   Pages color their buttons by id and class (blue, green, purple). Color carries state only,
+   so every button takes the outline style; the page's primary keeps the orange fill, and a
+   selected or pressed control takes the accent marker. */
+button,
+input[type="button"],
+.button,
+.btn,
+[class*="btn"]:not(input):not(select):not(textarea),
+[role="button"] {
+	background-color: transparent !important;
+	background-image: none !important;
+	border-color: var(--bn-control-border) !important;
+	color: var(--bn-text) !important;
+	box-shadow: none !important;
+	text-shadow: none !important;
+}
+button:hover,
+input[type="button"]:hover,
+.button:hover,
+.btn:hover,
+[class*="btn"]:not(input):not(select):not(textarea):hover,
+[role="button"]:hover {
+	background-color: var(--bn-surface-2) !important;
+}
+button.primary,
+.btn-primary,
+.button-primary,
+.button--primary,
+input[type="submit"] {
+	background-color: var(--bn-accent) !important;
+	border-color: var(--bn-accent) !important;
+	color: var(--bn-accent-ink) !important;
+}
+button.primary:hover,
+.btn-primary:hover,
+.button-primary:hover,
+.button--primary:hover,
+input[type="submit"]:hover {
+	background-color: var(--bn-accent-hover) !important;
+}
+button.active,
+button.selected,
+.tab.active,
+[class*="tab"].active,
+[aria-pressed="true"],
+[aria-selected="true"] {
+	background-color: var(--bn-surface-3) !important;
+	box-shadow: inset 0 -2px 0 var(--bn-accent) !important;
+	color: var(--bn-text) !important;
+}
+
+/* Status cells and badges: no tinted fills; the word carries the state color. */
+[class*="badge"],
+[class*="pill"],
+[class*="tag"]:not(textarea) {
+	background-color: transparent !important;
+	background-image: none !important;
+	border: 1px solid var(--bn-control-border);
+	border-radius: 2px !important;
+	font-family: var(--bn-mono);
+}
+.supported,
+.yes,
+[class*="success"] {
+	background-color: transparent !important;
+	color: var(--bn-ok) !important;
+}
+.unsupported,
+.no,
+[class*="error"],
+[class*="fail"] {
+	background-color: transparent !important;
+	color: var(--bn-error) !important;
+}
+[class*="warning"],
+[class*="warn"] {
+	background-color: transparent !important;
+	color: var(--bn-warning) !important;
+	border-color: var(--bn-warning);
+}
+
+/* Readout boxes and result panels: wells, not colored tiles. */
+[class*="result"],
+[class*="stat"],
+[class*="metric"],
+[class*="output"] {
+	background-image: none !important;
+}
+[class*="result"],
+[class*="metric"] {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text);
+}
+
+/* ---------- Pages built on main.css (devices, supports, midi) ---------- */
+
+#header {
+	background: var(--bn-bg) !important;
+	border-bottom: 1px solid var(--bn-border) !important;
+	box-shadow: none !important;
+	backdrop-filter: none !important;
+	-webkit-backdrop-filter: none !important;
+	color: var(--bn-text) !important;
+	font-family: var(--bn-sans);
+}
+#header a,
+#header a:link,
+#header a:visited {
+	color: var(--bn-text) !important;
+	text-decoration: none;
+	font-weight: 600;
+	letter-spacing: -0.03em;
+}
+h2 {
+	background-color: transparent !important;
+	background-image: none !important;
+	border-bottom: 1px solid var(--bn-border);
+}
+.notice {
+	background: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-warning) !important;
+	border-radius: 6px;
+}
+.device,
+.supportedOption,
+.subproperty,
+.supportedOption > span,
+.subproperty span,
+#longCameraSupportedStrings {
+	background: transparent !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-border) !important;
+	box-shadow: none !important;
+}
+.supportedOption,
+.subproperty,
+.device {
+	border-bottom: 1px solid var(--bn-border) !important;
+	border-radius: 0 !important;
+}
+.supportedOption > span:nth-child(1),
+.subproperty span:nth-child(1) {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+}
+
+/* Fields that pages paint white. */
+select,
+input[type="text"],
+input:not([type]),
+.inputfield,
+.changeText {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-control-border) !important;
+}
+.details {
+	background: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+}
+
+/* Graph and log panels: wells. The graphs are data and keep their own series colors. */
+canvas[id$="-graph"],
+#log,
+#explanation,
+#details,
+#container[style],
+#container {
+	background-color: var(--bn-surface) !important;
+}
+/* supports.html: a supported property reads in the ok color; the rest is a ruled table. */
+.prettyJson > .property > span,
+.subproperty:nth-child(even),
+#longCameraSupportedStrings > span {
+	background: transparent !important;
+	color: var(--bn-text) !important;
+	border-bottom: 1px solid var(--bn-border);
+}
+.prettyJson > .property > span:nth-child(1),
+#longCameraSupportedStrings > span:nth-child(1) {
+	font-family: var(--bn-mono);
+	font-size: 12px;
+	color: var(--bn-text-muted) !important;
+}
+.prettyJson .property.ok > span {
+	background: transparent !important;
+	color: var(--bn-ok) !important;
+}
+code {
+	background: var(--bn-surface-3) !important;
+	color: var(--bn-text) !important;
+}
+
+/* ---------- Page by page: fills the shared rules miss ---------- */
+
+/* Panels and wells: the surface, ruled. */
+.sidebar,
+.step,
+.code-block,
+#urlOutput,
+.status,
+.table-wrap,
+.modal,
+.description,
+.codec-status,
+.codec-list,
+.status-bar,
+#chat-panel,
+#chat-messages,
+.control-dock,
+.monitor-column,
+.control-tabs,
+.aggregate-bitrate,
+.max-w-4xl,
+.mt-8,
+.tooltiptext,
+.empty,
+p#url,
+.fonts-row,
+dropbox-main,
+main {
+	background-color: var(--bn-surface) !important;
+	background-image: none !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-border) !important;
+	box-shadow: none !important;
+}
+.topbar,
+.footer-status,
+header,
+section,
+#container,
+.row,
+.footer {
+	background-color: transparent !important;
+	background-image: none !important;
+	box-shadow: none !important;
+}
+.pad-surface {
+	background-color: var(--bn-surface-3) !important;
+}
+.modal-overlay {
+	background-color: rgba(10, 11, 13, 0.88) !important;
+}
+html.bn-light .modal-overlay {
+	background-color: rgba(243, 241, 237, 0.88) !important;
+}
+input,
+textarea {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+}
+input[type="checkbox"],
+input[type="radio"],
+input[type="range"],
+input[type="color"],
+input[type="file"] {
+	background-color: transparent !important;
+}
+
+/* Callouts: a ruled box; warnings and errors take their color on the border and the label. */
+.note,
+.compatibility-notice,
+.update-notice,
+.help-info,
+.important {
+	background-color: var(--bn-surface) !important;
+	background-image: none !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-border) !important;
+	border-radius: 6px;
+}
+.note,
+.compatibility-notice,
+.important {
+	border-color: var(--bn-warning) !important;
+}
+.update-notice {
+	border-color: var(--bn-ok) !important;
+}
+
+/* State marks: true and false, good and degraded. */
+.status-true {
+	background: transparent !important;
+	color: var(--bn-ok) !important;
+	border: 1px solid var(--bn-ok);
+}
+.status-false {
+	background: transparent !important;
+	color: var(--bn-error) !important;
+	border: 1px solid var(--bn-error);
+}
+[class*="performance-indicator"] {
+	background: transparent !important;
+	color: var(--bn-warning) !important;
+	border: 1px solid var(--bn-warning);
+}
+.step-number {
+	background: transparent !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-control-border);
+	border-radius: 2px !important;
+	font-family: var(--bn-mono);
+}
+/* An "on" toggle is a selected state: the accent fill. */
+input:checked + .toggle-slider,
+.toggle-slider.active {
+	background-color: var(--bn-accent) !important;
+}
+.toggle-slider {
+	background-color: var(--bn-surface-3) !important;
+}
+
+/* Tables, footers, inspectors and chips the earlier rules miss. */
+tr,
+th {
+	background-color: transparent !important;
+}
+.site-footer,
+.inspector,
+.example,
+.example-output,
+.layout-visual,
+#toast,
+.toast,
+.stats,
+.template-line,
+.browser-version {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-border) !important;
+}
+/* Layout diagrams are data. */
+.layout-cell {
+	background-color: var(--bn-ice) !important;
+	color: var(--bn-bg) !important;
+}
+.streamdeck-button {
+	background-color: var(--bn-surface-3) !important;
+	color: var(--bn-text) !important;
+	border: 1px solid var(--bn-border) !important;
+}
+.copy-feedback,
+.example-full {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-ok) !important;
+	border: 1px solid var(--bn-ok) !important;
+}
+.inMessage,
+.outMessage {
+	background-color: transparent !important;
+	color: var(--bn-text) !important;
+	border-bottom: 1px solid var(--bn-border);
+}
+nav a,
+.nav a,
+.links a,
+a[class*="link"],
+.quick-links a {
+	background-color: transparent !important;
+}
+footer {
+	background-color: var(--bn-bg) !important;
+	color: var(--bn-text-muted) !important;
+}
+
+/* Links are text with a neutral underline, never a tinted chip. */
+a:link,
+a:visited {
+	background-color: transparent !important;
+}
+.url-input-section,
+details {
+	background-color: var(--bn-surface) !important;
+	color: var(--bn-text) !important;
+	border-color: var(--bn-border) !important;
+}
