@@ -9,7 +9,7 @@ After a merge, check each row: the edit is still there, it still applies to the 
 | `index.html` | Head block: title, social tags, source and licence links, favicons, theme stylesheet. Steve Seguin's `author`, `copyright`, `stance-on-war` and `twitter:creator` tags removed. `canonical`, `og:url` and the share image point at studio.bytesnation.com. | Product name, AGPL source link, no implied affiliation | Keep upstream's new tags; reapply ours |
 | `index.html` | `<script src="./bytesnation/gate.js">` between `lib.js` and `main.js` | Marks interface pages so the theme applies, and leaves program output alone | Keep the line between the two scripts |
 | `index.html` | schema.org image links point at `bytesnation/icons/share-1200x630.png` | Share image | Reapply |
-| `index.html` | Static wordmark text in `#logoname` | Product name. `main.js` replaces it at startup on any non-upstream host | Reapply |
+| `index.html` | Static wordmark text in `#logoname`, and an `aria-label` with the product name | Product name; the link keeps a screen-reader name after `main.js` empties it to an icon | Reapply |
 | `index.html` | `#credits`: `aria-hidden` removed, and a "Source code" link to this fork added after Privacy Policy | AGPL-3.0 section 13 on every screen with the footer; the links are focusable, so they must be readable | Reapply |
 | `index.html` | A "Source code" link after the settings drawer's buttons (`.bn-source-link`) | AGPL-3.0 section 13 during a call, where the footer is hidden | Reapply |
 | `main.js` | The `#credits` line: version and the origin credit, through a translation key | Credit to VDO.Ninja | Reapply on the new line |

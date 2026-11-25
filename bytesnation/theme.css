@@ -1669,3 +1669,17 @@ html.bn-ui .streamID {
 	font-family: var(--bn-mono);
 	font-size: 12px;
 }
+@media (max-width: 640px) {
+	html.bn-ui .hideLinksClass {
+		font-family: var(--bn-sans);
+		font-size: 13px;
+		letter-spacing: 0;
+		white-space: normal;
+		overflow-wrap: anywhere;
+	}
+	html.bn-ui .hideLinksClass span {
+		display: inline-block;
+		max-width: 100%;
+		white-space: normal;
+	}
+}
