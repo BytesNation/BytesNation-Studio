@@ -6,7 +6,7 @@ After a merge, check each row: the edit is still there, it still applies to the 
 
 | File | What changed | Why | On conflict |
 |---|---|---|---|
-| `index.html` | Head block: title, social tags, source and licence links, favicons, theme stylesheet. Steve Seguin's `author`, `copyright`, `stance-on-war` and `twitter:creator` tags removed. `canonical` and `og:url` removed until a production domain is set. | Product name, AGPL source link, no implied affiliation | Keep upstream's new tags; reapply ours |
+| `index.html` | Head block: title, social tags, source and licence links, favicons, theme stylesheet. Steve Seguin's `author`, `copyright`, `stance-on-war` and `twitter:creator` tags removed. `canonical`, `og:url` and the share image point at studio.bytesnation.com. | Product name, AGPL source link, no implied affiliation | Keep upstream's new tags; reapply ours |
 | `index.html` | `<script src="./bytesnation/gate.js">` between `lib.js` and `main.js` | Marks interface pages so the theme applies, and leaves program output alone | Keep the line between the two scripts |
 | `index.html` | schema.org image links point at `bytesnation/icons/share-1200x630.png` | Share image | Reapply |
 | `index.html` | Static wordmark text in `#logoname` | Product name. `main.js` replaces it at startup on any non-upstream host | Reapply |
