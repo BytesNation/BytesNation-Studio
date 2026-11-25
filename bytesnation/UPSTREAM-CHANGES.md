@@ -39,6 +39,7 @@ After a merge, check each row: the edit is still there, it still applies to the 
 
 ## Rules to re-check after a merge
 
+- `bytesnation/engine.json` names the upstream commit just merged.
 - `git diff upstream/develop -- webrtc.js` is empty.
 - `node .github/ci-validateTranslations.js` and `node .github/ci-checkTranslationKeys.js` pass.
 - `node brand/tools/check-sourcing.mjs --tier public --history` passes.
