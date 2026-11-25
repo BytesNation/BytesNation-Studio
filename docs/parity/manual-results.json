@@ -45,6 +45,21 @@
 			"check": "iOS Simulator Safari: launcher, guest join, director (simulator service did not respond on 2026-11-24; not run)",
 			"result": "",
 			"by": ""
+		},
+		{
+			"check": "Podcast Studio (&podcast): host a room with two guests, run the setup check, record, and download the tracks. It is not redesigned; this row only confirms it works as on upstream",
+			"result": "",
+			"by": ""
+		},
+		{
+			"check": "Icecast publishing (&icecastpush and &icecastview) to a real Icecast or AzuraCast mount: start, hear the stream on the mount, stop",
+			"result": "",
+			"by": ""
+		},
+		{
+			"check": "Phone call-in (&callin) with a real SIP provider or Twilio worker: connect, dial out, answer an incoming call, hang up",
+			"result": "",
+			"by": ""
 		}
 	]
 }

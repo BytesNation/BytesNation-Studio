@@ -139,8 +139,8 @@ const main = () => {
 		renderGroup(rows, "shortcuts.spec.ts", "5. Keyboard shortcuts", "Same keys pressed in upstream and BytesNation on a live local publish; engine state must match afterwards."),
 		renderGroup(rows, "iframe-api.spec.ts", "6. IFRAME API", "A host page sends the same messages to both; replies and events must match."),
 		renderGroup(rows, "theme.spec.ts", "7. Theme, branding and output guarantees"),
-		renderGroup(rows, "contrast.spec.ts", "8. WCAG AA contrast", "axe-core `color-contrast` across the main views in both themes. Text over live video is excluded because axe cannot read a video frame; those labels sit on an opaque scrim."),
-		renderGroup(rows, "shell-layers.spec.ts", "9. Command palette, notifications and readouts", "BytesNation additions (cmdk, Sonner, Motion). The checks prove they offer only what the engine itself shows, never appear on outputs, and leave the engine exactly as upstream.")
+		renderGroup(rows, "contrast.spec.ts", "8. WCAG AA contrast", "axe-core `color-contrast` across the main views, the phone call-in panel and the Icecast panel, in both themes. Text over live video is excluded because axe cannot read a video frame; those labels sit on an opaque scrim."),
+		renderGroup(rows, "shell-layers.spec.ts", "9. Command palette, notifications, readouts and the Podcast Studio credit", "BytesNation additions (cmdk, Sonner, Motion). The checks prove they offer only what the engine itself shows, never appear on outputs, and leave the engine exactly as upstream. On Podcast Studio (`&podcast`), which hides the app bar, they prove the credit stays on screen, the floating layers stay off, and the dark tokens apply.")
 	];
 
 	const paramSection = [

@@ -114,9 +114,11 @@ The engine (`main.js`, `lib.js`, `webrtc.js`) owns the DOM. The theme restyles i
 7. **Plain CSS only in the theme.** Custom properties, yes; `color-mix`, `@layer`, nesting, `:has()` and `oklch`, no. OBS and older Chromium builds must render it.
 8. **A surface that injects its own stylesheet needs a theme of its own.** The phone call-in panel (`callin.js`) and the Icecast panel (`lib.js`) add a `<style>` at run time with fixed dark colors, after every other sheet. Remapped variables reach them only in part: the call-in panel read `--background-color` from the theme and kept its own white text, so in the light theme it was unreadable. `engine/addons.css` themes both as floating layers. Its selectors start with `html`, one step above the injected rules, so a stylesheet passed with `&css` needs the same prefix to override them. When upstream adds another self-styled panel, look at it in both themes before shipping.
 
-## Podcast Studio
+## Surfaces not redesigned yet
 
-Podcast Studio (`&podcast`) is not redesigned yet. It is a separate interface with a 2,484-line stylesheet of fixed colors, and it keeps upstream's look: gradients, blur and pill buttons, dark only. Until it gets its own pass, three rules hold:
+**The sign-in dialog** (`&auth`, styled by `auth-styles.css`) keeps upstream's look: a dark dialog in both themes, with a blurred backdrop and provider-colored buttons. It is readable; it is not on brand.
+
+**Podcast Studio** (`&podcast`) is not redesigned yet. It is a separate interface with a 2,484-line stylesheet of fixed colors, and it keeps upstream's look: gradients, blur and pill buttons, dark only. Until it gets its own pass, three rules hold:
 
 - **Dark tokens, always.** `boot.js` treats `body.podcast-studio-mode` as dark, so light-theme ink never lands on its dark panels.
 - **The credit stays visible.** Podcast Studio hides the app bar and the launcher, and with them the About view and the credit footer. The shell adds a bar at the foot of the page (`#bn-podcast-credit`) with the credit sentence and the source link. Podcast Studio's page and its four full-screen layers stop short of the bar.

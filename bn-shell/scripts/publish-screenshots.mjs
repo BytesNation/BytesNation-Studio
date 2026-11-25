@@ -45,7 +45,14 @@ const viewTitles = [
 	["notification-chat", "Notification: chat message while the chat panel is closed"],
 	["recording-readout", "Recording readout in the app bar"],
 	["scene", "Scene output (OBS browser source)"],
-	["view", "Single-stream viewer"]
+	["view", "Single-stream viewer"],
+	["callin-panel", "Phone call-in panel (&callin)"],
+	["callin-panel-mobile", "Phone call-in panel, phone"],
+	["icecast-panel", "Icecast publishing panel (&icecastpush)"],
+	["icecast-panel-mobile", "Icecast publishing panel, phone"],
+	["podcast-gate", "Podcast Studio room gate: upstream's design, not redesigned yet, with the credit bar"],
+	["podcast-setup", "Podcast Studio setup check: upstream's design, not redesigned yet"],
+	["podcast-setup-mobile", "Podcast Studio setup check, phone"]
 ];
 
 const convert = (name, theme) => {

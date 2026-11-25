@@ -131,9 +131,6 @@ const captureAddons = async (browser, { theme, withBase }) => {
 	const stamp = `${Date.now().toString(36)}${theme}`;
 	const icecast = await openPage(browser, { url: withBase(`push=bnice${stamp}&webcam&autostart&icecastpush`), waitMs: 6000 });
 	await capture(icecast, `icecast-panel-${theme}`);
-	await tryClick(icecast, "#vdo-icecast-settings");
-	await icecast.waitForTimeout(600);
-	await capture(icecast, `icecast-settings-${theme}`);
 	const icecastPhone = await openPage(browser, { url: withBase(`push=bnicep${stamp}&webcam&autostart&icecastpush`), viewport: phone390, isMobile: true, waitMs: 6000 });
 	await capture(icecastPhone, `icecast-panel-mobile-${theme}`);
 
@@ -145,9 +142,9 @@ const captureAddons = async (browser, { theme, withBase }) => {
 	const podcastGate = await openPage(browser, { url: withBase("podcast"), waitMs: 6000 });
 	await capture(podcastGate, `podcast-gate-${theme}`);
 	const podcast = await openPage(browser, { url: withBase(`podcast&director=bnpod${stamp}`), waitMs: 9000 });
-	await capture(podcast, `podcast-studio-${theme}`);
+	await capture(podcast, `podcast-setup-${theme}`);
 	const podcastPhone = await openPage(browser, { url: withBase(`podcast&director=bnpodp${stamp}`), viewport: phone390, isMobile: true, waitMs: 9000 });
-	await capture(podcastPhone, `podcast-studio-mobile-${theme}`);
+	await capture(podcastPhone, `podcast-setup-mobile-${theme}`);
 };
 
 /** One run of every group for one theme. */
