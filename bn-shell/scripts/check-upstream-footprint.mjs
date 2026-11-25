@@ -16,7 +16,7 @@ import { fileURLToPath } from "node:url";
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "../..");
 const lock = JSON.parse(readFileSync(join(repoRoot, "bn-shell/engine-lock.json"), "utf8"));
-const ownedPrefixes = ["bn/", "bn-shell/", "docs/"];
+const ownedPrefixes = ["bn/", "bn-shell/", "docs/", "deploy/"];
 const touchpoints = ["index.html", ".gitignore"];
 
 const runGit = args => execFileSync("git", args, { cwd: repoRoot, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 });

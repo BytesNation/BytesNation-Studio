@@ -1,0 +1,12 @@
+# Applied by Cloudflare to every static asset response.
+#
+# Upstream's reference NGINX config (install.md) sends this header on every
+# response; OBS docks, embeds and pages that load engine files cross-origin
+# depend on it. The Worker script adds the same header to its own responses.
+/*
+  Access-Control-Allow-Origin: *
+
+# Keep the workers.dev preview hostnames out of search results. The custom
+# domain keeps upstream's robots.txt behavior unchanged.
+https://:worker.:subdomain.workers.dev/*
+  X-Robots-Tag: noindex

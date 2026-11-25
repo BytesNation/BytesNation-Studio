@@ -86,6 +86,8 @@ These are the only upstream files BytesNation Studio changes:
 | `index.html` | A marked line after `main.js` loads `bn/shell.js` | Shell |
 | `.gitignore` | A marked block re-includes `/docs/`, `bn-shell/package.json`, its lock file and `bn-shell/tests/` | Upstream's release `.gitignore` excludes those paths |
 
+Everything else BytesNation adds lives in its own directories: `bn/` (built layer), `bn-shell/` (its source and tests), `docs/`, and `deploy/` (hosting; see [DEPLOY.md](DEPLOY.md)).
+
 `webrtc.js`, `main.js`, `lib.js`, `main.css` and every other upstream file are byte-identical to upstream. `bn-shell/scripts/check-upstream-footprint.mjs` enforces this, and the parity suite runs it.
 
 Signaling, handshake, STUN and TURN configuration stay exactly as upstream ships them. Upstream's terms allow self-hosted frontends to use Steve Seguin's hosted infrastructure only through official, unmodified `webrtc.js`, and BytesNation Studio never modifies it.

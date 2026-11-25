@@ -1,0 +1,76 @@
+{
+	// BytesNation Studio on Cloudflare Workers: static assets plus a small script.
+	// Read docs/DEPLOY.md before changing anything here.
+	//
+	// Safe by default: this top level is the PREVIEW Worker, reachable only at
+	// its workers.dev address. A bare `wrangler deploy` can never touch DNS.
+	// The real hostname lives under env.production and needs `--env production`.
+	"name": "bytesnation-studio-preview",
+	"main": "src/worker.ts",
+	// Nothing in the script depends on recent runtime behavior. This date is one
+	// the installed wrangler's local runtime also supports (4.83 stops at
+	// 2026-04-22), so `wrangler dev` and production run the same configuration.
+	"compatibility_date": "2026-04-01",
+
+	// account_id is deliberately absent: this repository is public. Deploys pin
+	// the account with the CLOUDFLARE_ACCOUNT_ID environment variable instead,
+	// so credentials that cannot reach that account fail the deploy rather than
+	// landing it somewhere else. deploy.mjs refuses to run without it.
+
+	"assets": {
+		// Built by build-site.mjs from a git ref: tracked files only, never the
+		// working tree.
+		"directory": "./.site",
+		"binding": "ASSETS",
+
+		// Upstream's reference hosting (install.md, NGINX) serves pages without
+		// the .html extension, redirects .html addresses to the short form, and
+		// falls back to index.html for unknown paths, which the engine reads as
+		// a room name. html_handling's default (auto-trailing-slash) gives the
+		// first two; this gives the third.
+		"not_found_handling": "single-page-application",
+
+		// The ONLY requests that run the script (and count against the free
+		// plan's 100,000 script requests a day). Everything else is a static
+		// asset: free, unlimited, and served even if that quota is used up.
+		//
+		// Media: static assets ignore Range requests, and Safari will not play
+		// video without them (media/micro.mp4 is the engine's keep-alive player).
+		// The model: 46.6 MB, over the 25 MiB asset limit, so it is split at
+		// build time and streamed back whole. build-site.mjs fails the build if
+		// a media file or an oversized file is not covered by a pattern here.
+		"run_worker_first": [
+			"/*.mp4",
+			"/*.webm",
+			"/*.mov",
+			"/*.m4a",
+			"/*.mp3",
+			"/*.wav",
+			"/*.ogg",
+			"/thirdparty/longpipe/models/v/0.0.4/model_xl.bin"
+		]
+	},
+
+	// Adding routes makes wrangler turn workers.dev off unless it is asked for.
+	// Keep it on in both environments: it is how a deploy is verified without
+	// depending on the custom domain.
+	"workers_dev": true,
+
+	"observability": {
+		"enabled": true
+	},
+
+	"env": {
+		"production": {
+			"name": "bytesnation-studio",
+			"workers_dev": true,
+
+			// A custom domain, not a DNS record: Cloudflare creates and manages
+			// the record and certificate itself. Do not add a DNS record for
+			// this hostname by hand; Cloudflare refuses a custom domain on a
+			// hostname that already has one (error 100117).
+			// Rollback: remove this entry and redeploy, or delete the Worker.
+			"routes": [{ "pattern": "studio.bytesnation.com", "custom_domain": true }]
+		}
+	}
+}
